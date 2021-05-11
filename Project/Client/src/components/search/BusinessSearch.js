@@ -1,22 +1,23 @@
-import 'react-bootstrap'
+import 'react-bootstrap';
+import { connect } from "react-redux";
 const BusinessSearch = (props) => {
     return (<>
         <form className="ui form">
-            <div class="ui form">
-                    <div class="field">
+            <div className="ui form">
+                    <div className="field">
                         <label>Name</label>
                         <input placeholder="Name" type="text" />
                     </div>
-                <div class="field">
+                <div className="field">
                     <label>Email</label>
                     <input type="text" placeholder="Email" />
                 </div>
-                <div class="two fields">
-                    <div class="field">
+                <div className="two fields">
+                    <div className="field">
                         <label>Phone Number</label>
                         <input placeholder="Phone Number" type="number" />
                     </div>
-                    <div class="field">
+                    <div className="field">
                         <label>Address</label>
                         <input placeholder="Address" type="text" />
                     </div>

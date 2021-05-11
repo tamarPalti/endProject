@@ -1,10 +1,35 @@
 
 .back-search{
     background-image:url("./img/background-search.jpg");
-    background-size: 100vh;
+    background-size: 105vw;
     width: 100vw;
     height: 100vh;
 }.place_search{
-	position: relative;
-	top: 3vh;
+    position: relative;
+    margin-top: 19vh;
+    margin-left: -26vw;
+    width: 34vw;
+}.serach_div{
+    width: 45vw;
+    height: 66vh;
+    left: 11vw;
+    position: relative;
+    top: 17vh;
+    border-collapse: collapse;
+    border-radius: 3vw;
+}.div_link{
+    position: relative;
+    left: 0vw;
+    top: 6vh;
+    width: 16vw;
+}
+.place_result{
+    width: 18vw;
+    background-color: white;
+    height: 67vh;
+    position: relative;
+    left: 46vw;
+    top: -50.4vh;
+    border-collapse: collapse;
+    border-radius: 2vw;
 }

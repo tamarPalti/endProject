@@ -16,6 +16,6 @@ app.use(morgan("dev"));
 
 app.use("/users", users);
 app.use("/searchUsers", searchUsers);
-app.listen("3001", () => {
-    console.log("listening on port 3000");
+app.listen("4000", () => {
+    console.log("listening on port 3001");
 })

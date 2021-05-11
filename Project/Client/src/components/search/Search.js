@@ -1,13 +1,20 @@
 import './Search.scss'
-import React from 'react'
+import React, { useEffect } from 'react'
 import 'semantic-ui-css/semantic.min.css';
 import { Link, Route } from 'react-router-dom';
 import UsersSearch from './UseresSearch';
 import BusinessSearch from './BusinessSearch';
+import ResultSearchUser from './ResultSearchUser';
+import ResultSearchBusiness from './ResultSearchBusiness';
+import { connect } from "react-redux";
+const Search = (props) => {
 
-const Search = () => {
+
     let users = React.createRef();
     let business = React.createRef();
+    useEffect(() => {
+
+    }, []);
     const ChangeButtonUsers = (e) => {
         e.target.classList.add("active");
         e.target.classList.add("teal");
@@ -21,29 +28,37 @@ const Search = () => {
         users.current.classList.remove("teal");
     }
     return (<><div className="back-search">
-        <div class="ui pointing menu three ">
-            <Link to="/users">
-                <a class="active item teal sizetab" ref={users} onClick={(e) => ChangeButtonUsers(e)}>
+        <div className="ui pointing menu three serach_div">
+            <Link to="/users" className="div_link">
+                <a className="active item teal sizetab" ref={users} onClick={(e) => ChangeButtonUsers(e)}>
                     Users
             </a>
             </Link>
-            <Link to="/business">
-                <a class="item sizetab" ref={business} onClick={(e) => ChangeButtonBusiness(e)}>
+            <Link to="/business" className="div_link">
+                <a className="item sizetab" ref={business} onClick={(e) => ChangeButtonBusiness(e)}>
                     Business
     </a>
             </Link>
             <div className="place_search">
                 <Route path="/users">
                     <UsersSearch />
+                    <div className="place_result">
+                        <ResultSearchUser />
+                    </div>
                 </Route>
                 <Route path="/business">
                     <BusinessSearch />
+                    <div className="place_result">
+                        <ResultSearchBusiness />
+                    </div>
                 </Route>
             </div>
         </div>
 
-
     </div></>);
 }
-
+// const mapStateToProps = (state) => {
+//     return {  };
+// }
+// export default connect(mapStateToProps, {})(Search);
 export default Search;

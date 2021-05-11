@@ -1,1 +1,4 @@
 export const IF_SHOW_SEARCH="IF_SHOW_SEARCH";
+export const FILL_ALL_USERS="FILL_ALL_USERS";
+export const REFRESH_RESULT="REFRESH_RESULT";
+

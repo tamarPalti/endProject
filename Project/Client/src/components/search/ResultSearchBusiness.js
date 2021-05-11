@@ -1,9 +1,9 @@
 import User from "./User";
-
+import { connect } from "react-redux";
 const ResultSearchBusiness = (props) => {
-    return ( <>
-
-    </> );
+    return (<>
+        
+    </>);
 }
 
 export default ResultSearchBusiness;
