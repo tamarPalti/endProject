@@ -5,7 +5,8 @@ import UsersSearch from './search/UseresSearch';
 import BusinessSearch from './search/BusinessSearch';
 import Search from './search/Search';
 const Home = (props) => {
-
+    console.log("kkkk");
+    
     return (<Search />);
 }
 
