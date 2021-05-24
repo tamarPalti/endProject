@@ -4,9 +4,7 @@ import Home from './components/Home'
 const app = (props) => {
     return (<>
     <Home/>
-    {/* console.log("lll"); */}
-{/* ddddd */}
-{/* yyy */}
+
     </>)
 }
 

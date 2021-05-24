@@ -1,13 +1,16 @@
 import 'react-bootstrap';
 import { GetAllUsers, SaveResultUsers, SearchUsers } from '../../actions/index';
 import user from '../classes/user';
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { connect } from "react-redux";
 const UsersSearch = (props) => {
 
-
-
-    let User = new user();
+    let firstName = useRef();
+    let lastName = useRef();
+    let phoneNamber = useRef();
+    let email = useRef();
+    let adress = useRef();
+    
     // props.AllUsers פעם ראשונה שמבקר באתר נשלף כל המשתמשים למערך
     if (props.AllUsers.length == 0)
         props.GetAllUsers();
@@ -16,8 +19,14 @@ const UsersSearch = (props) => {
         props.SaveResultUsers(props.AllUsers);
 
     // פונקצית חיפוש Users
-    const searchUsers = (e, mode) => {
-        User[mode] = e.target.value;
+    const searchUsers = () => {
+
+        let User = new user();
+        User.firstName = firstName.current.value;
+        User.lastName = lastName.current.value;
+        User.phoneNamber = phoneNamber.current.value;
+        User.email = email.current.value;
+        User.adress = adress.current.value;
         props.SearchUsers(User, props.AllUsers);
     }
 
@@ -30,25 +39,25 @@ const UsersSearch = (props) => {
                 <div className="two fields">
                     <div className="field">
                         <label>First Name</label>
-                        <input placeholder="First Name" type="text" onKeyUp={(e) => searchUsers(e, "firstName")} />
+                        <input placeholder="First Name" ref={firstName} type="text" onKeyUp={searchUsers} />
                     </div>
                     <div className="field">
                         <label>Last Name</label>
-                        <input placeholder="Last Name" type="text" onKeyUp={(e) => searchUsers(e, "lastName")} />
+                        <input placeholder="Last Name" ref={lastName} type="text" onKeyUp={searchUsers} />
                     </div>
                 </div>
                 <div className="field">
                     <label>Email</label>
-                    <input type="text" placeholder="Email" onKeyUp={(e) => searchUsers(e, "email")} />
+                    <input type="text" placeholder="Email" ref={phoneNamber} onKeyUp={searchUsers} />
                 </div>
                 <div className="two fields">
                     <div className="field">
                         <label>Phone Number</label>
-                        <input placeholder="Phone Number" type="number" onKeyUp={(e) => searchUsers(e, "phoneNamber")} />
+                        <input placeholder="Phone Number" ref={email} type="number" onKeyUp={searchUsers} />
                     </div>
                     <div className="field">
                         <label>Address</label>
-                        <input placeholder="Address" type="text" onKeyUp={(e) => searchUsers(e, "adress")} />
+                        <input placeholder="Address" ref={adress} type="text" onKeyUp={(e) => { searchUsers(e) }} />
                     </div>
                 </div>
             </div>
