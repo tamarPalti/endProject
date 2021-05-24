@@ -5,7 +5,12 @@ const app = (props) => {
     return (<>
     <Home/>
     {/* console.log("lll"); */}
+<<<<<<< HEAD
 {/* ll */}
+=======
+
+    
+>>>>>>> 452304623c5bc466123f3744017710e709e31583
     </>)
 }
 
