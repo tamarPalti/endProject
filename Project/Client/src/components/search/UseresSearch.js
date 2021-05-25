@@ -10,7 +10,7 @@ const UsersSearch = (props) => {
     let phoneNamber = useRef();
     let email = useRef();
     let adress = useRef();
-    
+
     // props.AllUsers פעם ראשונה שמבקר באתר נשלף כל המשתמשים למערך
     if (props.AllUsers.length == 0)
         props.GetAllUsers();
@@ -48,16 +48,16 @@ const UsersSearch = (props) => {
                 </div>
                 <div className="field">
                     <label>Email</label>
-                    <input type="text" placeholder="Email" ref={phoneNamber} onKeyUp={searchUsers} />
+                    <input type="text" placeholder="Email" ref={email} onKeyUp={searchUsers} />
                 </div>
                 <div className="two fields">
                     <div className="field">
                         <label>Phone Number</label>
-                        <input placeholder="Phone Number" ref={email} type="number" onKeyUp={searchUsers} />
+                        <input placeholder="Phone Number" ref={phoneNamber} type="number" onKeyUp={searchUsers} />
                     </div>
                     <div className="field">
                         <label>Address</label>
-                        <input placeholder="Address" ref={adress} type="text" onKeyUp={(e) => { searchUsers(e) }} />
+                        <input placeholder="Address" ref={adress} type="text" onKeyUp={searchUsers} />
                     </div>
                 </div>
             </div>
