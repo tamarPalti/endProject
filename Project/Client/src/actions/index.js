@@ -1,1 +1,1 @@
-export { GetAllUsers, SaveResultUsers, SearchUsers ,SelectedUser,NoSelectedUser} from './users';
+export { GetAllUsers, SaveResultUsers, SearchUsers ,SelectedUser,NoSelectedUser,DeleteResultUser} from './users';

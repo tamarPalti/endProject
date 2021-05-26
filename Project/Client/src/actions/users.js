@@ -51,3 +51,9 @@ export const NoSelectedUser = () => {
         payload: null
     }
 }
+export const DeleteResultUser = () => {
+    return {
+        type: actionTypes.DELETE_RESULT_USER,
+        payload: null
+    }
+}

@@ -1,5 +1,5 @@
 import 'react-bootstrap';
-import { GetAllUsers, SaveResultUsers, SearchUsers } from '../../actions/index';
+import { GetAllUsers, SaveResultUsers, SearchUsers ,DeleteResultUser} from '../../actions/index';
 import user from '../classes/user';
 import { useEffect, useState, useRef } from 'react';
 import { connect } from "react-redux";
@@ -30,9 +30,11 @@ const UsersSearch = (props) => {
         props.SearchUsers(User, props.AllUsers);
     }
 
-    // useEffect(() => {
-
-    // }, []);
+    useEffect(() => {
+        return(
+           props.DeleteResultUser()
+        )
+    }, []);
     return (<>
         <form className="ui form">
             <div className="ui form">
@@ -68,4 +70,4 @@ const mapStateToProps = (state) => {
 
     return { AllUsers: state.usersPart.AllUsers, UserSearch: state.usersPart.UserSearch };
 }
-export default connect(mapStateToProps, { GetAllUsers, SaveResultUsers, SearchUsers })(UsersSearch);
+export default connect(mapStateToProps, { GetAllUsers, SaveResultUsers, SearchUsers,DeleteResultUser })(UsersSearch);
