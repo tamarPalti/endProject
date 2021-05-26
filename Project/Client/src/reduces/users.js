@@ -1,7 +1,8 @@
 import * as actionTypes from '../ActionTypes'
 const initialUsers = {
     AllUsers: [],
-    UserSearch: null
+    UserSearch: null,
+    SelectedUser: null
 }
 export const usersReducer = (state = initialUsers, action) => {
     switch (action.type) {
@@ -14,6 +15,16 @@ export const usersReducer = (state = initialUsers, action) => {
             return {
                 ...state,
                 UserSearch: action.payload
+            }
+        case actionTypes.SELECTED_USER:
+            return {
+                ...state,
+                SelectedUser: action.payload
+            }
+            case actionTypes.NO_SELECTED_USER:
+            return {
+                ...state,
+                SelectedUser: action.payload
             }
     }
     return state;

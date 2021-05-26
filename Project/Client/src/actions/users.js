@@ -39,3 +39,15 @@ export const SaveResultUsers = (users) => {
         payload: users
     }
 }
+export const SelectedUser = (user) => {
+    return {
+        type: actionTypes.SELECTED_USER,
+        payload: user
+    }
+}
+export const NoSelectedUser = () => {
+    return {
+        type: actionTypes.SELECTED_USER,
+        payload: null
+    }
+}
