@@ -57,3 +57,10 @@ export const DeleteResultUser = () => {
         payload: null
     }
 }
+
+export const ChangeColorName = (name) => {
+    return {
+        type: actionTypes.CHANGE_COLOR_NAME,
+        payload: name
+    }
+}

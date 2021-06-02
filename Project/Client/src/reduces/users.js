@@ -2,7 +2,8 @@ import * as actionTypes from '../ActionTypes'
 const initialUsers = {
     AllUsers: [],
     UserSearch: null,
-    SelectedUser: null
+    SelectedUser: null,
+    ColorName: ""
 }
 export const usersReducer = (state = initialUsers, action) => {
     switch (action.type) {
@@ -30,6 +31,11 @@ export const usersReducer = (state = initialUsers, action) => {
             return {
                 ...state,
                 SelectedUser: action.payload
+            }
+        case actionTypes.CHANGE_COLOR_NAME:
+            return {
+                ...state,
+                ColorName: action.payload
             }
 
     }
