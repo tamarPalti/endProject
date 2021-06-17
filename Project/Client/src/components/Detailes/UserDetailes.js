@@ -1,11 +1,12 @@
 import "./UserDetailes.scss";
 import { connect } from "react-redux";
+import { Link, Route } from 'react-router-dom';
 import { NoSelectedUser } from '../../actions/index';
 const UserDetailes = (props) => {
     
     return (
       <>
-      <button class="ui teal button MyButton" onClick={props.NoSelectedUser }>חזרה</button>
+     <Link to= '/search/users'><button class="ui teal button MyButton">חזרה</button></Link> 
       <h2 class="ui center aligned icon header">
       <i class="circular users icon"></i>
         <p>{props.SelectedUser.firstName} {props.SelectedUser.lastName}</p> 

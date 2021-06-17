@@ -29,24 +29,24 @@ const Search = (props) => {
     }
     return (<><div className="back-search">
         <div className="ui pointing menu three serach_div">
-            <Link to="/users" className="div_link">
+            <Link to="/search/users" className="div_link">
                 <a className="active item teal sizetab" ref={users} onClick={(e) => ChangeButtonUsers(e)}>
                     Users
             </a>
             </Link>
-            <Link to="/business" className="div_link">
+            <Link to="/search/business" className="div_link">
                 <a className="item sizetab" ref={business} onClick={(e) => ChangeButtonBusiness(e)}>
                     Business
     </a>
             </Link>
             <div className="place_search">
-                <Route path="/users">
+                <Route path="/search/users">
                     <UsersSearch />
                     <div className="place_result">
                         <ResultSearchUser />
                     </div>
                 </Route>
-                <Route path="/business">
+                <Route path="/search/business">
                     <BusinessSearch />
                     <div className="place_result">
                         <ResultSearchBusiness />

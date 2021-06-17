@@ -10,10 +10,14 @@ const Home = (props) => {
     console.log("kkkk");
     
     return (
-    props.SelectedUser?<UserDetailes/>:<Search />
-);
+        <div>
+    <Route path={ '/search'}>  <Search /> </Route>
+    
+    {/*  לוקח נתונים מהסטייט הכללי UserDetailes*/}
+    <Route path={ '/detailes'}>  <UserDetailes /> </Route>
+    </div> );
 }
 const mapStateToProps = (state) => {
-    return { SelectedUser: state.usersPart.SelectedUser };
+    return {  };
 }
 export default connect(mapStateToProps)(Home); 
