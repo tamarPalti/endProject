@@ -58,9 +58,15 @@ export const DeleteResultUser = () => {
     }
 }
 
-export const ChangeColorName = (name) => {
+export const ChangeColorFirstName = (name) => {
     return {
-        type: actionTypes.CHANGE_COLOR_NAME,
+        type: actionTypes.CHANGE_COLOR_FIRST_NAME,
+        payload: name
+    }
+}
+export const ChangeColorLastName = (name) => {
+    return {
+        type: actionTypes.CHANGE_COLOR_LAST_NAME,
         payload: name
     }
 }

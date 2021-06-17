@@ -3,7 +3,8 @@ const initialUsers = {
     AllUsers: [],
     UserSearch: null,
     SelectedUser: null,
-    ColorName: ""
+    ColorFirstName: "",
+    ColorLastName: ""
 }
 export const usersReducer = (state = initialUsers, action) => {
     switch (action.type) {
@@ -32,10 +33,15 @@ export const usersReducer = (state = initialUsers, action) => {
                 ...state,
                 SelectedUser: action.payload
             }
-        case actionTypes.CHANGE_COLOR_NAME:
+        case actionTypes.CHANGE_COLOR_FIRST_NAME:
             return {
                 ...state,
-                ColorName: action.payload
+                ColorFirstName: action.payload
+            }
+        case actionTypes.CHANGE_COLOR_LAST_NAME:
+            return {
+                ...state,
+                ColorLastName: action.payload
             }
 
     }

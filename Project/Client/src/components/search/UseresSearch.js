@@ -1,5 +1,5 @@
 import 'react-bootstrap';
-import { GetAllUsers, SaveResultUsers, SearchUsers ,DeleteResultUser} from '../../actions/index';
+import { GetAllUsers, SaveResultUsers, SearchUsers ,DeleteResultUser,ChangeColorFirstName,ChangeColorLastName} from '../../actions/index';
 import user from '../classes/user';
 import { useEffect, useState, useRef } from 'react';
 import { connect } from "react-redux";
@@ -27,6 +27,8 @@ const UsersSearch = (props) => {
         User.phoneNamber = phoneNamber.current.value;
         User.email = email.current.value;
         User.adress = adress.current.value;
+       props.ChangeColorFirstName( User.firstName);
+       props.ChangeColorLastName(User.lastName);
         props.SearchUsers(User, props.AllUsers);
     }
 
@@ -70,4 +72,4 @@ const mapStateToProps = (state) => {
 
     return { AllUsers: state.usersPart.AllUsers, UserSearch: state.usersPart.UserSearch };
 }
-export default connect(mapStateToProps, { GetAllUsers, SaveResultUsers, SearchUsers,DeleteResultUser })(UsersSearch);
+export default connect(mapStateToProps, { GetAllUsers, SaveResultUsers, SearchUsers,DeleteResultUser,ChangeColorFirstName ,ChangeColorLastName})(UsersSearch);
