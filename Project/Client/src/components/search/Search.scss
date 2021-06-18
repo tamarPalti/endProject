@@ -1,6 +1,6 @@
 
 .back-search{
-    background-image:url("./img/background-search.jpg");
+    // background-image:url("./img/background-search.jpg");
     background-size: 105vw;
     width: 100vw;
     height: 100vh;
@@ -28,8 +28,11 @@
     height: 67vh;
     position: relative;
     left: 46vw;
-    top: -42.4vh;
+    top: -26em;
     border-collapse: collapse;
     border-radius: 2vw;
-    overflow: scroll;
+    overflow: auto;
+}
+.ui.menu {
+    border-radius: inherit;
 }

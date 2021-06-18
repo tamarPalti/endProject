@@ -5,14 +5,19 @@
     position: relative;
     left: 3vw;
     font-size: 1.7vw;
-    width: 16vw;
-    left: 1vw;
+    width: 18vw;
+    left: -1vw;
+    top: 1em;
+    text-align: end;
 }.ui.menu .item{
     line-height: 3;
-}.ui.menu{
-    border-radius: 3.285714rem;
 }.color_name{
     color: aqua;
 }.display{
     display: inline-block;
+    font-family: unset;
+}
+i.icon {
+
+    margin-left: 0.2em;
 }
