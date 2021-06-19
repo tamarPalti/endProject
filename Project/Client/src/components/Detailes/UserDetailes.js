@@ -11,7 +11,7 @@ const UserDetailes = (props) => {
       <i class="circular users icon"></i>
         <p>{props.SelectedUser.firstName} {props.SelectedUser.lastName}</p> 
         <p> {props.SelectedUser.phoneNamber}</p>
-        <p> {props.SelectedUser.email}</p>
+        <p><a href="mailto:abc@example.com?subject = Feedback&body = Message">{props.SelectedUser.email}</a></p> 
         <p> {props.SelectedUser.adress}</p>
         {/* <p> {props.SelectedUser.img}</p> */}
     </h2>
