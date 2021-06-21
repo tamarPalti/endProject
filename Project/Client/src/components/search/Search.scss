@@ -1,6 +1,6 @@
 
 .back-search{
-    // background-image:url("./img/background-search.jpg");
+    background-image:url("./img/background.png");
     background-size: 105vw;
     width: 100vw;
     height: 100vh;
@@ -16,7 +16,8 @@
     position: relative;
     top: 17vh;
     border-collapse: collapse;
-    border-radius: 3vw;
+    border-radius: 0rem;
+    border-top-left-radius: 3em;
 }.div_link{
     position: relative;
     left: 0vw;
@@ -34,5 +35,12 @@
     overflow: auto;
 }
 .ui.menu {
-    border-radius: inherit;
+    border-radius: 0rem;
+    border-top-left-radius: 3em;
+    border-top-right-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+    border-bottom-left-radius: 0rem;
+}
+.item-user {
+    border-top-left-radius: 3em;
 }

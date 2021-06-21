@@ -30,7 +30,7 @@ const Search = (props) => {
     return (<><div className="back-search">
         <div className="ui pointing menu three serach_div">
             <Link to="/search/users" className="div_link">
-                <a className="active item teal sizetab" ref={users} onClick={(e) => ChangeButtonUsers(e)}>
+                <a className="active item teal sizetab item-user" ref={users} onClick={(e) => ChangeButtonUsers(e)}>
                     Users
             </a>
             </Link>
