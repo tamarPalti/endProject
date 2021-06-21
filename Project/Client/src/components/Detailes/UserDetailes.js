@@ -2,8 +2,19 @@ import "./UserDetailes.scss";
 import { connect } from "react-redux";
 import { Link, Route } from 'react-router-dom';
 import { NoSelectedUser } from '../../actions/index';
+import { useEffect } from "react";
+import { ChangeColorFirstName,ChangeColorLastName } from '../../actions/index';
+
+
 const UserDetailes = (props) => {
     
+
+  useEffect(()=>{
+return(
+  props.ChangeColorFirstName(''),
+  props.ChangeColorLastName('')
+)
+  },[]);
     return (
       <>
      <Link to= '/search/users'><button class="ui teal button MyButton">חזרה</button></Link> 
@@ -21,4 +32,4 @@ const UserDetailes = (props) => {
 const mapStateToProps = (state) => {
   return { SelectedUser: state.usersPart.SelectedUser };
 }
-export default connect(mapStateToProps,{NoSelectedUser})(UserDetailes); 
+export default connect(mapStateToProps,{NoSelectedUser,ChangeColorFirstName,ChangeColorLastName})(UserDetailes); 

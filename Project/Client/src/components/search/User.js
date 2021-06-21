@@ -13,10 +13,7 @@ const User = (props) => {
     let Laststart = props.user.lastName.substring(0, indexLastName);
     let Lastend = props.user.lastName.substring(indexLastName + props.ColorLastName.length, props.user.lastName.length);
     useEffect(() => {
-        return(
-            props.ChangeColorFirstName(''),
-            props.ChangeColorLastName('')
-        )
+
     },[]);
     return (<div><Link to= '/detailes' style={{ textDecoration: 'none', color: 'black' }}> <div className="place_user" onClick={() => props.SelectedUser(props.user)}>
          <p className="display">{Lastend}</p>      
