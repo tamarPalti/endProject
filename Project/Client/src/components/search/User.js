@@ -16,7 +16,7 @@ const User = (props) => {
 
     },[]);
     return (<div><Link to= '/detailes' style={{ textDecoration: 'none', color: 'black' }}> <div className="place_user" onClick={() => props.SelectedUser(props.user)}>
-         <p className="display">{Lastend}</p>      
+         {/* <p className="display">{Lastend}</p>      
          <p className="color_name display">{props.ColorLastName}</p>
          <p className="display">{Laststart}</p> 
          <p className="display">&nbsp;</p>
@@ -26,8 +26,8 @@ const User = (props) => {
         
         
         {/* <p className="tow" ref={name}>{props.user.firstName} {props.user.lastName}</p> */}
-        <i className="user icon tow"></i>
-
+        {/* <i className="user icon tow"></i> */} 
+ <image src="alex.png"></image>
     </div></Link></div>
     );
 }
