@@ -6,8 +6,9 @@
     left: 3vw;
     font-size: 1.7vw;
     width: 18vw;
-    left: -1vw;
-    top: 1em;
+    left: -1em;
+    top: 0em;
+    margin-top: 1em;
     text-align: end;
     font-size: 1.4em;
     font-family: system-ui;
@@ -22,4 +23,7 @@
 i.icon {
 
     margin-left: 0.2em;
+}.img_ico {
+    width: 3em;
+    margin-left: 1em;
 }

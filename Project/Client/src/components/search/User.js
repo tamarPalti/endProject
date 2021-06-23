@@ -4,6 +4,7 @@ import { SelectedUser,ChangeColorFirstName,ChangeColorLastName } from '../../act
 import { useRef, useEffect } from "react";
 import { Link, Route } from 'react-router-dom';
 import UserDetailes from '../Detailes/UserDetailes'
+import ico from './img/alex.png'
 const User = (props) => {
 
     let indexName = props.user.firstName.indexOf(props.ColorFirstName);
@@ -15,8 +16,8 @@ const User = (props) => {
     useEffect(() => {
 
     },[]);
-    return (<div><Link to= '/detailes' style={{ textDecoration: 'none', color: 'black' }}> <div className="place_user" onClick={() => props.SelectedUser(props.user)}>
-         {/* <p className="display">{Lastend}</p>      
+    return (<div><Link to= {'/detailes/'+props.user._id} style={{ textDecoration: 'none', color: 'black' }}> <div className="place_user" onClick={() => props.SelectedUser(props.user)}>
+         <p className="display">{Lastend}</p>      
          <p className="color_name display">{props.ColorLastName}</p>
          <p className="display">{Laststart}</p> 
          <p className="display">&nbsp;</p>
@@ -26,8 +27,7 @@ const User = (props) => {
         
         
         {/* <p className="tow" ref={name}>{props.user.firstName} {props.user.lastName}</p> */}
-        {/* <i className="user icon tow"></i> */} 
- <image src="alex.png"></image>
+        <img className="img_ico" src={ico}></img>
     </div></Link></div>
     );
 }
