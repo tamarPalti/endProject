@@ -39,6 +39,7 @@ export const SaveResultUsers = (users) => {
         payload: users
     }
 }
+
 export const SelectedUser = (user) => {
     return {
         type: actionTypes.SELECTED_USER,

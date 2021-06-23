@@ -10,9 +10,10 @@ const getAll = async (req, res) => {
     }
 }
 const getByPassword = async (req, res) => {
-    let { password, email } = req.params;
+
+    let { id } = req.params;
     try {
-        let user = await Users.findOne({ "password": password, "email": email });
+        let user = await Users.findById(id);
         if (!user)
             return res.status(404).send("מצטערים לא נמצא משתמש עם המזהה שהתקבל");
         return res.send(user);

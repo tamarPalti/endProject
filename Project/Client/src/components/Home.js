@@ -14,7 +14,7 @@ const Home = (props) => {
     <Route path={ '/search'}>  <Search /> </Route>
     
     {/*  לוקח נתונים מהסטייט הכללי UserDetailes*/}
-    <Route path={ '/detailes'}>  <UserDetailes /> </Route>
+    <Route path={ '/detailes/:id'}>  <UserDetailes /> </Route>
     </div> );
 }
 const mapStateToProps = (state) => {
