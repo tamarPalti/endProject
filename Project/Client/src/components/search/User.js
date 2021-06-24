@@ -36,3 +36,5 @@ const mapStateToProps = (state) => {
     return { ColorFirstName: state.usersPart.ColorFirstName, ColorLastName: state.usersPart.ColorLastName};
 }
 export default connect(mapStateToProps, { SelectedUser,ChangeColorFirstName,ChangeColorLastName })(User);
+
+// console.log("kkkk");
