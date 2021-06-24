@@ -4,3 +4,4 @@ const Business = (props) => {
 }
  
 export default Business;
+//console.log("tamar");
