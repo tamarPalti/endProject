@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require("morgan")
 const users = require("./routes/User");
-const searchUsers = require("./routes/SearchUsers");
+const business=require("./routes/Business");
 mongoose.connect("mongodb://localhost:27017/truecaller").then(() => {
     console.log("connected to mongo db");
 }).catch(err => { console.log(err) })
@@ -15,7 +15,7 @@ app.use(morgan("dev"));
 
 
 app.use("/users", users);
-app.use("/searchUsers", searchUsers);
+app.use("/business",business);
 app.listen("4000", () => {
-    console.log("listening on port 3001");
+    console.log("listening on port 4000");
 })

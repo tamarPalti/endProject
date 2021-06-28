@@ -16,7 +16,7 @@ const User = (props) => {
     useEffect(() => {
 
     },[]);
-    return (<div><Link to= {'/detailes/'+props.user._id} style={{ textDecoration: 'none', color: 'black' }}> <div className="place_user" onClick={() => props.SelectedUser(props.user)}>
+    return (<div><Link to= {'/userDetailes/'+props.user._id} style={{ textDecoration: 'none', color: 'black' }}> <div className="place_user" onClick={() => props.SelectedUser(props.user)}>
          <p className="display">{Lastend}</p>      
          <p className="color_name display">{props.ColorLastName}</p>
          <p className="display">{Laststart}</p> 
@@ -28,7 +28,9 @@ const User = (props) => {
         
         {/* <p className="tow" ref={name}>{props.user.firstName} {props.user.lastName}</p> */}
         <img className="img_ico" src={ico}></img>
-    </div></Link></div>
+    </div>
+    </Link>
+    </div>
     );
 }
 const mapStateToProps = (state) => {
@@ -37,4 +39,4 @@ const mapStateToProps = (state) => {
 }
 export default connect(mapStateToProps, { SelectedUser,ChangeColorFirstName,ChangeColorLastName })(User);
 
-// console.log("kkkk");
+

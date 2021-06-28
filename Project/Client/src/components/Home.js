@@ -6,6 +6,7 @@ import BusinessSearch from './search/BusinessSearch';
 import Search from './search/Search';
 import UserDetailes from './Detailes/UserDetailes';
 import { connect } from "react-redux";
+import BusinessDetailes from './Detailes/BusinessDetailes';
 const Home = (props) => {
     console.log("kkkk");
     
@@ -14,7 +15,8 @@ const Home = (props) => {
     <Route path={ '/search'}>  <Search /> </Route>
     
     {/*  לוקח נתונים מהסטייט הכללי UserDetailes*/}
-    <Route path={ '/detailes/:id'}>  <UserDetailes /> </Route>
+    <Route path={ '/userDetailes/:id'}>  <UserDetailes /> </Route>
+    <Route path={ '/businessDetailes/:id'}>  <BusinessDetailes /> </Route>
     </div> );
 }
 const mapStateToProps = (state) => {
