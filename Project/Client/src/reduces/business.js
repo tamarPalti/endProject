@@ -1,7 +1,7 @@
 import * as actionTypes from '../ActionTypes';
 const initialBusiness = {
     AllBusiness: [],
-    BusinessSearch: null,
+    BusinessSearch: [],
     SelectedBusiness: null,
     ColorName: ""
 }

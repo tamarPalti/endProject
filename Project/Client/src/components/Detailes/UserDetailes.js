@@ -14,10 +14,10 @@ const UserDetailes = (props) => {
 
   useEffect(() => {
     GetUserById(id);
-    return (
-      props.ChangeColorFirstName(''),
-      props.ChangeColorLastName('')
-    )
+    // return (
+    //   props.ChangeColorFirstName(''),
+    //   props.ChangeColorLastName('')
+    // )
   }, []);
 
   const GetUserById = (idUser) => {

@@ -14,12 +14,14 @@ export const GetAllBusiness = () => {
 export const SearchBusiness = (business, allBusiness) => {
     return (dispatch) => {
         let name = business.name || "";
-        let phoneNamber = business.phoneNamber || "";
+        let phoneNamber = business.phoneNamber || [];
         let email = business.email || "";
         let adress = business.adress || "";
-        let listCategory = business.listCategory || "";
+        let listCategory =  [];
+        if (business.listCategory)
+            listCategory.push(business.listCategory);
         let businesses = allBusiness.filter((b) => {
-            return b.name.includes(name) &&b.listCategory.filter((c)=>c.includes(listCategory)).length>0
+            return b.name.includes(name) && (b.listCategory.filter(c=> listCategory.indexOf(c) != -1).length>0||listCategory.length==0)
                 && b.email.includes(email) && b.adress.includes(adress) && b.phoneNamber.filter((e) => e.includes(phoneNamber)).length > 0
         });
         dispatch(SaveResultBusiness(businesses));

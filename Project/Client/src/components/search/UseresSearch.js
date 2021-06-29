@@ -1,5 +1,5 @@
 import 'react-bootstrap';
-import { GetAllUsers, SaveResultUsers, SearchUsers ,DeleteResultUser,ChangeColorFirstName,ChangeColorLastName} from '../../actions/index';
+import { GetAllUsers, SaveResultUsers, SearchUsers, DeleteResultUser, ChangeColorFirstName, ChangeColorLastName } from '../../actions/index';
 import user from '../classes/user';
 import { useEffect, useState, useRef } from 'react';
 import { connect } from "react-redux";
@@ -15,8 +15,8 @@ const UsersSearch = (props) => {
     if (props.AllUsers.length == 0)
         props.GetAllUsers();
     // props.UserSearch פעם ראשונה שמבקר בקומפוננטה מועתק כל המשתמשים ממערך props.AllUsers למערך
-    if (props.UserSearch == null)
-        props.SaveResultUsers(props.AllUsers);
+    // if (props.UserSearch == null)
+    //     props.SaveResultUsers(props.AllUsers);
 
     // פונקצית חיפוש Users
     const searchUsers = () => {
@@ -27,15 +27,20 @@ const UsersSearch = (props) => {
         User.phoneNamber = phoneNamber.current.value;
         User.email = email.current.value;
         User.adress = adress.current.value;
-       props.ChangeColorFirstName( User.firstName);
-       props.ChangeColorLastName(User.lastName);
-        props.SearchUsers(User, props.AllUsers);
+        if (User.firstName || User.lastName || User.phoneNamber || User.email || User.adress) {
+            props.ChangeColorFirstName(User.firstName);
+            props.ChangeColorLastName(User.lastName);
+            props.SearchUsers(User, props.AllUsers);
+        }
+        else
+            props.SaveResultUsers([]);
+
     }
 
     useEffect(() => {
-        return(
-           props.DeleteResultUser()
-        )
+        // return (
+        //     props.DeleteResultUser()
+        // )
     }, []);
     return (<>
         <form className="ui form">
@@ -72,4 +77,4 @@ const mapStateToProps = (state) => {
 
     return { AllUsers: state.usersPart.AllUsers, UserSearch: state.usersPart.UserSearch };
 }
-export default connect(mapStateToProps, { GetAllUsers, SaveResultUsers, SearchUsers,DeleteResultUser,ChangeColorFirstName ,ChangeColorLastName})(UsersSearch);
+export default connect(mapStateToProps, { GetAllUsers, SaveResultUsers, SearchUsers, DeleteResultUser, ChangeColorFirstName, ChangeColorLastName })(UsersSearch);
