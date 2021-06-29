@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 const ResultSearchUser = (props) => {
     return (<>
-    {props.UserSearch.map((item)=>{
+    {props.UserSearch&&props.UserSearch.map((item)=>{
        return(<User key={item._id} user={item}/>);
     })}
     </>);

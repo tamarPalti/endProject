@@ -2,20 +2,21 @@ import 'react-bootstrap';
 import { connect } from "react-redux";
 import business from '../classes/business';
 import { useEffect, useState, useRef } from 'react';
-import { GetAllBusiness, SaveResultBusiness, SearchBusiness ,DeleteResultBusiness,ChangeColorName} from '../../actions/index';
+import { GetAllBusiness, SaveResultBusiness, SearchBusiness, DeleteResultBusiness, ChangeColorName } from '../../actions/index';
 const BusinessSearch = (props) => {
-    
+
+
     let name = useRef();
     let phoneNamber = useRef();
     let email = useRef();
     let adress = useRef();
-    let listCategory=useRef();
+    let listCategory = useRef();
     // props.AllUsers פעם ראשונה שמבקר באתר נשלף כל המשתמשים למערך
     if (props.AllBusiness.length == 0)
         props.GetAllBusiness();
     // props.UserSearch פעם ראשונה שמבקר בקומפוננטה מועתק כל המשתמשים ממערך props.AllUsers למערך
-    if (props.BusinessSearch == null)
-        props.SaveResultBusiness(props.AllBusiness);
+    // if (props.BusinessSearch == null)
+    //     props.SaveResultBusiness(props.AllBusiness);
 
     // פונקצית חיפוש Users
     const searchBusiness = () => {
@@ -25,49 +26,56 @@ const BusinessSearch = (props) => {
         Business.phoneNamber = phoneNamber.current.value;
         Business.email = email.current.value;
         Business.adress = adress.current.value;
-        Business.listCategory=listCategory.current.value;
-       props.ChangeColorName( Business.name);
-        props.SearchBusiness(Business, props.AllBusiness);
+        Business.listCategory = listCategory.current.value;
+        if (Business.name || Business.phoneNamber || Business.email || Business.adress || Business.listCategory) {
+            props.ChangeColorName(Business.name);
+            props.SearchBusiness(Business, props.AllBusiness);
+        }
+        else
+        props.SaveResultBusiness([]);
     }
 
     useEffect(() => {
-        return(
-           props.DeleteResultBusiness()
-        )
+        // return (
+        //     props.DeleteResultBusiness()
+        // )
     }, []);
     return (<>
         <form className="ui form">
             <div className="ui form">
-            <div className="two fields">
+                <div className="two fields">
                     <div className="field">
                         <label>Name</label>
-                        <input placeholder="Name" type="text" ref={name} type="text" onKeyUp={searchBusiness}/>
+                        <input placeholder="Name" type="text" ref={name} type="text" onKeyUp={searchBusiness} />
                     </div>
                     <div className="field">
                         <label>Address</label>
-                        <input placeholder="Address" type="text" ref={adress} type="text" onKeyUp={searchBusiness}/>
+                        <input placeholder="Address" type="text" ref={adress} type="text" onKeyUp={searchBusiness} />
                     </div>
                 </div>
                 <div className="field">
                     <label>Email</label>
-                    <input type="text" placeholder="Email"ref={email} type="text" onKeyUp={searchBusiness} />
+                    <input type="text" placeholder="Email" ref={email} type="text" onKeyUp={searchBusiness} />
                 </div>
                 <div className="two fields">
                     <div className="field">
                         <label>Phone Number</label>
-                        <input placeholder="Phone Number" type="number"ref={phoneNamber} type="text" onKeyUp={searchBusiness} />
+                        <input placeholder="Phone Number" type="number" ref={phoneNamber} type="text" onKeyUp={searchBusiness} />
                     </div>
                     <div className="field">
-                        <label>category</label>
-                        <input placeholder="category" type="text" ref={listCategory} type="text" onKeyUp={searchBusiness}/>
+                        <label>Category</label>
+                        <input placeholder="category" type="text" ref={listCategory} type="text" onKeyUp={searchBusiness} />
                     </div>
                 </div>
             </div>
-        </form></>);
+        </form>
+
+
+    </>);
 }
 
 const mapStateToProps = (state) => {
 
     return { AllBusiness: state.businessPart.AllBusiness, BusinessSearch: state.businessPart.BusinessSearch };
 }
-export default connect(mapStateToProps, { GetAllBusiness, SaveResultBusiness, SearchBusiness,DeleteResultBusiness,ChangeColorName })(BusinessSearch);
+export default connect(mapStateToProps, { GetAllBusiness, SaveResultBusiness, SearchBusiness, DeleteResultBusiness, ChangeColorName })(BusinessSearch);

@@ -2,7 +2,7 @@ import Business from "./Business";
 import { connect } from "react-redux";
 const ResultSearchBusiness = (props) => {
     return (<>
-    {props.BusinessSearch.map((item)=>{
+    {props.BusinessSearch&&props.BusinessSearch.map((item)=>{
        return(<Business key={item._id} business={item}/>);
     })}
     </>);

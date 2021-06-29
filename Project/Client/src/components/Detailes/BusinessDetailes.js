@@ -14,9 +14,9 @@ const BusinessDetailes = (props) => {
 
   useEffect(() => {
     GetBusinessById(id);
-    return (
-      props.ChangeColorName('')
-    )
+    // return (
+    //   props.ChangeColorName('')
+    // )
   }, []);
 
   const GetBusinessById = (idBusiness) => {
