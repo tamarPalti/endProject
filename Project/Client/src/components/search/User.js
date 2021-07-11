@@ -3,8 +3,9 @@ import './User.scss';
 import { SelectedUser, ChangeColorFirstName, ChangeColorLastName } from '../../actions/index';
 import { useRef, useEffect } from "react";
 import { Link, Route } from 'react-router-dom';
-import UserDetailes from '../Detailes/UserDetailes'
 import ico from './img/alex.png'
+import React from 'react'
+import { Button, Image, Modal } from 'semantic-ui-react'
 const User = (props) => {
 
     let indexName = props.user.firstName.indexOf(props.ColorFirstName);
@@ -19,23 +20,74 @@ const User = (props) => {
     useEffect(() => {
 
     }, []);
-    return (<div><Link to={'/userDetailes/' + props.user._id} style={{ textDecoration: 'none', color: 'black' }}> <div className="place_user" onClick={() => props.SelectedUser(props.user)}>
-        <p className="display">{checkName(props.user.lastName) ? Laststart : Lastend}</p>
-        {!checkName(props.user.firstName)&&(Lastend[0] == ' '||props.ColorLastName[props.ColorLastName.length-1]==' ' )? <p className="display">&nbsp;</p> : null}
-        <p className="color_name display">{props.ColorLastName}</p>
-        {checkName(props.user.firstName)&&(Lastend[0] == ' '||props.ColorLastName[props.ColorLastName.length-1]==' ' ) ? <p className="display">&nbsp;</p> : null}
-        <p className="display">{checkName(props.user.lastName) ? Lastend : Laststart}</p>
-        <p className="display">&nbsp;</p>
-        <p className="display">{checkName(props.user.firstName) ? start : end}</p>
-        {!checkName(props.user.lastName)&&(end[0] == ' ' ||props.ColorFirstName[props.ColorFirstName.length-1]==' ')? <p className="display">&nbsp;</p> : null}
-        <p className="color_name display">{props.ColorFirstName}</p>
-        {checkName(props.user.lastName)&&(end[0] == ' '||props.ColorFirstName[props.ColorFirstName.length-1]==' ' )? <p className="display">&nbsp;</p> : null}
-        <p className="display">{checkName(props.user.firstName) ? end : start}</p>
-        <img className="img_ico" src={ico}></img>
-    </div>
-    </Link>
-    </div>
+
+    const [open, setOpen] = React.useState(false)
+
+    return (
+        <Modal
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+            open={open}
+            trigger={<div><div className="place_user" onClick={() => props.SelectedUser(props.user)}>
+                <p className="display">{checkName(props.user.lastName) ? Laststart : Lastend}</p>
+                {!checkName(props.user.lastName) && (Lastend[0] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+                {checkName(props.user.firstName) && (Laststart[Laststart.length - 1] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+
+                <p className="color_name display">{props.ColorLastName}</p>
+                {!checkName(props.user.lastName) && (Laststart[Laststart.length - 1] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+                {checkName(props.user.lastName) && (Lastend[0] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+
+                <p className="display">{checkName(props.user.lastName) ? Lastend : Laststart}</p>
+                <p className="display">&nbsp;</p>
+                <p className="display">{checkName(props.user.firstName) ? start : end}</p>
+
+                {checkName(props.user.lastName) && (start[start.length - 1]) == ' ' ? <p className="display">&nbsp;</p> : null}
+                {!checkName(props.user.lastName) && (end[0] == ' ' || props.ColorFirstName[props.ColorFirstName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+
+                <p className="color_name display">{props.ColorFirstName}</p>
+                {checkName(props.user.lastName) && (end[0] == ' ' || props.ColorFirstName[props.ColorFirstName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+                {!checkName(props.user.lastName) && (start[start.length - 1]) == ' ' ? <p className="display">&nbsp;</p> : null}
+
+                <p className="display">{checkName(props.user.firstName) ? end : start}</p>
+                <img className="img_ico" src={ico}></img>
+            </div>
+
+            </div>}
+        >
+            <Modal.Content image>
+                <Modal.Description  >
+                    <h1 className="place_name">{props.user.firstName} {props.user.lastName}</h1>
+                </Modal.Description>
+                <Image size='medium' src={ico} wrapped className="place_img" />
+            </Modal.Content>
+            <Modal.Actions>
+                    <i class="user plus icon i" ></i>
+                    <i class="check square icon"></i>            </Modal.Actions>
+            <h2 className="place_detailes">
+
+                <div className="div_all">
+                    <i class="phone icon"></i>
+                    <div className="place_div">
+                        <p> {props.user.phoneNamber}</p>
+                    </div>
+                </div>
+                <div className="div_all">
+                    <div className="place_div">
+                        <i class="envelope icon"></i>
+                        <p><a href="mailto:abc@example.com?subject = Feedback&body = Message">{props.user.email}</a></p>
+                    </div>
+                </div>
+                <div className="div_all">
+                    <i class="map marker alternate icon"></i>
+                    <div className="place_div"> <p> {props.user.adress}</p> </div>
+                </div>
+            </h2>
+        </Modal>
+
+
+
     );
+    // </Link>
 }
 const mapStateToProps = (state) => {
 
