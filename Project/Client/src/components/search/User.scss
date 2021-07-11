@@ -26,4 +26,89 @@ i.icon {
 }.img_ico {
     width: 3em;
     margin-left: 0.5em;
+}.ui.modal {
+    width: 64em;
+    height: 36em;
+    margin: 111px;
+    margin-top: 9em;
+    margin-left: 23em;
+}
+.place_detailes {
+    margin-top: 2em;
+    margin-left: em;
+    text-align: end;
+}
+.place_div {
+    margin-right: 4em;
+    margin-top: 1.5em;
+    border-collapse: collapse;
+    border-bottom-style: groove;
+    border-bottom-width: 0.02em;
+    border-bottom-color: #9e9e9e2b;
+}
+.place_div p{
+    margin-bottom: 1em;
+}
+.place_img {
+     margin-left: 1em; 
+}
+.place_name{
+    margin-left: 16em;
+}
+.div_all{
+    width: 100%;
+}.icon{
+    right: 1em;
+    position: absolute;
+  
+}
+.i{
+    display:inline-block;
+}
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+/***********
+ Media Query
+************/
+
+@media (max-width: 1280px){
+
+
+}
+@media (max-width: 992px){
+
+
+}
+@media (max-width: 768px){
+
+    .place_user {
+        // position: relative;
+        left: 0;
+        font-size:10px;
+        width: 20vw;
+        color: #e860ff;
+        // left: -1em;
+        // top: 2em;
+        // margin-top: 1em;
+        text-align: start;
+        // font-size: 1.4em;
+        // font-family: system-ui;
+    }
+}
+
+
+@media (min-width: 768px){
+
+
+}
+@media (min-width: 992px){
+
+
+}
+@media (min-width: 1280px){
+
+
 }
