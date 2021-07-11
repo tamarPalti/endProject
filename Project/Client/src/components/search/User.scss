@@ -1,3 +1,4 @@
+
 .tow{
     display: inline-block;   
 }
@@ -28,7 +29,7 @@ i.icon {
     margin-left: 0.5em;
 }.ui.modal {
     width: 64em;
-    height: 36em;
+    height: 37.5em;
     margin: 111px;
     margin-top: 9em;
     margin-left: 23em;
@@ -68,8 +69,36 @@ i.icon {
 a, a:hover, a:focus, a:active {
     text-decoration: none;
     color: inherit;
+}.div-ico {
+    width: 45%;
+    text-align: center;
+    display: inline-block;
+    margin-left: -11em;
+    margin-right: 3em;
+}
+.div-ico i {
+    font-size: 2.3em;
+    position: relative;
+    /* margin-left: 3em; */
 }
 
+.ui.medium.image, .ui.medium.images .image, .ui.medium.images img, .ui.medium.images svg {
+    width: 300px;
+    height: auto;
+    font-size: 2rem;
+    margin-left: 5em;
+}.ui.image img, .ui.image svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    /* width: 42%; */
+}.ui.modal>.content>.image {
+    display: block;
+    flex: 4em;
+    width: '';
+    position: relative;
+    align-self: top;
+}
 /***********
  Media Query
 ************/
