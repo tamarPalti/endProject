@@ -1,8 +1,7 @@
-
 .tow{
     display: inline-block;   
 }
-.place_user {
+.place_business {
     position: relative;
     left: 3vw;
     font-size: 1.7vw;
@@ -50,10 +49,12 @@ i.icon {
 .place_div p{
     margin-bottom: 1em;
 }
-.place_img {
-    top: 2vw;
+.place_img_b {
+    top: -2vw;
 }
-// s
+// .place_name_b{
+//     // margin-left: 16em;
+// }
 .div_all{
     width: 100%;
 }.icon{
