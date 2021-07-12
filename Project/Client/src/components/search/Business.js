@@ -1,11 +1,13 @@
 import { connect } from "react-redux";
 import './User.scss';
 import { SelectedBusiness, ChangeColorName } from '../../actions/index';
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from 'react';
 import { Link, Route } from 'react-router-dom';
-// import UserDetailes from '../Detailes/UserDetailes'
+import { Button, Image, Modal,List } from 'semantic-ui-react'
 import ico from './img/alex.png'
 const Business = (props) => {
+
+    const [open, setOpen] = useState(false)
 
     let indexName = props.business.name.indexOf(props.ColorName);
     let start = props.business.name.substring(0, indexName);
@@ -16,20 +18,69 @@ const Business = (props) => {
     useEffect(() => {
 
     }, []);
-    return (<div><Link to={'/businessDetailes/' + props.business._id} style={{ textDecoration: 'none', color: 'black' }}>
-        <div className="place_user" onClick={() => props.SelectedBusiness(props.business)}>
-            <p className="display">&nbsp;</p>
-            <p className="display">{checkName(props.business.name) ? start : end}</p>
-            {!checkName(props.business.name) && (end[0] == ' ' || props.ColorName[props.ColorName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+    return (
+        <List.Item key={props.business._id}>
+            <List.Content floated='right'>
+                <Modal
+                    onClose={() => setOpen(false)}
+                    onOpen={() => setOpen(true)}
+                    open={open}
+                    trigger={<div>
+                        <div className="place_user" onClick={() => props.SelectedBusiness(props.business)}>
+                            <p className="display">&nbsp;</p>
+                            <p className="display">{checkName(props.business.name) ? start : end}</p>
+                            {!checkName(props.business.name) && (end[0] == ' ' || props.ColorName[props.ColorName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
 
-            <p className="color_name display">{props.ColorName}</p>
-            {checkName(props.business.name) && (end[0] == ' ' || props.ColorName[props.ColorName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+                            <p className="color_name display">{props.ColorName}</p>
+                            {checkName(props.business.name) && (end[0] == ' ' || props.ColorName[props.ColorName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
 
-            <p className="display">{checkName(props.business.name) ? end : start}</p>
-            <img className="img_ico" src={ico}></img>
-        </div>
-    </Link>
-    </div>
+                            <p className="display">{checkName(props.business.name) ? end : start}</p>
+                            <img className="img_ico" src={ico}></img>
+                        </div>
+                    </div>}
+                >
+                    <Modal.Content image>
+                        <Modal.Description  >
+                            <h1 className="place_name">{props.business.name}</h1>
+                        </Modal.Description>
+                        <Image size='medium' src={ico} wrapped className="place_img" />
+                    </Modal.Content>
+                    <Modal.Actions>
+                        <div>
+                            <div className="div-ico">
+                                <i class="user plus icon i" ></i>
+                            </div>
+                            <div className="div-ico">
+                                <i class="share square icon"></i>
+                            </div>
+                        </div>
+
+                    </Modal.Actions>
+
+                    <h2 className="place_detailes">
+
+                        <div className="div_all">
+                            <i class="phone icon"></i>
+                            <div className="place_div">
+                                <p> {props.business.phoneNamber}</p>
+                            </div>
+                        </div>
+                        <div className="div_all">
+                            <div className="place_div">
+                                <i class="envelope icon"></i>
+                                <p><a href="mailto:abc@example.com?subject = Feedback&body = Message">{props.business.email}</a></p>
+                            </div>
+                        </div>
+                        <div className="div_all">
+                            <i class="map marker alternate icon"></i>
+                            <div className="place_div"> <p> {props.business.adress}</p> </div>
+                        </div>
+
+                    </h2>
+                </Modal>
+            </List.Content>
+        </List.Item>
+
     );
 }
 const mapStateToProps = (state) => {
