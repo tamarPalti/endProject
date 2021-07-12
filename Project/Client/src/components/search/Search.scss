@@ -7,8 +7,9 @@
 }.place_search{
     position: relative;
     margin-top: 19vh;
-    margin-left: -26vw;
-    width: 34vw;
+    margin-left: -27.2vw;
+
+    width: 80%;
 
 }.serach_div{
     width: 45vw;
@@ -47,4 +48,17 @@
 }
 .item-user {
     border-top-left-radius: 3em;
+}
+
+@media (max-width: 1280px){
+.serach_div{
+    width: 79%;
+}
+.place_search{
+    margin-left: -23.2vw;
+}
+}
+@media (max-width: 992px){
+
+
 }
