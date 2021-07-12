@@ -56,8 +56,8 @@ const User = (props) => {
 
                     </div>}
                 >
-                    {/* <Modal.Content image> */} 
-                    <Image size='medium' src={ico} wrapped className="place_img" />
+                    {/* <Modal.Content image> */}
+                     <Image size='medium' src={ico} wrapped className="place_img" />
                         {/* <Modal.Description  > */}
                             <h1 className="place_name">{props.user.firstName} {props.user.lastName}</h1>
                         {/* </Modal.Description> */}
