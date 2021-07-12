@@ -51,10 +51,10 @@ i.icon {
     margin-bottom: 1em;
 }
 .place_img {
-     margin-left: 1em; 
+    top: 2vw;
 }
 .place_name{
-    margin-left: 16em;
+    // margin-left: 16em;
 }
 .div_all{
     width: 100%;
@@ -98,6 +98,21 @@ a, a:hover, a:focus, a:active {
     width: '';
     position: relative;
     align-self: top;
+}
+.ui.medium.image, .ui.medium.images .image, .ui.medium.images img, .ui.medium.images svg {
+
+    margin-left: 26em;
+}
+h1, h2, h3, h4, h5 {
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    line-height: 1.28571429em;
+    margin: calc(2rem - .14285714em) 0 1rem;
+    margin-top: calc(2rem - 0.142857em);
+    margin-right: 0px;
+    margin-bottom: 1rem;
+    margin-left: 450px;
+    font-weight: 700;
+    padding: 0;
 }
 /***********
  Media Query
