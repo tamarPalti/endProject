@@ -50,6 +50,9 @@
     border-top-left-radius: 3em;
 }
 
+.ui.divided.list>.item {
+    border-top: 0;
+}
 @media (max-width: 1280px){
 .serach_div{
     width: 79%;
