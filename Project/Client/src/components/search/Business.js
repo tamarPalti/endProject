@@ -47,11 +47,11 @@ const Business = (props) => {
                     {/* </Modal.Content> */}
                     <Modal.Actions>
                         <div>
-                            <div className="div-ico">
+                            <div className="div-ico"data-tooltip="הוסף לאנשי קשר">
                                 <i class="user plus icon i" ></i>
                             </div>
-                            <div className="div-ico">
-                                <i class="share square icon"></i>
+                            <div className="div-ico" data-tooltip="דווח על תקלה">
+                            <i class="exclamation triangle icon"></i>
                             </div>
                         </div>
 
