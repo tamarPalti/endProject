@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import './User.scss';
+import './Business.scss';
 import { SelectedBusiness, ChangeColorName } from '../../actions/index';
 import { useRef, useEffect, useState } from 'react';
 import { Link, Route } from 'react-router-dom';
@@ -26,7 +26,7 @@ const Business = (props) => {
                     onOpen={() => setOpen(true)}
                     open={open}
                     trigger={<div>
-                        <div className="place_user" onClick={() => props.SelectedBusiness(props.business)}>
+                        <div className="place_business" onClick={() => props.SelectedBusiness(props.business)}>
                             <p className="display">&nbsp;</p>
                             <p className="display">{checkName(props.business.name) ? start : end}</p>
                             {!checkName(props.business.name) && (end[0] == ' ' || props.ColorName[props.ColorName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
@@ -39,12 +39,12 @@ const Business = (props) => {
                         </div>
                     </div>}
                 >
-                    <Modal.Content image>
-                        <Modal.Description  >
-                            <h1 className="place_name">{props.business.name}</h1>
-                        </Modal.Description>
-                        <Image size='medium' src={ico} wrapped className="place_img" />
-                    </Modal.Content>
+                    {/* <Modal.Content image>
+                        <Modal.Description  > */}
+                            <h1 className="place_name_b">{props.business.name}</h1>
+                        {/* </Modal.Description> */}
+                        <Image size='medium' src={ico} wrapped className="place_img_b" />
+                    {/* </Modal.Content> */}
                     <Modal.Actions>
                         <div>
                             <div className="div-ico">
