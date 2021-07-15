@@ -88,3 +88,9 @@ export const SignIn = (user) => {
         payload: user
     }
 }
+export const ChangeSingUp=(bool)=>{
+    return{
+        type: actionTypes.SING_UP,
+        payload: bool
+    }
+}

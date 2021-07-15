@@ -3,10 +3,11 @@ import { Button, Divider, Form, Grid, Segment } from 'semantic-ui-react'
 import { connect } from "react-redux";
 import { Link, Route } from 'react-router-dom';
 import { useEffect, useState,useRef } from "react";
-import { GetCurrentUser} from '../../actions/index';
+import { GetCurrentUser,ChangeSingUp} from '../../actions/index';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { propTypes } from 'react-bootstrap/esm/Image';
+import SingUp from './SingUp';
 const SingIn = (props) => {
     let password=useRef();
     let mail=useRef();
@@ -17,8 +18,8 @@ const SingIn = (props) => {
           <Form.Input
             icon='user'
             iconPosition='left'
-            label='Username'
-            placeholder='Username'
+            label='Usermail'
+            placeholder='Usermail'
             ref={mail}
           />
           <Form.Input
@@ -31,13 +32,16 @@ const SingIn = (props) => {
 
           <Button content='Login' primary onClick={()=>{
               props.GetCurrentUser({"password":password.current,"mail":mail.current})
-              
+
           }}/>
         </Form>
       </Grid.Column>
 
       <Grid.Column verticalAlign='middle'>
-        <Button content='Sign up' icon='signup' size='big' />
+        <Button content='Sign up' icon='signup' size='big' onClick={()=>{
+            
+           props.ChangeSingUp(true);
+          }} />
       </Grid.Column>
     </Grid>
 
@@ -46,6 +50,6 @@ const SingIn = (props) => {
   
 }
 const mapStateToProps = (state) => {
-    return {CurrentUser:state.usersPart.CurrentUser };
+    return {CurrentUser:state.usersPart.CurrentUser ,SingUp:state.usersPart.SingUp};
   }
-export default connect(mapStateToProps, {GetCurrentUser })(SingIn);
+export default connect(mapStateToProps, {GetCurrentUser ,ChangeSingUp})(SingIn);
