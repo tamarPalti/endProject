@@ -2,7 +2,11 @@ import 'react-bootstrap';
 import { connect } from "react-redux";
 import business from '../classes/business';
 import { useEffect, useState, useRef } from 'react';
-import { GetAllBusiness, SaveResultBusiness, SearchBusiness, DeleteResultBusiness, ChangeColorName } from '../../actions/index';
+import {
+    GetAllBusiness, SaveResultBusiness, SearchBusiness, DeleteResultBusiness,
+    ChangeColorName, GetCurrentUser
+} from '../../actions/index';
+
 const BusinessSearch = (props) => {
 
 
@@ -32,16 +36,18 @@ const BusinessSearch = (props) => {
             props.SearchBusiness(Business, props.AllBusiness);
         }
         else
-        props.SaveResultBusiness([]);
+            props.SaveResultBusiness([]);
     }
 
     useEffect(() => {
-        // return (
-        //     props.DeleteResultBusiness()
-        // )
+        if (!props.CurrentUser && localStorage.getItem("currentUserMail") && localStorage.getItem("currentUserPassword"))
+            props.GetCurrentUser({
+                "password": localStorage.getItem("currentUserPassword"),
+                "mail": localStorage.getItem("currentUserMail")
+            });
     }, []);
     return (<>
-        <form className="ui form">
+        {props.CurrentUser ? <form className="ui form">
             <div className="ui form">
                 <div className="two fields">
                     <div className="field">
@@ -68,7 +74,7 @@ const BusinessSearch = (props) => {
                     </div>
                 </div>
             </div>
-        </form>
+        </form> : null}
 
 
     </>);
@@ -76,6 +82,6 @@ const BusinessSearch = (props) => {
 
 const mapStateToProps = (state) => {
 
-    return { AllBusiness: state.businessPart.AllBusiness, BusinessSearch: state.businessPart.BusinessSearch };
+    return { CurrentUser: state.usersPart.CurrentUser, AllBusiness: state.businessPart.AllBusiness, BusinessSearch: state.businessPart.BusinessSearch };
 }
-export default connect(mapStateToProps, { GetAllBusiness, SaveResultBusiness, SearchBusiness, DeleteResultBusiness, ChangeColorName })(BusinessSearch);
+export default connect(mapStateToProps, { GetCurrentUser, GetAllBusiness, SaveResultBusiness, SearchBusiness, DeleteResultBusiness, ChangeColorName })(BusinessSearch);

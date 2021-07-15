@@ -46,7 +46,10 @@ export const usersReducer = (state = initialUsers, action) => {
                 ColorLastName: action.payload
             }
         case actionTypes.SING_IN:
-            localStorage.setItem("currentUser", action.payload._id);
+            localStorage.setItem("currentUser", null);
+            localStorage.setItem("currentUserPassword", action.payload.password);
+            localStorage.setItem("currentUserMail", action.payload.email );
+
             return {
                 ...state,
                 CurrentUser: action.payload
@@ -54,12 +57,12 @@ export const usersReducer = (state = initialUsers, action) => {
 
 
         case actionTypes.SING_OUT:
-            localStorage.removeItem("currentUser");
+            localStorage.setItem("currentUser",null);
             return {
                 ...state,
                 CurrentUser: null
             }
-        
+
 
 
 

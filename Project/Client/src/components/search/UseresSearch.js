@@ -38,12 +38,12 @@ const UsersSearch = (props) => {
     }
 
     useEffect(() => {
-        // return (
-        //     props.DeleteResultUser()
-        // )
+        if (!props.CurrentUser && localStorage.getItem("currentUserMail") && localStorage.getItem("currentUserPassword"))
+            props.GetCurrentUser({ "password": localStorage.getItem("currentUserPassword"),
+             "mail": localStorage.getItem("currentUserMail") });
     }, []);
     return (<>
-        <form className="ui form">
+       {props.CurrentUser? <form className="ui form">
             <div className="ui form">
                 <div className="two fields">
                     <div className="field">
@@ -70,11 +70,11 @@ const UsersSearch = (props) => {
                     </div>
                 </div>
             </div>
-        </form>
+        </form>:null}
     </>);
 }
 const mapStateToProps = (state) => {
 
-    return { AllUsers: state.usersPart.AllUsers, UserSearch: state.usersPart.UserSearch };
+    return { CurrentUser:state.usersPart.CurrentUser,  AllUsers: state.usersPart.AllUsers, UserSearch: state.usersPart.UserSearch };
 }
 export default connect(mapStateToProps, { GetAllUsers, SaveResultUsers, SearchUsers, DeleteResultUser, ChangeColorFirstName, ChangeColorLastName })(UsersSearch);

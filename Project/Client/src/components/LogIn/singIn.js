@@ -32,7 +32,7 @@ const SingIn = (props) => {
             type='password'
             onKeyUp={(e)=>password=e.target.value}
           />
-          <Link to="Search">
+          <Link to="Search/users">
           <Button content='Login' primary onClick={() => {
             props.GetCurrentUser({ "password": password, "mail": mail })
 
@@ -43,9 +43,7 @@ const SingIn = (props) => {
 
       <Grid.Column verticalAlign='middle'>
           <Link to="SignUp">
-        <Button content='Sign up' icon='signup' size='big' onClick={()=>{
-            
-          }} />
+        <Button content='Sign up' icon='signup' size='big' onClick={()=>{}} />
           </Link>
       </Grid.Column>
     </Grid>

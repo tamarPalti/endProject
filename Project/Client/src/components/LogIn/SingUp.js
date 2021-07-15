@@ -38,6 +38,10 @@ const SingUp = (props) => {
                     </div>
                 </div>
             </div>
+            {/* <Link to="SignUp">
+        <Button content='Sign up' icon='signup' size='big' onClick={()=>{}} />
+          </Link> */}
+
         </form>
     </>);
 }

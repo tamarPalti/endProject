@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import 'semantic-ui-css/semantic.min.css';
-import { Link, Route,Switch } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 import UsersSearch from './search/UseresSearch';
 import BusinessSearch from './search/BusinessSearch';
 import Search from './search/Search';
@@ -11,17 +11,21 @@ import SignUp from './LogIn/SingUp';
 
 const Home = (props) => {
 
+    useEffect(() => {
+        // if (localStorage.getItem("currentUser"))
+        //     props.SingIn(localStorage.getItem("currentUser"));
+    })
     return (
         <div>
             <Switch>
                 <Route path={'/Search'}>
-                      <Search />
+                    <Search />
                 </Route>
                 <Route path={'/SignUp'}>
-                     <SignUp/>
+                    <SignUp />
                 </Route>
                 <Route path={'/'}>
-                    <SingIn/>
+                    <SingIn />
                 </Route>
             </Switch>
 
@@ -30,4 +34,4 @@ const Home = (props) => {
 const mapStateToProps = (state) => {
     return { CurrentUser: state.usersPart.CurrentUser };
 }
-export default connect(mapStateToProps)(Home); 
+export default connect(mapStateToProps,{})(Home); 
