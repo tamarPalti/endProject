@@ -9,7 +9,6 @@ import { connect } from "react-redux";
 import SingIn from './LogIn/singIn';
 import SingUp from './LogIn/SingUp'
 const Home = (props) => {
-    console.log("kkkk");
 
     return (
         <div>
