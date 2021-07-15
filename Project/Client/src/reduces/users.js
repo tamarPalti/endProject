@@ -5,7 +5,8 @@ const initialUsers = {
     SelectedUser: null,
     ColorFirstName: "",
     ColorLastName: "",
-    CurrentUser:null
+    CurrentUser:null,
+    SingUp:false
 }
 export const usersReducer = (state = initialUsers, action) => {
     switch (action.type) {
@@ -49,6 +50,11 @@ export const usersReducer = (state = initialUsers, action) => {
                 ...state,
                 CurrentUser: action.payload
             }
+            case actionTypes.SING_UP:
+                return{
+                    ...state,
+                    SingUp:action.payload
+                }
 
     }
     return state;
