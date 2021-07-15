@@ -4,7 +4,8 @@ const initialUsers = {
     UserSearch: null,
     SelectedUser: null,
     ColorFirstName: "",
-    ColorLastName: ""
+    ColorLastName: "",
+    CurrentUser:null
 }
 export const usersReducer = (state = initialUsers, action) => {
     switch (action.type) {
@@ -42,6 +43,11 @@ export const usersReducer = (state = initialUsers, action) => {
             return {
                 ...state,
                 ColorLastName: action.payload
+            }
+        case actionTypes.SING_IN:
+            return {
+                ...state,
+                CurrentUser: action.payload
             }
 
     }
