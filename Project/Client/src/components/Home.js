@@ -5,8 +5,8 @@ import UsersSearch from './search/UseresSearch';
 import BusinessSearch from './search/BusinessSearch';
 import Search from './search/Search';
 import { connect } from "react-redux";
+// import SingIn from './LogIn/singIn';
 import SingIn from './LogIn/singIn';
-import singIn from './LogIn/singIn';
 const Home = (props) => {
     console.log("kkkk");
 
