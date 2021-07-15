@@ -59,11 +59,7 @@ export const usersReducer = (state = initialUsers, action) => {
                 ...state,
                 CurrentUser: null
             }
-        case actionTypes.SING_UP:
-            return {
-                ...state,
-                SingUp: action.payload
-            }
+        
 
 
 
