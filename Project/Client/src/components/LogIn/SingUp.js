@@ -1,5 +1,4 @@
 import 'react-bootstrap';
-import { Button } from 'semantic-ui-react'
 import { GetAllUsers, SaveResultUsers, SearchUsers, DeleteResultUser, ChangeColorFirstName, ChangeColorLastName } from '../../actions/index';
 import user from '../classes/user';
 import { useEffect, useState, useRef } from 'react';
@@ -38,9 +37,6 @@ const SingUp = (props) => {
                         <input placeholder="Address" ref={adress} type="text"  />
                     </div>
                 </div>
-                <Button content='Login' primary onClick={() => {
-           
-          }} />
             </div>
         </form>
     </>);
