@@ -12,7 +12,7 @@ const Home = (props) => {
     return (
         <div>
     <Route path={ '/'}>  
-      if()
+      
         <SingIn /> 
     
     </Route>

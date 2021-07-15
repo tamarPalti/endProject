@@ -31,6 +31,7 @@ const SingIn = (props) => {
 
           <Button content='Login' primary onClick={()=>{
               props.GetCurrentUser({"password":password.current,"mail":mail.current})
+              
           }}/>
         </Form>
       </Grid.Column>
