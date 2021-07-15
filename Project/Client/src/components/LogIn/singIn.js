@@ -2,15 +2,15 @@ import React from 'react'
 import { Button, Divider, Form, Grid, Segment } from 'semantic-ui-react'
 import { connect } from "react-redux";
 import { Link, Route } from 'react-router-dom';
-import { useEffect, useState,useRef } from "react";
-import { GetCurrentUser} from '../../actions/index';
+import { useEffect, useState, useRef } from "react";
+import { GetCurrentUser } from '../../actions/index';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { propTypes } from 'react-bootstrap/esm/Image';
 const SingIn = (props) => {
-    let password=useRef();
-    let mail=useRef();
-    return(<Segment placeholder>
+  let password;
+  let mail;
+  return (<Segment placeholder>
     <Grid columns={2} relaxed='very' stackable>
       <Grid.Column>
         <Form>
@@ -19,20 +19,20 @@ const SingIn = (props) => {
             iconPosition='left'
             label='Username'
             placeholder='Username'
-            ref={mail}
+            onKeyUp={(e)=>mail=e.target.value}
           />
           <Form.Input
             icon='lock'
             iconPosition='left'
             label='Password'
             type='password'
-            ref={password}
+            onKeyUp={(e)=>password=e.target.value}
           />
 
-          <Button content='Login' primary onClick={()=>{
-              props.GetCurrentUser({"password":password.current,"mail":mail.current})
-              
-          }}/>
+          <Button content='Login' primary onClick={() => {
+            props.GetCurrentUser({ "password": password, "mail": mail })
+
+          }} />
         </Form>
       </Grid.Column>
 
@@ -43,9 +43,9 @@ const SingIn = (props) => {
 
     <Divider vertical>Or</Divider>
   </Segment>)
-  
+
 }
 const mapStateToProps = (state) => {
-    return {CurrentUser:state.usersPart.CurrentUser };
-  }
-export default connect(mapStateToProps, {GetCurrentUser })(SingIn);
+  return { CurrentUser: state.usersPart.CurrentUser };
+}
+export default connect(mapStateToProps, { GetCurrentUser })(SingIn);

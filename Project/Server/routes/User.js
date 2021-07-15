@@ -7,5 +7,5 @@ route.get("/:id",userController.getByPassword);
 route.post("/",userController.addUser);
 route.put("/:id",userController.updateUser);
 route.delete("/:id",userController.deleteUser);
-route.get("/getByPassword/:Password&:mail");
+route.get("/getByPassword/:password&:mail",userController.getByPasswordAndMail);
 module.exports=route;

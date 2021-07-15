@@ -13,7 +13,19 @@ export const GetAllUsers = () => {
 }
 export const GetCurrentUser = (user) => {
     return (dispatch) => {
-        axios.get(`http://localhost:4000/users/getByPassword?password=${user.password}&mail=${user.mail}`).then(succ => {
+        // { params: { password: user.password,mail:user.mail } }
+        axios.get(`http://localhost:4000/users/getByPassword/${user.password}&${user.mail}`).then(succ => {
+            console.log(succ.data);
+            if (succ.data != null)
+                dispatch(SignIn(succ.data));
+        }).catch(ee => {
+            console.log(ee.massege);
+        });
+    }
+}
+export const AddUser = (user) => {
+    return (dispatch) => {
+        axios.post("http://localhost:4000/users",user).then((succ) => {
             console.log(succ.data);
             if (succ.data != null)
                 dispatch(SignIn(succ.data));
