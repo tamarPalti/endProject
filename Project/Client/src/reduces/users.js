@@ -50,11 +50,7 @@ export const usersReducer = (state = initialUsers, action) => {
                 ...state,
                 CurrentUser: action.payload
             }
-            case actionTypes.SING_UP:
-                return{
-                    ...state,
-                    SingUp:action.payload
-                }
+
 
     }
     return state;
