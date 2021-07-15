@@ -73,6 +73,7 @@ const deleteBusiness = async (req, res) => {
     }
 
 }
+
 module.exports = {
     getAll, getByPassword, addBusiness, updateBusiness,deleteBusiness
 }

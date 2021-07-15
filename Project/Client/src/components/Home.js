@@ -5,12 +5,13 @@ import UsersSearch from './search/UseresSearch';
 import BusinessSearch from './search/BusinessSearch';
 import Search from './search/Search';
 import { connect } from "react-redux";
+import SingIn from './LogIn/singIn';
 const Home = (props) => {
     console.log("kkkk");
     
     return (
         <div>
-    <Route path={ '/search'}>  <Search /> </Route>
+    <Route path={ '/search'}>  <SingIn /> </Route>
     
     </div> );
 }

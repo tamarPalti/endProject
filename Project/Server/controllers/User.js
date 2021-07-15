@@ -68,22 +68,19 @@ const deleteUser = async (req, res) => {
         return res.status(400);
 
     }
-
 }
-// const addUserToHistory =async (req,res)=>
-// {
-//     let User = new Users(req.body);
-//     try {
-//         let user = await Users.findOne({ "email": newUser.email });
-//         if (user)
-//             return res.status(404).send("מצטערים כבר קיים במערכת");
-//         await newUser.save();
-//         return res.send(newUser);
-//     }
-//     catch (err) {
-//         return res.status(400).send(err.message);
-//     }
-// }
+const getByPasswordAndMail = async (req, res) => {
+    const { password, mail } = req.params;
+    try {
+        const user = await Users.findOne({ "password": password, "email": mail });
+        if (!user)
+            return res.status(404).send("sorry no such user");
+        return res.send(user).status();
+}
+    catch{
+        return res.status(400);
+    }
+}
 module.exports = {
-    getAll, getByPassword, addUser, updateUser,deleteUser
+    getAll, getByPassword, addUser, updateUser, deleteUser,getByPasswordAndMail
 }
