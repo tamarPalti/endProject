@@ -19,11 +19,9 @@ const SingIn = (props) => {
             icon='user'
             iconPosition='left'
             label='Username'
-<<<<<<< HEAD
+
             placeholder='Mail'
-=======
-            placeholder='Username'
->>>>>>> parent of 775bc96 (change in login)
+
             onKeyUp={(e)=>mail=e.target.value}
           />
           <Form.Input
