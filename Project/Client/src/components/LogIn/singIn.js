@@ -20,6 +20,7 @@ const SingIn = (props) => {
             iconPosition='left'
             label='Username'
 
+
             placeholder='Mail'
 
             onKeyUp={(e)=>mail=e.target.value}
