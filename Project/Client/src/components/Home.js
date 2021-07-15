@@ -11,11 +11,15 @@ const Home = (props) => {
     
     return (
         <div>
-    <Route path={ '/search'}>  <SingIn /> </Route>
+    <Route path={ '/'}>  
+      if()
+        <SingIn /> 
+    
+    </Route>
     
     </div> );
 }
 const mapStateToProps = (state) => {
-    return {  };
+    return {CurrentUser:state.usersPart.CurrentUser   };
 }
 export default connect(mapStateToProps)(Home); 
