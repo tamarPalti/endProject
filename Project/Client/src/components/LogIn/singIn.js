@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { Link, Route } from 'react-router-dom';
 import { useEffect, useState,useRef } from "react";
 import { } from '../../actions/index';
-import ico from './img/alex.png'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 const SingIn = () => {
