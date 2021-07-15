@@ -3,15 +3,10 @@ import { Button, Divider, Form, Grid, Segment } from 'semantic-ui-react'
 import { connect } from "react-redux";
 import { Link, Route } from 'react-router-dom';
 import { useEffect, useState,useRef } from "react";
-<<<<<<< HEAD
 import { } from '../../actions/index';
-=======
-import { GetCurrentUser} from '../../actions/index';
->>>>>>> 4424f6097e88c845d7a6ae6f650e27c7419cd04d
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { propTypes } from 'react-bootstrap/esm/Image';
-const SingIn = (props) => {
+const SingIn = () => {
     let password=useRef();
     let mail=useRef();
     return(<Segment placeholder>
@@ -33,9 +28,7 @@ const SingIn = (props) => {
             ref={password}
           />
 
-          <Button content='Login' primary onClick={()=>{
-              props.GetCurrentUser({"password":password.current,"mail":mail.current})
-          }}/>
+          <Button content='Login' primary onClick=""/>
         </Form>
       </Grid.Column>
 
@@ -49,6 +42,6 @@ const SingIn = (props) => {
   
 }
 const mapStateToProps = (state) => {
-    return {CurrentUser:state.usersPart.CurrentUser };
+    return {  };
   }
-export default connect(mapStateToProps, {GetCurrentUser })(SingIn);
+export default connect(mapStateToProps, { })(SingIn);
