@@ -25,13 +25,13 @@
     left: 0vw;
     width: 16vw;
 }
-.place_result{
-    width: 20vw;
+.place_result {
+    width: 59%;
     background-color: white;
-    height: 67vh;
+    height: 66vh;
     position: relative;
     left: 46vw;
-    top: -26em;
+    bottom: 50vh;
     border-collapse: collapse;
     border-radius: 2vw;
     overflow: auto;
@@ -53,15 +53,42 @@
 .ui.divided.list>.item {
     border-top: 0;
 }
-@media (max-width: 1280px){
+@media (max-width: 1140px){
 .serach_div{
-    width: 79%;
+    width: 79vw;
+    height: 72vh;
 }
 .place_search{
     margin-left: -23.2vw;
 }
+  .place_result{
+    position: initial;
+    width: 100%;
+    margin-top: 131px;
 }
-@media (max-width: 992px){
+}
 
+@media (max-width: 779px){
+    .serach_div{
+        width: 75vw;
+        height: 89vh;
+    }
+    .place_search{
+        margin-left: -23.2vw;
+    }
+    .place_result {
+        position: initial;
+        margin-top: 79px;
+    }
+  
+}
 
+.ui.list{
+    float: right;
+    margin: 0 0 0 1em;
+    width: 100%;
+    display: contents;
+}
+.right {
+    width: 100%;
 }

@@ -56,20 +56,22 @@ const User = (props) => {
 
                     </div>}
                 >
-                    {/* <Modal.Content image> */}
-                     <Image size='medium' src={ico} wrapped className="place_img" />
-                        {/* <Modal.Description  > */}
-                            <h1 className="place_name">{props.user.firstName} {props.user.lastName}</h1>
-                        {/* </Modal.Description> */}
-                       
-                    {/* </Modal.Content> */}
+                    <div className="div_content">
+
+                        <div className="name_user">
+                            <p className="place_name">{props.user.firstName} {props.user.lastName}</p>
+                        </div>
+                        <div className="img_user">
+                            <Image size='medium' src={ico} wrapped className="place_img" />
+                        </div>
+                    </div>
                     <Modal.Actions>
                         <div>
-                            <div className="div-ico"data-tooltip="הוסף לאנשי קשר">
+                            <div className="div-ico" data-tooltip="הוסף לאנשי קשר">
                                 <i class="user plus icon i" ></i>
                             </div>
-                            <div className="div-ico"data-tooltip="דווח על תקלה">
-                            <i class="exclamation triangle icon"></i>
+                            <div className="div-ico" data-tooltip="דווח על תקלה">
+                                <i class="exclamation triangle icon"></i>
                             </div>
                         </div>
 

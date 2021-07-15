@@ -3,7 +3,7 @@ import './Business.scss';
 import { SelectedBusiness, ChangeColorName } from '../../actions/index';
 import { useRef, useEffect, useState } from 'react';
 import { Link, Route } from 'react-router-dom';
-import { Button, Image, Modal,List } from 'semantic-ui-react'
+import { Button, Image, Modal, List } from 'semantic-ui-react'
 import ico from './img/alex.png'
 const Business = (props) => {
 
@@ -39,19 +39,21 @@ const Business = (props) => {
                         </div>
                     </div>}
                 >
-                    {/* <Modal.Content image>
-                        <Modal.Description  > */}
-                            <h1 className="place_name_b">{props.business.name}</h1>
-                        {/* </Modal.Description> */}
-                        <Image size='medium' src={ico} wrapped className="place_img_b" />
-                    {/* </Modal.Content> */}
+                    <div className="div_content">
+                        <div className="name_business">
+                            <p className="place_name">{props.business.name}</p>
+                        </div>
+                        <div className="img_business">
+                            <Image size='medium' src={ico} wrapped className="place_img" />
+                        </div>
+                    </div>
                     <Modal.Actions>
                         <div>
-                            <div className="div-ico"data-tooltip="הוסף לאנשי קשר">
+                            <div className="div-ico" data-tooltip="הוסף לאנשי קשר">
                                 <i class="user plus icon i" ></i>
                             </div>
                             <div className="div-ico" data-tooltip="דווח על תקלה">
-                            <i class="exclamation triangle icon"></i>
+                                <i class="exclamation triangle icon"></i>
                             </div>
                         </div>
 
