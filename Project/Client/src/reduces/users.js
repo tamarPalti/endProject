@@ -51,7 +51,6 @@ export const usersReducer = (state = initialUsers, action) => {
                 ...state,
                 CurrentUser: action.payload
             }
-<<<<<<< HEAD
         case actionTypes.SING_OUT:
             localStorage.removeItem("currentUser");
             return {
@@ -63,9 +62,6 @@ export const usersReducer = (state = initialUsers, action) => {
                 ...state,
                 SingUp: action.payload
             }
-=======
-
->>>>>>> 775bc96ce78e2dcedfe2b73c6208908f50827973
 
     }
     return state;
