@@ -18,8 +18,8 @@ const SingIn = (props) => {
           <Form.Input
             icon='user'
             iconPosition='left'
-            label='Username'
-            placeholder='Username'
+            label='Email'
+            placeholder='Mail'
             onKeyUp={(e)=>mail=e.target.value}
           />
           <Form.Input

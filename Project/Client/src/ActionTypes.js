@@ -8,7 +8,7 @@ export const CHANGE_COLOR_FIRST_NAME="CHANGE_COLOR_FIRST_NAME";
 export const CHANGE_COLOR_LAST_NAME="CHANGE_COLOR_LAST_NAME";
 export const SING_IN="SING_IN";
 export const SING_UP="SING_UP";
-
+export const SING_OUT="SING_OUT";
 
 
 //////////////BUSINESS////////////////////
