@@ -75,12 +75,13 @@ const getByPasswordAndMail = async (req, res) => {
         const user = await Users.findOne({ "password": password, "email": mail });
         if (!user)
             return res.status(404).send("sorry no such user");
+        
         return res.send(user).status();
-}
+    }
     catch{
         return res.status(400);
     }
 }
 module.exports = {
-    getAll, getByPassword, addUser, updateUser, deleteUser,getByPasswordAndMail
+    getAll, getByPassword, addUser, updateUser, deleteUser, getByPasswordAndMail
 }

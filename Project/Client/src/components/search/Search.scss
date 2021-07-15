@@ -54,6 +54,9 @@
     border-top: 0;
 }
 @media (max-width: 1140px){
+    .back-search{
+        background-image:url("./img/backeground2.png");
+    }
 .serach_div{
     width: 79vw;
     height: 72vh;
@@ -69,6 +72,9 @@
 }
 
 @media (max-width: 779px){
+    .back-search{
+        background-image:url("./img/backeground2.png");
+    }
     .serach_div{
         width: 75vw;
         height: 89vh;

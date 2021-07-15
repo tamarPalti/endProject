@@ -5,8 +5,8 @@ const initialUsers = {
     SelectedUser: null,
     ColorFirstName: "",
     ColorLastName: "",
-    CurrentUser:null,
-    SingUp:false
+    CurrentUser: null,
+    SingUp: false
 }
 export const usersReducer = (state = initialUsers, action) => {
     switch (action.type) {
@@ -46,10 +46,25 @@ export const usersReducer = (state = initialUsers, action) => {
                 ColorLastName: action.payload
             }
         case actionTypes.SING_IN:
+            localStorage.setItem("currentUser", action.payload._id);
             return {
                 ...state,
                 CurrentUser: action.payload
             }
+
+
+        case actionTypes.SING_OUT:
+            localStorage.removeItem("currentUser");
+            return {
+                ...state,
+                CurrentUser: null
+            }
+        case actionTypes.SING_UP:
+            return {
+                ...state,
+                SingUp: action.payload
+            }
+
 
 
     }
