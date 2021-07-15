@@ -11,6 +11,17 @@ export const GetAllUsers = () => {
         });
     }
 }
+export const GetCurrentUser = (user) => {
+    return (dispatch) => {
+        axios.get(`http://localhost:4000/users/getByPassword?password=${user.password}&mail=${user.mail}`).then(succ => {
+            console.log(succ.data);
+            if (succ.data != null)
+                dispatch(SignIn(succ.data));
+        }).catch(ee => {
+            console.log(ee.massege);
+        });
+    }
+}
 export const SearchUsers = (user, allUsers) => {
     return (dispatch) => {
         let firstName = user.firstName || "";
@@ -69,5 +80,11 @@ export const ChangeColorLastName = (name) => {
     return {
         type: actionTypes.CHANGE_COLOR_LAST_NAME,
         payload: name
+    }
+}
+export const SignIn = (user) => {
+    return {
+        type: actionTypes.SING_IN,
+        payload: user
     }
 }

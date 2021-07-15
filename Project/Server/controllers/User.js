@@ -41,7 +41,7 @@ const updateUser = async (req, res) => {
     try {
         const user = await Users.findOne({ "_id": id });
         if (!user)
-            return res.status(404).send("sorry no such user");
+            return res.status(404).send("מצטערים לא נמצא משתמש עם המזהה שהתקבל");
         user.firstName = userBody.firstName || user.firstName;
         user.lastName = userBody.lastName || user.lastName;
         user.phoneNamber = userBody.phoneNamber || user.phoneNamber;
@@ -61,7 +61,7 @@ const deleteUser = async (req, res) => {
     try {
         const user = await Users.findOneAndDelete({ "_id": id });
         if (!user)
-            return res.status(404).send("sorry no such user");
+            return res.status(404).send("מצטערים לא נמצא משתמש עם המזהה שהתקבל");
         return res.send(user).status();
     }
     catch{
@@ -70,6 +70,7 @@ const deleteUser = async (req, res) => {
     }
 
 }
+
 // const addUserToHistory =async (req,res)=>
 // {
 //     let User = new Users(req.body);
