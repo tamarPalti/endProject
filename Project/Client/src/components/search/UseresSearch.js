@@ -3,6 +3,7 @@ import { GetAllUsers, SaveResultUsers, SearchUsers, DeleteResultUser, ChangeColo
 import user from '../classes/user';
 import { useEffect, useState, useRef } from 'react';
 import { connect } from "react-redux";
+import { Redirect, useHistory, useLocation } from 'react-router-dom';
 const UsersSearch = (props) => {
 
     let firstName = useRef();
@@ -38,12 +39,9 @@ const UsersSearch = (props) => {
     }
 
     useEffect(() => {
-        if (!props.CurrentUser && localStorage.getItem("currentUserMail") && localStorage.getItem("currentUserPassword"))
-            props.GetCurrentUser({ "password": localStorage.getItem("currentUserPassword"),
-             "mail": localStorage.getItem("currentUserMail") });
     }, []);
     return (<>
-       {props.CurrentUser? <form className="ui form">
+        {localStorage.getItem("currentUserMail") !="null" ? <form className="ui form">
             <div className="ui form">
                 <div className="two fields">
                     <div className="field">
@@ -70,11 +68,11 @@ const UsersSearch = (props) => {
                     </div>
                 </div>
             </div>
-        </form>:null}
+        </form> : <Redirect to={'/'} />}
     </>);
 }
 const mapStateToProps = (state) => {
 
-    return { CurrentUser:state.usersPart.CurrentUser,  AllUsers: state.usersPart.AllUsers, UserSearch: state.usersPart.UserSearch };
+    return { CurrentUser: state.usersPart.CurrentUser, AllUsers: state.usersPart.AllUsers, UserSearch: state.usersPart.UserSearch };
 }
 export default connect(mapStateToProps, { GetAllUsers, SaveResultUsers, SearchUsers, DeleteResultUser, ChangeColorFirstName, ChangeColorLastName })(UsersSearch);

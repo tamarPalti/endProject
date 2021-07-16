@@ -12,20 +12,18 @@ export const GetAllUsers = () => {
     }
 }
 export const GetCurrentUser = (user) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         // { params: { password: user.password,mail:user.mail } }
-        axios.get(`http://localhost:4000/users/getByPassword/${user.password}&${user.mail}`).then(succ => {
-            console.log(succ.data);
-            if (succ.data != null)
-                dispatch(SignIn(succ.data));
-        }).catch(ee => {
-            console.log(ee.massege);
-        });
+        let succ = await axios.get(`http://localhost:4000/users/getByPassword/${user.password}&${user.mail}`);
+
+        if (succ.data != null)
+            dispatch(SignIn(succ.data));
+
     }
 }
 export const AddUser = (user) => {
     return (dispatch) => {
-        axios.post("http://localhost:4000/users",user).then((succ) => {
+        axios.post("http://localhost:4000/users", user).then((succ) => {
             console.log(succ.data);
             if (succ.data != null)
                 dispatch(SignIn(succ.data));
@@ -100,3 +98,10 @@ export const SignIn = (user) => {
         payload: user
     }
 }
+export const SignOut = () => {
+    return {
+        type: actionTypes.SING_OUT,
+        payload: null
+    }
+}
+

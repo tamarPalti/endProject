@@ -66,7 +66,6 @@ const deleteUser = async (req, res) => {
     }
     catch{
         return res.status(400);
-
     }
 }
 const getByPasswordAndMail = async (req, res) => {

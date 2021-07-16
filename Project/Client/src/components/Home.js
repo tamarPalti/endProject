@@ -24,7 +24,7 @@ const Home = (props) => {
                 <Route path={'/SignUp'}>
                     <SignUp />
                 </Route>
-                <Route path={'/'}>
+                <Route exact path={'/'}>
                     <SingIn />
                 </Route>
             </Switch>

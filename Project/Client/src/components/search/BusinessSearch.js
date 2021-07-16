@@ -6,6 +6,7 @@ import {
     GetAllBusiness, SaveResultBusiness, SearchBusiness, DeleteResultBusiness,
     ChangeColorName, GetCurrentUser
 } from '../../actions/index';
+import { Redirect, useHistory, useLocation } from 'react-router-dom';
 
 const BusinessSearch = (props) => {
 
@@ -40,14 +41,9 @@ const BusinessSearch = (props) => {
     }
 
     useEffect(() => {
-        if (!props.CurrentUser && localStorage.getItem("currentUserMail") && localStorage.getItem("currentUserPassword"))
-            props.GetCurrentUser({
-                "password": localStorage.getItem("currentUserPassword"),
-                "mail": localStorage.getItem("currentUserMail")
-            });
     }, []);
     return (<>
-        {props.CurrentUser ? <form className="ui form">
+        {localStorage.getItem("currentUserMail") !="null" ? <form className="ui form">
             <div className="ui form">
                 <div className="two fields">
                     <div className="field">
@@ -74,7 +70,7 @@ const BusinessSearch = (props) => {
                     </div>
                 </div>
             </div>
-        </form> : null}
+        </form> : <Redirect to={'/'} />}
 
 
     </>);

@@ -2,15 +2,29 @@ import React from 'react'
 import { Button, Divider, Form, Grid, Segment } from 'semantic-ui-react'
 import { connect } from "react-redux";
 import { Link, Route } from 'react-router-dom';
-import { useEffect, useState,useRef } from "react";
-import { GetCurrentUser} from '../../actions/index';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState, useRef } from "react";
+import { GetCurrentUser, SignOut } from '../../actions/index';
+import { useParams, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { propTypes } from 'react-bootstrap/esm/Image';
 import SingUp from './SingUp';
 const SingIn = (props) => {
+
+
   let password;
   let mail;
+
+  useEffect(() => {
+    // props.SignOut();
+  })
+  const GetCurrentUser = async () => {
+    await props.GetCurrentUser({ "password": password, "mail": mail });
+    // return <Redirect to={{ pathname: "/Search" }}/>;
+
+  }
+  if(props.CurrentUser)
+    return <Redirect to={{ pathname: "/Search" }}/>;
+
   return (<Segment placeholder>
     <Grid columns={2} relaxed='very' stackable>
       <Grid.Column>
@@ -23,28 +37,28 @@ const SingIn = (props) => {
 
             placeholder='Mail'
 
-            onKeyUp={(e)=>mail=e.target.value}
+            onKeyUp={(e) => mail = e.target.value}
           />
           <Form.Input
             icon='lock'
             iconPosition='left'
             label='Password'
             type='password'
-            onKeyUp={(e)=>password=e.target.value}
+            onKeyUp={(e) => password = e.target.value}
           />
-          <Link to="Search/users">
-          <Button content='Login' primary onClick={() => {
-            props.GetCurrentUser({ "password": password, "mail": mail })
-
-          }} />
-            </Link>
+          {/* <Link to="Search/users"> */}
+          <Button content='Login' primary onClick={
+            async () => {
+              await GetCurrentUser();
+            }}/>
+          {/* </Lisnk> */}
         </Form>
       </Grid.Column>
 
       <Grid.Column verticalAlign='middle'>
-          <Link to="SignUp">
-        <Button content='Sign up' icon='signup' size='big' onClick={()=>{}} />
-          </Link>
+        <Link to="SignUp">
+          <Button content='Sign up' icon='signup' size='big' onClick={() => { }} />
+        </Link>
       </Grid.Column>
     </Grid>
 
@@ -54,7 +68,7 @@ const SingIn = (props) => {
 }
 const mapStateToProps = (state) => {
 
-    return {CurrentUser:state.usersPart.CurrentUser ,SingUp:state.usersPart.SingUp};
-  }
-export default connect(mapStateToProps, {GetCurrentUser })(SingIn);
+  return { CurrentUser: state.usersPart.CurrentUser, SingUp: state.usersPart.SingUp };
+}
+export default connect(mapStateToProps, { GetCurrentUser, SignOut })(SingIn);
 
