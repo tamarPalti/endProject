@@ -16,7 +16,7 @@ export const GetCurrentUser = (user) => {
         // { params: { password: user.password,mail:user.mail } }
         let succ = await axios.get(`http://localhost:4000/users/getByPassword/${user.password}&${user.mail}`);
 
-        if (succ.data != null)
+        if (typeof(succ.data)!="string")
             dispatch(SignIn(succ.data));
 
     }
