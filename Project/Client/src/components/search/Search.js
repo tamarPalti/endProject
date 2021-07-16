@@ -14,13 +14,6 @@ const Search = (props) => {
 
     let users = React.createRef();
     let business = React.createRef();
-    // if (!props.CurrentUser && localStorage.getItem("currentUserMail") && localStorage.getItem("currentUserPassword"))
-    //     props.GetCurrentUser({
-    //         "password": localStorage.getItem("currentUserPassword"),
-    //         "mail": localStorage.getItem("currentUserMail")
-    //     });
-    // else
-    //     return <Redirect to={'/'} />
     // useEffect(() => {
 
 

@@ -15,16 +15,17 @@ const SingIn = (props) => {
   let password;
   let mail;
   const [login, setlogin] = useState(false);
+  const [first, setfirst] = useState(false);
   useEffect(() => {
 
-
-  })
+  },[])
   const GetCurrentUser = async () => {
     await props.GetCurrentUser({ "password": password, "mail": mail });
     if (!props.CurrentUser)
       setlogin(true);
+
   }
-  if (props.CurrentUser)
+  if ( props.CurrentUser)
     return <Redirect to={{ pathname: "/Search" }} />;
 
 
@@ -50,7 +51,7 @@ const SingIn = (props) => {
             type='password'
             onKeyUp={(e) => password = e.target.value}
           />
-          <Button content='Login'  onClick={
+          <Button content='Login' onClick={
             async () => {
               await GetCurrentUser();
             }} />
