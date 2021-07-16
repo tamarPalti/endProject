@@ -28,7 +28,8 @@ const SingIn = (props) => {
     return <Redirect to={{ pathname: "/Search" }} />;
 
 
-  return (<Segment placeholder>
+  return (<div className="back-singIn">
+  <Segment placeholder >
     <Grid columns={2} relaxed='very' stackable>
       <Grid.Column>
         <Form>
@@ -65,7 +66,8 @@ const SingIn = (props) => {
     </Grid>
 
     <Divider vertical>Or</Divider>
-  </Segment>)
+  </Segment>
+  </div>)
 
 }
 const mapStateToProps = (state) => {
