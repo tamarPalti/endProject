@@ -61,7 +61,7 @@ const deleteUser = async (req, res) => {
     try {
         const user = await Users.findOneAndDelete({ "_id": id });
         if (!user)
-            return res.status(404).send("sorry no such user");
+            return res.send("sorry no such user").status(404);
         return res.send(user).status();
     }
     catch{
@@ -73,9 +73,10 @@ const getByPasswordAndMail = async (req, res) => {
     try {
         const user = await Users.findOne({ "password": password, "email": mail });
         if (!user)
-            return res.status(404).send("sorry no such user");
-        
-        return res.send(user).status();
+            return res.send("sorry no such user").status(300);
+
+        else
+            return res.send(user).status();
     }
     catch{
         return res.status(400);

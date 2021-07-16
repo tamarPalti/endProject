@@ -8,22 +8,25 @@ import { useParams, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { propTypes } from 'react-bootstrap/esm/Image';
 import SingUp from './SingUp';
+import './SignIn.scss';
 const SingIn = (props) => {
 
 
   let password;
   let mail;
-
+  const [login, setlogin] = useState(false);
   useEffect(() => {
-    // props.SignOut();
+
+
   })
   const GetCurrentUser = async () => {
     await props.GetCurrentUser({ "password": password, "mail": mail });
-    // return <Redirect to={{ pathname: "/Search" }}/>;
-
+    if (!props.CurrentUser)
+      setlogin(true);
   }
-  if(props.CurrentUser)
-    return <Redirect to={{ pathname: "/Search" }}/>;
+  if (props.CurrentUser)
+    return <Redirect to={{ pathname: "/Search" }} />;
+
 
   return (<Segment placeholder>
     <Grid columns={2} relaxed='very' stackable>
@@ -46,12 +49,11 @@ const SingIn = (props) => {
             type='password'
             onKeyUp={(e) => password = e.target.value}
           />
-          {/* <Link to="Search/users"> */}
-          <Button content='Login' primary onClick={
+          <Button content='Login'  onClick={
             async () => {
               await GetCurrentUser();
-            }}/>
-          {/* </Lisnk> */}
+            }} />
+          {login ? <p className="redError">הרשם במערכת</p> : null}
         </Form>
       </Grid.Column>
 

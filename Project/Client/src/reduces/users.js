@@ -5,6 +5,7 @@ const initialUsers = {
     SelectedUser: null,
     ColorFirstName: "",
     ColorLastName: "",
+    CurrentUser: null,
     SingUp: false
 }
 export const usersReducer = (state = initialUsers, action) => {
@@ -59,7 +60,8 @@ export const usersReducer = (state = initialUsers, action) => {
                 localStorage.setItem("currentUserPassword", null);
                 localStorage.setItem("currentUserMail", null);
             return {
-                ...state
+                ...state,
+                CurrentUser: null
             }
 
 
