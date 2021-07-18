@@ -3,6 +3,7 @@ import { GetAllUsers, SaveResultUsers, SearchUsers, DeleteResultUser, ChangeColo
 import user from '../classes/user';
 import { useEffect, useState, useRef } from 'react';
 import { connect } from "react-redux";
+import './SingUp.scss';
 const SingUp = (props) => {
 
     let firstName = useRef();
@@ -10,43 +11,44 @@ const SingUp = (props) => {
     let phoneNamber = useRef();
     let email = useRef();
     let adress = useRef();
-    return (<>
-        <form className="ui form">
-            <div className="ui form">
-                <div className="two fields">
-                    <div className="field">
-                        <label>First Name</label>
-                        <input placeholder="First Name" ref={firstName} type="text"/>
-                    </div>
-                    <div className="field">
-                        <label>Last Name</label>
-                        <input placeholder="Last Name" ref={lastName} type="text" />
-                    </div>
+    return (<div className="back-singUp">
+        <div class="ui small form">
+            <div class="two fields">
+                <div class="field">
+                    <label>First Name</label>
+                    <input placeholder="First Name" type="text" />
                 </div>
-                <div className="field">
-                    <label>Email</label>
-                    <input type="text" placeholder="Email" ref={email}  />
-                </div>
-                <div className="two fields">
-                    <div className="field">
-                        <label>Phone Number</label>
-                        <input placeholder="Phone Number" ref={phoneNamber} type="number"  />
-                    </div>
-                    <div className="field">
-                        <label>Address</label>
-                        <input placeholder="Address" ref={adress} type="text"  />
-                    </div>
+                <div class="field">
+                    <label>Last Name</label>
+                    <input placeholder="Last Name" type="text" />
                 </div>
             </div>
-            {/* <Link to="SignUp">
-        <Button content='Sign up' icon='signup' size='big' onClick={()=>{}} />
-          </Link> */}
-
-        </form>
-    </>);
+            <div class="two fields">
+                <div class="field">
+                    <label>Phone</label>
+                    <input placeholder="Phone" type="text" />
+                </div>
+                <div class="field">
+                    <label>Mail</label>
+                    <input placeholder="Mail" type="text" />
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label>Address</label>
+                    <input placeholder="Address" type="text" />
+                </div>
+                <div class="field">
+                    <label>Image</label>
+                    <input placeholder="Image" type="text" />
+                </div>
+            </div>
+            <div class="ui submit button">Submit</div>
+        </div>
+    </div>);
 }
 const mapStateToProps = (state) => {
 
-    return { };
+    return {};
 }
-export default connect(mapStateToProps, {  })(SingUp);
+export default connect(mapStateToProps, {})(SingUp);
