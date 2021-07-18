@@ -31,7 +31,7 @@ const Search = (props) => {
         users.current.classList.remove("teal");
     }
     return (<>
-        {localStorage.getItem("currentUserMail") !="null"? <div className="back-search">
+        {props.CurrentUser ? <div className="back-search">
             <div className="ui pointing menu three serach_div">
                 <Link to="/search/users" className="div_link">
                     <a className="item sizetab item-user" ref={users} onClick={(e) => ChangeButtonUsers(e)}>
@@ -45,21 +45,23 @@ const Search = (props) => {
                 </Link>
                 <div className="place_search">
                     <Route path="/search/users">
-                        <UsersSearch />
-                        <div className="place_result">
-                            <ResultSearchUser />
-                        </div>
+                        {props.CurrentUser ? <>
+                            <UsersSearch />
+                            <div className="place_result">
+                                <ResultSearchUser />
+                            </div></> : <Redirect to={'/'} />}
                     </Route>
                     <Route path="/search/business">
-                        <BusinessSearch />
-                        <div className="place_result">
-                            <ResultSearchBusiness />
-                        </div>
+                        {props.CurrentUser ? <>
+                            <BusinessSearch />
+                            <div className="place_result">
+                                <ResultSearchBusiness />
+                            </div></> : <Redirect to={'/'} />}
                     </Route>
                 </div>
             </div>
 
-        </div> :  <Redirect to={'/'} />}</>);
+        </div> : <Redirect to={'/'} />}</>);
 }
 const mapStateToProps = (state) => {
     return { CurrentUser: state.usersPart.CurrentUser };
