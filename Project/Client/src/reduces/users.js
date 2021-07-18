@@ -1,11 +1,12 @@
 import * as actionTypes from '../ActionTypes'
+import {GetCurrentUser}from '../util/index';
 const initialUsers = {
     AllUsers: [],
     UserSearch: null,
     SelectedUser: null,
     ColorFirstName: "",
     ColorLastName: "",
-    CurrentUser: null,
+    CurrentUser: GetCurrentUser(),
     SingUp: false
 }
 export const usersReducer = (state = initialUsers, action) => {
