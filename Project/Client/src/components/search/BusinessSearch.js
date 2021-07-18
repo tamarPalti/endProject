@@ -43,7 +43,7 @@ const BusinessSearch = (props) => {
     useEffect(() => {
     }, []);
     return (<>
-        {localStorage.getItem("currentUserMail") !="null" ? <form className="ui form">
+        {<form className="ui form">
             <div className="ui form">
                 <div className="two fields">
                     <div className="field">
@@ -70,7 +70,7 @@ const BusinessSearch = (props) => {
                     </div>
                 </div>
             </div>
-        </form> : <Redirect to={'/'} />}
+        </form>}
 
 
     </>);

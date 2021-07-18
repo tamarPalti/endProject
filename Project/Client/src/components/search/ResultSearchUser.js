@@ -9,10 +9,10 @@ const ResultSearchUser = (props) => {
     useEffect(() => {
     }, []);
     return (<>
-        {localStorage.getItem("currentUserMail") !="null" ? <List divided verticalAlign='middle'>
+        {<List divided verticalAlign='middle'>
             {props.UserSearch&&props.UserSearch.map((item) => {
                 return (<User key={item._id} user={item} />);
-            })} </List> : <Redirect to={'/'} />}
+            })} </List>}
     </>);
 }
 const mapStateToProps = (state) => {

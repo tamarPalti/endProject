@@ -9,10 +9,10 @@ const ResultSearchBusiness = (props) => {
     useEffect(() => {
     }, []);
     return (<>
-        {localStorage.getItem("currentUserMail") !="null" ? <List divided verticalAlign='middle'>
+        {<List divided verticalAlign='middle'>
             {props.BusinessSearch && props.BusinessSearch.map((item) => {
                 return (<Business key={item._id} business={item} />);
-            })}</List> : <Redirect to={'/'} />}
+            })}</List>}
     </>);
 }
 const mapStateToProps = (state) => {
