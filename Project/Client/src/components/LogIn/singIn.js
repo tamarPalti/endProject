@@ -15,59 +15,57 @@ const SingIn = (props) => {
   let password;
   let mail;
   const [login, setlogin] = useState(false);
-  const [first, setfirst] = useState(false);
   useEffect(() => {
 
-  },[])
+  }, [])
   const GetCurrentUser = async () => {
     await props.GetCurrentUser({ "password": password, "mail": mail });
     if (!props.CurrentUser)
       setlogin(true);
-
   }
-  if ( props.CurrentUser)
+  if (props.CurrentUser)
     return <Redirect to={{ pathname: "/Search" }} />;
 
 
   return (<div className="back-singIn">
-  <Segment placeholder >
-    <Grid columns={2} relaxed='very' stackable>
-      <Grid.Column>
-        <Form>
-          <Form.Input
-            icon='user'
-            iconPosition='left'
-            label='Mail'
+    <Segment placeholder >
+      <Grid columns={2} relaxed='very' stackable>
+        <Grid.Column>
+          <Form>
+            <Form.Input
+              icon='user'
+              iconPosition='left'
+              label='Mail'
 
 
-            placeholder='Mail'
+              placeholder='Mail'
 
-            onKeyUp={(e) => mail = e.target.value}
-          />
-          <Form.Input
-            icon='lock'
-            iconPosition='left'
-            label='Password'
-            type='password'
-            onKeyUp={(e) => password = e.target.value}
-          />
-          <Button content='Login' onClick={
-            async () => {
-              await GetCurrentUser();
-            }} />
-          {login ? <p className="redError">הרשם במערכת</p> : null}
-        </Form>
-      </Grid.Column>
+              onKeyUp={(e) => mail = e.target.value}
+            />
+            <Form.Input
+              icon='lock'
+              iconPosition='left'
+              label='Password'
+              type='password'
+              onKeyUp={(e) => password = e.target.value}
+            />
+            <Button content='Login' onClick={
+              async () => {
+                await GetCurrentUser();
+              }} />
+            {login ? <p className="redError">הרשם במערכת</p> : null}
+          </Form>
+        </Grid.Column>
 
-      <Grid.Column verticalAlign='middle'>
-        <Link to="SignUp">
-          <Button content='Sign up' icon='signup' size='big' onClick={() => { }} />
-        </Link>
-      </Grid.Column>
-    </Grid>
+        <Grid.Column verticalAlign='middle'>
+          <Link to="SignUp">
+            <Button content='Sign up' icon='signup' size='big' onClick={() => { }} />
+          </Link>
+        </Grid.Column>
+      </Grid>
 
-    <Divider vertical>Or</Divider>
-  </Segment>
+      <Divider vertical>Or</Divider>
+    </Segment>
   </div>)
 
 }
