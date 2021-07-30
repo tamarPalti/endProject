@@ -4,6 +4,8 @@ import user from '../classes/user';
 import { useEffect, useState, useRef } from 'react';
 import { connect } from "react-redux";
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
+import ResultSearchUser from './ResultSearchUser';
+
 const UsersSearch = (props) => {
 
     let firstName = useRef();
@@ -68,7 +70,8 @@ const UsersSearch = (props) => {
                     </div>
                 </div>
             </div>
-        </form>}
+        </form>
+                   }
     </>);
 }
 const mapStateToProps = (state) => {

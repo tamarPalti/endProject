@@ -1,1 +1,8 @@
 @import '~mdb-ui-kit/css/mdb.min.css';
+.chip{
+    background-color: darkcyan;
+}.highlightOption{
+    background-color: gray;
+}.highlightOption :hover{
+    background-color: gray;
+}
