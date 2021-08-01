@@ -7,7 +7,10 @@ import {
     ChangeColorName, GetCurrentUser
 } from '../../actions/index';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
-
+import { Multiselect } from "multiselect-react-dropdown";
+import './BusinessSearch.scss'
+import ResultSearchBusiness from './ResultSearchBusiness';
+import axios from 'axios';
 const BusinessSearch = (props) => {
 
 
@@ -16,6 +19,13 @@ const BusinessSearch = (props) => {
     let email = useRef();
     let adress = useRef();
     let listCategory = useRef();
+    const [categoriesArr, setCategoriesArr] = useState([]);
+    const getAllCategories=()=>{
+        axios.get("http://localhost:4000/categories").then(scss=>{
+            let arrName=scss.data.map((data)=>data.name);
+            setCategoriesArr(arrName);
+        });
+    }
     // props.AllUsers פעם ראשונה שמבקר באתר נשלף כל המשתמשים למערך
     if (props.AllBusiness.length == 0)
         props.GetAllBusiness();
@@ -31,7 +41,7 @@ const BusinessSearch = (props) => {
         Business.phoneNamber = phoneNamber.current.value;
         Business.email = email.current.value;
         Business.adress = adress.current.value;
-        Business.listCategory = listCategory.current.value;
+        Business.listCategory = listCategory.current.getSelectedItems();
         if (Business.name || Business.phoneNamber || Business.email || Business.adress || Business.listCategory) {
             props.ChangeColorName(Business.name);
             props.SearchBusiness(Business, props.AllBusiness);
@@ -41,6 +51,7 @@ const BusinessSearch = (props) => {
     }
 
     useEffect(() => {
+        getAllCategories();
     }, []);
     return (<>
         {<form className="ui form">
@@ -66,9 +77,17 @@ const BusinessSearch = (props) => {
                     </div>
                     <div className="field">
                         <label>Category</label>
-                        <input placeholder="category" type="text" ref={listCategory} type="text" onKeyUp={searchBusiness} />
+                        <Multiselect
+                            options={categoriesArr?categoriesArr:[]}
+                            isObject={false}
+                            ref={listCategory} type="text" 
+                            onSelect={searchBusiness}
+                            onRemove={searchBusiness}
+                        />
+                        {/* <input placeholder="category" type="text" ref={listCategory} type="text" onKeyUp={searchBusiness} /> */}
                     </div>
                 </div>
+
             </div>
         </form>}
 

@@ -6,7 +6,8 @@
 
     max-width: 69%;
 
-}.ui.placeholder.segment {
+}
+.ui.placeholder.segment {
     margin-top: 13%;
     padding-right: 2%;
     padding-left: 0%;
@@ -19,4 +20,16 @@
     position: absolute;
     width: 100vw;
     height: 100vh;
+}.makeStyles-submit-6 {
+    color: #fff;
+    background-color: #e860ff;
+}.makeStyles-submit-6:hover {
+    color: #fff;
+    background-color: #e860ff;
+}.makeStyles-image-2 {
+    background-image: url("./img/back.png");
+
+}.MuiButton-contained {
+    color: rgba(0, 0, 0, 0.87);
+    background-color: #e860ff;
 }
