@@ -3,8 +3,10 @@ import './Business.scss';
 import { SelectedBusiness, ChangeColorName } from '../../actions/index';
 import { useRef, useEffect, useState } from 'react';
 import { Link, Route } from 'react-router-dom';
-import { Button, Image, Modal, List } from 'semantic-ui-react'
-import ico from './img/alex.png'
+import { Button, Image, Modal, List } from 'semantic-ui-react';
+import ico from './img/alex.png';
+import { AddHistoryBusiness } from '../../util/index';
+
 const Business = (props) => {
 
     const [open, setOpen] = useState(false)
@@ -26,7 +28,10 @@ const Business = (props) => {
                     onOpen={() => setOpen(true)}
                     open={open}
                     trigger={<div>
-                        <div className="place_business" onClick={() => props.SelectedBusiness(props.business)}>
+                        <div className="place_business" onClick={() => {
+                            props.SelectedBusiness(props.business)
+                            AddHistoryBusiness(localStorage.getItem("currentUserId"), props.business._id)
+                            }}>
                             <p className="display">&nbsp;</p>
                             <p className="display">{checkName(props.business.name) ? start : end}</p>
                             {!checkName(props.business.name) && (end[0] == ' ' || props.ColorName[props.ColorName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}

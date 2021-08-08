@@ -1,5 +1,5 @@
 import axios from 'axios';
-export const GetCurrentUser =async () => {
+export const GetCurrentUser = async () => {
     // if (localStorage.getItem("currentUserMail") != "null")
     //     return { "password": localStorage.getItem("currentUserPassword"), "mail": localStorage.getItem("currentUserMail") }
     // else
@@ -23,8 +23,13 @@ export const GetCurrentUser =async () => {
     return null;
 
 }
-export const AddHistory=async(currentId,userId)=>{
+export const AddHistory = async (currentId, userId) => {
 
-axios.put(`http://localhost:4000/users/addToHistory/${currentId}&${userId}`);
-    
+    axios.put(`http://localhost:4000/users/addToHistory/${currentId}&${userId}`);
+
+}
+export const AddHistoryBusiness = async (currentId, businessId) => {
+
+    axios.put(`http://localhost:4000/users/addToHistoryBusiness/${currentId}&${businessId}`);
+
 }

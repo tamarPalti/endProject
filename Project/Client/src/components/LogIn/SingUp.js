@@ -75,8 +75,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { connect } from "react-redux";
 import { AddUser } from '../../actions/index';
-import { useRef } from 'react';
-import user from '../classes/user'
+import user from '../classes/user';
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -112,16 +112,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SignUp() {
+function SignUp(props) {
   const classes = useStyles();
 
-  let user = new user();
-  // let firstName = useRef();
-  // let lastName = useRef();
-  // let email = useRef();
-  // let password = useRef();
-  // let phone = useRef();
+  let currentUser = new user();
 
+  AddUser = () => {
+    props.AddUser(currentUser);
+  }
 
 
   return (
@@ -235,4 +233,4 @@ const mapStateToProps = (state) => {
 
   return {};
 }
-export default connect(mapStateToProps, {})(SignUp);
+export default connect(mapStateToProps, { AddUser })(SignUp);

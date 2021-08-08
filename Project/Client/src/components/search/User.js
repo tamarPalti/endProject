@@ -3,10 +3,11 @@ import './User.scss';
 import { SelectedUser, ChangeColorFirstName, ChangeColorLastName } from '../../actions/index';
 import { useRef, useEffect } from "react";
 import { Link, Route } from 'react-router-dom';
-import ico from './img/alex.png'
-import React from 'react'
-import { AddHistory } from '../../util/index'
-import { Button, Image, Modal, List } from 'semantic-ui-react'
+import ico from './img/alex.png';
+import React from 'react';
+import { AddHistory } from '../../util/index';
+import { Button, Image, Modal, List } from 'semantic-ui-react';
+
 const User = (props) => {
 
     let indexName = props.user.firstName.indexOf(props.ColorFirstName);

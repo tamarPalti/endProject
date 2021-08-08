@@ -1,4 +1,4 @@
-const Business = require("../models/Business")
+const Business = require("../models/Business");
 const mongoose = require("mongoose");
 const getAll = async (req, res) => {
     try {

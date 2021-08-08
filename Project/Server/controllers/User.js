@@ -1,8 +1,11 @@
-const Users = require("../models/Users")
+const Users = require("../models/Users");
+const Business = require("../models/Business");
 const mongoose = require("mongoose");
 const getAll = async (req, res) => {
     try {
-        let users = await Users.find().sort({ firstName: 1, lastName: 1 });
+        let users = await Users.find().populate(
+            [{ path: "lastSearchUsers.userSearch", select: "firstName lastName" },
+            { path: "lastSearchBusiness.businessSearch", select: "name" }]).sort({ firstName: 1, lastName: 1 });
         return res.send(users);
     }
     catch (err) {
@@ -13,7 +16,9 @@ const getByPassword = async (req, res) => {
 
     let { id } = req.params;
     try {
-        let user = await Users.findById(id);
+        let user = await Users.findById(id).populate(
+            [{ path: "lastSearchUsers.userSearch", select: "firstName lastName" },
+            { path: "lastSearchBusiness.businessSearch", select: "name" }]);
         if (!user)
             return res.status(404).send("מצטערים לא נמצא משתמש עם המזהה שהתקבל");
         return res.send(user);
@@ -73,7 +78,9 @@ const deleteUser = async (req, res) => {
 const getByPasswordAndMail = async (req, res) => {
     const { password, mail } = req.params;
     try {
-        const user = await Users.findOne({ "password": password, "email": mail });
+        const user = await Users.findOne({ "password": password, "email": mail }).populate(
+            [{ path: "lastSearchUsers.userSearch", select: "firstName lastName" },
+            { path: "lastSearchBusiness.businessSearch", select: "name" }]);
         if (!user)
             return res.send("sorry no such user").status(300);
 
@@ -103,6 +110,25 @@ const addToHistory = async (req, res) => {
         return res.status(400);
     }
 }
+const addToHistoryBusiness = async (req, res) => {
+    const { currentId, businessId } = req.params;
+    try {
+        const currenUser = await Users.findOne({ "_id": currentId });
+        const addBusiness = await Business.findOne({ "_id": businessId });
+        if (!currenUser || !addBusiness)
+            return res.send("sorry no such user").status(300);
+
+        else {
+            currenUser.lastSearchBusiness.push({"date":new Date(),"businessSearch" : addBusiness});
+            await currenUser.save();
+            return res.status();
+        }
+
+    }
+    catch{
+        return res.status(400);
+    }
+}
 module.exports = {
-    getAll, getByPassword, addUser, updateUser, deleteUser, getByPasswordAndMail, addToHistory
+    getAll, getByPassword, addUser, updateUser, deleteUser, getByPasswordAndMail, addToHistory,addToHistoryBusiness
 }

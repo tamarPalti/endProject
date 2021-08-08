@@ -19,7 +19,7 @@ export const SearchBusiness = (business, allBusiness) => {
         let adress = business.adress || "";
         let listCategory =  [];
         if (business.listCategory)
-            listCategory.push(business.listCategory);
+            business.listCategory.forEach((e)=>listCategory.push(e));
         let businesses = allBusiness.filter((b) => {
             return b.name.includes(name) && (b.listCategory.filter(c=> business.listCategory.indexOf(c) != -1).length>0||listCategory.length==0)
                 && b.email.includes(email) && b.adress.includes(adress) && b.phoneNamber.filter((e) => e.includes(phoneNamber)).length > 0

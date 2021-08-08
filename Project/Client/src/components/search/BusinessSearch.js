@@ -42,7 +42,7 @@ const BusinessSearch = (props) => {
         Business.email = email.current.value;
         Business.adress = adress.current.value;
         Business.listCategory = listCategory.current.getSelectedItems();
-        if (Business.name || Business.phoneNamber || Business.email || Business.adress || Business.listCategory) {
+        if (Business.name || Business.phoneNamber || Business.email || Business.adress || Business.listCategory.length!=0) {
             props.ChangeColorName(Business.name);
             props.SearchBusiness(Business, props.AllBusiness);
         }
