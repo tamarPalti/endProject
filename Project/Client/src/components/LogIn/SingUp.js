@@ -74,7 +74,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { connect } from "react-redux";
-
+import { AddUser } from '../../actions/index';
+import { useRef } from 'react';
+import user from '../classes/user'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -113,6 +115,15 @@ const useStyles = makeStyles((theme) => ({
 function SignUp() {
   const classes = useStyles();
 
+  let user = new user();
+  // let firstName = useRef();
+  // let lastName = useRef();
+  // let email = useRef();
+  // let password = useRef();
+  // let phone = useRef();
+
+
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -135,6 +146,7 @@ function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                onKeyUp={(e) => user.firstName = e.target.value}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -146,6 +158,8 @@ function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                onKeyUp={(e) => user.lastName = e.target.value}
+
               />
             </Grid>
             <Grid item xs={12}>
@@ -157,6 +171,8 @@ function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onKeyUp={(e) => user.email = e.target.value}
+
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -169,6 +185,8 @@ function SignUp() {
                 id="password"
                 label="Password"
                 autoFocus
+                onKeyUp={(e) => user.password = e.target.value}
+
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -180,6 +198,8 @@ function SignUp() {
                 label="Phone"
                 name="phone"
                 autoComplete="phone"
+                onKeyUp={(e) => user.phoneNamber = e.target.value}
+
               />
             </Grid>
             <Grid item xs={12}>
@@ -213,6 +233,6 @@ function SignUp() {
 }
 const mapStateToProps = (state) => {
 
-    return {};
+  return {};
 }
 export default connect(mapStateToProps, {})(SignUp);
