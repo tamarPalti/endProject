@@ -1,1 +1,1 @@
-export {GetCurrentUser}from './UtilUser';
+export {GetCurrentUser,AddHistory}from './UtilUser';
