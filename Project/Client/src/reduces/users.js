@@ -49,6 +49,7 @@ export const usersReducer = (state = initialUsers, action) => {
             localStorage.setItem("currentUser", null);
             localStorage.setItem("currentUserPassword", action.payload.password);
             localStorage.setItem("currentUserMail", action.payload.email );
+            localStorage.setItem("currentUserId", action.payload._id );
 
             return {
                 ...state,
@@ -59,6 +60,7 @@ export const usersReducer = (state = initialUsers, action) => {
         case actionTypes.SING_OUT:
                 localStorage.setItem("currentUserPassword", null);
                 localStorage.setItem("currentUserMail", null);
+                localStorage.setItem("currentUserId",null );
             return {
                 ...state,
                 CurrentUser: null

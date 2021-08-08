@@ -5,6 +5,7 @@ import { useRef, useEffect } from "react";
 import { Link, Route } from 'react-router-dom';
 import ico from './img/alex.png'
 import React from 'react'
+import { AddHistory } from '../../util/index'
 import { Button, Image, Modal, List } from 'semantic-ui-react'
 const User = (props) => {
 
@@ -30,7 +31,10 @@ const User = (props) => {
                     onClose={() => setOpen(false)}
                     onOpen={() => setOpen(true)}
                     open={open}
-                    trigger={<div><div className="place_user" onClick={() => props.SelectedUser(props.user)}>
+                    trigger={<div ><div className="place_user" onClick={() => {
+                        props.SelectedUser(props.user);
+                        AddHistory(localStorage.getItem("currentUserId"), props.user._id)
+                    }}>
                         <p className="display">{checkName(props.user.lastName) ? Laststart : Lastend}</p>
                         {!checkName(props.user.lastName) && (Lastend[0] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
                         {checkName(props.user.firstName) && (Laststart[Laststart.length - 1] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}

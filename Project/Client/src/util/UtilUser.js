@@ -23,3 +23,8 @@ export const GetCurrentUser =async () => {
     return null;
 
 }
+export const AddHistory=async(currentId,userId)=>{
+
+axios.put(`http://localhost:4000/users/addToHistory/${currentId}&${userId}`);
+    
+}

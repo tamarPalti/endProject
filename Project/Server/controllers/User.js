@@ -48,6 +48,8 @@ const updateUser = async (req, res) => {
         user.email = userBody.email || user.email;
         user.adress = userBody.adress || user.adress;
         user.img = userBody.img || user.img;
+        user.lastSearchUsers = userBody.lastSearchUsers || user.lastSearchUsers;
+        user.lastSearchBusiness = userBody.lastSearchBusiness || user.lastSearchBusiness;
         await user.save();
         return res.send(user);
     }
@@ -82,6 +84,25 @@ const getByPasswordAndMail = async (req, res) => {
         return res.status(400);
     }
 }
+const addToHistory = async (req, res) => {
+    const { currentId, userId } = req.params;
+    try {
+        const currenUser = await Users.findOne({ "_id": currentId });
+        const addUser = await Users.findOne({ "_id": userId });
+        if (!currenUser || !addUser)
+            return res.send("sorry no such user").status(300);
+
+        else {
+            currenUser.lastSearchUsers.push({"date":new Date(),"userSearch" : addUser});
+            await currenUser.save();
+            return res.status();
+        }
+
+    }
+    catch{
+        return res.status(400);
+    }
+}
 module.exports = {
-    getAll, getByPassword, addUser, updateUser, deleteUser, getByPasswordAndMail
+    getAll, getByPassword, addUser, updateUser, deleteUser, getByPasswordAndMail, addToHistory
 }
