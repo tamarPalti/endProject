@@ -158,16 +158,27 @@ export default function SignUp() {
                 autoComplete="email"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="password"
+                name="password"
+                variant="outlined"
+                required
+                fullWidth
+                id="password"
+                label="Password"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
                 required
                 fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
+                id="phone"
+                label="Phone"
+                name="phone"
+                autoComplete="phone"
               />
             </Grid>
             <Grid item xs={12}>
