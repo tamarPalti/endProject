@@ -16,7 +16,9 @@ export const GetCurrentUser = (user) => {
         // { params: { password: user.password,mail:user.mail } }
         let succ = await axios.get(`http://localhost:4000/users/getByPassword/${user.password}&${user.mail}`);
 
-        if (typeof(succ.data)!="string")
+        // if (succ.status==200)
+
+        if (typeof (succ.data) != "string")
             dispatch(SignIn(succ.data));
 
     }
@@ -29,6 +31,8 @@ export const AddUser = (user) => {
                 dispatch(SignIn(succ.data));
         }).catch(ee => {
             console.log(ee.massege);
+            if (ee.response.status == 404)
+                dispatch(IfExist(true));
         });
     }
 }
@@ -105,3 +109,9 @@ export const SignOut = () => {
     }
 }
 
+export const IfExist = (ifExist) => {
+    return {
+        type: actionTypes.IF_EXIST,
+        payload: ifExist
+    }
+}
