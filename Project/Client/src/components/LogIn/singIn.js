@@ -202,7 +202,6 @@ const SingIn = (props) => {
             <Button
               fullWidth
               variant="contained"
-              // color="#e860ff"
               className={classes.submit}
               onClick={async () => {
                  await GetCurrentUser();
@@ -211,7 +210,7 @@ const SingIn = (props) => {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link variant="body2">
                   Forgot password?
                 </Link>
               </Grid>

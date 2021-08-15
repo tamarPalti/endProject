@@ -6,7 +6,8 @@ const initialUsers = {
     ColorFirstName: "",
     ColorLastName: "",
     CurrentUser: null,
-    SingUp: false
+    SingUp: false,
+    IfExist: false
 }
 export const usersReducer = (state = initialUsers, action) => {
     switch (action.type) {
@@ -48,8 +49,8 @@ export const usersReducer = (state = initialUsers, action) => {
         case actionTypes.SING_IN:
             localStorage.setItem("currentUser", null);
             localStorage.setItem("currentUserPassword", action.payload.password);
-            localStorage.setItem("currentUserMail", action.payload.email );
-            localStorage.setItem("currentUserId", action.payload._id );
+            localStorage.setItem("currentUserMail", action.payload.email);
+            localStorage.setItem("currentUserId", action.payload._id);
 
             return {
                 ...state,
@@ -58,15 +59,19 @@ export const usersReducer = (state = initialUsers, action) => {
 
 
         case actionTypes.SING_OUT:
-                localStorage.setItem("currentUserPassword", null);
-                localStorage.setItem("currentUserMail", null);
-                localStorage.setItem("currentUserId",null );
+            localStorage.setItem("currentUserPassword", null);
+            localStorage.setItem("currentUserMail", null);
+            localStorage.setItem("currentUserId", null);
             return {
                 ...state,
                 CurrentUser: null
             }
 
-
+        case actionTypes.IF_EXIST:
+            return {
+                ...state,
+                IfExist: action.payload
+            }
 
 
     }

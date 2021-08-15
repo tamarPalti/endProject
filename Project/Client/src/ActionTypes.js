@@ -9,7 +9,7 @@ export const CHANGE_COLOR_LAST_NAME="CHANGE_COLOR_LAST_NAME";
 export const SING_IN="SING_IN";
 export const SING_UP="SING_UP";
 export const SING_OUT="SING_OUT";
-
+export const IF_EXIST="IF_EXIST";
 
 //////////////BUSINESS////////////////////
 export const FILL_ALL_BUSINESS="FILL_ALL_BUSINESS";

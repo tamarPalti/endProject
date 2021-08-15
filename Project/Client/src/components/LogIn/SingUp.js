@@ -59,14 +59,13 @@
 
 
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -76,19 +75,11 @@ import Container from '@material-ui/core/Container';
 import { connect } from "react-redux";
 import { AddUser } from '../../actions/index';
 import user from '../classes/user';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import { useForm } from "react-hook-form";
+import { ErrorMessage } from '@hookform/error-message';
+import './SingUp.scss';
+import { Link } from 'react-router-dom';
+import { IfExist } from '../../actions/index';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -115,12 +106,28 @@ const useStyles = makeStyles((theme) => ({
 function SignUp(props) {
   const classes = useStyles();
 
+
   let currentUser = new user();
 
-  AddUser = () => {
+  const { register, formState: { errors }, handleSubmit } = useForm();
+  const firstName = register('firstName', { required: "This is required.", minLength: { value: 2, message: "Min 2" }, maxLength: { value: 11, message: "Max 11" } })
+  const lastName = register('lastName', { required: "This is required.", minLength: { value: 2, message: "Min 2" }, maxLength: { value: 10, message: "Max 10" } })
+  const email = register('email', { required: "This is required.", pattern: { value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, message: "Email No Valid" } })
+  const phone = register('phone', { required: "This is required.", pattern: { value: /0[0-9]{9}/, message: "Phone No Valid" } })
+  const password = register('password', { required: "This is required.", minLength: { value: 5, message: "Min 5" }, maxLength: { value: 5, message: "Max 5" }, pattern: { value: /[0-9a-zA-Z]{5}/, message: "Make sure it's at least 5 characters OR characters including a number , a lowercase letter and a upperrcase letter" } })
+
+  const onSubmit = data => {
+    console.log(data);
+    currentUser.dateLogin = new Date();
+    currentUser.phoneNamber = [];
+    currentUser.phoneNamber.push(data.phone);
+    currentUser.ifMessege = false;
     props.AddUser(currentUser);
   }
 
+  useEffect(() => {
+    return (props.IfExist(false))
+  },[])
 
   return (
     <Container component="main" maxWidth="xs">
@@ -132,7 +139,7 @@ function SignUp(props) {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -144,8 +151,11 @@ function SignUp(props) {
                 id="firstName"
                 label="First Name"
                 autoFocus
-                onKeyUp={(e) => user.firstName = e.target.value}
+                onKeyUp={(e) => currentUser.firstName = e.target.value}
+                {...firstName}
               />
+              <ErrorMessage errors={errors} name="firstName" render={({ message }) => <p>{message}</p>} />
+
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -156,9 +166,11 @@ function SignUp(props) {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
-                onKeyUp={(e) => user.lastName = e.target.value}
-
+                onKeyUp={(e) => currentUser.lastName = e.target.value}
+                {...lastName}
               />
+              <ErrorMessage errors={errors} name="lastName" render={({ message }) => <p>{message}</p>} />
+
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -169,9 +181,11 @@ function SignUp(props) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                onKeyUp={(e) => user.email = e.target.value}
-
+                onKeyUp={(e) => currentUser.email = e.target.value}
+                {...email}
               />
+              <ErrorMessage errors={errors} name="email" render={({ message }) => <p>{message}</p>} />
+              {props.ifExist ? <p className="redColor">This Email Alrady Exist</p> : null}
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -183,9 +197,11 @@ function SignUp(props) {
                 id="password"
                 label="Password"
                 autoFocus
-                onKeyUp={(e) => user.password = e.target.value}
-
+                onKeyUp={(e) => currentUser.password = e.target.value}
+                {...password}
               />
+              <ErrorMessage errors={errors} name="password" render={({ message }) => <p>{message}</p>} />
+
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -196,9 +212,11 @@ function SignUp(props) {
                 label="Phone"
                 name="phone"
                 autoComplete="phone"
-                onKeyUp={(e) => user.phoneNamber = e.target.value}
-
+                onKeyUp={(e) => currentUser.phoneNamber = e.target.value}
+                {...phone}
               />
+              <ErrorMessage errors={errors} name="phone" render={({ message }) => <p>{message}</p>} />
+
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
@@ -218,7 +236,7 @@ function SignUp(props) {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link to="/SignIn">
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -231,6 +249,6 @@ function SignUp(props) {
 }
 const mapStateToProps = (state) => {
 
-  return {};
+  return { ifExist: state.usersPart.IfExist };
 }
-export default connect(mapStateToProps, { AddUser })(SignUp);
+export default connect(mapStateToProps, { AddUser, IfExist })(SignUp);
