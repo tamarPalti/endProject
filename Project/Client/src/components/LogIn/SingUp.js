@@ -59,7 +59,7 @@
 
 
 
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -79,7 +79,7 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
 import './SingUp.scss';
 import { Link } from 'react-router-dom';
-import { IfExist } from '../../actions/index';
+import { IfExist, ErrorInAdd } from '../../actions/index';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -106,6 +106,7 @@ const useStyles = makeStyles((theme) => ({
 function SignUp(props) {
   const classes = useStyles();
 
+const [check, setCheck] = useState(true);
 
   let currentUser = new user();
 
@@ -124,10 +125,14 @@ function SignUp(props) {
     currentUser.ifMessege = false;
     props.AddUser(currentUser);
   }
-
+  onchange = (e) => {
+    console.log(e);
+    setCheck(e.target.checked);
+     
+  }
   useEffect(() => {
-    return (props.IfExist(false))
-  },[])
+    return (props.IfExist(false), props.ErrorInAdd(false))
+  }, [])
 
   return (
     <Container component="main" maxWidth="xs">
@@ -154,7 +159,7 @@ function SignUp(props) {
                 onKeyUp={(e) => currentUser.firstName = e.target.value}
                 {...firstName}
               />
-              <ErrorMessage errors={errors} name="firstName" render={({ message }) => <p>{message}</p>} />
+              <ErrorMessage errors={errors} name="firstName" render={({ message }) => <p className="redColor">{message}</p>} />
 
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -169,7 +174,7 @@ function SignUp(props) {
                 onKeyUp={(e) => currentUser.lastName = e.target.value}
                 {...lastName}
               />
-              <ErrorMessage errors={errors} name="lastName" render={({ message }) => <p>{message}</p>} />
+              <ErrorMessage errors={errors} name="lastName" render={({ message }) => <p className="redColor">{message}</p>} />
 
             </Grid>
             <Grid item xs={12}>
@@ -184,7 +189,7 @@ function SignUp(props) {
                 onKeyUp={(e) => currentUser.email = e.target.value}
                 {...email}
               />
-              <ErrorMessage errors={errors} name="email" render={({ message }) => <p>{message}</p>} />
+              <ErrorMessage errors={errors} name="email" render={({ message }) => <p className="redColor">{message}</p>} />
               {props.ifExist ? <p className="redColor">This Email Alrady Exist</p> : null}
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -200,7 +205,7 @@ function SignUp(props) {
                 onKeyUp={(e) => currentUser.password = e.target.value}
                 {...password}
               />
-              <ErrorMessage errors={errors} name="password" render={({ message }) => <p>{message}</p>} />
+              <ErrorMessage errors={errors} name="password" render={({ message }) => <p className="redColor">{message}</p>} />
 
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -215,22 +220,24 @@ function SignUp(props) {
                 onKeyUp={(e) => currentUser.phoneNamber = e.target.value}
                 {...phone}
               />
-              <ErrorMessage errors={errors} name="phone" render={({ message }) => <p>{message}</p>} />
+              <ErrorMessage errors={errors} name="phone" render={({ message }) => <p className="redColor">{message}</p>} />
 
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+                control={<Checkbox value="allowExtraEmails"  color="primary" onChange={(e) => onchange(e)} />}
+                label="agree the conditions of use"
               />
             </Grid>
           </Grid>
+          {props.errorInAdd ? <p className="redColor">Error System</p> : null}
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled={!check}
           >
             Sign Up
           </Button>
@@ -249,6 +256,6 @@ function SignUp(props) {
 }
 const mapStateToProps = (state) => {
 
-  return { ifExist: state.usersPart.IfExist };
+  return { ifExist: state.usersPart.IfExist, errorInAdd: state.usersPart.ErrorInAdd };
 }
-export default connect(mapStateToProps, { AddUser, IfExist })(SignUp);
+export default connect(mapStateToProps, { AddUser, IfExist, ErrorInAdd })(SignUp);

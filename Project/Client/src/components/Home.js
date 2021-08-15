@@ -8,6 +8,8 @@ import { connect } from "react-redux";
 // import SingIn from './LogIn/singIn';
 import SingIn from './LogIn/singIn';
 import SignUp from './LogIn/SingUp';
+import PrivateArea from './PrivateArea/PrivateArea';
+import CustomizedSteppers from './PrivateArea/PrivateArea';
 
 const Home = (props) => {
 
@@ -17,7 +19,7 @@ const Home = (props) => {
     })
     return (
         <div>
-            <Switch>
+            {/* <Switch>
                 <Route path={'/Search'}>
                     <Search />
                 </Route>
@@ -27,8 +29,9 @@ const Home = (props) => {
                 <Route path={'/'}>
                     <SingIn />
                 </Route>
-            </Switch>
-
+            </Switch> */}
+{/* <PrivateArea/> */}
+<CustomizedSteppers/>
         </div>);
 }
 const mapStateToProps = (state) => {

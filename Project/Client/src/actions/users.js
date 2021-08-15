@@ -27,12 +27,24 @@ export const AddUser = (user) => {
     return (dispatch) => {
         axios.post("http://localhost:4000/users", user).then((succ) => {
             console.log(succ.data);
-            if (succ.data != null)
+            if (succ.data != null) {
                 dispatch(SignIn(succ.data));
+                dispatch(IfExist(false));
+                dispatch(ErrorInAdd(false));
+            }
+
         }).catch(ee => {
             console.log(ee.massege);
-            if (ee.response.status == 404)
+            if (ee.response.status == 404) {
                 dispatch(IfExist(true));
+                dispatch(ErrorInAdd(false));
+            }
+
+            if (ee.response.status == 400) {
+                dispatch(ErrorInAdd(true));
+                dispatch(IfExist(false));
+            }
+
         });
     }
 }
@@ -113,5 +125,11 @@ export const IfExist = (ifExist) => {
     return {
         type: actionTypes.IF_EXIST,
         payload: ifExist
+    }
+}
+export const ErrorInAdd = (ifErrorInAdd) => {
+    return {
+        type: actionTypes.IF_ERROR_IN_ADD,
+        payload: ifErrorInAdd
     }
 }

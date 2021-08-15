@@ -7,7 +7,8 @@ const initialUsers = {
     ColorLastName: "",
     CurrentUser: null,
     SingUp: false,
-    IfExist: false
+    IfExist: false,
+    ErrorInAdd: false
 }
 export const usersReducer = (state = initialUsers, action) => {
     switch (action.type) {
@@ -71,6 +72,12 @@ export const usersReducer = (state = initialUsers, action) => {
             return {
                 ...state,
                 IfExist: action.payload
+            }
+
+        case actionTypes.IF_ERROR_IN_ADD:
+            return {
+                ...state,
+                ErrorInAdd: action.payload
             }
 
 
