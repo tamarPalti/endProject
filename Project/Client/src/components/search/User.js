@@ -69,6 +69,7 @@ const User = (props) => {
                         <div className="img_user">
                             <Image size='medium' src={ico} wrapped className="place_img" />
                         </div>
+                        
                     </div>
                     <Modal.Actions>
                         <div>

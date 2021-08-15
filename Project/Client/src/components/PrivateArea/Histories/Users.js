@@ -17,6 +17,10 @@ import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import './Users.scss'
+
+
+
 import User from "../../search/User";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,18 +34,10 @@ const useStyles = makeStyles((theme) => ({
     title: {
         margin: theme.spacing(4, 0, 2),
     },
+    style:{
+        maxWidth: "32%"
+    }
 }));
-
-// function generate(element,currentUser) {
-//     if (currentUser)
-//         return currentUser.lastSearchUsers.map((value) =>
-//             React.cloneElement(element, {
-//                 key: value,
-
-//             }),
-//         );
-// }
-
 
 const Users = (props) => {
 
@@ -66,47 +62,45 @@ const Users = (props) => {
     return (<>
         {ifGoToLogin ? <Redirect to={'/SingIn'} /> : currentUser ?
             <>
-
                 <Grid item xs={12} md={6}>
-                    <Typography variant="h6" className={classes.title}>
-                        Avatar with text and icon
-          </Typography>
                     <div className={classes.demo}>
                         <List>
                             {
-                                currentUser.lastSearchUsers.map((item,index) => {
-                                    return (<ListItem>
-                                        <ListItemAvatar>
-                                            <Avatar>
-                                            <DeleteIcon />
-                                            </Avatar>
-                                        </ListItemAvatar>
-                                        <ListItemText
-                                            primary={<User user={item.userSearch} key={index} />}
-                                            secondary={secondary ? 'Secondary text' : null}
-                                        />
-                                        {/* <ListItemSecondaryAction>
-                                            <IconButton edge="end" aria-label="delete">
-                                               
-                                            </IconButton>
-                                        </ListItemSecondaryAction> */}
-                                    </ListItem>)
+                                currentUser.lastSearchUsers.map((item, index) => {
+                                        return (<ListItem>
+                                            <ListItemAvatar>
+                                                <IconButton edge="end" aria-label="delete">
+                                                    <DeleteIcon style={{ "font-size": "1.5em" }} />
+                                                </IconButton>
+
+                                            </ListItemAvatar>
+                                            <ListItemText
+                                                primary={<div className="MaxWidth"><User user={item.userSearch} key={index} /></div>}
+                                                secondary={secondary ? 'Secondary text' : null}
+                                            />
+                                        </ListItem>)
                                 })
-                              
                             }
                         </List>
                     </div>
                 </Grid>
-
-
             </>
-
             : null}
 
     </>);
 }
 
 export default Users;
+
+
+
+
+
+
+
+
+
+
 
 
 
