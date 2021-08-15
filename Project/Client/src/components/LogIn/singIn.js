@@ -133,7 +133,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor:'#e860ff'
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -160,7 +160,7 @@ const SingIn = (props) => {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
+    
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -223,6 +223,7 @@ const SingIn = (props) => {
           </form>
         </div>
       </Grid>
+      <Grid item xs={12} sm={2} md={7} className={classes.image} />
     </Grid>
   );
 }

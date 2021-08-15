@@ -52,6 +52,8 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.paper,
     },
 }));
+
+
 const SearchHistory = (props) => {
 
     const [currentUser, setCurrentUser] = useState(null);
@@ -62,6 +64,7 @@ const SearchHistory = (props) => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
     const GetCuccentUser = async () => {
         let succ = await axios.get(`http://localhost:4000/users/${localStorage.getItem("currentUserId")}`);
         if (succ.status == 404)
@@ -71,14 +74,13 @@ const SearchHistory = (props) => {
     }
     useEffect(() => {
         GetCuccentUser();
-    }, [])
+    }, []);
+
     return (<>
         {ifGoToLogin ? <Redirect to={'/SingIn'} /> : currentUser ?
-
             <>
-
                 <div className={classes.root}>
-                    <AppBar position="static" color="default">
+                    <AppBar position="static" color="default" width="22%">
                         <Tabs
                             value={value}
                             onChange={handleChange}
@@ -86,24 +88,18 @@ const SearchHistory = (props) => {
                             textColor="primary"
                             variant="scrollable"
                             scrollButtons="auto"
-                            aria-label="scrollable auto tabs example"
+                            aria-label="scrollable auto tabs example"              
                         >
-                            <Tab label="Users" {...a11yProps(0)} />
+                            <Tab label="Users"  {...a11yProps(0)} />
                             <Tab label="Business" {...a11yProps(1)} />
-
                         </Tabs>
                     </AppBar>
                     <TabPanel value={value} index={0}><Users/></TabPanel>
                     <TabPanel value={value} index={1}></TabPanel>
-
                 </div>
-
             </>
-
             : null}
     </>);
 }
-
-
 export default SearchHistory;
 

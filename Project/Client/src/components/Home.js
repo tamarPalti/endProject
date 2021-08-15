@@ -19,7 +19,7 @@ const Home = (props) => {
     })
     return (
         <div>
-            {/* <Switch>
+            <Switch>
                 <Route path={'/Search'}>
                     <Search />
                 </Route>
@@ -29,8 +29,8 @@ const Home = (props) => {
                 <Route path={'/'}>
                     <SingIn />
                 </Route>
-            </Switch> */}
-<PrivateArea/>
+            </Switch>
+ {/* <PrivateArea/> */}
 {/* <CustomizedSteppers/> */}
         </div>);
 }

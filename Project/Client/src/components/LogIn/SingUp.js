@@ -59,7 +59,7 @@
 
 
 
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -106,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
 function SignUp(props) {
   const classes = useStyles();
 
-const [check, setCheck] = useState(true);
+  const [check, setCheck] = useState(false);
 
   let currentUser = new user();
 
@@ -125,10 +125,11 @@ const [check, setCheck] = useState(true);
     currentUser.ifMessege = false;
     props.AddUser(currentUser);
   }
+  
   onchange = (e) => {
     console.log(e);
     setCheck(e.target.checked);
-     
+
   }
   useEffect(() => {
     return (props.IfExist(false), props.ErrorInAdd(false))
@@ -225,7 +226,7 @@ const [check, setCheck] = useState(true);
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox value="allowExtraEmails"  color="primary" onChange={(e) => onchange(e)} />}
+                control={<Checkbox value="allowExtraEmails" color="primary" onChange={(e) => onchange(e)} />}
                 label="agree the conditions of use"
               />
             </Grid>

@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const getAll = async (req, res) => {
     try {
         let users = await Users.find().populate(
-            [{ path: "lastSearchUsers.userSearch", select: "firstName lastName" },
+            [{ path: "lastSearchUsers.userSearch", select: "firstName lastName phoneNamber adress email" },
             { path: "lastSearchBusiness.businessSearch", select: "name" }]).sort({ firstName: 1, lastName: 1 });
         return res.send(users);
     }
@@ -17,7 +17,7 @@ const getByPassword = async (req, res) => {
     let { id } = req.params;
     try {
         let user = await Users.findById(id).populate(
-            [{ path: "lastSearchUsers.userSearch", select: "firstName lastName" },
+            [{ path: "lastSearchUsers.userSearch", select: "firstName lastName phoneNamber adress email" },
             { path: "lastSearchBusiness.businessSearch", select: "name" }]);
         if (!user)
             return res.status(404).send("מצטערים לא נמצא משתמש עם המזהה שהתקבל");
