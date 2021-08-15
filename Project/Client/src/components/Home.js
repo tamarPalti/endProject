@@ -30,8 +30,8 @@ const Home = (props) => {
                     <SingIn />
                 </Route>
             </Switch> */}
-{/* <PrivateArea/> */}
-<CustomizedSteppers/>
+<PrivateArea/>
+{/* <CustomizedSteppers/> */}
         </div>);
 }
 const mapStateToProps = (state) => {
