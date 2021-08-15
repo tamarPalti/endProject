@@ -43,6 +43,7 @@ const Users = (props) => {
 
     const [currentUser, setCurrentUser] = useState(null);
     const [ifGoToLogin, setifGoToLogin] = useState(false);
+
     const classes = useStyles();
     // const [dense, setDense] = React.useState(false);
     const [secondary, setSecondary] = React.useState(false);
@@ -54,7 +55,11 @@ const Users = (props) => {
         else
             setCurrentUser(succ.data);
     }
-
+    const DeleteHistory=async(index)=>{
+        let succ = await axios.put(`http://localhost:4000/users/deleteHistoryUser/${localStorage.getItem("currentUserId")}&${index}`);
+        if(succ.status==200)
+            GetCuccentUser();     
+    }
     useEffect(() => {
         GetCuccentUser();
     }, []);
@@ -69,13 +74,14 @@ const Users = (props) => {
                                 currentUser.lastSearchUsers.map((item, index) => {
                                         return (<ListItem>
                                             <ListItemAvatar>
-                                                <IconButton edge="end" aria-label="delete">
+                                                <IconButton edge="end" aria-label="delete" onClick={()=> DeleteHistory(index) }>
                                                     <DeleteIcon style={{ "font-size": "1.5em" }} />
                                                 </IconButton>
 
                                             </ListItemAvatar>
+                                            {/* <p>{item.date}</p> */}
                                             <ListItemText
-                                                primary={<div className="MaxWidth"><User user={item.userSearch} key={index} /></div>}
+                                                primary={<User ifAdd="false" user={item.userSearch} key={index} />}
                                                 secondary={secondary ? 'Secondary text' : null}
                                             />
                                         </ListItem>)

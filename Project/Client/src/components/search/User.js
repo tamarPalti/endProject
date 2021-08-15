@@ -34,6 +34,7 @@ const User = (props) => {
                     open={open}
                     trigger={<div ><div className="place_user" onClick={() => {
                         props.SelectedUser(props.user);
+                        if(props.ifAdd=="true")
                         AddHistory(localStorage.getItem("currentUserId"), props.user._id)
                     }}>
                         <p className="display">{checkName(props.user.lastName) ? Laststart : Lastend}</p>

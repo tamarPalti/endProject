@@ -5,7 +5,7 @@ const getAll = async (req, res) => {
     try {
         let users = await Users.find().populate(
             [{ path: "lastSearchUsers.userSearch", select: "firstName lastName phoneNamber adress email" },
-            { path: "lastSearchBusiness.businessSearch", select: "name" }]).sort({ firstName: 1, lastName: 1 });
+            { path: "lastSearchBusiness.businessSearch", select: "name phoneNamber adress email" }]).sort({ firstName: 1, lastName: 1 });
         return res.send(users);
     }
     catch (err) {
@@ -18,7 +18,7 @@ const getByPassword = async (req, res) => {
     try {
         let user = await Users.findById(id).populate(
             [{ path: "lastSearchUsers.userSearch", select: "firstName lastName phoneNamber adress email" },
-            { path: "lastSearchBusiness.businessSearch", select: "name" }]);
+            { path: "lastSearchBusiness.businessSearch", select: "name phoneNamber adress email" }]);
         if (!user)
             return res.status(404).send("מצטערים לא נמצא משתמש עם המזהה שהתקבל");
         return res.send(user);
@@ -121,7 +121,7 @@ const addToHistoryBusiness = async (req, res) => {
         else {
             currenUser.lastSearchBusiness.push({"date":new Date(),"businessSearch" : addBusiness});
             await currenUser.save();
-            return res.status();
+            return res.send().status();
         }
 
     }
@@ -129,6 +129,34 @@ const addToHistoryBusiness = async (req, res) => {
         return res.status(400);
     }
 }
+const deleteHistoryUser = async (req, res) => {
+    const {currentId,index} = req.params;
+    try {
+        const user = await Users.findOne({ "_id": currentId });
+        if (!user)
+            return res.send("sorry no such user").status(404);
+        await user.lastSearchUsers[index].remove();
+        await user.save();                         
+        return res.send().status(200);
+    }
+    catch{
+        return res.status(400);
+    }
+}
+const deleteHistoryBusiness = async (req, res) => {
+    const {currentId,index} = req.params;
+    try {
+        const user = await Users.findOne({ "_id": currentId });
+        if (!user)
+            return res.send("sorry no such user").status(404);
+        await user.lastSearchBusiness[index].remove();
+        await user.save();                         
+        return res.send().status(200);
+    }
+    catch{
+        return res.status(400);
+    }
+}
 module.exports = {
-    getAll, getByPassword, addUser, updateUser, deleteUser, getByPasswordAndMail, addToHistory,addToHistoryBusiness
+    getAll, getByPassword, addUser, updateUser, deleteUser, getByPasswordAndMail, addToHistory,addToHistoryBusiness,deleteHistoryUser,deleteHistoryBusiness
 }

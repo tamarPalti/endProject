@@ -11,7 +11,7 @@ const ResultSearchBusiness = (props) => {
     return (<>
         {<List divided verticalAlign='middle'>
             {props.BusinessSearch && props.BusinessSearch.map((item) => {
-                return (<Business key={item._id} business={item} />);
+                return (<Business ifAdd="true" key={item._id} business={item} />);
             })}</List>}
     </>);
 }

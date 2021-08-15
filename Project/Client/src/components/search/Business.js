@@ -30,6 +30,7 @@ const Business = (props) => {
                     trigger={<div>
                         <div className="place_business" onClick={() => {
                             props.SelectedBusiness(props.business)
+                            if(props.ifAdd=="true")
                             AddHistoryBusiness(localStorage.getItem("currentUserId"), props.business._id)
                             }}>
                             <p className="display">&nbsp;</p>

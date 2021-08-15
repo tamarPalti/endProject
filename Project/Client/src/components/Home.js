@@ -26,15 +26,17 @@ const Home = (props) => {
                 <Route path={'/SignUp'}>
                     <SignUp />
                 </Route>
+                <Route path={'/PrivateArea'}>
+                    <PrivateArea />
+                </Route>
                 <Route path={'/'}>
                     <SingIn />
                 </Route>
             </Switch>
- {/* <PrivateArea/> */}
-{/* <CustomizedSteppers/> */}
+            
         </div>);
 }
 const mapStateToProps = (state) => {
     return { CurrentUser: state.usersPart.CurrentUser };
 }
-export default connect(mapStateToProps,{})(Home); 
+export default connect(mapStateToProps, {})(Home); 

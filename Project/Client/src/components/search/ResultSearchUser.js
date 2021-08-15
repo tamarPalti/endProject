@@ -11,7 +11,7 @@ const ResultSearchUser = (props) => {
     return (<>
         {<List divided verticalAlign='middle'>
             {props.UserSearch&&props.UserSearch.map((item) => {
-                return (<User key={item._id} user={item} />);
+                return (<User ifAdd="true" key={item._id} user={item} />);
             })} </List>}
     </>);
 }
