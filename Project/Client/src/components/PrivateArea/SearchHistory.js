@@ -9,8 +9,9 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import axios from 'axios';
-
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
+import Users from './Histories/Users';
+
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
@@ -92,7 +93,7 @@ const SearchHistory = (props) => {
 
                         </Tabs>
                     </AppBar>
-                    <TabPanel value={value} index={0}> </TabPanel>
+                    <TabPanel value={value} index={0}><Users/></TabPanel>
                     <TabPanel value={value} index={1}></TabPanel>
 
                 </div>
