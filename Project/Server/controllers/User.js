@@ -16,12 +16,14 @@ const getByPassword = async (req, res) => {
 
     let { id } = req.params;
     try {
+        if (id == "null" || id == "undefined")
+            return res.status(500).send("מצטערים לא נמצא משתמש עם המזהה שהתקבל");
         let user = await Users.findById(id).populate(
             [{ path: "lastSearchUsers.userSearch", select: "firstName lastName phoneNamber adress email" },
             { path: "lastSearchBusiness.businessSearch", select: "name phoneNamber adress email" }]);
         if (!user)
-            return res.status(404).send("מצטערים לא נמצא משתמש עם המזהה שהתקבל");
-        return res.send(user);
+            return res.status(500).send("מצטערים לא נמצא משתמש עם המזהה שהתקבל");
+        return res.send(user).status(200);
     }
     catch (err) {
         return res.status(400).send(err.message)
@@ -32,7 +34,7 @@ const addUser = async (req, res) => {
     try {
         let user = await Users.findOne({ "email": newUser.email });
         if (user)
-            return res.status(404).send("מצטערים כבר קיים במערכת");
+            return res.status(500).send("מצטערים כבר קיים במערכת");
         await newUser.save();
         return res.send(newUser);
     }
@@ -53,8 +55,7 @@ const updateUser = async (req, res) => {
         user.email = userBody.email || user.email;
         user.adress = userBody.adress || user.adress;
         user.img = userBody.img || user.img;
-        user.lastSearchUsers = userBody.lastSearchUsers || user.lastSearchUsers;
-        user.lastSearchBusiness = userBody.lastSearchBusiness || user.lastSearchBusiness;
+        user.password = userBody.password || user.password;
         await user.save();
         return res.send(user);
     }
@@ -82,10 +83,10 @@ const getByPasswordAndMail = async (req, res) => {
             [{ path: "lastSearchUsers.userSearch", select: "firstName lastName" },
             { path: "lastSearchBusiness.businessSearch", select: "name" }]);
         if (!user)
-            return res.send("sorry no such user").status(300);
+            return res.status(500).send("sorry no such user");
 
         else
-            return res.send(user).status();
+            return res.send(user).status(200);
     }
     catch{
         return res.status(400);
@@ -100,7 +101,7 @@ const addToHistory = async (req, res) => {
             return res.send("sorry no such user").status(300);
 
         else {
-            currenUser.lastSearchUsers.push({"date":new Date(),"userSearch" : addUser});
+            currenUser.lastSearchUsers.push({ "date": new Date(), "userSearch": addUser });
             await currenUser.save();
             return res.status();
         }
@@ -119,7 +120,7 @@ const addToHistoryBusiness = async (req, res) => {
             return res.send("sorry no such user").status(300);
 
         else {
-            currenUser.lastSearchBusiness.push({"date":new Date(),"businessSearch" : addBusiness});
+            currenUser.lastSearchBusiness.push({ "date": new Date(), "businessSearch": addBusiness });
             await currenUser.save();
             return res.send().status();
         }
@@ -130,13 +131,13 @@ const addToHistoryBusiness = async (req, res) => {
     }
 }
 const deleteHistoryUser = async (req, res) => {
-    const {currentId,index} = req.params;
+    const { currentId, index } = req.params;
     try {
         const user = await Users.findOne({ "_id": currentId });
         if (!user)
-            return res.send("sorry no such user").status(404);
+            return res.send("sorry no such user").status(500);
         await user.lastSearchUsers[index].remove();
-        await user.save();                         
+        await user.save();
         return res.send().status(200);
     }
     catch{
@@ -144,13 +145,13 @@ const deleteHistoryUser = async (req, res) => {
     }
 }
 const deleteHistoryBusiness = async (req, res) => {
-    const {currentId,index} = req.params;
+    const { currentId, index } = req.params;
     try {
         const user = await Users.findOne({ "_id": currentId });
         if (!user)
-            return res.send("sorry no such user").status(404);
+            return res.send("sorry no such user").status(500);
         await user.lastSearchBusiness[index].remove();
-        await user.save();                         
+        await user.save();
         return res.send().status(200);
     }
     catch{
@@ -158,5 +159,5 @@ const deleteHistoryBusiness = async (req, res) => {
     }
 }
 module.exports = {
-    getAll, getByPassword, addUser, updateUser, deleteUser, getByPasswordAndMail, addToHistory,addToHistoryBusiness,deleteHistoryUser,deleteHistoryBusiness
+    getAll, getByPassword, addUser, updateUser, deleteUser, getByPasswordAndMail, addToHistory, addToHistoryBusiness, deleteHistoryUser, deleteHistoryBusiness
 }

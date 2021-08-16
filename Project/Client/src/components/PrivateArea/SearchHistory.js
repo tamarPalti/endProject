@@ -67,12 +67,13 @@ const SearchHistory = (props) => {
     };
 
     const GetCuccentUser = async () => {
-        let succ = await axios.get(`http://localhost:4000/users/${localStorage.getItem("currentUserId")}`);
-        if (succ.status == 404)
+        axios.get(`http://localhost:4000/users/${localStorage.getItem("currentUserId")}`).then(data => {
+            setCurrentUser(data.data);
+        }).catch(() => {
             setifGoToLogin(true);
-        else
-            setCurrentUser(succ.data);
+        });
     }
+    
     useEffect(() => {
         GetCuccentUser();
     }, []);

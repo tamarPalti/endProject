@@ -14,11 +14,16 @@ export const GetAllUsers = () => {
 export const GetCurrentUser = (user) => {
     return async (dispatch) => {
         // { params: { password: user.password,mail:user.mail } }
-        let succ = await axios.get(`http://localhost:4000/users/getByPassword/${user.password}&${user.mail}`);
+        // let succ = await axios.get(`http://localhost:4000/users/getByPassword/${user.password}&${user.mail}`);
+        axios.get(`http://localhost:4000/users/getByPassword/${user.password}&${user.mail}`).then((data, error) => {
+            if (data.status == 400)
+                console.log("kkkkkkkkkkk");
+
+            if (data.status == 200)
+                dispatch(SignIn(data.data));
+        })
 
 
-        if (succ.status==200)
-            dispatch(SignIn(succ.data));
 
     }
 }
