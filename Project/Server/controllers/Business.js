@@ -29,7 +29,7 @@ const addBusiness = async (req, res) => {
     try {
         let business = await Business.findOne({ "email": newBusiness.email });
         if (business)
-            return res.status(404).send("מצטערים כבר קיים במערכת");
+            return res.status(404).send("Sorry this mail is alredy axist");
         await newBusiness.save();
         return res.send(newBusiness);
     }

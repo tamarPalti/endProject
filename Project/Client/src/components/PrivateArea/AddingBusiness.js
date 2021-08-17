@@ -1,28 +1,15 @@
 import React, { useEffect, useState, useRef } from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import { connect } from "react-redux";
 import business from '../classes/business'
-import user from '../classes/user';
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
 import '../LogIn/SingUp.scss';
-import { Link } from 'react-router-dom';
-import { IfExist, ErrorInAdd } from '../../actions/index';
-import Paper from '@material-ui/core/Paper';
 import { Multiselect } from "multiselect-react-dropdown";
 import axios from 'axios';
-
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
@@ -75,9 +62,9 @@ function Alert(props) {
 function AddingBusiness(props) {
     const classes = useStyles();
 
-    const [check, setCheck] = useState(false);
-    let currentUser = new user();
+
     let Business = new business();
+
     const { register, formState: { errors }, handleSubmit } = useForm();
     const name = register('name', { required: "This is required.", minLength: { value: 2, message: "Min 2" }, maxLength: { value: 11, message: "Max 11" } })
     const adress = register('adress', { required: "This is required." })
@@ -89,17 +76,25 @@ function AddingBusiness(props) {
     const AddBusiness = async (business) => {
         axios.post("http://localhost:4000/business", business).then((succ) => {
             console.log(succ.data);
+
             settypeAlert("success");
+            setmasseg("Adding Success");
             handleClick();
+
         }).catch(ee => {
+
             console.log(ee.massege);
+
             settypeAlert("error");
+            setmasseg(ee.response.data)
+
             handleClick();
 
         });
     }
 
-    const [ifSelect, setIfSelect] = useState(false);
+
+
     const onSubmit = data => {
         if (listCategory.current.getSelectedItems().length == 0)
             setIfSelect(true);
@@ -114,32 +109,40 @@ function AddingBusiness(props) {
             AddBusiness(Business);
         }
     }
+
     let listCategory = useRef([]);
     const [categoriesArr, setCategoriesArr] = useState([]);
+    const [ifSelect, setIfSelect] = useState(false);
+    const [check, setCheck] = useState(false);
 
     const getAllCategories = () => {
+
         axios.get("http://localhost:4000/categories").then(scss => {
             let arrName = scss.data.map((data) => data.name);
             setCategoriesArr(arrName);
         });
     }
+
     onchange = (e) => {
         console.log(e);
         setCheck(e.target.checked);
-
     }
+
     useEffect(() => {
         getAllCategories();
-        // return (props.IfExist(false), props.ErrorInAdd(false))
     }, [])
 
 
 
 
+
     // alerts
-    const classes2 = useStyles();
+
     const [open, setOpen] = React.useState(false);
+
     const [typeAlert, settypeAlert] = React.useState("");
+    const [masseg, setmasseg] = React.useState("");
+
     const handleClick = () => {
         setOpen(true);
     };
@@ -155,9 +158,11 @@ function AddingBusiness(props) {
 
     return (<>
         {/* alerts */}
+
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity={typeAlert}> This is a success message!</Alert>
+            <Alert onClose={handleClose} severity={typeAlert}> {masseg}</Alert>
         </Snackbar>
+
         {/* alerts */}
 
         {/* form */}
@@ -214,7 +219,6 @@ function AddingBusiness(props) {
                         options={categoriesArr ? categoriesArr : []}
                         isObject={false}
                         ref={listCategory} type="text"
-                    // {...category}
                     />
                     {ifSelect && <p className="redColor">This is required.</p>}
 
@@ -234,12 +238,7 @@ function AddingBusiness(props) {
                     <ErrorMessage errors={errors} name="phone" render={({ message }) => <p className="redColor">{message}</p>} />
 
                 </Grid>
-                <Grid item xs={12}>
-                    <FormControlLabel
-                        control={<Checkbox value="allowExtraEmails" color="primary" onChange={(e) => onchange(e)} />}
-                        label="agree the conditions of use"
-                    />
-                </Grid>
+
             </Grid>
             {props.errorInAdd ? <p className="redColor">Error System</p> : null}
             <Button
@@ -248,18 +247,8 @@ function AddingBusiness(props) {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                disabled={!check}
-                variant="outlined"
-            >
-                Sign Up
-          </Button>
-            <Grid container justifyContent="flex-end">
-                <Grid item>
-                    <Link to="/SignIn">
-                        Already have an account? Sign in
-              </Link>
-                </Grid>
-            </Grid>
+            > Sign Up</Button>
+
         </form>
         {/* form */}
     </>
