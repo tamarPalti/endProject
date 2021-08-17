@@ -23,14 +23,6 @@ import Paper from '@material-ui/core/Paper';
 import Input from '@material-ui/core/Input'
 import axios from 'axios';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
-
-
-
-
-
-
-
-
 const useStyles = makeStyles((theme) => ({
     root: {
         height: '100vh',
