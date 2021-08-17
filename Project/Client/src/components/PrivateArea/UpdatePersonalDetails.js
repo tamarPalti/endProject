@@ -272,3 +272,4 @@ const mapStateToProps = (state) => {
     return { ifExist: state.usersPart.IfExist, errorInAdd: state.usersPart.ErrorInAdd };
 }
 export default connect(mapStateToProps, { AddUser, IfExist, ErrorInAdd })(UpdatePersonalDetails);
+

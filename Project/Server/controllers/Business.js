@@ -1,4 +1,5 @@
 const Business = require("../models/Business");
+const Users = require("../models/Users");
 const mongoose = require("mongoose");
 const getAll = async (req, res) => {
     try {
@@ -73,7 +74,22 @@ const deleteBusiness = async (req, res) => {
     }
 
 }
+const getListBuisnessByIdUser = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const user = await Users.findOne({ "_id": id });
+        if (!user)
+            return res.status(404).send("sorry no such user");
+        const ListBuisness = await Business.find({ "userId": id })
+        return res.send(ListBuisness).status();
+    }
+    catch{
+        return res.status(400);
+
+    }
+
+}
 
 module.exports = {
-    getAll, getByPassword, addBusiness, updateBusiness,deleteBusiness
+    getAll, getByPassword, addBusiness, updateBusiness, deleteBusiness, getListBuisnessByIdUser
 }

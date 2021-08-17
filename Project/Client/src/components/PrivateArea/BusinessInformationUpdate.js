@@ -1,5 +1,9 @@
+import ListBuisness from "./UpdateBuisness/ListBuisness";
+
 const BusinessInformationUpdate = (props) => {
-    return ( <>BusinessInformationUpdate</> );
+    return ( <><ListBuisness/></> );
 }
  
 export default BusinessInformationUpdate;
+
+
