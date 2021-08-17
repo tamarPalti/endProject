@@ -22,6 +22,12 @@ import { IfExist, ErrorInAdd } from '../../actions/index';
 import Paper from '@material-ui/core/Paper';
 import { Multiselect } from "multiselect-react-dropdown";
 import axios from 'axios';
+
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+
+
 //לא לשכוח
 //   img
 //   advertising
@@ -58,39 +64,53 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
+//alerts
+
+function Alert(props) {
+    return <MuiAlert elevation={2} variant="filled" {...props} />;
+}
+
+//alerts
 function AddingBusiness(props) {
     const classes = useStyles();
 
     const [check, setCheck] = useState(false);
     let currentUser = new user();
-    let Business=new business();
+    let Business = new business();
     const { register, formState: { errors }, handleSubmit } = useForm();
     const name = register('name', { required: "This is required.", minLength: { value: 2, message: "Min 2" }, maxLength: { value: 11, message: "Max 11" } })
-    const adress = register('adress', { required: "This is required.", minLength: { value: 2, message: "Min 2" }, maxLength: { value: 10, message: "Max 10" } })
+    const adress = register('adress', { required: "This is required." })
     const email = register('email', { required: "This is required.", pattern: { value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, message: "Email No Valid" } })
     const phone = register('phone', { required: "This is required.", pattern: { value: /0[0-9]{9}/, message: "Phone No Valid" } })
     const category = register('category', { minLength: { value: 1, message: "hhhhh" } })
-    const AddBusiness =async (business) => {
+
+
+    const AddBusiness = async (business) => {
         axios.post("http://localhost:4000/business", business).then((succ) => {
             console.log(succ.data);
+            settypeAlert("success");
+            handleClick();
         }).catch(ee => {
             console.log(ee.massege);
+            settypeAlert("error");
+            handleClick();
 
         });
     }
-    
+
     const [ifSelect, setIfSelect] = useState(false);
     const onSubmit = data => {
         if (listCategory.current.getSelectedItems().length == 0)
             setIfSelect(true);
         else {
-            Business.phoneNamber=[];
+            Business.phoneNamber = [];
             Business.phoneNamber.push(data.phone);
             Business.userId = localStorage.getItem("currentUserId");
             Business.listCategory = listCategory.current.getSelectedItems();
-            Business.name=data.name;
-            Business.email=data.email;
-            Business.adress=data.adress;
+            Business.name = data.name;
+            Business.email = data.email;
+            Business.adress = data.adress;
             AddBusiness(Business);
         }
     }
@@ -113,7 +133,34 @@ function AddingBusiness(props) {
         // return (props.IfExist(false), props.ErrorInAdd(false))
     }, [])
 
-    return (
+
+
+
+    // alerts
+    const classes2 = useStyles();
+    const [open, setOpen] = React.useState(false);
+    const [typeAlert, settypeAlert] = React.useState("");
+    const handleClick = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
+
+    // alerts
+
+    return (<>
+        {/* alerts */}
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity={typeAlert}> This is a success message!</Alert>
+        </Snackbar>
+        {/* alerts */}
+
+        {/* form */}
         <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
@@ -202,6 +249,7 @@ function AddingBusiness(props) {
                 color="primary"
                 className={classes.submit}
                 disabled={!check}
+                variant="outlined"
             >
                 Sign Up
           </Button>
@@ -213,6 +261,11 @@ function AddingBusiness(props) {
                 </Grid>
             </Grid>
         </form>
+        {/* form */}
+    </>
+
+
+
     );
 }
 const mapStateToProps = (state) => {
