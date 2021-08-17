@@ -1,79 +1,4 @@
-// import React from 'react'
-// import { Button, Divider, Form, Grid, Segment } from 'semantic-ui-react'
-// import { connect } from "react-redux";
-// import { Link, Route } from 'react-router-dom';
-// import { useEffect, useState, useRef } from "react";
-// import { GetCurrentUser, SignOut } from '../../actions/index';
-// import { useParams, Redirect } from 'react-router-dom';
-// import axios from 'axios';
-// import { propTypes } from 'react-bootstrap/esm/Image';
-// import SingUp from './SingUp';
-// import './SignIn.scss';
-// const SingIn = (props) => {
 
-
-//   let password;
-//   let mail;
-//   const [login, setlogin] = useState(false);
-//   useEffect(() => {
-
-//   }, [])
-//   const GetCurrentUser = async () => {
-//     await props.GetCurrentUser({ "password": password, "mail": mail });
-//     if (!props.CurrentUser)
-//       setlogin(true);
-//   }
-//   if (props.CurrentUser)
-//     return <Redirect to={{ pathname: "/Search" }} />;
-
-
-//   return (<div className="back-singIn">
-//     <Segment placeholder >
-//       <Grid columns={2} relaxed='very' stackable>
-//         <Grid.Column>
-//           <Form>
-//             <Form.Input
-//               icon='user'
-//               iconPosition='left'
-//               label='Mail'
-
-
-//               placeholder='Mail'
-
-//               onKeyUp={(e) => mail = e.target.value}
-//             />
-//             <Form.Input
-//               icon='lock'
-//               iconPosition='left'
-//               label='Password'
-//               type='password'
-//               onKeyUp={(e) => password = e.target.value}
-//             />
-//             <Button content='Login' onClick={
-//               async () => {
-//                 await GetCurrentUser();
-//               }} />
-//             {login ? <p className="redError">הרשם במערכת</p> : null}
-//           </Form>
-//         </Grid.Column>
-
-//         <Grid.Column verticalAlign='middle'>
-//           <Link to="SignUp">
-//             <Button content='Sign up' icon='signup' size='big' onClick={() => { }} />
-//           </Link>
-//         </Grid.Column>
-//       </Grid>
-
-//       <Divider vertical>Or</Divider>
-//     </Segment>
-//   </div>)
-
-// }
-// const mapStateToProps = (state) => {
-
-//   return { CurrentUser: state.usersPart.CurrentUser, SingUp: state.usersPart.SingUp };
-// }
-// export default connect(mapStateToProps, { GetCurrentUser, SignOut })(SingIn);
 
 
 
@@ -96,7 +21,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useParams, Redirect } from 'react-router-dom';
 import { useEffect, useState, useRef } from "react";
-
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 function Copyright() {
   return (
@@ -130,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor:'#e860ff'
+    backgroundColor: '#e860ff'
   },
   form: {
     width: '100%',
@@ -142,89 +68,130 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//alerts
+
+function Alert(props) {
+  return <MuiAlert elevation={2} variant="filled" {...props} />;
+}
+
+//alerts
+
+
 const SingIn = (props) => {
+
   const classes = useStyles();
   let password;
   let mail;
-  const [login, setlogin] = useState(false);
+
+
+
+
+
+  // alerts
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+  // alerts
   useEffect(() => {
 
   }, [])
   const GetCurrentUser = async () => {
     await props.GetCurrentUser({ "password": password, "mail": mail });
     if (!props.CurrentUser)
-      setlogin(true);
+      handleClick();
   }
   if (props.CurrentUser)
     return <Redirect to={{ pathname: "/Search/users" }} />;
   return (
-    <Grid container component="main" className={classes.root}>
-      <CssBaseline />
-    
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
+    <>
+
+      {/* alerts */}
+
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">Sing In System</Alert>
+      </Snackbar>
+
+      {/* alerts */}
+      <Grid container component="main" className={classes.root}>
+        <CssBaseline />
+
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
           </Typography>
-          <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              onKeyUp={(e) => mail = e.target.value}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onKeyUp={(e) => password = e.target.value}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            {login ? <p className="redError">הרשם במערכת</p> : null}
-            <Button
-              fullWidth
-              variant="contained"
-              className={classes.submit}
-              onClick={async () => {
-                 await GetCurrentUser();
-               }}>
-              Sign In
+            <form className={classes.form} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                onKeyUp={(e) => mail = e.target.value}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onKeyUp={(e) => password = e.target.value}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                fullWidth
+                variant="contained"
+                className={classes.submit}
+                onClick={async () => {
+                  await GetCurrentUser();
+                }}>
+                Sign In
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link variant="body2">
-                  Forgot password?
+              <Grid container>
+                <Grid item xs>
+                  <Link variant="body2">
+                    Forgot password?
                 </Link>
-              </Grid>
-              <Grid item>
-                <Link to="SignUp">
-                  Don't have an account? Sign Up
+                </Grid>
+                <Grid item>
+                  <Link to="SignUp">
+                    Don't have an account? Sign Up
                 </Link>
+                </Grid>
               </Grid>
-            </Grid>
-          </form>
-        </div>
+            </form>
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={2} md={7} className={classes.image} />
       </Grid>
-      <Grid item xs={12} sm={2} md={7} className={classes.image} />
-    </Grid>
+    </>
+
+
   );
 }
 const mapStateToProps = (state) => {
