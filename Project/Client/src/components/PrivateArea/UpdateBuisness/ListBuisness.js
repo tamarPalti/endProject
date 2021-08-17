@@ -62,7 +62,7 @@ export default function ListBuisness() {
             <Grid container spacing={2}>
                 <Grid item xs={12} md={6}>
                     <Typography variant="h6" className={classes.title}>
-                        Avatar with text
+                    
           </Typography>
                     <div className={classes.demo}>
                         <List>
