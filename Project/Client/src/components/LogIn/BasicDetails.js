@@ -71,11 +71,12 @@ function BasicDetails(props) {
 
   const onSubmit = data => {
     console.log(data);
-    currentUser.dateLogin = new Date();
-    currentUser.phoneNamber = [];
-    currentUser.phoneNamber.push(data.phone);
-    currentUser.ifMessege = false;
-    props.AddUser(currentUser);
+    data.dateLogin = new Date();
+    data.phoneNamber = [];
+    data.phoneNamber.push(data.phone);
+    data.ifMessege = false;
+    data.adress="";
+    props.AddUser(data);
   }
   
   onchange = (e) => {
@@ -100,7 +101,6 @@ function BasicDetails(props) {
                 id="firstName"
                 label="First Name"
                 autoFocus
-                onKeyUp={(e) => currentUser.firstName = e.target.value}
                 {...firstName}
               />
               <ErrorMessage errors={errors} name="firstName" render={({ message }) => <p className="redColor">{message}</p>} />
@@ -115,7 +115,6 @@ function BasicDetails(props) {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
-                onKeyUp={(e) => currentUser.lastName = e.target.value}
                 {...lastName}
               />
               <ErrorMessage errors={errors} name="lastName" render={({ message }) => <p className="redColor">{message}</p>} />
@@ -130,7 +129,6 @@ function BasicDetails(props) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                onKeyUp={(e) => currentUser.email = e.target.value}
                 {...email}
               />
               <ErrorMessage errors={errors} name="email" render={({ message }) => <p className="redColor">{message}</p>} />
@@ -146,7 +144,6 @@ function BasicDetails(props) {
                 id="password"
                 label="Password"
                 autoFocus
-                onKeyUp={(e) => currentUser.password = e.target.value}
                 {...password}
               />
               <ErrorMessage errors={errors} name="password" render={({ message }) => <p className="redColor">{message}</p>} />
@@ -161,7 +158,6 @@ function BasicDetails(props) {
                 label="Phone"
                 name="phone"
                 autoComplete="phone"
-                onKeyUp={(e) => currentUser.phoneNamber = e.target.value}
                 {...phone}
               />
               <ErrorMessage errors={errors} name="phone" render={({ message }) => <p className="redColor">{message}</p>} />

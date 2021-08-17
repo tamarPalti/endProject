@@ -28,7 +28,16 @@ export const SearchBusiness = (business, allBusiness) => {
     }
 
 }
+// export const AddBusiness = (business) => {
+//     return (dispatch) => {
+//         axios.post("http://localhost:4000/business/",business).then((succ) => {
+//             console.log(succ.data);
+//         }).catch(ee => {
+//             console.log(ee.massege);
 
+//         });
+//     }
+// }
 export const SaveAllBusiness = (business) => {
     return {
         type: actionTypes.FILL_ALL_BUSINESS,
