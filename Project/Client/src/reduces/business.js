@@ -4,7 +4,7 @@ const initialBusiness = {
     BusinessSearch: [],
     SelectedBusiness: null,
     ColorName: "",
-    updateBuisness: "60da423f776b081e40825eec"
+    updateBuisness: null
 }
 export const businessReducer = (state = initialBusiness, action) => {
     switch (action.type) {

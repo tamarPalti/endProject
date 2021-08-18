@@ -1,22 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from "react-redux";
-// import { AddUser } from '../../actions/index';
 import business from '../../classes/business'
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
-//import '../LogIn/SingUp.scss';
-// import { IfExist, ErrorInAdd } from '../../actions/index';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import { GetCurrentBuisness, getAllCategories, UpdateBuisnessFunc } from '../../../util/index'
+import {  getAllCategories, UpdateBuisnessFunc } from '../../../util/index';
 import { Multiselect } from "multiselect-react-dropdown";
 import { ChangeUpdateBuisness } from '../../../actions/index';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -49,6 +45,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+//alerts
+
+function Alert(props) {
+    return <MuiAlert elevation={2} variant="filled" {...props} />;
+}
+
+//alerts
 
 
 function UpdateBuisness(props) {
@@ -87,10 +90,16 @@ function UpdateBuisness(props) {
     const onSubmit = async data => {
         updateBuisness.listCategory = listCategory.current.getSelectedItems();
 
-        UpdateBuisnessFunc(props._id, updateBuisness).then(succ => {
-            console.log(succ);
+        UpdateBuisnessFunc(props.updateBuisness._id, data).then(succ => {
+            settypeAlert("success");
+            setmasseg("Updating Success");
+            handleClick();
+
         }).catch(error => {
-            console.log(error);
+            settypeAlert("error");
+            setmasseg(error.response.data)
+
+            handleClick();
         })
     }
 
@@ -108,11 +117,26 @@ function UpdateBuisness(props) {
     }
 
 
+    // alerts
 
+    const [open, setOpen] = React.useState(false);
+
+    const [typeAlert, settypeAlert] = React.useState("");
+    const [masseg, setmasseg] = React.useState("");
+
+    const handleClick = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
+
+    // alerts
     useEffect(() => {
-
-
-
         getAllCategories().then((succ) => {
             let arrName = succ.data.map((data) => data.name);
             setCategoriesArr(arrName);
@@ -120,115 +144,119 @@ function UpdateBuisness(props) {
             console.log(err);
         });
 
-        GetCurrentBuisness(props.updateBuisness).then(succ => {
-            setcurrentBuisness(succ.data);
-        }).catch(error => {
-            console.log(error);
-        });
+        // GetCurrentBuisness(props.updateBuisness).then(succ => {
+        //     setcurrentBuisness(succ.data);
+        // }).catch(error => {
+        //     console.log(error);
+        // });
 
         // return (props.IfExist(false), props.ErrorInAdd(false));
 
     }, [])
 
     return (
-        ifGoToLogin ? <Redirect to={'/SingIn'} /> : currentBuisness && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateBuisness))}>
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        autoComplete="fname"
-                        name="name"
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="name"
-                        label="Name"
-                        autoFocus
-                        defaultValue={currentBuisness.name}
-                        onKeyUp={(e) => onKeyUp(e, "name")}
-                        {...name}
-                    />
-                    <ErrorMessage errors={errors} name="name" render={({ message }) => <p className="redColor">{message}</p>} />
+        <>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity={typeAlert}> {masseg}</Alert>
+            </Snackbar>
+            {ifGoToLogin ? <Redirect to={'/SingIn'} /> : props.updateBuisness && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateBuisness))}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            autoComplete="fname"
+                            name="name"
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="name"
+                            label="Name"
+                            autoFocus
+                            defaultValue={props.updateBuisness.name}
+                            value={props.updateBuisness.name}
+                            onKeyUp={(e) => onKeyUp(e, "name")}
+                            {...name}
+                        />
+                        <ErrorMessage errors={errors} name="name" render={({ message }) => <p className="redColor">{message}</p>} />
+
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
+                            defaultValue={props.updateBuisness.email}
+                            onKeyUp={(e) => onKeyUp(e, "email")}
+                            {...email}
+                        />
+                        <ErrorMessage errors={errors} name="email" render={({ message }) => <p className="redColor">{message}</p>} />
+                        {props.ifExist ? <p className="redColor">This Email Alrady Exist</p> : null}
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <Multiselect
+                            onSelect={(e) => setIfSelect(false)}
+                            label="Category"
+                            name="category"
+                            options={categoriesArr ? categoriesArr : []}
+                            isObject={false}
+                            ref={listCategory} type="text"
+                            selectedValues={props.updateBuisness.listCategory}
+                        />
+                        {ifSelect && <p className="redColor">This is required.</p>}
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="phone"
+                            label="Phone"
+                            name="phone"
+                            autoComplete="phone"
+                            autoFocus
+                            defaultValue={props.updateBuisness.phoneNamber}
+                            onKeyUp={(e) => onKeyUp(e, "phoneNamber")}
+                            {...phone}
+                        />
+                        <ErrorMessage errors={errors} name="phone" render={({ message }) => <p className="redColor">{message}</p>} />
+
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            autoComplete="fname"
+                            name="address"
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="address"
+                            label="Address"
+                            autoFocus
+                            defaultValue={props.updateBuisness.adress}
+                            onKeyUp={(e) => onKeyUp(e, "adress")}
+                            {...adress}
+                        />
+                    </Grid>
 
                 </Grid>
-
-                <Grid item xs={12}>
-                    <TextField
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                        defaultValue={currentBuisness.email}
-                        onKeyUp={(e) => onKeyUp(e, "email")}
-                        {...email}
-                    />
-                    <ErrorMessage errors={errors} name="email" render={({ message }) => <p className="redColor">{message}</p>} />
-                    {props.ifExist ? <p className="redColor">This Email Alrady Exist</p> : null}
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <Multiselect
-                        onSelect={(e) => setIfSelect(false)}
-                        label="Category"
-                        name="category"
-                        options={categoriesArr ? categoriesArr : []}
-                        isObject={false}
-                        ref={listCategory} type="text"
-                        selectedValues={currentBuisness.listCategory}
-                    />
-                    {ifSelect && <p className="redColor">This is required.</p>}
-
-
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="phone"
-                        label="Phone"
-                        name="phone"
-                        autoComplete="phone"
-                        autoFocus
-                        defaultValue={currentBuisness.phoneNamber}
-                        onKeyUp={(e) => onKeyUp(e, "phoneNamber")}
-                        {...phone}
-                    />
-                    <ErrorMessage errors={errors} name="phone" render={({ message }) => <p className="redColor">{message}</p>} />
-
-                </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        autoComplete="fname"
-                        name="address"
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="address"
-                        label="Address"
-                        autoFocus
-                        defaultValue={currentBuisness.adress}
-                        onKeyUp={(e) => onKeyUp(e, "adress")}
-                        {...adress}
-                    />
-                </Grid>
-
-            </Grid>
-            {props.errorInAdd ? <p className="redColor">Error System</p> : null}
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-            >
-                Update
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}>
+                    Update
           </Button>
-        </form>
+                {props.updateBuisness.name}
+            </form>}
+        </>
+
     );
 }
 const mapStateToProps = (state) => {

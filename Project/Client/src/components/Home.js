@@ -14,8 +14,7 @@ import CustomizedSteppers from './PrivateArea/PrivateArea';
 const Home = (props) => {
 
     useEffect(() => {
-        // if (localStorage.getItem("currentUser"))
-        //     props.SingIn(localStorage.getItem("currentUser"));
+   
     })
     return (
         <div>

@@ -17,11 +17,11 @@ export const SearchBusiness = (business, allBusiness) => {
         let phoneNamber = business.phoneNamber || [];
         let email = business.email || "";
         let adress = business.adress || "";
-        let listCategory =  [];
+        let listCategory = [];
         if (business.listCategory)
-            business.listCategory.forEach((e)=>listCategory.push(e));
+            business.listCategory.forEach((e) => listCategory.push(e));
         let businesses = allBusiness.filter((b) => {
-            return b.name.includes(name) && (b.listCategory.filter(c=> business.listCategory.indexOf(c) != -1).length>0||listCategory.length==0)
+            return b.name.includes(name) && (b.listCategory.filter(c => business.listCategory.indexOf(c) != -1).length > 0 || listCategory.length == 0)
                 && b.email.includes(email) && b.adress.includes(adress) && b.phoneNamber.filter((e) => e.includes(phoneNamber)).length > 0
         });
         dispatch(SaveResultBusiness(businesses));
@@ -76,9 +76,9 @@ export const ChangeColorName = (name) => {
         payload: name
     }
 }
-export const ChangeUpdateBuisness = (id) => {
+export const ChangeUpdateBuisness = (update) => {
     return {
         type: actionTypes.UPDATE_BUISNESS,
-        payload: id
+        payload: update
     }
 }

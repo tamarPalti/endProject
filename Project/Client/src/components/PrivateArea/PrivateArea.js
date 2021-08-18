@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -19,7 +19,9 @@ import AddingBusiness from './AddingBusiness';
 import SearchHistory from './SearchHistory';
 import ScrollableTabsButtonAuto from './SearchHistory';
 import { connect } from "react-redux";
-
+import { ChangeUpdateBuisness } from '../../actions/index'
+import { GetCurrentUser } from '../../util';
+import { Redirect } from 'react-router-dom';
 
 const useQontoStepIconStyles = makeStyles({
     root: {
@@ -119,7 +121,7 @@ function ColorlibStepIcon(props) {
         1: <SettingsIcon />,
         2: <GroupAddIcon />,
         3: <VideoLabelIcon />,
-        4:<VideoLabelIcon />
+        4: <VideoLabelIcon />
     };
 
     return (
@@ -163,29 +165,37 @@ function getSteps() {
 function getStepContent(step) {
     switch (step) {
         case 0:
-            return <UpdatePersonalDetails/>;
+            return <UpdatePersonalDetails />;
         case 1:
-            return <BusinessInformationUpdate/>;
+            return <BusinessInformationUpdate />;
         case 2:
-            return <AddingBusiness/>;
+            return <AddingBusiness />;
         case 3:
-            return <ScrollableTabsButtonAuto/>;
+            return <ScrollableTabsButtonAuto />;
         default:
-            return <UpdatePersonalDetails/>;
+            return <UpdatePersonalDetails />;
     }
 }
 
 function PrivateArea(props) {
+
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(4);
     const steps = getSteps();
+
+
+    const [ifGoToLogin, setifGoToLogin] = useState(false);
+
 
     const handleNext = (index) => {
         setActiveStep(index);
     };
 
+    useEffect(() => {
+        GetCurrentUser().catch(error => { setifGoToLogin(true) });
+    }, []);
     return (
-        <div className={classes.root}>
+        !ifGoToLogin ? <div className={classes.root}>
             <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
                 {steps.map((label, index) => (
                     <Step key={index} onClick={() => handleNext(index)}>
@@ -195,7 +205,7 @@ function PrivateArea(props) {
             </Stepper>
             <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
 
-        </div>
+        </div> : <Redirect to={'/'} />
     );
 }
 
@@ -206,6 +216,6 @@ const mapStateToProps = (state) => {
 
     return { updateBuisness: state.businessPart.updateBuisness };
 }
-export default connect(mapStateToProps )(PrivateArea);
+export default connect(mapStateToProps, { ChangeUpdateBuisness })(PrivateArea);
 
 

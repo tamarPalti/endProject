@@ -1,5 +1,5 @@
 import './Search.scss'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import 'semantic-ui-css/semantic.min.css';
 import { Link, Route } from 'react-router-dom';
 import UsersSearch from './UseresSearch';
@@ -9,15 +9,16 @@ import ResultSearchBusiness from './ResultSearchBusiness';
 import { connect } from "react-redux";
 import { GetCurrentUser } from '../../actions/index';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
+import { GetCurrentUser as GetCurrentUser2 } from '../../util';
 const Search = (props) => {
 
 
     let users = React.createRef();
     let business = React.createRef();
-    // useEffect(() => {
 
+    const [ifGoToLogin, setifGoToLogin] = useState(false);
+ 
 
-    // }, []);
     const ChangeButtonUsers = (e) => {
         e.target.classList.add("active");
         e.target.classList.add("teal");
@@ -30,8 +31,13 @@ const Search = (props) => {
         users.current.classList.remove("active");
         users.current.classList.remove("teal");
     }
+
+    
+    useEffect(() => {
+        GetCurrentUser2().catch(error => {setifGoToLogin(true)});
+    },[])
     return (<>
-        {localStorage.getItem("currentUserMail") !="null"? <div className="back-search">
+        {!ifGoToLogin ? <div className="back-search">
             <div className="ui pointing menu three serach_div">
                 <Link to="/search/users" className="div_link">
                     <a className="item sizetab item-user" ref={users} onClick={(e) => ChangeButtonUsers(e)}>
@@ -43,21 +49,21 @@ const Search = (props) => {
                 </Link>
                 <div className="place_search">
                     <Route path="/search/users">
-                      {localStorage.getItem("currentUserMail") !="null"?<>  <UsersSearch />
-                        <div className="place_result">
-                            <ResultSearchUser />
-                        </div></>:<Redirect to={'/'}/>}
+                        {localStorage.getItem("currentUserMail") != "null" ? <>  <UsersSearch />
+                            <div className="place_result">
+                                <ResultSearchUser />
+                            </div></> : <Redirect to={'/'} />}
                     </Route>
                     <Route path="/search/business">
-                    {localStorage.getItem("currentUserMail") !="null"?<>    <BusinessSearch />
-                        <div className="place_result">
-                            <ResultSearchBusiness />
-                        </div></>:<Redirect to={'/'}/>}
+                        {localStorage.getItem("currentUserMail") != "null" ? <>    <BusinessSearch />
+                            <div className="place_result">
+                                <ResultSearchBusiness />
+                            </div></> : <Redirect to={'/'} />}
                     </Route>
                 </div>
             </div>
 
-        </div> :  <Redirect to={'/'} />}</>);
+        </div> : <Redirect to={'/'} />}</>);
 }
 const mapStateToProps = (state) => {
     return { CurrentUser: state.usersPart.CurrentUser };
@@ -164,7 +170,7 @@ export default connect(mapStateToProps, { GetCurrentUser })(Search);
 //             </TabPanel>
 //             <TabPanel value={value} index={1}>
 //                 <BusinessSearch />
-             
+
 //             </TabPanel>
 
 //         </div> : null
