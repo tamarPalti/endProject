@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -16,6 +16,9 @@ import Typography from '@material-ui/core/Typography';
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import axios from 'axios';
+import UpdateBuisness from './UpdateBuisnes';
+import { ChangeUpdateBuisness } from '../../../actions/index';
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,16 +41,22 @@ function generate(element) {
     );
 }
 
-export default function ListBuisness() {
+function ListBuisness(props) {
     const classes = useStyles();
     const [dense, setDense] = React.useState(false);
     const [secondary, setSecondary] = React.useState(false);
     const [listBuisness, setlistBuisness] = React.useState([]);
 
+    const [indexUpdate, setindexUpdate] = useState(0);
+
+
     const GetAllBuisnessOfUser = async () => {
         axios.get(`http://localhost:4000/business/getListBuisnessByIdUser/${localStorage.getItem("currentUserId")}`).then(data => {
+
             console.log(data.data);
             setlistBuisness(data.data);
+            props.ChangeUpdateBuisness(data.data[0]._id);
+
         }).catch(error => {
             console.log(error);
 
@@ -59,19 +68,21 @@ export default function ListBuisness() {
 
     return (
         <div className={classes.root}>
-            <Grid container spacing={2}>
-                <Grid item xs={12} md={6}>
+            {listBuisness.length > 0 && <Grid container spacing={2}>
+                <Grid item xs={9} md={8}>
                     <Typography variant="h6" className={classes.title}>
-                    
-          </Typography>
+
+                    </Typography>
                     <div className={classes.demo}>
                         <List>
                             {listBuisness && listBuisness.map((item, index) => {
                                 return (
-                                    <ListItem>
+                                    <ListItem onClick={() => props.ChangeUpdateBuisness(item._id)}>
                                         <ListItemAvatar>
-                                            <Avatar>
-                                            </Avatar>
+                                            <IconButton edge="end" >
+                                                <Avatar>
+                                                </Avatar>
+                                            </IconButton>
                                         </ListItemAvatar>
                                         <ListItemText
                                             primary={item.name}
@@ -80,12 +91,18 @@ export default function ListBuisness() {
                                     </ListItem>
                                 )
                             })}
-
                         </List>
                     </div>
                 </Grid>
-
-            </Grid>
+                {/* <Grid item xs={12} md={4}>
+                    <UpdateBuisness id={props.updateBuisness} />
+                </Grid> */}
+            </Grid>}
         </div>
     );
 }
+const mapStateToProps = (state) => {
+
+    return { updateBuisness: state.businessPart.updateBuisness };
+}
+export default connect(mapStateToProps, { ChangeUpdateBuisness })(ListBuisness);

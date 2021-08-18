@@ -76,3 +76,9 @@ export const ChangeColorName = (name) => {
         payload: name
     }
 }
+export const ChangeUpdateBuisness = (id) => {
+    return {
+        type: actionTypes.UPDATE_BUISNESS,
+        payload: id
+    }
+}

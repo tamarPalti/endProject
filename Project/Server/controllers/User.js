@@ -56,6 +56,7 @@ const updateUser = async (req, res) => {
         user.adress = userBody.adress || user.adress;
         user.img = userBody.img || user.img;
         user.password = userBody.password || user.password;
+        user.ifMessege = userBody.ifMessege;
         await user.save();
         return res.send(user);
     }

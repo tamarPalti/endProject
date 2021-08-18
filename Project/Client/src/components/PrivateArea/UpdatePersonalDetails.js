@@ -87,29 +87,17 @@ function UpdatePersonalDetails(props) {
 
     // פונקצית העדכון
     const onSubmit = async data => {
+        data.ifMessege = data.ifMessege === "" ? currentUser.ifMessege : data.ifMessege;
         await axios.put(`http://localhost:4000/users/${localStorage.getItem("currentUserId")}`, data);
     }
 
 
-    onchange = (e) => {
-        console.log(e);
-        setCheck(e.target.checked);
-    }
+    // onchange = (e) => {
+    //     console.log(e);
+    //     setCheck(e.target.checked);
+    // }
 
-   const onFocus = (e, type) => {
-        if (updateUser[type] == '')
-            e.target.value = currentUser[type];
-
-        else {
-            if (updateUser[type] == null)
-
-                e.target.value = '';
-            else
-                e.target.value = updateUser[type];
-        }
-    }
-
-    const onKeyUp=(e,type)=>{
+    const onKeyUp = (e, type) => {
         updateUser[type] = e.target.value;
         e.target.value = updateUser[type];
         if (updateUser[type] == '')
@@ -117,7 +105,7 @@ function UpdatePersonalDetails(props) {
     }
 
 
-    
+
     useEffect(() => {
         GetCuccentUser();
         return (props.IfExist(false), props.ErrorInAdd(false));
@@ -137,7 +125,7 @@ function UpdatePersonalDetails(props) {
                         id="firstName"
                         label="First Name"
                         autoFocus
-                        onFocus={(e) =>  onFocus(e, "firstName")}
+                        defaultValue={currentUser.firstName}
                         onKeyUp={(e) => onKeyUp(e, "firstName")}
                         {...firstName}
                     />
@@ -154,7 +142,7 @@ function UpdatePersonalDetails(props) {
                         name="lastName"
                         autoComplete="lname"
                         autoFocus
-                        onFocus={(e) =>  onFocus(e, "lastName")}
+                        defaultValue={currentUser.lastName}
                         onKeyUp={(e) => onKeyUp(e, "lastName")}
                         {...lastName}
                     />
@@ -171,7 +159,7 @@ function UpdatePersonalDetails(props) {
                         name="email"
                         autoComplete="email"
                         autoFocus
-                        onFocus={(e) =>  onFocus(e, "email")}
+                        defaultValue={currentUser.email}
                         onKeyUp={(e) => onKeyUp(e, "email")}
                         {...email}
                     />
@@ -188,7 +176,7 @@ function UpdatePersonalDetails(props) {
                         id="password"
                         label="Password"
                         autoFocus
-                        onFocus={(e) =>  onFocus(e, "password")}
+                        defaultValue={currentUser.password}
                         onKeyUp={(e) => onKeyUp(e, "password")}
                         {...password}
                     />
@@ -205,7 +193,7 @@ function UpdatePersonalDetails(props) {
                         name="phone"
                         autoComplete="phone"
                         autoFocus
-                        onFocus={(e) =>  onFocus(e, "phoneNamber")}
+                        defaultValue={currentUser.phoneNamber}
                         onKeyUp={(e) => onKeyUp(e, "phoneNamber")}
                         {...phone}
                     />
@@ -224,26 +212,20 @@ function UpdatePersonalDetails(props) {
                         id="address"
                         label="Address"
                         autoFocus
-                        onFocus={(e) =>  onFocus(e, "adress")}
+                        defaultValue={currentUser.adress}
                         onKeyUp={(e) => onKeyUp(e, "adress")}
                         {...address}
                     />
                 </Grid>
-                {/* <Grid item xs={12} sm={6}>
-                    <Input
-                        variant="outlined"
-                        required
-                        type="file"
-                        fullWidth
-                        id="image"
-                        label="Image"
-                        name="image"
-                        autoComplete="lname"
-                        autoFocus
-                        onFocus={(e) =>  onFocus(e, "img")}
-                        onKeyUp={(e) => onKeyUp(e, "img")}
+                <Grid item xs={12} sm={6}>
+                    <FormControlLabel
+                        control={<Checkbox defaultChecked={currentUser.ifMessege}
+                            color="primary" onClick={(e) => {
+                                updateUser.ifMessege = e.target.checked
+                            }} />}
+                        label="I want to be notified if they searched for me"
                     />
-                </Grid> */}
+                </Grid>
             </Grid>
             {props.errorInAdd ? <p className="redColor">Error System</p> : null}
             <Button

@@ -18,6 +18,7 @@ import BusinessInformationUpdate from './BusinessInformationUpdate';
 import AddingBusiness from './AddingBusiness';
 import SearchHistory from './SearchHistory';
 import ScrollableTabsButtonAuto from './SearchHistory';
+import { connect } from "react-redux";
 
 
 const useQontoStepIconStyles = makeStyles({
@@ -174,7 +175,7 @@ function getStepContent(step) {
     }
 }
 
-export default function PrivateArea() {
+function PrivateArea(props) {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(4);
     const steps = getSteps();
@@ -200,5 +201,11 @@ export default function PrivateArea() {
 
 
 
+
+const mapStateToProps = (state) => {
+
+    return { updateBuisness: state.businessPart.updateBuisness };
+}
+export default connect(mapStateToProps )(PrivateArea);
 
 

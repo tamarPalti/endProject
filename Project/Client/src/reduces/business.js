@@ -3,7 +3,8 @@ const initialBusiness = {
     AllBusiness: [],
     BusinessSearch: [],
     SelectedBusiness: null,
-    ColorName: ""
+    ColorName: "",
+    updateBuisness: "60da423f776b081e40825eec"
 }
 export const businessReducer = (state = initialBusiness, action) => {
     switch (action.type) {
@@ -36,6 +37,11 @@ export const businessReducer = (state = initialBusiness, action) => {
             return {
                 ...state,
                 ColorName: action.payload
+            }
+        case actionTypes.UPDATE_BUISNESS:
+            return {
+                ...state,
+                updateBuisness: action.payload
             }
 
     }

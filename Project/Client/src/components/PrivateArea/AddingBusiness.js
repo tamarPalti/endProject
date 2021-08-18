@@ -113,6 +113,7 @@ function AddingBusiness(props) {
     let listCategory = useRef([]);
     const [categoriesArr, setCategoriesArr] = useState([]);
     const [ifSelect, setIfSelect] = useState(false);
+    
     const [check, setCheck] = useState(false);
 
     const getAllCategories = () => {
