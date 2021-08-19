@@ -8,12 +8,11 @@ import business from '../../classes/business'
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
 import { Redirect } from 'react-router-dom';
-import {  getAllCategories, UpdateBuisnessFunc } from '../../../util/index';
+import { getAllCategories, UpdateBuisnessFunc } from '../../../util/index';
 import { Multiselect } from "multiselect-react-dropdown";
 import { ChangeUpdateBuisness } from '../../../actions/index';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-
 const useStyles = makeStyles((theme) => ({
     root: {
         height: '100vh',
@@ -75,7 +74,6 @@ function UpdateBuisness(props) {
     const name = register('name', { minLength: { value: 2, message: "Min 2" } })
     const email = register('email', { pattern: { value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, message: "Email No Valid" } })
     const phone = register('phone', { pattern: { value: /0[0-9]{9}/, message: "Phone No Valid" } })
-    // const listCategory = register('listCategory')
     const adress = register('adress');
 
 
@@ -94,7 +92,7 @@ function UpdateBuisness(props) {
             settypeAlert("success");
             setmasseg("Updating Success");
             handleClick();
-
+            props.GetAllBuisnessOfUser();
         }).catch(error => {
             settypeAlert("error");
             setmasseg(error.response.data)
@@ -104,10 +102,7 @@ function UpdateBuisness(props) {
     }
 
 
-    // onchange = (e) => {
-    //     console.log(e);
-    //     setCheck(e.target.checked);
-    // }
+
 
     const onKeyUp = (e, type) => {
         updateBuisness[type] = e.target.value;
@@ -136,6 +131,7 @@ function UpdateBuisness(props) {
     };
 
     // alerts
+
     useEffect(() => {
         getAllCategories().then((succ) => {
             let arrName = succ.data.map((data) => data.name);
@@ -144,13 +140,7 @@ function UpdateBuisness(props) {
             console.log(err);
         });
 
-        // GetCurrentBuisness(props.updateBuisness).then(succ => {
-        //     setcurrentBuisness(succ.data);
-        // }).catch(error => {
-        //     console.log(error);
-        // });
-
-        // return (props.IfExist(false), props.ErrorInAdd(false));
+       
 
     }, [])
 
@@ -159,7 +149,7 @@ function UpdateBuisness(props) {
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity={typeAlert}> {masseg}</Alert>
             </Snackbar>
-            {ifGoToLogin ? <Redirect to={'/SingIn'} /> : props.updateBuisness && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateBuisness))}>
+            {ifGoToLogin ? <Redirect to={'/SingIn'} /> : props.updateBuisness && props.updateBuisness._id == props.id && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateBuisness))}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
                         <TextField
@@ -170,9 +160,7 @@ function UpdateBuisness(props) {
                             fullWidth
                             id="name"
                             label="Name"
-                            autoFocus
                             defaultValue={props.updateBuisness.name}
-                            value={props.updateBuisness.name}
                             onKeyUp={(e) => onKeyUp(e, "name")}
                             {...name}
                         />
@@ -189,7 +177,6 @@ function UpdateBuisness(props) {
                             label="Email Address"
                             name="email"
                             autoComplete="email"
-                            autoFocus
                             defaultValue={props.updateBuisness.email}
                             onKeyUp={(e) => onKeyUp(e, "email")}
                             {...email}
@@ -218,10 +205,9 @@ function UpdateBuisness(props) {
                             label="Phone"
                             name="phone"
                             autoComplete="phone"
-                            autoFocus
                             defaultValue={props.updateBuisness.phoneNamber}
                             onKeyUp={(e) => onKeyUp(e, "phoneNamber")}
-                            {...phone}
+                           
                         />
                         <ErrorMessage errors={errors} name="phone" render={({ message }) => <p className="redColor">{message}</p>} />
 
@@ -237,7 +223,6 @@ function UpdateBuisness(props) {
                             fullWidth
                             id="address"
                             label="Address"
-                            autoFocus
                             defaultValue={props.updateBuisness.adress}
                             onKeyUp={(e) => onKeyUp(e, "adress")}
                             {...adress}
@@ -253,7 +238,7 @@ function UpdateBuisness(props) {
                     className={classes.submit}>
                     Update
           </Button>
-                {props.updateBuisness.name}
+              
             </form>}
         </>
 

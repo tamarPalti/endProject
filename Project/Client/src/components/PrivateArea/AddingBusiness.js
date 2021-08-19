@@ -178,7 +178,6 @@ function AddingBusiness(props) {
                         fullWidth
                         id="name"
                         label="name"
-                        autoFocus
                         {...name}
                     />
                     <ErrorMessage errors={errors} name="name" render={({ message }) => <p className="redColor">{message}</p>} />
