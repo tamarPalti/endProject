@@ -12,7 +12,7 @@ import axios from 'axios';
 import { ChangeUpdateBuisness } from '../../../actions/index';
 import { connect } from "react-redux";
 import { GetCurrentBuisness } from '../../../util/index';
-
+import UpdateBuisness from './UpdateBuisnes';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -78,18 +78,21 @@ function ListBuisness(props) {
                         <List>
                             {listBuisness && listBuisness.map((item, index) => {
                                 return (
-                                    <ListItem onClick={() => ChangeUpdateBuisness(item._id)}>
-                                        <ListItemAvatar>
-                                            <IconButton edge="end" >
-                                                <Avatar>
-                                                </Avatar>
-                                            </IconButton>
-                                        </ListItemAvatar>
-                                        <ListItemText
-                                            primary={item.name}
-                                            secondary={secondary ? 'Secondary text' : null}
-                                        />
-                                    </ListItem>
+                                    <>
+                                        <ListItem onClick={() => ChangeUpdateBuisness(item._id)}>
+                                            <ListItemAvatar>
+                                                <IconButton edge="end" >
+                                                    <Avatar>
+                                                    </Avatar>
+                                                </IconButton>
+                                            </ListItemAvatar>
+                                            <ListItemText
+                                                primary={item.name}
+                                                secondary={secondary ? 'Secondary text' : null}
+                                            />
+                                        </ListItem>
+                                        <UpdateBuisness GetAllBuisnessOfUser={GetAllBuisnessOfUser}  id={item._id}/></>
+
                                 )
                             })}
                         </List>

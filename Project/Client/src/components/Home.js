@@ -5,21 +5,59 @@ import UsersSearch from './search/UseresSearch';
 import BusinessSearch from './search/BusinessSearch';
 import Search from './search/Search';
 import { connect } from "react-redux";
-// import SingIn from './LogIn/singIn';
 import SingIn from './LogIn/singIn';
 import SignUp from './LogIn/SingUp';
 import PrivateArea from './PrivateArea/PrivateArea';
-import CustomizedSteppers from './PrivateArea/PrivateArea';
+import './Home.scss';
+import Button from '@material-ui/core/Button';
+import { purple } from '@material-ui/core/colors';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 
+const ColorButton = withStyles((theme) => ({
+    root: {
+        color: theme.palette.getContrastText(purple[500]),
+        backgroundColor: purple[500],
+        '&:hover': {
+            backgroundColor: purple[700],
+        },
+    },
+}))(Button);
+
+const useStyles = makeStyles((theme) => ({
+    margin: {
+        margin: theme.spacing(1),
+    },
+}));
 const Home = (props) => {
 
+    const classes = useStyles();
+
     useEffect(() => {
-   
+
     })
     return (
-        <div>
+        <>
+
+
             <Switch>
+
+                <Route exact path={'/'}>
+                    <div className="back-home">
+                        <Link to="/SignUp">
+                            <ColorButton variant="contained" color="primary" className={classes.margin}>
+                                SignUp
+                        </ColorButton>
+                        </Link>
+                        <Link to="/SignIn">
+                            <ColorButton variant="contained" color="primary" className={classes.margin}>
+                                SingIn
+                        </ColorButton>
+                        </Link>
+                    </div>
+                </Route>
+
                 <Route path={'/Search'}>
+                    
                     <Search />
                 </Route>
                 <Route path={'/SignUp'}>
@@ -28,12 +66,12 @@ const Home = (props) => {
                 <Route path={'/PrivateArea'}>
                     <PrivateArea />
                 </Route>
-                <Route path={'/'}>
+                <Route path={'/SignIn'}>
                     <SingIn />
                 </Route>
             </Switch>
-            
-        </div>);
+        </>
+    );
 }
 const mapStateToProps = (state) => {
     return { CurrentUser: state.usersPart.CurrentUser };

@@ -124,7 +124,6 @@ function UpdatePersonalDetails(props) {
                         fullWidth
                         id="firstName"
                         label="First Name"
-                        autoFocus
                         defaultValue={currentUser.firstName}
                         onKeyUp={(e) => onKeyUp(e, "firstName")}
                         {...firstName}
@@ -141,7 +140,6 @@ function UpdatePersonalDetails(props) {
                         label="Last Name"
                         name="lastName"
                         autoComplete="lname"
-                        autoFocus
                         defaultValue={currentUser.lastName}
                         onKeyUp={(e) => onKeyUp(e, "lastName")}
                         {...lastName}
@@ -158,11 +156,12 @@ function UpdatePersonalDetails(props) {
                         label="Email Address"
                         name="email"
                         autoComplete="email"
-                        autoFocus
                         defaultValue={currentUser.email}
                         onKeyUp={(e) => onKeyUp(e, "email")}
                         {...email}
+                        disabled="true"
                     />
+                    
                     <ErrorMessage errors={errors} name="email" render={({ message }) => <p className="redColor">{message}</p>} />
                     {props.ifExist ? <p className="redColor">This Email Alrady Exist</p> : null}
                 </Grid>
@@ -175,7 +174,6 @@ function UpdatePersonalDetails(props) {
                         fullWidth
                         id="password"
                         label="Password"
-                        autoFocus
                         defaultValue={currentUser.password}
                         onKeyUp={(e) => onKeyUp(e, "password")}
                         {...password}
@@ -192,7 +190,6 @@ function UpdatePersonalDetails(props) {
                         label="Phone"
                         name="phone"
                         autoComplete="phone"
-                        autoFocus
                         defaultValue={currentUser.phoneNamber}
                         onKeyUp={(e) => onKeyUp(e, "phoneNamber")}
                         {...phone}
@@ -211,7 +208,6 @@ function UpdatePersonalDetails(props) {
                         fullWidth
                         id="address"
                         label="Address"
-                        autoFocus
                         defaultValue={currentUser.adress}
                         onKeyUp={(e) => onKeyUp(e, "adress")}
                         {...address}
