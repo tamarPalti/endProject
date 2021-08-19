@@ -79,18 +79,18 @@ const Search = (props) => {
                         {localStorage.getItem("currentUserMail") != "null" ? <>  <UsersSearch />
                             <div className="place_result">
                                 <ResultSearchUser />
-                            </div></> : <Redirect to={'/'} />}
+                            </div></> : <Redirect to={'/SignIn'} />}
                     </Route>
                     <Route path="/search/business">
                         {localStorage.getItem("currentUserMail") != "null" ? <>    <BusinessSearch />
                             <div className="place_result">
                                 <ResultSearchBusiness />
-                            </div></> : <Redirect to={'/'} />}
+                            </div></> : <Redirect to={'/SignIn'} />}
                     </Route>
                 </div>
             </div>
 
-        </div> : <Redirect to={'/'} />}</>);
+        </div> : <Redirect to={'/SignIn'} />}</>);
 }
 const mapStateToProps = (state) => {
     return { CurrentUser: state.usersPart.CurrentUser };

@@ -113,7 +113,7 @@ function UpdatePersonalDetails(props) {
     }, [])
 
     return (
-        ifGoToLogin ? <Redirect to={'/SingIn'} /> : currentUser && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateUser))}>
+        ifGoToLogin ? <Redirect to={'/SignIn'} /> : currentUser && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateUser))}>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <TextField

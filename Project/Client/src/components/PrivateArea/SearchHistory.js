@@ -79,7 +79,7 @@ const SearchHistory = (props) => {
     }, []);
 
     return (<>
-        {ifGoToLogin ? <Redirect to={'/SingIn'} /> : currentUser ?
+        {ifGoToLogin ? <Redirect to={'/SignIn'} /> : currentUser ?
             <>
                 <div className={classes.root}>
                     <AppBar position="static" color="default" width="22%">

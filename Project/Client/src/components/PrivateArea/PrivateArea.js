@@ -194,6 +194,7 @@ function PrivateArea(props) {
     useEffect(() => {
         GetCurrentUser().catch(error => { setifGoToLogin(true) });
     }, []);
+    
     return (
         !ifGoToLogin ? <div className={classes.root}>
             <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
@@ -205,7 +206,7 @@ function PrivateArea(props) {
             </Stepper>
             <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
 
-        </div> : <Redirect to={'/'} />
+        </div> : <Redirect to={'/SignIn'} />
     );
 }
 
