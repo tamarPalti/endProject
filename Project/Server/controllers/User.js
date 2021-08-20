@@ -46,6 +46,9 @@ const updateUser = async (req, res) => {
     let userBody = req.body;
     const id = req.params.id;
     try {
+        // if (!userBody.firstName || !userBody.lastName || !userBody.phoneNamber || !userBody.adress || !userBody.password)
+        //     return res.status(400).send("all the inputs is required");
+
         const user = await Users.findOne({ "_id": id });
         if (!user)
             return res.status(404).send("sorry no such user");

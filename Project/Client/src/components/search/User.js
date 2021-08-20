@@ -2,7 +2,6 @@ import { connect } from "react-redux";
 import './User.scss';
 import { SelectedUser, ChangeColorFirstName, ChangeColorLastName } from '../../actions/index';
 import { useRef, useEffect } from "react";
-import { Link, Route } from 'react-router-dom';
 import ico from './img/alex.png';
 import React from 'react';
 import { AddHistory } from '../../util/index';

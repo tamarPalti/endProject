@@ -1,28 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import { connect } from "react-redux";
 import { AddUser } from '../../actions/index';
 import user from '../classes/user';
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
 import '../LogIn/SingUp.scss';
-import { Link } from 'react-router-dom';
 import { IfExist, ErrorInAdd } from '../../actions/index';
-import Paper from '@material-ui/core/Paper';
-import Input from '@material-ui/core/Input'
 import axios from 'axios';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
+import { GetCurrentUser } from '../../util/index';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import { UpdateUser } from '../../util/index'
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
         height: '100vh',
@@ -54,12 +51,21 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
+//alerts
+
+function Alert(props) {
+    return <MuiAlert elevation={2} variant="filled" {...props} />;
+}
+
+//alerts
+
+
 function UpdatePersonalDetails(props) {
 
     // עיצוב
     const classes = useStyles();
 
-    const [check, setCheck] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
     const [ifGoToLogin, setifGoToLogin] = useState(false);
 
@@ -76,26 +82,27 @@ function UpdatePersonalDetails(props) {
     const address = register('address');
 
 
-    // שליפת המשתמש הנוכחי
-    const GetCuccentUser = async () => {
-        axios.get(`http://localhost:4000/users/${localStorage.getItem("currentUserId")}`).then(data => {
-            setCurrentUser(data.data);
-        }).catch(() => {
-            setifGoToLogin(true);
-        });
-    }
-
     // פונקצית העדכון
     const onSubmit = async data => {
+
         data.ifMessege = data.ifMessege === "" ? currentUser.ifMessege : data.ifMessege;
-        await axios.put(`http://localhost:4000/users/${localStorage.getItem("currentUserId")}`, data);
+        UpdateUser(data).then(succ => {
+
+            settypeAlert("success");
+            setmasseg("Updating Success");
+            handleClick();
+
+        }).catch(error => {
+
+            settypeAlert("error");
+            setmasseg(error.response.data)
+            handleClick();
+
+        });
+  
     }
 
 
-    // onchange = (e) => {
-    //     console.log(e);
-    //     setCheck(e.target.checked);
-    // }
 
     const onKeyUp = (e, type) => {
         updateUser[type] = e.target.value;
@@ -104,137 +111,172 @@ function UpdatePersonalDetails(props) {
             updateUser[type] = null;
     }
 
+    // alerts
 
+    const [open, setOpen] = React.useState(false);
+
+    const [typeAlert, settypeAlert] = React.useState("");
+    const [masseg, setmasseg] = React.useState("");
+
+    const handleClick = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
+
+    // alerts
 
     useEffect(() => {
-        GetCuccentUser();
+
+        // שליפת המשתמש הנוכחי
+        GetCurrentUser().then(data => {
+            setCurrentUser(data.data);
+        }).catch(() => {
+            setifGoToLogin(true);
+        });
+
         return (props.IfExist(false), props.ErrorInAdd(false));
 
     }, [])
 
     return (
-        ifGoToLogin ? <Redirect to={'/SignIn'} /> : currentUser && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateUser))}>
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        autoComplete="fname"
-                        name="firstName"
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="firstName"
-                        label="First Name"
-                        defaultValue={currentUser.firstName}
-                        onKeyUp={(e) => onKeyUp(e, "firstName")}
-                        {...firstName}
-                    />
-                    <ErrorMessage errors={errors} name="firstName" render={({ message }) => <p className="redColor">{message}</p>} />
+        <>
 
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="lastName"
-                        label="Last Name"
-                        name="lastName"
-                        autoComplete="lname"
-                        defaultValue={currentUser.lastName}
-                        onKeyUp={(e) => onKeyUp(e, "lastName")}
-                        {...lastName}
-                    />
-                    <ErrorMessage errors={errors} name="lastName" render={({ message }) => <p className="redColor">{message}</p>} />
+            {/* alerts */}
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity={typeAlert}> {masseg}</Alert>
+            </Snackbar>
+            {/* alerts */}
 
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
-                        defaultValue={currentUser.email}
-                        onKeyUp={(e) => onKeyUp(e, "email")}
-                        {...email}
-                        disabled="true"
-                    />
-                    
-                    <ErrorMessage errors={errors} name="email" render={({ message }) => <p className="redColor">{message}</p>} />
-                    {props.ifExist ? <p className="redColor">This Email Alrady Exist</p> : null}
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        autoComplete="password"
-                        name="password"
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="password"
-                        label="Password"
-                        defaultValue={currentUser.password}
-                        onKeyUp={(e) => onKeyUp(e, "password")}
-                        {...password}
-                    />
-                    <ErrorMessage errors={errors} name="password" render={({ message }) => <p className="redColor">{message}</p>} />
+            {ifGoToLogin ? <Redirect to={'/SignIn'} /> : currentUser && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateUser))}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            autoComplete="fname"
+                            name="firstName"
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="firstName"
+                            label="First Name"
+                            defaultValue={currentUser.firstName}
+                            onKeyUp={(e) => onKeyUp(e, "firstName")}
+                            {...firstName}
+                        />
+                        <ErrorMessage errors={errors} name="firstName" render={({ message }) => <p className="redColor">{message}</p>} />
 
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="phone"
-                        label="Phone"
-                        name="phone"
-                        autoComplete="phone"
-                        defaultValue={currentUser.phoneNamber}
-                        onKeyUp={(e) => onKeyUp(e, "phoneNamber")}
-                        {...phone}
-                    />
-                    <ErrorMessage errors={errors} name="phone" render={({ message }) => <p className="redColor">{message}</p>} />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="lastName"
+                            label="Last Name"
+                            name="lastName"
+                            autoComplete="lname"
+                            defaultValue={currentUser.lastName}
+                            onKeyUp={(e) => onKeyUp(e, "lastName")}
+                            {...lastName}
+                        />
+                        <ErrorMessage errors={errors} name="lastName" render={({ message }) => <p className="redColor">{message}</p>} />
 
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                            defaultValue={currentUser.email}
+                            onKeyUp={(e) => onKeyUp(e, "email")}
+                            {...email}
+                            disabled="true"
+                        />
+
+                        <ErrorMessage errors={errors} name="email" render={({ message }) => <p className="redColor">{message}</p>} />
+                        {props.ifExist ? <p className="redColor">This Email Alrady Exist</p> : null}
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            autoComplete="password"
+                            name="password"
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="password"
+                            label="Password"
+                            defaultValue={currentUser.password}
+                            onKeyUp={(e) => onKeyUp(e, "password")}
+                            {...password}
+                        />
+                        <ErrorMessage errors={errors} name="password" render={({ message }) => <p className="redColor">{message}</p>} />
+
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="phone"
+                            label="Phone"
+                            name="phone"
+                            autoComplete="phone"
+                            defaultValue={currentUser.phoneNamber}
+                            onKeyUp={(e) => onKeyUp(e, "phoneNamber")}
+                            {...phone}
+                        />
+                        <ErrorMessage errors={errors} name="phone" render={({ message }) => <p className="redColor">{message}</p>} />
+
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        autoComplete="fname"
-                        name="address"
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="address"
-                        label="Address"
-                        defaultValue={currentUser.adress}
-                        onKeyUp={(e) => onKeyUp(e, "adress")}
-                        {...address}
-                    />
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            autoComplete="fname"
+                            name="address"
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="address"
+                            label="Address"
+                            defaultValue={currentUser.adress}
+                            onKeyUp={(e) => onKeyUp(e, "adress")}
+                            {...address}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <FormControlLabel
+                            control={<Checkbox defaultChecked={currentUser.ifMessege}
+                                color="primary" onClick={(e) => {
+                                    updateUser.ifMessege = e.target.checked
+                                }} />}
+                            label="I want to be notified if they searched for me"
+                        />
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                    <FormControlLabel
-                        control={<Checkbox defaultChecked={currentUser.ifMessege}
-                            color="primary" onClick={(e) => {
-                                updateUser.ifMessege = e.target.checked
-                            }} />}
-                        label="I want to be notified if they searched for me"
-                    />
-                </Grid>
-            </Grid>
-            {props.errorInAdd ? <p className="redColor">Error System</p> : null}
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-            >
-                Update
+                {props.errorInAdd ? <p className="redColor">Error System</p> : null}
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                >
+                    Update
           </Button>
 
-        </form>
+            </form>}
+        </>
+
     );
 }
 const mapStateToProps = (state) => {

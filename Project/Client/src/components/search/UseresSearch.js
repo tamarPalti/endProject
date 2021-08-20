@@ -17,9 +17,7 @@ const UsersSearch = (props) => {
     // props.AllUsers פעם ראשונה שמבקר באתר נשלף כל המשתמשים למערך
     if (props.AllUsers.length == 0)
         props.GetAllUsers();
-    // props.UserSearch פעם ראשונה שמבקר בקומפוננטה מועתק כל המשתמשים ממערך props.AllUsers למערך
-    // if (props.UserSearch == null)
-    //     props.SaveResultUsers(props.AllUsers);
+
 
     // פונקצית חיפוש Users
     const searchUsers = () => {
@@ -42,6 +40,8 @@ const UsersSearch = (props) => {
 
     useEffect(() => {
     }, []);
+
+
     return (<>
         {<form className="ui form">
             <div className="ui form">

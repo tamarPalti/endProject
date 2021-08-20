@@ -14,9 +14,16 @@ export const AddHistoryBusiness = async (currentId, businessId) => {
     axios.put(`http://localhost:4000/users/addToHistoryBusiness/${currentId}&${businessId}`);
 
 }
+export const AddUser = async (user) => {
+    return axios.post("http://localhost:4000/users", user)
+}
 
-
-
+export const DeleteHistoryUsers = async (index) => {
+    return axios.put(`http://localhost:4000/users/deleteHistoryUser/${localStorage.getItem("currentUserId")}&${index}`);
+}
+export const UpdateUser = async (user) => {
+    return axios.put(`http://localhost:4000/users/${localStorage.getItem("currentUserId")}`, user);
+}
 
 
 

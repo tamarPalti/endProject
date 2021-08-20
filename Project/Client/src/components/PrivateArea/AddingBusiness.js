@@ -12,7 +12,7 @@ import { Multiselect } from "multiselect-react-dropdown";
 import axios from 'axios';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-
+import { AddBusiness, getAllCategories } from '../../util/index';
 
 
 //לא לשכוח
@@ -73,8 +73,9 @@ function AddingBusiness(props) {
     const category = register('category', { minLength: { value: 1, message: "hhhhh" } })
 
 
-    const AddBusiness = async (business) => {
-        axios.post("http://localhost:4000/business", business).then((succ) => {
+    const AddBusinessFunc = async (business) => {
+
+        AddBusiness(business).then((succ) => {
             console.log(succ.data);
 
             settypeAlert("success");
@@ -106,23 +107,15 @@ function AddingBusiness(props) {
             Business.name = data.name;
             Business.email = data.email;
             Business.adress = data.adress;
-            AddBusiness(Business);
+            AddBusinessFunc(Business);
         }
     }
 
     let listCategory = useRef([]);
     const [categoriesArr, setCategoriesArr] = useState([]);
     const [ifSelect, setIfSelect] = useState(false);
-    
+
     const [check, setCheck] = useState(false);
-
-    const getAllCategories = () => {
-
-        axios.get("http://localhost:4000/categories").then(scss => {
-            let arrName = scss.data.map((data) => data.name);
-            setCategoriesArr(arrName);
-        });
-    }
 
     onchange = (e) => {
         console.log(e);
@@ -130,7 +123,12 @@ function AddingBusiness(props) {
     }
 
     useEffect(() => {
-        getAllCategories();
+
+        getAllCategories().then(scss => {
+            let arrName = scss.data.map((data) => data.name);
+            setCategoriesArr(arrName);
+        });
+
     }, [])
 
 
@@ -157,6 +155,9 @@ function AddingBusiness(props) {
 
     // alerts
 
+
+
+    
     return (<>
         {/* alerts */}
 

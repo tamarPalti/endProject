@@ -10,8 +10,10 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import axios from 'axios';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
-import Users from'./Histories/Users';
+import Users from './Histories/Users';
 import Buisness from './Histories/Buisness';
+import { GetCurrentUser } from '../../util/index';
+
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -32,6 +34,7 @@ function TabPanel(props) {
         </div>
     );
 }
+
 
 TabPanel.propTypes = {
     children: PropTypes.node,
@@ -66,18 +69,18 @@ const SearchHistory = (props) => {
         setValue(newValue);
     };
 
-    const GetCuccentUser = async () => {
-        axios.get(`http://localhost:4000/users/${localStorage.getItem("currentUserId")}`).then(data => {
+
+    useEffect(() => {
+
+        GetCurrentUser().then(data => {
             setCurrentUser(data.data);
         }).catch(() => {
             setifGoToLogin(true);
         });
-    }
-    
-    useEffect(() => {
-        GetCuccentUser();
+
     }, []);
 
+    
     return (<>
         {ifGoToLogin ? <Redirect to={'/SignIn'} /> : currentUser ?
             <>
@@ -90,14 +93,14 @@ const SearchHistory = (props) => {
                             textColor="primary"
                             variant="scrollable"
                             scrollButtons="auto"
-                            aria-label="scrollable auto tabs example"              
+                            aria-label="scrollable auto tabs example"
                         >
                             <Tab label="Users"  {...a11yProps(0)} />
                             <Tab label="Business" {...a11yProps(1)} />
                         </Tabs>
                     </AppBar>
-                    <TabPanel value={value} index={0}><Users/></TabPanel>
-                    <TabPanel value={value} index={1}><Buisness/></TabPanel>
+                    <TabPanel value={value} index={0}><Users /></TabPanel>
+                    <TabPanel value={value} index={1}><Buisness /></TabPanel>
                 </div>
             </>
             : null}

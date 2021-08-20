@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { List } from 'semantic-ui-react'
 import { useEffect, useState } from 'react';
 import { GetCurrentUser } from '../../actions/index';
-import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import MyLocation from "./MyLocation";
 import { log } from "util";
+
 const ResultSearchBusiness = (props) => {
     // const [Location, setLocation] = useState({ lat: '', len: '' });
     // const [Let, setLet] = useState('');

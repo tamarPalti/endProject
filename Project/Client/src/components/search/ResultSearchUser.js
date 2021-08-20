@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { List } from 'semantic-ui-react'
 import { useEffect } from 'react';
 import { GetCurrentUser } from '../../actions/index';
-import { Redirect, useHistory, useLocation } from 'react-router-dom';
+
 const ResultSearchUser = (props) => {
 
     useEffect(() => {
