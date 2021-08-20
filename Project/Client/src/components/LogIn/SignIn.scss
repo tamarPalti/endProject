@@ -26,10 +26,12 @@
 }.makeStyles-submit-6:hover {
     color: #fff;
     background-color: #e860ff;
-}.makeStyles-image-2 {
-    background-image: url("./img/back.png");
+}
 
-}.MuiButton-contained {
+.MuiButton-contained {
     color: rgba(0, 0, 0, 0.87);
     background-color: #e860ff;
+}.opcityandimg{
+     background-image: url("./img/back.png");
+    // opacity: 0.5;
 }

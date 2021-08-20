@@ -1,28 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import { connect } from "react-redux";
 import { IfExist, ErrorInAdd, SignIn } from '../../actions/index';
-import user from '../classes/user';
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
 import './SingUp.scss';
 import { Link } from 'react-router-dom';
-import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-
-import axios from 'axios';
+import { AddUser } from '../../util/index'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,11 +58,11 @@ function Alert(props) {
 
 
 function BasicDetails(props) {
+
   const classes = useStyles();
 
   const [check, setCheck] = useState(false);
 
-  let currentUser = new user();
 
   const { register, formState: { errors }, handleSubmit } = useForm();
   const firstName = register('firstName', { required: "This is required.", minLength: { value: 2, message: "Min 2" }, maxLength: { value: 11, message: "Max 11" } })
@@ -81,13 +72,44 @@ function BasicDetails(props) {
   const password = register('password', { required: "This is required.", minLength: { value: 5, message: "Min 5" }, maxLength: { value: 5, message: "Max 5" }, pattern: { value: /[0-9a-zA-Z]{5}/, message: "Make sure it's at least 5 characters OR characters including a number , a lowercase letter and a upperrcase letter" } })
 
   const onSubmit = data => {
+
+
     console.log(data);
     data.dateLogin = new Date();
     data.phoneNamber = [];
     data.phoneNamber.push(data.phone);
     data.ifMessege = false;
     data.adress = "";
-    AddUser(data);
+
+
+
+    //util פונקציה מה 
+    AddUser(data).then((succ) => {
+      console.log(succ.data);
+
+      props.SignIn(succ.data);
+      props.IfExist(false);
+      props.ErrorInAdd(false);
+      settypeAlert("success");
+      setmasseg("Adding Success");
+      handleClick();
+
+    }).catch(ee => {
+      console.log(ee.massege);
+      if (ee.response.status == 500) {
+        props.IfExist(true);
+        props.ErrorInAdd(false);
+      }
+
+      else {
+        props.ErrorInAdd(true);
+        props.IfExist(false);
+      }
+      settypeAlert("error");
+      setmasseg(ee.response.data)
+
+      handleClick();
+    });
   }
 
   onchange = (e) => {
@@ -119,38 +141,12 @@ function BasicDetails(props) {
 
   // alerts
 
-  const AddUser = async (user) => {
+  
 
-    axios.post("http://localhost:4000/users", user).then((succ) => {
-      console.log(succ.data);
-
-      props.SignIn(succ.data);
-      props.IfExist(false);
-      props.ErrorInAdd(false);
-      settypeAlert("success");
-      setmasseg("Adding Success");
-      handleClick();
-
-    }).catch(ee => {
-      console.log(ee.massege);
-      if (ee.response.status == 500) {
-        props.IfExist(true);
-        props.ErrorInAdd(false);
-      }
-
-      else {
-        props.ErrorInAdd(true);
-        props.IfExist(false);
-      }
-      settypeAlert("error");
-      setmasseg(ee.response.data)
-
-      handleClick();
-    });
-
-  }
   useEffect(() => {
+
     return (props.IfExist(false), props.ErrorInAdd(false))
+
   }, [])
 
   return (
@@ -206,7 +202,6 @@ function BasicDetails(props) {
               {...email}
             />
             <ErrorMessage errors={errors} name="email" render={({ message }) => <p className="redColor">{message}</p>} />
-            {/* {props.ifExist ? <p className="redColor">This Email Alrady Exist</p> : null} */}
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -244,7 +239,6 @@ function BasicDetails(props) {
             />
           </Grid>
         </Grid>
-        {/* {props.errorInAdd ? <p className="redColor">Error System</p> : null} */}
         <Button
           type="submit"
           fullWidth

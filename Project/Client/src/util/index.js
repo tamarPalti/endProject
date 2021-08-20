@@ -1,3 +1,3 @@
-export {  AddHistory, AddHistoryBusiness,GetCurrentUser } from './UtilUser';
-export { GetCurrentBuisness , UpdateBuisnessFunc} from './UtilBuisness';
+export { AddHistory, AddHistoryBusiness, GetCurrentUser, AddUser, DeleteHistoryUsers ,UpdateUser} from './UtilUser';
+export { GetCurrentBuisness, UpdateBuisnessFunc, DeleteHistoryBusiness, GetAllBuisnessOfUser, AddBusiness } from './UtilBuisness';
 export { getAllCategories } from './UtilCategory';

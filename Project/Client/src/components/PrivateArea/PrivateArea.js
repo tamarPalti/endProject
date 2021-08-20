@@ -23,6 +23,7 @@ import { ChangeUpdateBuisness } from '../../actions/index'
 import { GetCurrentUser } from '../../util';
 import { Redirect } from 'react-router-dom';
 
+
 const useQontoStepIconStyles = makeStyles({
     root: {
         color: '#eaeaf0',
@@ -176,6 +177,8 @@ function getStepContent(step) {
             return <UpdatePersonalDetails />;
     }
 }
+
+
 
 function PrivateArea(props) {
 

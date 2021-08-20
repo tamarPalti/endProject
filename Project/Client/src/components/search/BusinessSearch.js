@@ -6,11 +6,10 @@ import {
     GetAllBusiness, SaveResultBusiness, SearchBusiness, DeleteResultBusiness,
     ChangeColorName, GetCurrentUser
 } from '../../actions/index';
-import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { Multiselect } from "multiselect-react-dropdown";
 import './BusinessSearch.scss'
-import ResultSearchBusiness from './ResultSearchBusiness';
-import axios from 'axios';
+import { getAllCategories } from '../../util/index'
+
 const BusinessSearch = (props) => {
 
 
@@ -20,18 +19,11 @@ const BusinessSearch = (props) => {
     let adress = useRef();
     let listCategory = useRef();
     const [categoriesArr, setCategoriesArr] = useState([]);
-    const getAllCategories=()=>{
-        axios.get("http://localhost:4000/categories").then(scss=>{
-            let arrName=scss.data.map((data)=>data.name);
-            setCategoriesArr(arrName);
-        });
-    }
+
     // props.AllUsers פעם ראשונה שמבקר באתר נשלף כל המשתמשים למערך
     if (props.AllBusiness.length == 0)
         props.GetAllBusiness();
-    // props.UserSearch פעם ראשונה שמבקר בקומפוננטה מועתק כל המשתמשים ממערך props.AllUsers למערך
-    // if (props.BusinessSearch == null)
-    //     props.SaveResultBusiness(props.AllBusiness);
+
 
     // פונקצית חיפוש Users
     const searchBusiness = () => {
@@ -42,7 +34,7 @@ const BusinessSearch = (props) => {
         Business.email = email.current.value;
         Business.adress = adress.current.value;
         Business.listCategory = listCategory.current.getSelectedItems();
-        if (Business.name || Business.phoneNamber || Business.email || Business.adress || Business.listCategory.length!=0) {
+        if (Business.name || Business.phoneNamber || Business.email || Business.adress || Business.listCategory.length != 0) {
             props.ChangeColorName(Business.name);
             props.SearchBusiness(Business, props.AllBusiness);
         }
@@ -51,8 +43,16 @@ const BusinessSearch = (props) => {
     }
 
     useEffect(() => {
-        getAllCategories();
+
+        getAllCategories().then(scss => {
+            let arrName = scss.data.map((data) => data.name);
+            setCategoriesArr(arrName);
+        });
+
     }, []);
+
+
+
     return (<>
         {<form className="ui form">
             <div className="ui form">
@@ -78,9 +78,9 @@ const BusinessSearch = (props) => {
                     <div className="field">
                         <label>Category</label>
                         <Multiselect
-                            options={categoriesArr?categoriesArr:[]}
+                            options={categoriesArr ? categoriesArr : []}
                             isObject={false}
-                            ref={listCategory} type="text" 
+                            ref={listCategory} type="text"
                             onSelect={searchBusiness}
                             onRemove={searchBusiness}
                         />

@@ -13,6 +13,8 @@ import { Multiselect } from "multiselect-react-dropdown";
 import { ChangeUpdateBuisness } from '../../../actions/index';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
         height: '100vh',
@@ -43,6 +45,8 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#e860ff'
     },
 }));
+
+
 
 //alerts
 
@@ -86,19 +90,23 @@ function UpdateBuisness(props) {
 
     // פונקצית העדכון
     const onSubmit = async data => {
+
         updateBuisness.listCategory = listCategory.current.getSelectedItems();
 
         UpdateBuisnessFunc(props.updateBuisness._id, data).then(succ => {
+
             settypeAlert("success");
             setmasseg("Updating Success");
             handleClick();
             props.GetAllBuisnessOfUser();
+
         }).catch(error => {
+
             settypeAlert("error");
             setmasseg(error.response.data)
-
             handleClick();
-        })
+
+        });
     }
 
 
@@ -133,15 +141,14 @@ function UpdateBuisness(props) {
     // alerts
 
     useEffect(() => {
+
         getAllCategories().then((succ) => {
             let arrName = succ.data.map((data) => data.name);
             setCategoriesArr(arrName);
         }).catch(err => {
             console.log(err);
-        });
-
-       
-
+        }); 
+        
     }, [])
 
     return (

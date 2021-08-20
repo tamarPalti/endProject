@@ -3,7 +3,7 @@
 
 
 import { connect } from "react-redux";
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { GetCurrentUser, SignOut } from '../../actions/index';
 import './SignIn.scss';
 import React from 'react';
@@ -14,28 +14,15 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { useParams, Redirect } from 'react-router-dom';
+import {  Redirect } from 'react-router-dom';
 import { useEffect, useState, useRef } from "react";
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,9 +31,10 @@ const useStyles = makeStyles((theme) => ({
   image: {
     backgroundRepeat: 'no-repeat',
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+    theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    // backgroundImage:'url(./img/back.png)'
   },
   paper: {
     margin: theme.spacing(8, 4),
@@ -68,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 //alerts
 
 function Alert(props) {
@@ -82,10 +71,6 @@ const SingIn = (props) => {
   const classes = useStyles();
   let password;
   let mail;
-
-
-
-
 
   // alerts
 
@@ -103,22 +88,27 @@ const SingIn = (props) => {
   };
 
   // alerts
+
   useEffect(() => {
 
   }, [])
+
   const GetCurrentUser = async () => {
     await props.GetCurrentUser({ "password": password, "mail": mail });
     if (!props.CurrentUser)
       handleClick();
   }
+
   if (props.CurrentUser)
     return <Redirect to={{ pathname: "/Search/users" }} />;
+
   return (
     <>
 
       {/* alerts */}
 
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar
+       open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">Sing In System</Alert>
       </Snackbar>
 
@@ -144,7 +134,6 @@ const SingIn = (props) => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                autoFocus
                 onKeyUp={(e) => mail = e.target.value}
               />
               <TextField
@@ -187,7 +176,7 @@ const SingIn = (props) => {
             </form>
           </div>
         </Grid>
-        <Grid item xs={12} sm={2} md={7} className={classes.image} />
+        <Grid item xs={12} sm={2} md={7} className={classes.image+" opcityandimg"} />
       </Grid>
     </>
 

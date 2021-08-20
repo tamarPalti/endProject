@@ -8,11 +8,13 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import axios from 'axios';
 import { ChangeUpdateBuisness } from '../../../actions/index';
 import { connect } from "react-redux";
-import { GetCurrentBuisness } from '../../../util/index';
+import { GetCurrentBuisness, GetAllBuisnessOfUser } from '../../../util/index';
 import UpdateBuisness from './UpdateBuisnes';
+
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -26,25 +28,24 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function generate(element) {
-    return [0, 1, 2].map((value) =>
-        React.cloneElement(element, {
-            key: value,
-        }),
-    );
-}
 
 function ListBuisness(props) {
     const classes = useStyles();
-    const [dense, setDense] = React.useState(false);
     const [secondary, setSecondary] = React.useState(false);
     const [listBuisness, setlistBuisness] = React.useState([]);
 
-    const [indexUpdate, setindexUpdate] = useState(0);
+    const ChangeUpdateBuisness = (id) => {
 
+        GetCurrentBuisness(id).then(data => {
+            props.ChangeUpdateBuisness(data.data);
+        }).catch(error => {
+            console.log(error);
+        });
+    }
 
-    const GetAllBuisnessOfUser = async () => {
-        axios.get(`http://localhost:4000/business/getListBuisnessByIdUser/${localStorage.getItem("currentUserId")}`).then(data => {
+    useEffect(() => {
+
+        GetAllBuisnessOfUser().then(data => {
             console.log(data.data);
             setlistBuisness(data.data);
             props.ChangeUpdateBuisness(data.data[0]);
@@ -52,20 +53,9 @@ function ListBuisness(props) {
         }).catch(error => {
             console.log(error);
 
-        })
-    }
+        });
 
-    const ChangeUpdateBuisness = (id) => {
-        GetCurrentBuisness(id).then(data => {
-            props.ChangeUpdateBuisness(data.data);
-        }).catch(error => {
-            console.log(error);
-        })
-    }
-
-    useEffect(() => {
-        GetAllBuisnessOfUser();
-    }, [])
+    }, []);
 
     return (
         <div className={classes.root}>
@@ -91,7 +81,7 @@ function ListBuisness(props) {
                                                 secondary={secondary ? 'Secondary text' : null}
                                             />
                                         </ListItem>
-                                        <UpdateBuisness GetAllBuisnessOfUser={GetAllBuisnessOfUser}  id={item._id}/></>
+                                        <UpdateBuisness GetAllBuisnessOfUser={GetAllBuisnessOfUser} id={item._id} /></>
 
                                 )
                             })}
