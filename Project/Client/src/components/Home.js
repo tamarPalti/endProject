@@ -12,7 +12,7 @@ import './Home.scss';
 import Button from '@material-ui/core/Button';
 import { purple } from '@material-ui/core/colors';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-
+import home2 from './img/home3.png';
 const ColorButton = withStyles((theme) => ({
     root: {
         color: theme.palette.getContrastText(purple[500]),
@@ -45,21 +45,38 @@ const Home = (props) => {
 
                 <Route exact path={'/'}>
                     <div className="back-home">
-                        <Link to="/SignUp">
-                            <ColorButton variant="contained" color="primary" className={classes.margin}>
-                                SignUp
-                        </ColorButton>
-                        </Link>
-                        <Link to="/SignIn">
-                            <ColorButton variant="contained" color="primary" className={classes.margin}>
-                                SingIn
-                        </ColorButton>
-                        </Link>
+                        <img src={home2} style={{ width: "100%" }}></img>
+                        <div className="href">
+                            <Link to="/SignUp" >
+                                <ColorButton variant="contained" color="primary" className={classes.margin}>
+                                    SignUp
+                                </ColorButton>
+
+                            </Link>
+                            <Link to="/SignIn" >
+                                <ColorButton variant="contained" color="primary" className={classes.margin}>
+                                    SingIn
+                                </ColorButton>
+                            </Link>
+                        </div>
+                        <div className="href2">
+                            <Link to="/SignUp" >
+                                <ColorButton variant="contained" color="primary" style={{"border-radius": "19px"}} className={classes.margin+" search"}>
+                                    Search Users
+                                </ColorButton>
+
+                            </Link>
+                            <Link to="/SignIn" >
+                                <ColorButton variant="contained" color="primary" style={{"border-radius": "19px"}} className={classes.margin+" search"}>
+                                    Search Buisness
+                                </ColorButton>
+                            </Link>
+                        </div>
                     </div>
                 </Route>
 
                 <Route path={'/Search'}>
-                    
+
                     <Search />
                 </Route>
                 <Route path={'/SignUp'}>

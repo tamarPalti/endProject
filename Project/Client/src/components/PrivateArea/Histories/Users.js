@@ -52,7 +52,7 @@ const Users = (props) => {
 
     }
 
-    
+
     useEffect(() => {
         GetCuccentUserFunc();
     }, []);
@@ -65,19 +65,20 @@ const Users = (props) => {
                         <List>
                             {
                                 currentUser.lastSearchUsers.map((item, index) => {
-                                    return (<ListItem>
-                                        <ListItemAvatar>
-                                            <IconButton edge="end" aria-label="delete" onClick={() => DeleteHistoryFunc(index)}>
-                                                <DeleteIcon style={{ "font-size": "1.5em" }} />
-                                            </IconButton>
+                                    if (index < 10)
+                                        return (<ListItem>
+                                            <ListItemAvatar>
+                                                <IconButton edge="end" aria-label="delete" onClick={() => DeleteHistoryFunc(index)}>
+                                                    <DeleteIcon style={{ "font-size": "1.5em" }} />
+                                                </IconButton>
 
-                                        </ListItemAvatar>
-                                        {/* <p>{item.date}</p> */}
-                                        <ListItemText
-                                            primary={<User ifAdd="false" user={item.userSearch} key={index} />}
-                                            secondary={secondary ? 'Secondary text' : null}
-                                        />
-                                    </ListItem>)
+                                            </ListItemAvatar>
+                                            {/* <p>{item.date}</p> */}
+                                            <ListItemText
+                                                primary={<User ifAdd="false" user={item.userSearch} key={index} />}
+                                                secondary={secondary ? 'Secondary text' : null}
+                                            />
+                                        </ListItem>)
                                 })
                             }
                         </List>

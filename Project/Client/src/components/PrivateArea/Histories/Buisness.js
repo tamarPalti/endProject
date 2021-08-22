@@ -64,19 +64,20 @@ const Buisness = (props) => {
                         <List>
                             {
                                 currentUser.lastSearchBusiness.map((item, index) => {
-                                    return (<ListItem>
-                                        <ListItemAvatar>
-                                            <IconButton edge="end" aria-label="delete" onClick={() => DeleteHistoryFunc(index)}>
-                                                <DeleteIcon style={{ "font-size": "1.5em" }} />
-                                            </IconButton>
+                                    if (index < 10)
+                                        return (<ListItem>
+                                            <ListItemAvatar>
+                                                <IconButton edge="end" aria-label="delete" onClick={() => DeleteHistoryFunc(index)}>
+                                                    <DeleteIcon style={{ "font-size": "1.5em" }} />
+                                                </IconButton>
 
-                                        </ListItemAvatar>
-                                        {/* <p>{item.date}</p> */}
-                                        <ListItemText
-                                            primary={<Business ifAdd="false" business={item.businessSearch} key={index} />}
-                                            secondary={secondary ? 'Secondary text' : null}
-                                        />
-                                    </ListItem>)
+                                            </ListItemAvatar>
+                                            {/* <p>{item.date}</p> */}
+                                            <ListItemText
+                                                primary={<Business ifAdd="false" business={item.businessSearch} key={index} />}
+                                                secondary={secondary ? 'Secondary text' : null}
+                                            />
+                                        </ListItem>)
                                 })
                             }
                         </List>
