@@ -5,6 +5,7 @@ const morgan = require("morgan")
 const users = require("./routes/User");
 const business=require("./routes/Business");
 const categories=require("./routes/Category");
+const tasks=require("./routes/Tasks");
 mongoose.connect("mongodb://localhost:27017/truecaller").then(() => {
     console.log("connected to mongo db");
 }).catch(err => { console.log(err) })
@@ -18,6 +19,7 @@ app.use(morgan("dev"));
 app.use("/users", users);
 app.use("/business",business);
 app.use("/categories",categories);
+app.use("/tasks",tasks);
 app.listen("4000", () => {
     console.log("listening on port 4000");
 })

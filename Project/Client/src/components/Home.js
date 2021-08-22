@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button';
 import { purple } from '@material-ui/core/colors';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import home2 from './img/home3.png';
+import Manager from '../components/Manager/Manager';
 const ColorButton = withStyles((theme) => ({
     root: {
         color: theme.palette.getContrastText(purple[500]),
@@ -39,7 +40,7 @@ const Home = (props) => {
     })
     return (
         <>
-
+            {/* <Manager/> */}
 
             <Switch>
 
@@ -61,13 +62,13 @@ const Home = (props) => {
                         </div>
                         <div className="href2">
                             <Link to="/SignUp" >
-                                <ColorButton variant="contained" color="primary" style={{"border-radius": "19px"}} className={classes.margin+" search"}>
+                                <ColorButton variant="contained" color="primary" style={{ "border-radius": "19px" }} className={classes.margin + " search"}>
                                     Search Users
                                 </ColorButton>
 
                             </Link>
                             <Link to="/SignIn" >
-                                <ColorButton variant="contained" color="primary" style={{"border-radius": "19px"}} className={classes.margin+" search"}>
+                                <ColorButton variant="contained" color="primary" style={{ "border-radius": "19px" }} className={classes.margin + " search"}>
                                     Search Buisness
                                 </ColorButton>
                             </Link>

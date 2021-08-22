@@ -71,6 +71,12 @@ function UpdatePersonalDetails(props) {
 
     // משתנה לעדכון 
     let updateUser = new user();
+    updateUser.firstName = null;
+    updateUser.lastName = null;
+    updateUser.password = null;
+    updateUser.phoneNamber = null;
+    updateUser.adress = null;
+
 
     // טופס
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -86,29 +92,38 @@ function UpdatePersonalDetails(props) {
     const onSubmit = async data => {
 
         data.ifMessege = data.ifMessege === "" ? currentUser.ifMessege : data.ifMessege;
-        UpdateUser(data).then(succ => {
-
-            settypeAlert("success");
-            setmasseg("Updating Success");
-            handleClick();
-
-        }).catch(error => {
-
+        if (updateUser.firstName === "" || updateUser.lastName === "" || updateUser.adress === "" || updateUser.phoneNamber === "" || updateUser.password === "") {
             settypeAlert("error");
-            setmasseg(error.response.data)
+            setmasseg("ALL INPUT IS REQUIRED");
             handleClick();
+        }
+        else {
+            UpdateUser(data).then(succ => {
 
-        });
-  
+                settypeAlert("success");
+                setmasseg("Updating Success");
+                handleClick();
+
+            }).catch(error => {
+
+                settypeAlert("error");
+                setmasseg(error.response.data)
+                handleClick();
+
+            });
+        }
+
+
     }
 
 
 
     const onKeyUp = (e, type) => {
+
         updateUser[type] = e.target.value;
-        e.target.value = updateUser[type];
-        if (updateUser[type] == '')
-            updateUser[type] = null;
+        // e.target.value = updateUser[type];
+        // if (updateUser[type] == '')
+        //     updateUser[type] = null;
     }
 
     // alerts
@@ -139,7 +154,6 @@ function UpdatePersonalDetails(props) {
         }).catch(() => {
             setifGoToLogin(true);
         });
-
         return (props.IfExist(false), props.ErrorInAdd(false));
 
     }, [])
@@ -167,7 +181,9 @@ function UpdatePersonalDetails(props) {
                             defaultValue={currentUser.firstName}
                             onKeyUp={(e) => onKeyUp(e, "firstName")}
                             {...firstName}
+                        // onLoad={() => updateUser.firstName = currentUser.firstName}
                         />
+                        <p></p>
                         <ErrorMessage errors={errors} name="firstName" render={({ message }) => <p className="redColor">{message}</p>} />
 
                     </Grid>
