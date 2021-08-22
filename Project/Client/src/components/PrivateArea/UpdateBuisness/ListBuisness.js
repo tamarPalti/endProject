@@ -34,6 +34,21 @@ function ListBuisness(props) {
     const [secondary, setSecondary] = React.useState(false);
     const [listBuisness, setlistBuisness] = React.useState([]);
 
+
+    const GetCurrentBuisnessFunc = () => {
+
+        GetAllBuisnessOfUser().then(data => {
+            console.log(data.data);
+            setlistBuisness(data.data);
+            if (props.updateBuisness == null)
+                props.ChangeUpdateBuisness(data.data[0]);
+
+        }).catch(error => {
+            console.log(error);
+
+        });
+
+    }
     const ChangeUpdateBuisness = (id) => {
 
         GetCurrentBuisness(id).then(data => {
@@ -45,15 +60,7 @@ function ListBuisness(props) {
 
     useEffect(() => {
 
-        GetAllBuisnessOfUser().then(data => {
-            console.log(data.data);
-            setlistBuisness(data.data);
-            props.ChangeUpdateBuisness(data.data[0]);
-
-        }).catch(error => {
-            console.log(error);
-
-        });
+        GetCurrentBuisnessFunc();
 
     }, []);
 
@@ -81,7 +88,7 @@ function ListBuisness(props) {
                                                 secondary={secondary ? 'Secondary text' : null}
                                             />
                                         </ListItem>
-                                        <UpdateBuisness GetAllBuisnessOfUser={GetAllBuisnessOfUser} id={item._id} /></>
+                                        <UpdateBuisness GetAllBuisnessOfUser={GetCurrentBuisnessFunc} id={item._id} /></>
 
                                 )
                             })}
