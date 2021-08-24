@@ -4,6 +4,9 @@ import Geocode from "react-geocode";
 export const GetCurrentUser = async () => {
     return axios.get(`http://localhost:4000/users/${localStorage.getItem("currentUserId")}`);
 }
+export const GetCurrentUserById = async (id) => {
+    return axios.get(`http://localhost:4000/users/${id}`);
+}
 export const AddHistory = async (currentId, userId) => {
 
     axios.put(`http://localhost:4000/users/addToHistory/${currentId}&${userId}`);
@@ -21,8 +24,8 @@ export const AddUser = async (user) => {
 export const DeleteHistoryUsers = async (index) => {
     return axios.put(`http://localhost:4000/users/deleteHistoryUser/${localStorage.getItem("currentUserId")}&${index}`);
 }
-export const UpdateUser = async (user) => {
-    return axios.put(`http://localhost:4000/users/${localStorage.getItem("currentUserId")}`, user);
+export const UpdateUser = async (id,user) => {
+    return axios.put(`http://localhost:4000/users/${id}`, user);
 }
 
 
