@@ -13,11 +13,11 @@ import { ErrorMessage } from '@hookform/error-message';
 import '../LogIn/SingUp.scss';
 import { IfExist, ErrorInAdd } from '../../actions/index';
 import axios from 'axios';
-import { Redirect, useHistory, useLocation } from 'react-router-dom';
+import { Redirect, useHistory, useLocation, useParams } from 'react-router-dom';
 import { GetCurrentUser } from '../../util/index';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { UpdateUser } from '../../util/index'
+import { UpdateUser, GetCurrentUserById } from '../../util/index';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -69,6 +69,10 @@ function UpdatePersonalDetails(props) {
     const [currentUser, setCurrentUser] = useState(null);
     const [ifGoToLogin, setifGoToLogin] = useState(false);
 
+
+    const { id } = useParams();
+
+
     // משתנה לעדכון 
     let updateUser = new user();
     updateUser.firstName = null;
@@ -98,7 +102,7 @@ function UpdatePersonalDetails(props) {
             handleClick();
         }
         else {
-            UpdateUser(data).then(succ => {
+            UpdateUser(id?id:localStorage.getItem("currentUserId"), data).then(succ => {
 
                 settypeAlert("success");
                 setmasseg("Updating Success");
@@ -148,12 +152,23 @@ function UpdatePersonalDetails(props) {
 
     useEffect(() => {
 
-        // שליפת המשתמש הנוכחי
-        GetCurrentUser().then(data => {
-            setCurrentUser(data.data);
-        }).catch(() => {
-            setifGoToLogin(true);
-        });
+        if (id)
+            GetCurrentUserById(id).then(data => {
+                setCurrentUser(data.data);
+
+            }).catch(() => {
+                setifGoToLogin(true);
+            });
+
+        else
+            // שליפת המשתמש הנוכחי
+            GetCurrentUser().then(data => {
+                setCurrentUser(data.data);
+
+            }).catch(() => {
+                setifGoToLogin(true);
+            });
+
         return (props.IfExist(false), props.ErrorInAdd(false));
 
     }, [])

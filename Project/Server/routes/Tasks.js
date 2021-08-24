@@ -7,5 +7,6 @@ route.get("/getAllTask",tasksController.getAllTask);
 route.post("/addTypeTsks",tasksController.addTypeTsks);
 route.post("/addTask",tasksController.addTask);
 route.put("/updateTask/:id",tasksController.updateTask);
+route.put("/updateTypeTask/:id",tasksController.updateTypeTask);
 route.delete("/deleteTask/:id",tasksController.deleteTask);
 module.exports=route;

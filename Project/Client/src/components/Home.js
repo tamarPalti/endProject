@@ -77,8 +77,10 @@ const Home = (props) => {
                 </Route>
 
                 <Route path={'/Search'}>
-
                     <Search />
+                </Route>
+                <Route path={'/Manager'}>
+                    <Manager />
                 </Route>
                 <Route path={'/SignUp'}>
                     <SignUp />

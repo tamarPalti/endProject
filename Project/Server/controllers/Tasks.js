@@ -1,5 +1,5 @@
-const Tasks =require("../models/Tasks");
-const TypeTsks=require("../models/TypeTasks");
+const Tasks = require("../models/Tasks");
+const TypeTsks = require("../models/TypeTasks");
 const getAllTypeTsks = async (req, res) => {
     try {
         let AllTypeTsks = await TypeTsks.find();
@@ -13,7 +13,8 @@ const getAllTask = async (req, res) => {
     try {
         let AllTask = await Tasks.find().populate(
             [{ path: "codeUser", select: "firstName lastName phoneNamber adress email" },
-            { path: "otherUser", select: "firstName lastName phoneNamber adress email" }]);
+            { path: "otherUser", select: "firstName lastName phoneNamber adress email" }
+                , { path: "type", select: "name" }]);
         return res.send(AllTask);
     }
     catch (err) {
@@ -47,12 +48,29 @@ const updateTask = async (req, res) => {
         const task = await Tasks.findOne({ "_id": id });
         if (!task)
             return res.status(404).send("sorry no such task");
-            task.status = TaskBody.status || task.status;
-            task.desription = TaskBody.desription || task.desription;
-            task.type = TaskBody.type || task.type;
-            task.date = TaskBody.date || task.date;
+        task.status = TaskBody.status || task.status;
+        task.desription = TaskBody.desription || task.desription;
+        task.type = TaskBody.type || task.type;
+        task.date = TaskBody.date || task.date;
         await task.save();
         return res.send(task);
+    }
+    catch (err) {
+        return res.status(400).send(err.message)
+    }
+
+}
+const updateTypeTask = async (req, res) => {
+    let typeTaskBody = req.body;
+    const id = req.params.id;
+    try {
+        const typeTask = await TypeTsks.findOne({ "_id": id });
+        if (!typeTask)
+            return res.status(404).send("sorry no such task");
+        typeTask.name = typeTaskBody.name || typeTask.name;
+        typeTask.code = typeTaskBody.code || typeTask.code;
+        await typeTask.save();
+        return res.send(typeTask);
     }
     catch (err) {
         return res.status(400).send(err.message)
@@ -75,5 +93,5 @@ const deleteTask = async (req, res) => {
 }
 
 module.exports = {
-    getAllTypeTsks,getAllTask,addTypeTsks,addTask,deleteTask,updateTask
+    getAllTypeTsks, getAllTask, addTypeTsks, addTask, deleteTask, updateTask, updateTypeTask
 }
