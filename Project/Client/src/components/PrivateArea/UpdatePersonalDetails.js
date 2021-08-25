@@ -68,8 +68,12 @@ function UpdatePersonalDetails(props) {
 
     const [currentUser, setCurrentUser] = useState(null);
     const [ifGoToLogin, setifGoToLogin] = useState(false);
+    
+    
+   
+    
 
-
+     
     const { id } = useParams();
 
 
@@ -151,7 +155,7 @@ function UpdatePersonalDetails(props) {
     // alerts
 
     useEffect(() => {
-
+      
         if (id)
             GetCurrentUserById(id).then(data => {
                 setCurrentUser(data.data);
@@ -171,7 +175,7 @@ function UpdatePersonalDetails(props) {
 
         return (props.IfExist(false), props.ErrorInAdd(false));
 
-    }, [])
+    }, [props.idUserUpdate])
 
     return (
         <>
@@ -312,7 +316,10 @@ function UpdatePersonalDetails(props) {
 }
 const mapStateToProps = (state) => {
 
-    return { ifExist: state.usersPart.IfExist, errorInAdd: state.usersPart.ErrorInAdd };
+    // ;
+    return { ifExist: state.usersPart.IfExist, errorInAdd: state.usersPart.ErrorInAdd,
+        idUserUpdate:state.usersPart.IdUserManagerUpdate 
+    };
 }
 export default connect(mapStateToProps, { AddUser, IfExist, ErrorInAdd })(UpdatePersonalDetails);
 

@@ -14,7 +14,8 @@ const getAllTask = async (req, res) => {
         let AllTask = await Tasks.find().populate(
             [{ path: "codeUser", select: "firstName lastName phoneNamber adress email" },
             { path: "otherUser", select: "firstName lastName phoneNamber adress email" }
-                , { path: "type", select: "name" }]);
+                , { path: "type", select: "name" },
+                { path: "otherbuisness", select: "name phoneNamber adress email" }]);
         return res.send(AllTask);
     }
     catch (err) {

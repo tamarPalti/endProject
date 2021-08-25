@@ -11,6 +11,7 @@ export const SING_UP="SING_UP";
 export const SING_OUT="SING_OUT";
 export const IF_EXIST="IF_EXIST";
 export const IF_ERROR_IN_ADD="IF_ERROR_IN_ADD";
+export const CHANGE_ID_USER_MANAGER_UPDATE="CHANGE_ID_USER_MANAGER_UPDATE";
 
 //////////////BUSINESS////////////////////
 export const FILL_ALL_BUSINESS="FILL_ALL_BUSINESS";
