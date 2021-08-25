@@ -137,3 +137,9 @@ export const ErrorInAdd = (ifErrorInAdd) => {
         payload: ifErrorInAdd
     }
 }
+export const ChangeIdUserManagerUpdate = (id) => {
+    return {
+        type: actionTypes.CHANGE_ID_USER_MANAGER_UPDATE,
+        payload: id
+    }
+}

@@ -20,7 +20,11 @@ import { Link, Route, Switch, useRouteMatch, useParams } from 'react-router-dom'
 import UpdatePersonalDetails from '../PrivateArea/UpdatePersonalDetails';
 import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
-
+import { connect } from "react-redux";
+import { ChangeIdUserManagerUpdate } from '../../actions/index';
+import { setTimeout } from 'timers';
+import UpdateBuisnes from '../PrivateArea/UpdateBuisness/UpdateBuisnes';
+import UpdateBuisnesOfManager from './UpdateBuisnesOfManager';
 
 const useRowStyles = makeStyles({
     root: {
@@ -50,10 +54,10 @@ function Row(props) {
     );
 }
 
-export default function TableTasks(props) {
+function TableTasks(props) {
     const [rows, setRows] = useState([]);
     const [typeTask, setTypeTask] = useState([]);
-
+    // const [id, setId] = useState();
     const { url, path } = useRouteMatch();
 
     useEffect(() => {
@@ -63,14 +67,15 @@ export default function TableTasks(props) {
             let typeArr = [];
             succ.data.forEach(element => {
 
+
                 if (element.code == 1)
-                    typeArr[0] = { id: element._id, action: (id) => <Link to={`${url}/updateUser/${id}`}>עדכון משתמש</Link> };
+                    typeArr[0] = { id: element._id, action: (id) => <Link to={`${url}/updateUser/${id}`} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>עדכון משתמש</Link> };
                 else if (element.code == 2)
                     typeArr[1] = { id: element._id, action: () => <Link to={`${url}/addCategory`}>הוסף קטגוריה</Link> }
                 else if (element.code == 3)
                     typeArr[2] = { id: element._id, action: () => <Link to={`${url}/sendAddUser`}>הוסף משתמש למערכת</Link> }
                 else if (element.code == 4)
-                    typeArr[3] = { id: element._id, action: (id) => <Link to={`${url}/updateBuisness/${id}`}>עדכן עסק</Link> }
+                    typeArr[3] = { id: element._id, action: (id) => <Link to={`${url}/updateBuisness/${id}`} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>עדכן עסק</Link> }
 
             });
 
@@ -102,7 +107,7 @@ export default function TableTasks(props) {
                 </TableHead>
                 <TableBody>
                     {typeTask && rows.map((row, index) => (
-                        <Row key={index} row={row} action={typeTask.find(elem => elem.id === row.type._id).action(row.otherUser && row.otherUser._id)} />
+                        <Row key={index} row={row} action={typeTask.find(elem => elem.id === row.type._id).action(row.otherUser ? row.otherUser._id : row.otherbuisness ? row.otherbuisness._id : null)} />
                     ))}
                 </TableBody>
             </Table>
@@ -123,7 +128,7 @@ export default function TableTasks(props) {
             </Route>
 
             <Route path={`${path}/updateBuisness/:id`}>
-                <div>updateBuisness</div>
+                <UpdateBuisnesOfManager />
             </Route>
 
         </Switch>
@@ -131,3 +136,8 @@ export default function TableTasks(props) {
     }</>
     );
 }
+const mapStateToProps = (state) => {
+
+    return {};
+}
+export default connect(mapStateToProps, { ChangeIdUserManagerUpdate })(TableTasks);

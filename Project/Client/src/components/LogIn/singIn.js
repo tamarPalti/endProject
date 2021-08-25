@@ -22,7 +22,8 @@ import { Redirect } from 'react-router-dom';
 import { useEffect, useState, useRef } from "react";
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-
+import { GetCurrentUserByPaaswordAndMail } from '../../util/index';
+import { SignIn as SignInFunc } from '../../actions/index';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -97,15 +98,9 @@ const SingIn = (props) => {
   }, [])
 
   const GetCurrentUser = async () => {
+    GetCurrentUserByPaaswordAndMail(password, mail).then(succ => {
+      props.SignInFunc(succ.data);
 
-    await props.GetCurrentUser({ "password": password, "mail": mail });
-
-    if (!props.CurrentUser)
-      handleClick();
-
-    else {
-
-      // אימות למנהל
       let mailManager = localStorage.getItem("managerMail").split("@");
       let mailArr = mailManager[0].split("");
       let mail = mailArr.filter((elem, index) => index % 2 == 0).join("");
@@ -113,14 +108,40 @@ const SingIn = (props) => {
 
       let idManager = localStorage.getItem("managerId").split("").filter((elem, index) => index % 2 == 0).join("");
 
-      if (props.CurrentUser.email === newMail && props.CurrentUser.password === idManager) {
+      if (succ.data.email === newMail && succ.data.password === idManager) {
         setifManager(true);
         setifNoGoToLogin(true);
       }
       else
         setifNoGoToLogin(true);
+    }).catch(error=> handleClick());
 
-    }
+
+
+
+    // await props.GetCurrentUser({ "password": password, "mail": mail });
+
+    // if (!props.CurrentUser)
+    //   handleClick();
+
+    // else {
+
+    //   // אימות למנהל
+    //   let mailManager = localStorage.getItem("managerMail").split("@");
+    //   let mailArr = mailManager[0].split("");
+    //   let mail = mailArr.filter((elem, index) => index % 2 == 0).join("");
+    //   let newMail = mail + "@" + mailManager[1];
+
+    //   let idManager = localStorage.getItem("managerId").split("").filter((elem, index) => index % 2 == 0).join("");
+
+    //   if (props.CurrentUser.email === newMail && props.CurrentUser.password === idManager) {
+    //     setifManager(true);
+    //     setifNoGoToLogin(true);
+    //   }
+    //   else
+    //     setifNoGoToLogin(true);
+
+    // }
   }
 
   if (ifNoGoToLogin)
@@ -211,4 +232,4 @@ const mapStateToProps = (state) => {
 
   return { CurrentUser: state.usersPart.CurrentUser, SingUp: state.usersPart.SingUp };
 }
-export default connect(mapStateToProps, { GetCurrentUser, SignOut })(SingIn);
+export default connect(mapStateToProps, { GetCurrentUser, SignOut, SignInFunc })(SingIn);

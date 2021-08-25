@@ -8,7 +8,8 @@ const initialUsers = {
     CurrentUser: null,
     SingUp: false,
     IfExist: false,
-    ErrorInAdd: false
+    ErrorInAdd: false,
+    IdUserManagerUpdate: null
 }
 export const usersReducer = (state = initialUsers, action) => {
     switch (action.type) {
@@ -78,6 +79,11 @@ export const usersReducer = (state = initialUsers, action) => {
             return {
                 ...state,
                 ErrorInAdd: action.payload
+            }
+        case actionTypes.CHANGE_ID_USER_MANAGER_UPDATE:
+            return {
+                ...state,
+                IdUserManagerUpdate: action.payload
             }
 
 

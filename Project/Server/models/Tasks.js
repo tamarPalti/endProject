@@ -5,6 +5,7 @@ const tasksSchema = new mongoose.Schema({
     desription: { type: mongoose.SchemaTypes.String, required: true },
     codeUser: { type: mongoose.SchemaTypes.ObjectId, ref: 'users' },
     otherUser: { type: mongoose.SchemaTypes.ObjectId, ref: 'users' },
+    otherbuisness: { type: mongoose.SchemaTypes.ObjectId, ref: 'business' },
     date: { type: mongoose.SchemaTypes.Date, required: true }
 });
 const Tasks = mongoose.model("actions", tasksSchema);
