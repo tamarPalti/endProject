@@ -6,8 +6,27 @@ import { Link, Route } from 'react-router-dom';
 import { Button, Image, Modal, List } from 'semantic-ui-react';
 import ico from './img/alex.png';
 import { AddHistoryBusiness } from '../../util/index';
+import { FromAddress } from '../../util/index'
+import MyLocation from "./MyLocation";
+
+
 
 const Business = (props) => {
+
+
+    const [Cenetr, SetCenetr] = useState(null);
+    const [Txt, SetTxt] = useState(null);
+    const [Zoom, SetZoom] = useState(20);
+
+
+
+
+
+
+
+
+
+
 
     const [open, setOpen] = useState(false)
 
@@ -19,7 +38,25 @@ const Business = (props) => {
     }
     useEffect(() => {
 
+
+        FromAddress(props.business.adress).then(response => {
+
+            const { lat, lng } = response.results[0].geometry.location;
+            console.log(lat + " " + lng);
+            console.log(response.results[0]);
+    
+            SetCenetr({ lat: lat, lng: lng });
+            SetTxt(response.results[0].address_components[0].long_name);
+    
+        }).catch(error => {
+            console.log(error);
+        });
+    
+
+
     }, []);
+
+
     return (
         <List.Item key={props.business._id}>
             <List.Content floated='right'>
@@ -30,9 +67,9 @@ const Business = (props) => {
                     trigger={<div>
                         <div className="place_business" onClick={() => {
                             props.SelectedBusiness(props.business)
-                            if(props.ifAdd=="true")
-                            AddHistoryBusiness(localStorage.getItem("currentUserId"), props.business._id)
-                            }}>
+                            if (props.ifAdd == "true")
+                                AddHistoryBusiness(localStorage.getItem("currentUserId"), props.business._id)
+                        }}>
                             <p className="display">&nbsp;</p>
                             <p className="display">{checkName(props.business.name) ? start : end}</p>
                             {!checkName(props.business.name) && (end[0] == ' ' || props.ColorName[props.ColorName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
@@ -81,10 +118,12 @@ const Business = (props) => {
                         </div>
                         <div className="div_all">
                             <i class="map marker alternate icon"></i>
-                            <div className="place_div"> <p> {props.business.adress}</p> </div>
+                            <div className="place_div"> <p> {props.business.adress}</p></div>
+                           
                         </div>
 
                     </h2>
+                      {Cenetr && Zoom && Txt && <MyLocation center={Cenetr} zoom={Zoom} txt={Txt} />}
                 </Modal>
             </List.Content>
         </List.Item>

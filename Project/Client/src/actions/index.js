@@ -6,5 +6,5 @@ export {
 } from './users';
 export {
      GetAllBusiness, SaveResultBusiness, SearchBusiness, SelectedBusiness, NoSelectedBusiness, DeleteResultBusiness,
-     ChangeColorName, ChangeUpdateBuisness
+     ChangeColorName, ChangeUpdateBuisness,SaveAllBusiness
 } from './business';

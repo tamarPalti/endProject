@@ -1,41 +1,37 @@
-// import React from "react";
-// import { geolocated } from "react-geolocated";
-// import { ChangeAdrres } from '../../util/index'
-// //check move to customhook
-// class MyLocation extends React.Component {
+
+import React, { Component, useEffect, useState } from 'react';
+import GoogleMapReact from 'google-map-react';
 
 
-//     constructor(props) {
-//         super(props)
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
+
+const MyLocation = (props) => {
 
 
-//     }
+    useEffect(() => {
 
 
-//     componentDidUpdate() {
-//         // if (this.props.coords !== null) {
-//         //     if (!this.props.Location.lat)
-//         //         this.props.setLocation({ lat: this.props.coords.latitude, len: this.props.coords.longitude })
-//         // }
-//         // else {
-//         // if (!this.props.isGeolocationEnabled) {
 
-//         let location
-//         console.log(location);
+    }, [])
 
-//         location = ChangeAdrres("Eiffel Tower",this.props.setLen,this.props.setLet)
-//         //  {
-//         //     "latitude": 32.0852999,
-//         //     "longitude": 34.78176759999999
-//         // }
-//         // if (!this.props.Location.lat)
-//         //     this.props.setLocation({ lat: location.latitude, len: location.longitude })
-//         // }
-//     }
-//     // }
-//     render() {
-//         return (<></>)
-//     }
-// }
-// export default geolocated({ positionOptions: { enableHighAccuracy: false, }, userDecisionTimeout: 5000, })(MyLocation)
 
+    return (
+      
+        <div style={{ height: '100%', width: '100%' }}>
+            <GoogleMapReact
+                bootstrapURLKeys={{ key: 'AIzaSyARe4EGfwVKmSerC4BepoEuPnl6hJ1j6YA' }}
+                defaultCenter={props.center}
+                defaultZoom={props.zoom}
+            >
+                <AnyReactComponent
+                    lat={props.center.lat}
+                    lng={props.center.lng}
+                    text={props.txt}
+                />
+            </GoogleMapReact>
+        </div>
+    );
+
+}
+
+export default MyLocation;

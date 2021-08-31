@@ -57,7 +57,7 @@ const Buisness = (props) => {
     }, []);
 
     return (<>
-        {ifGoToLogin ? <Redirect to={'/SingIn'} /> : currentUser ?
+        {currentUser ?
             <>
                 <Grid item xs={12} md={6}>
                     <div className={classes.demo}>
@@ -65,7 +65,7 @@ const Buisness = (props) => {
                             {
                                 currentUser.lastSearchBusiness.map((item, index) => {
                                     if (index < 10)
-                                        return (<ListItem>
+                                        return (item.businessSearch && <ListItem>
                                             <ListItemAvatar>
                                                 <IconButton edge="end" aria-label="delete" onClick={() => DeleteHistoryFunc(index)}>
                                                     <DeleteIcon style={{ "font-size": "1.5em" }} />

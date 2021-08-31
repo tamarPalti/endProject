@@ -58,7 +58,7 @@ const Users = (props) => {
     }, []);
 
     return (<>
-        {ifGoToLogin ? <Redirect to={'/SingIn'} /> : currentUser ?
+        {currentUser ?
             <>
                 <Grid item xs={12} md={6}>
                     <div className={classes.demo}>
