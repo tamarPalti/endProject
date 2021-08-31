@@ -61,7 +61,9 @@ const useStyles = makeStyles((theme) => ({
 const SearchHistory = (props) => {
 
     const [currentUser, setCurrentUser] = useState(null);
-    const [ifGoToLogin, setifGoToLogin] = useState(false);
+
+    // const [ifGoToLogin, setifGoToLogin] = useState(false);
+
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
@@ -82,7 +84,7 @@ const SearchHistory = (props) => {
 
     
     return (<>
-        {ifGoToLogin ? <Redirect to={'/SignIn'} /> : currentUser ?
+        {currentUser ?
             <>
                 <div className={classes.root}>
                     <AppBar position="static" color="default" width="22%">

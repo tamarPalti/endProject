@@ -4,11 +4,12 @@ import business from '../classes/business';
 import { useEffect, useState, useRef } from 'react';
 import {
     GetAllBusiness, SaveResultBusiness, SearchBusiness, DeleteResultBusiness,
-    ChangeColorName, GetCurrentUser
+    ChangeColorName, GetCurrentUser, SaveAllBusiness
 } from '../../actions/index';
+
 import { Multiselect } from "multiselect-react-dropdown";
 import './BusinessSearch.scss'
-import { getAllCategories } from '../../util/index'
+import { getAllCategories, SortllBusiness, GetAllBusinessFunc } from '../../util/index';
 
 const BusinessSearch = (props) => {
 
@@ -20,9 +21,15 @@ const BusinessSearch = (props) => {
     let listCategory = useRef();
     const [categoriesArr, setCategoriesArr] = useState([]);
 
+    const [countBusiness, setCountBusiness] = useState();
+    const [ifSorted, setifSorted] = useState(false);
+
     // props.AllUsers פעם ראשונה שמבקר באתר נשלף כל המשתמשים למערך
-    if (props.AllBusiness.length == 0)
+    if (props.AllBusiness && props.AllBusiness.length == 0) {
         props.GetAllBusiness();
+    }
+
+
 
 
     // פונקצית חיפוש Users
@@ -49,7 +56,13 @@ const BusinessSearch = (props) => {
             setCategoriesArr(arrName);
         });
 
-    }, []);
+
+        if (!ifSorted && props.AllBusiness && props.AllBusiness.length != 0) {
+            setifSorted(true);
+            SortllBusiness(props.AllBusiness,props.SaveAllBusiness)
+        }
+
+    }, [props.AllBusiness]);
 
 
 
@@ -99,4 +112,7 @@ const mapStateToProps = (state) => {
 
     return { CurrentUser: state.usersPart.CurrentUser, AllBusiness: state.businessPart.AllBusiness, BusinessSearch: state.businessPart.BusinessSearch };
 }
-export default connect(mapStateToProps, { GetCurrentUser, GetAllBusiness, SaveResultBusiness, SearchBusiness, DeleteResultBusiness, ChangeColorName })(BusinessSearch);
+export default connect(mapStateToProps, {
+    SortllBusiness, GetCurrentUser, GetAllBusiness, SaveResultBusiness
+    , SearchBusiness, DeleteResultBusiness, ChangeColorName, SaveAllBusiness
+})(BusinessSearch);

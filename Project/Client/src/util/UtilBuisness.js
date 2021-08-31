@@ -18,3 +18,7 @@ export const GetAllBuisnessOfUser = async () => {
 export const AddBusiness = async (business) => {
     return axios.post("http://localhost:4000/business", business);
 }
+
+export const GetAllBusinessFunc = async (business) => {
+    return axios.get("http://localhost:4000/business");
+}

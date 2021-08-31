@@ -64,7 +64,7 @@ function UpdateBuisnesOfManager(props) {
 
     const [currentBuisness, setcurrentBuisness] = useState(null);
 
-    const [ifGoToLogin, setifGoToLogin] = useState(false);
+    // const [ifGoToLogin, setifGoToLogin] = useState(false);
 
 
     let listCategory = useRef([]);
@@ -147,7 +147,7 @@ function UpdateBuisnesOfManager(props) {
 
         GetCurrentBuisness(id).then(succ => {
             setcurrentBuisness(succ.data)
-        }).catch(error=>{setifGoToLogin(true)});
+        });
 
         getAllCategories().then((succ) => {
             let arrName = succ.data.map((data) => data.name);
@@ -163,7 +163,7 @@ function UpdateBuisnesOfManager(props) {
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity={typeAlert}> {masseg}</Alert>
             </Snackbar>
-            {ifGoToLogin ? <Redirect to={'/SingIn'} /> : currentBuisness && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateBuisness))}>
+            {currentBuisness && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateBuisness))}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
                         <TextField

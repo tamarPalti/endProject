@@ -59,43 +59,49 @@ const Search = (props) => {
 
     useEffect(() => {
 
-        GetCurrentUser2().catch(error => { setifGoToLogin(true) });
+        // GetCurrentUser2().catch(error => { setifGoToLogin(true) });
 
     }, []);
 
-    return (<>
-        {!ifGoToLogin ? <div className="back-search">
-            <div className="ui pointing menu three serach_div">
-                <Link to="/PrivateArea">
-                    <ColorButton variant="contained" color="primary" className={classes.margin}>
-                        PrivateArea
-                        </ColorButton>
-                </Link>
-                <Link to="/search/users" className="div_link">
-                    <a className="item sizetab item-user" ref={users} onClick={(e) => ChangeButtonUsers(e)}>
-                        Users</a>
-                </Link>
-                <Link to="/search/business" className="div_link">
-                    <a className="item sizetab" ref={business} onClick={(e) => ChangeButtonBusiness(e)}>
-                        Business</a>
-                </Link>
-                <div className="place_search">
-                    <Route path="/search/users">
-                        {localStorage.getItem("currentUserMail") != "null" ? <>  <UsersSearch />
-                            <div className="place_result">
-                                <ResultSearchUser />
-                            </div></> : <Redirect to={'/SignIn'} />}
-                    </Route>
-                    <Route path="/search/business">
-                        {localStorage.getItem("currentUserMail") != "null" ? <>    <BusinessSearch />
-                            <div className="place_result">
-                                <ResultSearchBusiness />
-                            </div></> : <Redirect to={'/SignIn'} />}
-                    </Route>
-                </div>
-            </div>
+    return (<><div className="back-search">
 
-        </div> : <Redirect to={'/SignIn'} />}</>);
+        <div className="ui pointing menu three serach_div">
+
+            <Link to="/PrivateArea">
+                <ColorButton variant="contained" color="primary" className={classes.margin}>
+                    PrivateArea
+                </ColorButton>
+            </Link>
+
+            <Link to="/search/users" className="div_link">
+                <a className="item sizetab item-user" ref={users} onClick={(e) => ChangeButtonUsers(e)}>
+                    Users</a>
+            </Link>
+
+            <Link to="/search/business" className="div_link">
+                <a className="item sizetab" ref={business} onClick={(e) => ChangeButtonBusiness(e)}>
+                    Business</a>
+            </Link>
+
+            <div className="place_search">
+                <Route path="/search/users">
+                    <>  <UsersSearch />
+                        <div className="place_result">
+                        <ResultSearchUser />
+                    </div></>
+                </Route>
+
+                <Route path="/search/business">
+                    <>    <BusinessSearch />
+                        <div className="place_result">
+                            <ResultSearchBusiness />
+                        </div></>
+                </Route>
+                
+            </div>
+        </div>
+
+    </div></>);
 }
 const mapStateToProps = (state) => {
     return { CurrentUser: state.usersPart.CurrentUser };

@@ -19,7 +19,7 @@ import AddingBusiness from './AddingBusiness';
 import SearchHistory from './SearchHistory';
 import ScrollableTabsButtonAuto from './SearchHistory';
 import { connect } from "react-redux";
-import { ChangeUpdateBuisness } from '../../actions/index'
+import { ChangeUpdateBuisness, ChangeColorFirstName, ChangeColorLastName } from '../../actions/index'
 import { GetCurrentUser } from '../../util';
 import { Redirect } from 'react-router-dom';
 
@@ -187,7 +187,7 @@ function PrivateArea(props) {
     const steps = getSteps();
 
 
-    const [ifGoToLogin, setifGoToLogin] = useState(false);
+    // const [ifGoToLogin, setifGoToLogin] = useState(false);
 
 
     const handleNext = (index) => {
@@ -195,11 +195,12 @@ function PrivateArea(props) {
     };
 
     useEffect(() => {
-        GetCurrentUser().catch(error => { setifGoToLogin(true) });
+        props.ChangeColorFirstName("");
+        props.ChangeColorLastName("");
     }, []);
-    
+
     return (
-        !ifGoToLogin ? <div className={classes.root}>
+        <div className={classes.root}>
             <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
                 {steps.map((label, index) => (
                     <Step key={index} onClick={() => handleNext(index)}>
@@ -209,7 +210,7 @@ function PrivateArea(props) {
             </Stepper>
             <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
 
-        </div> : <Redirect to={'/SignIn'} />
+        </div>
     );
 }
 
@@ -220,6 +221,6 @@ const mapStateToProps = (state) => {
 
     return { updateBuisness: state.businessPart.updateBuisness };
 }
-export default connect(mapStateToProps, { ChangeUpdateBuisness })(PrivateArea);
+export default connect(mapStateToProps, { ChangeUpdateBuisness, ChangeColorFirstName, ChangeColorLastName })(PrivateArea);
 
 

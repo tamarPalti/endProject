@@ -3,8 +3,8 @@ import './User.scss';
 import { SelectedUser, ChangeColorFirstName, ChangeColorLastName } from '../../actions/index';
 import { useRef, useEffect } from "react";
 import ico from './img/alex.png';
-import React from 'react';
-import { AddHistory } from '../../util/index';
+import React, { useState } from 'react';
+import { AddHistory, GetImage } from '../../util/index';
 import { Button, Image, Modal, List } from 'semantic-ui-react';
 
 const User = (props) => {
@@ -18,7 +18,10 @@ const User = (props) => {
     const checkName = (name) => {
         return name[0] >= 'A' && name[0] <= 'Z' || name[0] >= 'a' && name[0] <= 'z';
     }
+
+
     useEffect(() => {
+
 
     }, []);
 
@@ -33,8 +36,8 @@ const User = (props) => {
                     open={open}
                     trigger={<div ><div className="place_user" onClick={() => {
                         props.SelectedUser(props.user);
-                        if(props.ifAdd=="true")
-                        AddHistory(localStorage.getItem("currentUserId"), props.user._id)
+                        if (props.ifAdd == "true")
+                            AddHistory(localStorage.getItem("currentUserId"), props.user._id)
                     }}>
                         <p className="display">{checkName(props.user.lastName) ? Laststart : Lastend}</p>
                         {!checkName(props.user.lastName) && (Lastend[0] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
@@ -56,7 +59,7 @@ const User = (props) => {
                         {!checkName(props.user.lastName) && (start[start.length - 1]) == ' ' ? <p className="display">&nbsp;</p> : null}
 
                         <p className="display">{checkName(props.user.firstName) ? end : start}</p>
-                        <img className="img_ico" src={ico}></img>
+                        <img className="img_ico" alt="Avatar" src={props.user.img ? props.user.img : ico}></img>
                     </div>
 
                     </div>}
@@ -67,9 +70,9 @@ const User = (props) => {
                             <p className="place_name">{props.user.firstName} {props.user.lastName}</p>
                         </div>
                         <div className="img_user">
-                            <Image size='medium' src={ico} wrapped className="place_img" />
+                            <Image size='medium' src={props.user.img ? props.user.img : ico} wrapped className="place_img" />
                         </div>
-                        
+
                     </div>
                     <Modal.Actions>
                         <div>

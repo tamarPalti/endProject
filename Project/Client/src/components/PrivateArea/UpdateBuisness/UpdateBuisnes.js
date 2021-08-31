@@ -156,7 +156,7 @@ function UpdateBuisness(props) {
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity={typeAlert}> {masseg}</Alert>
             </Snackbar>
-            {ifGoToLogin ? <Redirect to={'/SingIn'} /> : props.updateBuisness && props.updateBuisness._id == props.id && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateBuisness))}>
+            {props.updateBuisness && props.updateBuisness._id == props.id && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateBuisness))}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
                         <TextField

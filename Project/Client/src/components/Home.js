@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import 'semantic-ui-css/semantic.min.css';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Route, Switch, Redirect } from 'react-router-dom';
 import UsersSearch from './search/UseresSearch';
 import BusinessSearch from './search/BusinessSearch';
 import Search from './search/Search';
@@ -14,6 +14,14 @@ import { purple } from '@material-ui/core/colors';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import home2 from './img/home3.png';
 import Manager from '../components/Manager/Manager';
+
+
+import { GetCurrentUser as GetCurrentUser2, CheckManager } from '../util/index';
+import Page404 from './404/Page404';
+
+
+
+
 const ColorButton = withStyles((theme) => ({
     root: {
         color: theme.palette.getContrastText(purple[500]),
@@ -35,12 +43,19 @@ const Home = (props) => {
 
     const classes = useStyles();
 
-    useEffect(() => {
+    const [ifGoToLogin, setifGoToLogin] = useState(false);
+    const [ifGoTo404, setifGoToifGoTo404] = useState(false);
 
-    })
+    useEffect(async() => {
+        GetCurrentUser2().catch(error => { setifGoToLogin(true) });
+
+        let if404=await CheckManager(localStorage.getItem("currentUserMail"), localStorage.getItem("currentUserPassword"));
+        if (!if404=== true)
+            setifGoToifGoTo404(true);
+
+    }, [])
     return (
         <>
-            {/* <Manager/> */}
 
             <Switch>
 
@@ -77,20 +92,24 @@ const Home = (props) => {
                 </Route>
 
                 <Route path={'/Search'}>
-                    <Search />
+                    {!ifGoToLogin ? <Search /> : <Redirect to={'/SignIn'} />}
                 </Route>
                 <Route path={'/Manager'}>
-                    <Manager />
+                    {!ifGoTo404 ? <Manager /> : <Redirect to={'/Page404'} />}
                 </Route>
                 <Route path={'/SignUp'}>
                     <SignUp />
                 </Route>
                 <Route path={'/PrivateArea'}>
-                    <PrivateArea />
+                    {!ifGoToLogin ? <PrivateArea /> : <Redirect to={'/Page404'} />}
+                </Route>
+                <Route path={'/Page404'}>
+                    <Page404 />
                 </Route>
                 <Route path={'/SignIn'}>
                     <SingIn />
                 </Route>
+
             </Switch>
         </>
     );

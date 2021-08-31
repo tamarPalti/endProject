@@ -1,10 +1,11 @@
 const Users = require("../models/Users");
 const Business = require("../models/Business");
 const mongoose = require("mongoose");
+
 const getAll = async (req, res) => {
     try {
         let users = await Users.find().populate(
-            [{ path: "lastSearchUsers.userSearch", select: "firstName lastName phoneNamber adress email" },
+            [{ path: "lastSearchUsers.userSearch", select: "firstName lastName phoneNamber adress email img" },
             { path: "lastSearchBusiness.businessSearch", select: "name phoneNamber adress email" }]).sort({ firstName: 1, lastName: 1 });
         return res.send(users);
     }
@@ -19,7 +20,7 @@ const getByPassword = async (req, res) => {
         if (id == "null" || id == "undefined")
             return res.status(500).send("מצטערים לא נמצא משתמש עם המזהה שהתקבל");
         let user = await Users.findById(id).populate(
-            [{ path: "lastSearchUsers.userSearch", select: "firstName lastName phoneNamber adress email" },
+            [{ path: "lastSearchUsers.userSearch", select: "firstName lastName phoneNamber adress email img" },
             { path: "lastSearchBusiness.businessSearch", select: "name phoneNamber adress email" }]);
         if (!user)
             return res.status(500).send("מצטערים לא נמצא משתמש עם המזהה שהתקבל");
@@ -30,7 +31,12 @@ const getByPassword = async (req, res) => {
     }
 }
 const addUser = async (req, res) => {
+
+    const url = req.protocol + '://' + req.get('host');
     let newUser = new Users(req.body);
+    if (req.file)
+        newUser.img = url + '/uploads/' + req.file.filename;
+
     try {
         let user = await Users.findOne({ "email": newUser.email });
         if (user)
@@ -43,6 +49,9 @@ const addUser = async (req, res) => {
     }
 }
 const updateUser = async (req, res) => {
+
+    const url = req.protocol + '://' + req.get('host');
+
     let userBody = req.body;
     const id = req.params.id;
     try {
@@ -57,7 +66,8 @@ const updateUser = async (req, res) => {
         user.phoneNamber = userBody.phoneNamber || user.phoneNamber;
         user.email = userBody.email || user.email;
         user.adress = userBody.adress || user.adress;
-        user.img = userBody.img || user.img;
+        // user.img = userBody.img || user.img;
+        user.img = req.file ? url + '/uploads/' + req.file.filename : user.img;
         user.password = userBody.password || user.password;
         user.ifMessege = userBody.ifMessege;
         await user.save();

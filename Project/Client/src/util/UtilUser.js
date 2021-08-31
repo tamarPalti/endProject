@@ -32,6 +32,9 @@ export const GetCurrentUserByPaaswordAndMail = async (password, mail) => {
     return axios.get(`http://localhost:4000/users/getByPassword/${password}&${mail}`);
 }
 
+export const GetImage = async (img) => {
+    return axios.get(`http://localhost:4000/${img}`);
+}
 
 
 

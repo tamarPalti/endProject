@@ -14,12 +14,13 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
-
+app.use("/uploads",express.static("uploads"));
 
 app.use("/users", users);
 app.use("/business",business);
 app.use("/categories",categories);
 app.use("/tasks",tasks);
+
 app.listen("4000", () => {
     console.log("listening on port 4000");
 })
