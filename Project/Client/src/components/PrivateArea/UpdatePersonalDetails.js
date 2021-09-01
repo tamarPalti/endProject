@@ -322,4 +322,3 @@ const mapStateToProps = (state) => {
     };
 }
 export default connect(mapStateToProps, { AddUser, IfExist, ErrorInAdd })(UpdatePersonalDetails);
-
