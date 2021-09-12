@@ -17,7 +17,7 @@ import { Redirect, useHistory, useLocation, useParams } from 'react-router-dom';
 import { GetCurrentUser } from '../../util/index';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { UpdateUser, GetCurrentUserById } from '../../util/index';
+import { UpdateUser, GetCurrentUserById, UpdateStatusTask } from '../../util/index';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -68,13 +68,13 @@ function UpdatePersonalDetails(props) {
 
     const [currentUser, setCurrentUser] = useState(null);
     const [ifGoToLogin, setifGoToLogin] = useState(false);
-    
-    
-   
-    
 
-     
-    const { id } = useParams();
+
+
+
+
+
+    const { id,idTask } = useParams();
 
 
     // משתנה לעדכון 
@@ -106,8 +106,9 @@ function UpdatePersonalDetails(props) {
             handleClick();
         }
         else {
-            UpdateUser(id?id:localStorage.getItem("currentUserId"), data).then(succ => {
-
+            UpdateUser(id ? id : localStorage.getItem("currentUserId"), data).then(succ => {
+                if (idTask && id)
+                    UpdateStatusTask(idTask, true);
                 settypeAlert("success");
                 setmasseg("Updating Success");
                 handleClick();
@@ -155,14 +156,18 @@ function UpdatePersonalDetails(props) {
     // alerts
 
     useEffect(() => {
-      
-        if (id)
+
+        if (id) {
             GetCurrentUserById(id).then(data => {
                 setCurrentUser(data.data);
 
             }).catch(() => {
-                setifGoToLogin(true);
+
             });
+           
+
+        }
+
 
         else
             // שליפת המשתמש הנוכחי
@@ -170,7 +175,7 @@ function UpdatePersonalDetails(props) {
                 setCurrentUser(data.data);
 
             }).catch(() => {
-                setifGoToLogin(true);
+
             });
 
         return (props.IfExist(false), props.ErrorInAdd(false));
@@ -186,7 +191,7 @@ function UpdatePersonalDetails(props) {
             </Snackbar>
             {/* alerts */}
 
-            {currentUser && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateUser))}>
+            { currentUser && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateUser))}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
                         <TextField
@@ -317,8 +322,9 @@ function UpdatePersonalDetails(props) {
 const mapStateToProps = (state) => {
 
     // ;
-    return { ifExist: state.usersPart.IfExist, errorInAdd: state.usersPart.ErrorInAdd,
-        idUserUpdate:state.usersPart.IdUserManagerUpdate 
+    return {
+        ifExist: state.usersPart.IfExist, errorInAdd: state.usersPart.ErrorInAdd,
+        idUserUpdate: state.usersPart.IdUserManagerUpdate
     };
 }
 export default connect(mapStateToProps, { AddUser, IfExist, ErrorInAdd })(UpdatePersonalDetails);

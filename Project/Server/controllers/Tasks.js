@@ -11,11 +11,25 @@ const getAllTypeTsks = async (req, res) => {
 }
 const getAllTask = async (req, res) => {
     try {
-        let AllTask = await Tasks.find().populate(
+        let AllTask = await Tasks.find({ status: false }).populate(
             [{ path: "codeUser", select: "firstName lastName phoneNamber adress email" },
             { path: "otherUser", select: "firstName lastName phoneNamber adress email" }
                 , { path: "type", select: "name" },
-                { path: "otherbuisness", select: "name phoneNamber adress email" }]);
+            { path: "otherbuisness", select: "name phoneNamber adress email" }]);
+        return res.send(AllTask);
+    }
+    catch (err) {
+        return res.status(400).send(err.message)
+    }
+}
+const getTaskById = async (req, res) => {
+    let id = req.params;
+    try {
+        let AllTask = await Tasks.find({ "_id": id }).populate(
+            [{ path: "codeUser", select: "firstName lastName phoneNamber adress email" },
+            { path: "otherUser", select: "firstName lastName phoneNamber adress email" }
+                , { path: "type", select: "name" },
+            { path: "otherbuisness", select: "name phoneNamber adress email" }]);
         return res.send(AllTask);
     }
     catch (err) {
@@ -92,7 +106,23 @@ const deleteTask = async (req, res) => {
     }
 
 }
+const updateStatusTask = async (req, res) => {
+    const { id, status } = req.params;
+    try {
+        const Task = await Tasks.findOne({ "_id": id });
+        if (!Task)
+            return res.status(404).send("sorry no such task");
+        Task.status = status;
 
+        await Task.save();
+        return res.send(Task);
+    }
+    catch (err) {
+        return res.status(400).send(err.message)
+    }
+
+}
 module.exports = {
-    getAllTypeTsks, getAllTask, addTypeTsks, addTask, deleteTask, updateTask, updateTypeTask
+    getAllTypeTsks, getAllTask, addTypeTsks, addTask, deleteTask, updateTask, updateTypeTask, updateStatusTask,
+    getTaskById
 }

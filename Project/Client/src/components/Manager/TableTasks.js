@@ -15,7 +15,7 @@ import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { useRef, useEffect, useState } from 'react';
-import { GetAllTask, GetAllTypeTsks } from '../../util/index';
+import { GetAllTask, GetAllTypeTsks , GetTaskById} from '../../util/index';
 import { Link, Route, Switch, useRouteMatch, useParams } from 'react-router-dom';
 import UpdatePersonalDetails from '../PrivateArea/UpdatePersonalDetails';
 import { withRouter } from 'react-router-dom';
@@ -25,7 +25,7 @@ import { ChangeIdUserManagerUpdate } from '../../actions/index';
 import { setTimeout } from 'timers';
 import UpdateBuisnes from '../PrivateArea/UpdateBuisness/UpdateBuisnes';
 import UpdateBuisnesOfManager from './UpdateBuisnesOfManager';
-
+import AddCategory from './AddCategory';
 const useRowStyles = makeStyles({
     root: {
         '& > *': {
@@ -55,9 +55,14 @@ function Row(props) {
 }
 
 function TableTasks(props) {
+
+    const {  idTask } = useParams();
+    const [ifTasks, setifTasks] = useState(true);
+
+
     const [rows, setRows] = useState([]);
     const [typeTask, setTypeTask] = useState([]);
-    // const [id, setId] = useState();
+    
     const { url, path } = useRouteMatch();
 
     useEffect(() => {
@@ -69,13 +74,13 @@ function TableTasks(props) {
 
 
                 if (element.code == 1)
-                    typeArr[0] = { id: element._id, action: (id) => <Link to={`${url}/updateUser/${id}`} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>עדכון משתמש</Link> };
+                    typeArr[0] = { id: element._id, action: (id,idTask) => <Link to={`${url}/updateUser/${id}/${idTask}`} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>עדכון משתמש</Link> };
                 else if (element.code == 2)
-                    typeArr[1] = { id: element._id, action: () => <Link to={`${url}/addCategory`}>הוסף קטגוריה</Link> }
+                    typeArr[1] = { id: element._id, action: (id,idTask) => <Link to={`${url}/addCategory/${idTask}`}onClick={() => { setTimeout(() => window.location.reload(), 10) }}>הוסף קטגוריה</Link> }
                 else if (element.code == 3)
-                    typeArr[2] = { id: element._id, action: () => <Link to={`${url}/sendAddUser`}>הוסף משתמש למערכת</Link> }
+                    typeArr[2] = { id: element._id, action: (id,idTask) => <Link to={`${url}/sendAddUser/${idTask}`}>הוסף משתמש למערכת</Link> }
                 else if (element.code == 4)
-                    typeArr[3] = { id: element._id, action: (id) => <Link to={`${url}/updateBuisness/${id}`} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>עדכן עסק</Link> }
+                    typeArr[3] = { id: element._id, action: (id,idTask) => <Link to={`${url}/updateBuisness/${id}/${idTask}`} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>עדכן עסק</Link> }
 
             });
 
@@ -89,6 +94,12 @@ function TableTasks(props) {
             console.log(erorr);
         });
 
+        GetTaskById(idTask).then(succ => {
+            if (succ.data.status == true)
+                setifTasks(false);
+        }).catch(() => {
+
+        });
     }, []);
     return (<>{rows && <>
         <TableContainer component={Paper}>
@@ -107,7 +118,9 @@ function TableTasks(props) {
                 </TableHead>
                 <TableBody>
                     {typeTask && rows.map((row, index) => (
-                        <Row key={index} row={row} action={typeTask.find(elem => elem.id === row.type._id).action(row.otherUser ? row.otherUser._id : row.otherbuisness ? row.otherbuisness._id : null)} />
+                        <Row key={index} row={row} action={typeTask.find(elem => elem.id === row.type._id)
+                            .action(row.otherUser ? row.otherUser._id : row.otherbuisness ? row.otherbuisness._id : null
+                                ,row._id)} />
                     ))}
                 </TableBody>
             </Table>
@@ -115,20 +128,21 @@ function TableTasks(props) {
 
         <Switch>
 
-            <Route path={`${path}/updateUser/:id`}>
-                <UpdatePersonalDetails />
+            <Route path={`${path}/updateUser/:id/:idTask`}>
+                
+               {ifTasks && <UpdatePersonalDetails />}
             </Route>
 
-            <Route path={`${path}/sendAddUser`}>
+            <Route path={`${path}/sendAddUser/:idTask`}>
                 <div>sendAddUser</div>
             </Route>
 
-            <Route path={`${path}/addCategory`}>
-                <div>addCategory</div>
+            <Route path={`${path}/addCategory/:idTask`}>
+               {ifTasks &&<AddCategory/>} 
             </Route>
 
-            <Route path={`${path}/updateBuisness/:id`}>
-                <UpdateBuisnesOfManager />
+            <Route path={`${path}/updateBuisness/:id/:idTask`}>
+                {ifTasks &&<UpdateBuisnesOfManager />}
             </Route>
 
         </Switch>

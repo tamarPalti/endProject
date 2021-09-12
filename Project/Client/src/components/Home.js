@@ -18,6 +18,8 @@ import Manager from '../components/Manager/Manager';
 
 import { GetCurrentUser as GetCurrentUser2, CheckManager } from '../util/index';
 import Page404 from './404/Page404';
+import UpdataBusiness from './Tasks/UpdataBusiness';
+import UpdataUser from './Tasks/UpdataUser';
 
 
 
@@ -46,11 +48,11 @@ const Home = (props) => {
     const [ifGoToLogin, setifGoToLogin] = useState(false);
     const [ifGoTo404, setifGoToifGoTo404] = useState(false);
 
-    useEffect(async() => {
+    useEffect(async () => {
         GetCurrentUser2().catch(error => { setifGoToLogin(true) });
 
-        let if404=await CheckManager(localStorage.getItem("currentUserMail"), localStorage.getItem("currentUserPassword"));
-        if (!if404=== true)
+        let if404 = await CheckManager(localStorage.getItem("currentUserMail"), localStorage.getItem("currentUserPassword"));
+        if (!if404 === true)
             setifGoToifGoTo404(true);
 
     }, [])
@@ -91,6 +93,12 @@ const Home = (props) => {
                     </div>
                 </Route>
 
+                <Route path={'/search/business/TasksUpdataBusiness'}>
+                    <UpdataBusiness />
+                </Route>
+                <Route path={'/search/users/TasksUpdataUser'}>
+                    <UpdataUser/>
+                </Route>
                 <Route path={'/Search'}>
                     {!ifGoToLogin ? <Search /> : <Redirect to={'/SignIn'} />}
                 </Route>

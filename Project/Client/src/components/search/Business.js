@@ -2,16 +2,19 @@ import { connect } from "react-redux";
 import './Business.scss';
 import { SelectedBusiness, ChangeColorName } from '../../actions/index';
 import { useRef, useEffect, useState } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, useRouteMatch } from 'react-router-dom';
 import { Button, Image, Modal, List } from 'semantic-ui-react';
 import ico from './img/alex.png';
 import { AddHistoryBusiness } from '../../util/index';
 import { FromAddress } from '../../util/index'
 import MyLocation from "./MyLocation";
-
+import UpdataBusiness from '../Tasks/UpdataBusiness'
 
 
 const Business = (props) => {
+
+
+    const { url, path } = useRouteMatch();
 
 
     const [Cenetr, SetCenetr] = useState(null);
@@ -44,18 +47,20 @@ const Business = (props) => {
             const { lat, lng } = response.results[0].geometry.location;
             console.log(lat + " " + lng);
             console.log(response.results[0]);
-    
+
             SetCenetr({ lat: lat, lng: lng });
             SetTxt(response.results[0].address_components[0].long_name);
-    
+
         }).catch(error => {
             console.log(error);
         });
-    
+
 
 
     }, []);
-
+    function myFunction() {
+        var myWindow = window.open(url+"/TasksUpdataBusiness", "updataBusiness", "width=400,height=300");
+    }
 
     return (
         <List.Item key={props.business._id}>
@@ -96,7 +101,7 @@ const Business = (props) => {
                                 <i class="user plus icon i" ></i>
                             </div>
                             <div className="div-ico" data-tooltip="דווח על תקלה">
-                                <i class="exclamation triangle icon"></i>
+                                <i class="exclamation triangle icon" onClick={myFunction}></i>
                             </div>
                         </div>
 
@@ -119,11 +124,11 @@ const Business = (props) => {
                         <div className="div_all">
                             <i class="map marker alternate icon"></i>
                             <div className="place_div"> <p> {props.business.adress}</p></div>
-                           
+
                         </div>
 
                     </h2>
-                      {Cenetr && Zoom && Txt && <MyLocation center={Cenetr} zoom={Zoom} txt={Txt} />}
+                    {Cenetr && Zoom && Txt && <MyLocation center={Cenetr} zoom={Zoom} txt={Txt} />}
                 </Modal>
             </List.Content>
         </List.Item>
