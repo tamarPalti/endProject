@@ -59,8 +59,6 @@ const Search = (props) => {
 
     useEffect(() => {
 
-        // GetCurrentUser2().catch(error => { setifGoToLogin(true) });
-
     }, []);
 
     return (<><div className="back-search">

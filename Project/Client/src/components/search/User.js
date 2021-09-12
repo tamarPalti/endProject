@@ -6,8 +6,10 @@ import ico from './img/alex.png';
 import React, { useState } from 'react';
 import { AddHistory, GetImage } from '../../util/index';
 import { Button, Image, Modal, List } from 'semantic-ui-react';
+import { Link, Route, useRouteMatch } from 'react-router-dom';
 
 const User = (props) => {
+    const { url, path } = useRouteMatch();
 
     let indexName = props.user.firstName.indexOf(props.ColorFirstName);
     let start = props.user.firstName.substring(0, indexName);
@@ -24,6 +26,10 @@ const User = (props) => {
 
 
     }, []);
+
+    function myFunction() {
+        var myWindow = window.open(url+"/TasksUpdataUser", "UpdataUser", "width=400,height=300");
+    }
 
     const [open, setOpen] = React.useState(false)
 
@@ -80,7 +86,7 @@ const User = (props) => {
                                 <i class="user plus icon i" ></i>
                             </div>
                             <div className="div-ico" data-tooltip="דווח על תקלה">
-                                <i class="exclamation triangle icon"></i>
+                                <i class="exclamation triangle icon" onClick={myFunction}></i>
                             </div>
                         </div>
 
