@@ -80,7 +80,7 @@ function BasicDetails(props) {
     data.phoneNamber.push(data.phone);
     data.ifMessege = false;
     data.adress = "";
-
+    data.img = selectedImage;
 
 
     //util פונקציה מה 
@@ -125,6 +125,10 @@ function BasicDetails(props) {
   const [typeAlert, settypeAlert] = React.useState("");
   const [masseg, setmasseg] = React.useState("");
 
+
+  const [selectedImage, setselectedImage] = useState();
+
+
   const handleClick = () => {
     setOpen(true);
   };
@@ -141,7 +145,16 @@ function BasicDetails(props) {
 
   // alerts
 
-  
+  const onFileChange = (e) => {
+    let files = e.target.files;
+    let fileReader = new FileReader();
+    fileReader.readAsDataURL(files[0]);
+
+    fileReader.onload = (event) => {
+      setselectedImage(event.target.result)
+
+    }
+  }
 
   useEffect(() => {
 
@@ -160,6 +173,11 @@ function BasicDetails(props) {
       {/* alerts */}
 
       <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
+
+
+        <input type="file" className="form-control" name="image" onChange={onFileChange} />
+
+
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <TextField

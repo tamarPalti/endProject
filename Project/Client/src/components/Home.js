@@ -93,10 +93,10 @@ const Home = (props) => {
                     </div>
                 </Route>
 
-                <Route path={'/search/business/TasksUpdataBusiness'}>
+                <Route path={'/search/business/TasksUpdataBusiness/:idBusiness'}>
                     <UpdataBusiness />
                 </Route>
-                <Route path={'/search/users/TasksUpdataUser'}>
+                <Route path={'/search/users/TasksUpdataUser/:idUser'}>
                     <UpdataUser/>
                 </Route>
                 <Route path={'/Search'}>

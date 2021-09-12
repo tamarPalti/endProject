@@ -59,7 +59,7 @@ const Business = (props) => {
 
     }, []);
     function myFunction() {
-        var myWindow = window.open(url+"/TasksUpdataBusiness", "updataBusiness", "width=400,height=300");
+        var myWindow = window.open(url+"/TasksUpdataBusiness/"+props.business._id, "updataBusiness", "width=400,height=300");
     }
 
     return (

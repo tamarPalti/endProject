@@ -28,7 +28,7 @@ const User = (props) => {
     }, []);
 
     function myFunction() {
-        var myWindow = window.open(url+"/TasksUpdataUser", "UpdataUser", "width=400,height=300");
+        var myWindow = window.open(url+"/TasksUpdataUser/"+props.user._id, "UpdataUser", "width=400,height=300");
     }
 
     const [open, setOpen] = React.useState(false)

@@ -6,7 +6,7 @@ export {
     GetAllBusinessFunc, GetCurrentBuisness, UpdateBuisnessFunc,
     DeleteHistoryBusiness, GetAllBuisnessOfUser, AddBusiness
 } from './UtilBuisness';
-export { getAllCategories ,AddCategory} from './UtilCategory';
-export { GetAllTask, GetAllTypeTsks,UpdateStatusTask,GetTaskById } from './Tasks';
+export { getAllCategories, AddCategory } from './UtilCategory';
+export { GetAllTask, GetAllTypeTsks, UpdateStatusTask, GetTaskById, AddTask } from './Tasks';
 export { CheckManager } from './Manager';
 export { FromAddress, SortllBusiness } from './Location';
