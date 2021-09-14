@@ -135,7 +135,7 @@ const SingIn = (props) => {
       </Snackbar>
 
       {/* alerts */}
-      <Grid container   className={classes.root}>
+      <Grid container component="main" className={classes.root}>
         <CssBaseline />
 
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -178,12 +178,10 @@ const SingIn = (props) => {
                 fullWidth
                 variant="contained"
                 className={classes.submit}
-                type="submit"
                 onClick={async () => {
                   await GetCurrentUser();
                 }}>
                 Sign In
-
             </Button>
               <Grid container>
                 <Grid item xs>
