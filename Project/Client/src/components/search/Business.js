@@ -73,7 +73,7 @@ const Business = (props) => {
                         <div className="place_business" onClick={() => {
                             props.SelectedBusiness(props.business)
                             if (props.ifAdd == "true")
-                                AddHistoryBusiness(localStorage.getItem("currentUserId"), props.business._id)
+                                AddHistoryBusiness(localStorage.getItem("currentUserId"), props.business._id);  
                         }}>
                             <p className="display">&nbsp;</p>
                             <p className="display">{checkName(props.business.name) ? start : end}</p>

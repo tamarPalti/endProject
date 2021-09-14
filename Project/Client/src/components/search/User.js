@@ -7,6 +7,8 @@ import React, { useState } from 'react';
 import { AddHistory, GetImage } from '../../util/index';
 import { Button, Image, Modal, List } from 'semantic-ui-react';
 import { Link, Route, useRouteMatch } from 'react-router-dom';
+import { SendMail, GetCurrentUser } from '../../util';
+
 
 const User = (props) => {
     const { url, path } = useRouteMatch();
@@ -28,11 +30,27 @@ const User = (props) => {
     }, []);
 
     function myFunction() {
-        var myWindow = window.open(url+"/TasksUpdataUser/"+props.user._id, "UpdataUser", "width=400,height=300");
+        var myWindow = window.open(url + "/TasksUpdataUser/" + props.user._id, "UpdataUser", "width=400,height=300");
     }
 
     const [open, setOpen] = React.useState(false)
 
+    const SendMailFunc = (user) => {
+
+        GetCurrentUser().then(succ => {
+
+            let mail = {
+                toUser: user.email,
+                subject: `${succ.data.firstName + " " + succ.data.lastName} חיפש אותך `,
+                text: `<div>לשליחת מייל ${succ.data.email}</div> `
+            }
+
+            SendMail(mail);
+        })
+
+
+
+    }
     return (
         <List.Item key={props.user._id}>
             <List.Content floated='right'>
@@ -41,10 +59,19 @@ const User = (props) => {
                     onOpen={() => setOpen(true)}
                     open={open}
                     trigger={<div ><div className="place_user" onClick={() => {
+
                         props.SelectedUser(props.user);
+
                         if (props.ifAdd == "true")
-                            AddHistory(localStorage.getItem("currentUserId"), props.user._id)
+                            AddHistory(localStorage.getItem("currentUserId"), props.user._id);
+
+                        if (props.user.ifMessege) {
+                            console.log(props.user.ifMessege);
+                            SendMailFunc(props.user);
+                        }
+
                     }}>
+                        <div><img></img></div>
                         <p className="display">{checkName(props.user.lastName) ? Laststart : Lastend}</p>
                         {!checkName(props.user.lastName) && (Lastend[0] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
                         {checkName(props.user.firstName) && (Laststart[Laststart.length - 1] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}

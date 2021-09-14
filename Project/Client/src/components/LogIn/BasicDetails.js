@@ -13,7 +13,7 @@ import './SingUp.scss';
 import { Link } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { AddUser } from '../../util/index'
+import { AddUser, SendMail } from '../../util/index'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,10 +70,12 @@ function BasicDetails(props) {
   const email = register('email', { required: "This is required.", pattern: { value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, message: "Email No Valid" } })
   const phone = register('phone', { required: "This is required.", pattern: { value: /0[0-9]{9}/, message: "Phone No Valid" } })
   const password = register('password', { required: "This is required.", minLength: { value: 5, message: "Min 5" }, maxLength: { value: 5, message: "Max 5" }, pattern: { value: /[0-9a-zA-Z]{5}/, message: "Make sure it's at least 5 characters OR characters including a number , a lowercase letter and a upperrcase letter" } })
+  const passwordemail = register('passwordemail', { required: "This is required." })
+
+  let emailToPassword = "";
 
   const onSubmit = data => {
-
-
+    let number = localStorage.getItem("number");
     console.log(data);
     data.dateLogin = new Date();
     data.phoneNamber = [];
@@ -82,34 +84,45 @@ function BasicDetails(props) {
     data.adress = "";
     data.img = selectedImage;
 
+    if (data.passwordemail == number.substring(3, 8)) {
+
+      AddUser(data).then((succ) => {
+        console.log(succ.data);
+
+        props.SignIn(succ.data);
+        props.IfExist(false);
+        props.ErrorInAdd(false);
+        settypeAlert("success");
+        setmasseg("Adding Success");
+        handleClick();
+
+      }).catch(ee => {
+        console.log(ee.massege);
+        if (ee.response.status == 500) {
+          props.IfExist(true);
+          props.ErrorInAdd(false);
+        }
+
+        else {
+          props.ErrorInAdd(true);
+          props.IfExist(false);
+        }
+        settypeAlert("error");
+        setmasseg(ee.response.data)
+
+        handleClick();
+      });
+
+    }
+    else {
+      settypeAlert("error");
+      setmasseg("קוד האימות שגוי");
+
+      handleClick();
+    }
 
     //util פונקציה מה 
-    AddUser(data).then((succ) => {
-      console.log(succ.data);
 
-      props.SignIn(succ.data);
-      props.IfExist(false);
-      props.ErrorInAdd(false);
-      settypeAlert("success");
-      setmasseg("Adding Success");
-      handleClick();
-
-    }).catch(ee => {
-      console.log(ee.massege);
-      if (ee.response.status == 500) {
-        props.IfExist(true);
-        props.ErrorInAdd(false);
-      }
-
-      else {
-        props.ErrorInAdd(true);
-        props.IfExist(false);
-      }
-      settypeAlert("error");
-      setmasseg(ee.response.data)
-
-      handleClick();
-    });
   }
 
   onchange = (e) => {
@@ -156,6 +169,24 @@ function BasicDetails(props) {
     }
   }
 
+
+  const sendPasswordFunc = () => {
+
+    let number = Math.floor(Math.random() * 90000) + 10000;
+
+    let num1 = Math.floor(Math.random() * 900) + 100;
+    let num2 = Math.floor(Math.random() * 90) + 10;
+
+    localStorage.setItem("number", num1 + "" + number + "" + num2);
+
+    let mail = {
+      toUser: emailToPassword,
+      subject: "קוד אימות",
+      text: `<h1>${number}</h1>`
+      // ,attachments
+    }
+    SendMail(mail);
+  }
   useEffect(() => {
 
     return (props.IfExist(false), props.ErrorInAdd(false))
@@ -208,7 +239,7 @@ function BasicDetails(props) {
             <ErrorMessage errors={errors} name="lastName" render={({ message }) => <p className="redColor">{message}</p>} />
 
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={6}>
             <TextField
               variant="outlined"
               required
@@ -217,9 +248,28 @@ function BasicDetails(props) {
               label="Email Address"
               name="email"
               autoComplete="email"
+              onKeyUp={(e) => emailToPassword = e.target.value}
               {...email}
             />
             <ErrorMessage errors={errors} name="email" render={({ message }) => <p className="redColor">{message}</p>} />
+          </Grid>
+          <Grid item xs={12} sm={2}>
+            <Button onClick={sendPasswordFunc} variant="outlined" size="small" color="primary" className={classes.margin}>
+              Send
+          </Button>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              id="passwordemail"
+              label="Password Email"
+              name="passwordemail"
+              autoComplete="passwordemail"
+              {...passwordemail}
+            />
+            <ErrorMessage errors={errors} name="passwordemail" render={({ message }) => <p className="redColor">{message}</p>} />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField

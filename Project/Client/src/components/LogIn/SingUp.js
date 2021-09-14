@@ -10,7 +10,7 @@ import './SingUp.scss';
 import Paper from '@material-ui/core/Paper';
 import BasicDetails from './BasicDetails';
 
-
+// import ExpandingDetails from './ExpandingDetails';
 
 
 
