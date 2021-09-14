@@ -3,6 +3,9 @@ const route = express.Router();
 const userController = require("../controllers/User");
 const multer = require("multer");
 
+const bodyParser = require('body-parser').json({limit:'100mb'});
+
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './uploads/');
@@ -14,7 +17,7 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-    if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+    if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg"||file.mimetype == "image/NEF") {
         cb(null, true);
     } else {
         cb(null, false);
@@ -34,7 +37,7 @@ route.get("/", userController.getAll);
 route.get("/:id", userController.getByPassword);
 route.get("/getByPassword/:password&:mail", userController.getByPasswordAndMail);
 
-route.post("/", upload.single('img'), userController.addUser);
+route.post("/",bodyParser, upload.single('img'), userController.addUser);
 
 route.put("/:id", upload.single('img'), userController.updateUser);
 route.put("/addToHistory/:currentId&:userId", userController.addToHistory);
