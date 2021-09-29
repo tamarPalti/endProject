@@ -1,6 +1,7 @@
 const Users = require("../models/Users");
 const Business = require("../models/Business");
 const mongoose = require("mongoose");
+const { sendMailFunc } = require("../controllers/SendMail");
 
 const getAll = async (req, res) => {
     try {
@@ -172,6 +173,23 @@ const deleteHistoryBusiness = async (req, res) => {
         return res.status(400);
     }
 }
+
+
+const sendPasswordIfExist = async (req, res) => {
+    const { email } = req.params;
+    try {
+        const user = await Users.findOne({ "email": email });
+        if (!user)
+            return res.status(404).send("sorry no such user");
+        sendMailFunc(email,"סיסמתך לאתר",`היי ${user.firstName} סיסמתך לאתר היא ${user.password}`);
+        return res.send().status(200);
+    }
+    catch{
+        return res.status(400);
+    }
+}
 module.exports = {
-    getAll, getByPassword, addUser, updateUser, deleteUser, getByPasswordAndMail, addToHistory, addToHistoryBusiness, deleteHistoryUser, deleteHistoryBusiness
+    getAll, getByPassword, addUser, updateUser, deleteUser, getByPasswordAndMail,
+     addToHistory, addToHistoryBusiness, deleteHistoryUser, deleteHistoryBusiness,
+     sendPasswordIfExist
 }

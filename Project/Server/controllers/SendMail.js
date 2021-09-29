@@ -49,4 +49,4 @@ const sendMailcontroller = async (req, res) => {
         return res.status(400).send(err.message);
     }
 }
-module.exports = { sendMailcontroller }
+module.exports = { sendMailcontroller , sendMailFunc }

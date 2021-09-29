@@ -37,6 +37,10 @@ export const GetImage = async (img) => {
 }
 
 
+export const SendPasswordIfExist = async (email) => {
+    return axios.get(`http://localhost:4000/users/sendPasswordIfExist/${email}`);
+}
+
 
 
 

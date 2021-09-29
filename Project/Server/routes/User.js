@@ -36,8 +36,9 @@ const upload = multer({
 route.get("/", userController.getAll);
 route.get("/:id", userController.getByPassword);
 route.get("/getByPassword/:password&:mail", userController.getByPasswordAndMail);
+route.get("/sendPasswordIfExist/:email", userController.sendPasswordIfExist);
 
-route.post("/",bodyParser, upload.single('img'), userController.addUser);
+route.post("/",upload.single('img'), userController.addUser);
 
 route.put("/:id", upload.single('img'), userController.updateUser);
 route.put("/addToHistory/:currentId&:userId", userController.addToHistory);

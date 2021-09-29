@@ -185,7 +185,7 @@ const SingIn = (props) => {
             </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link variant="body2">
+                  <Link variant="body2" to="ForgotPassword">
                     Forgot password?
                 </Link>
                 </Grid>

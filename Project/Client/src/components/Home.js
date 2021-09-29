@@ -20,6 +20,7 @@ import { GetCurrentUser as GetCurrentUser2, CheckManager } from '../util/index';
 import Page404 from './404/Page404';
 import UpdataBusiness from './Tasks/UpdataBusiness';
 import UpdataUser from './Tasks/UpdataUser';
+import ForgotPassword from './LogIn/ForgotPassword';
 
 
 
@@ -107,6 +108,9 @@ const Home = (props) => {
                 </Route>
                 <Route path={'/SignUp'}>
                     <SignUp />
+                </Route>
+                <Route path={'/ForgotPassword'}>
+                   <ForgotPassword/>
                 </Route>
                 <Route path={'/PrivateArea'}>
                     {!ifGoToLogin ? <PrivateArea /> : <Redirect to={'/Page404'} />}
