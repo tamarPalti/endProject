@@ -15,7 +15,7 @@ import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { useRef, useEffect, useState } from 'react';
-import { GetAllTask, GetAllTypeTsks , GetTaskById} from '../../util/index';
+import { GetAllTask, GetAllTypeTsks, GetTaskById, SendMail } from '../../util/index';
 import { Link, Route, Switch, useRouteMatch, useParams } from 'react-router-dom';
 import UpdatePersonalDetails from '../PrivateArea/UpdatePersonalDetails';
 import { withRouter } from 'react-router-dom';
@@ -56,13 +56,23 @@ function Row(props) {
 
 function TableTasks(props) {
 
-    const {  idTask } = useParams();
+    const { idTask } = useParams();
     const [ifTasks, setifTasks] = useState(true);
+
+    const send = (idTask,mail) => {
+        let Email = {
+            toUser: mail,
+            subject: "הצטרפות לאתר מי מייל",
+            text: `<h1>${"הצטרפות לאתר מי מייל"}</h1>`
+            // ,attachments
+        }
+        SendMail(Email);
+    }
 
 
     const [rows, setRows] = useState([]);
     const [typeTask, setTypeTask] = useState([]);
-    
+
     const { url, path } = useRouteMatch();
 
     useEffect(() => {
@@ -74,13 +84,13 @@ function TableTasks(props) {
 
 
                 if (element.code == 1)
-                    typeArr[0] = { id: element._id, action: (id,idTask) => <Link to={`${url}/updateUser/${id}/${idTask}`} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>עדכון משתמש</Link> };
+                    typeArr[0] = { id: element._id, action: (id, idTask) => <Link to={`${url}/updateUser/${id}/${idTask}`} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>עדכון משתמש</Link> };
                 else if (element.code == 2)
-                    typeArr[1] = { id: element._id, action: (id,idTask) => <Link to={`${url}/addCategory/${idTask}`}onClick={() => { setTimeout(() => window.location.reload(), 10) }}>הוסף קטגוריה</Link> }
+                    typeArr[1] = { id: element._id, action: (id, idTask) => <Link to={`${url}/addCategory/${idTask}`} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>הוסף קטגוריה</Link> }
                 else if (element.code == 3)
-                    typeArr[2] = { id: element._id, action: (id,idTask) => <Link to={`${url}/sendAddUser/${idTask}`}>הוסף משתמש למערכת</Link> }
+                    typeArr[2] = { id: element._id, action: (mail, idTask) => <button onClick={() => { send(idTask, mail) }} >הוסף משתמש למערכת</button> }
                 else if (element.code == 4)
-                    typeArr[3] = { id: element._id, action: (id,idTask) => <Link to={`${url}/updateBuisness/${id}/${idTask}`} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>עדכן עסק</Link> }
+                    typeArr[3] = { id: element._id, action: (id, idTask) => <Link to={`${url}/updateBuisness/${id}/${idTask}`} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>עדכן עסק</Link> }
 
             });
 
@@ -119,8 +129,8 @@ function TableTasks(props) {
                 <TableBody>
                     {typeTask && rows.map((row, index) => (
                         <Row key={index} row={row} action={typeTask.find(elem => elem.id === row.type._id)
-                            .action(row.otherUser ? row.otherUser._id : row.otherbuisness ? row.otherbuisness._id : null
-                                ,row._id)} />
+                            .action(row.otherUser ? row.otherUser._id : row.otherbuisness ? row.otherbuisness._id : row.mail ? row.mail : null
+                                , row._id)} />
                     ))}
                 </TableBody>
             </Table>
@@ -129,20 +139,20 @@ function TableTasks(props) {
         <Switch>
 
             <Route path={`${path}/updateUser/:id/:idTask`}>
-                
-               {ifTasks && <UpdatePersonalDetails />}
+
+                {ifTasks && <UpdatePersonalDetails />}
             </Route>
 
-            <Route path={`${path}/sendAddUser/:idTask`}>
+            {/* <Route path={`${path}/sendAddUser/:idTask`}>
                 <div>sendAddUser</div>
-            </Route>
+            </Route> */}
 
             <Route path={`${path}/addCategory/:idTask`}>
-               {ifTasks &&<AddCategory/>} 
+                {ifTasks && <AddCategory />}
             </Route>
 
             <Route path={`${path}/updateBuisness/:id/:idTask`}>
-                {ifTasks &&<UpdateBuisnesOfManager />}
+                {ifTasks && <UpdateBuisnesOfManager />}
             </Route>
 
         </Switch>

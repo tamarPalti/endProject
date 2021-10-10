@@ -50,6 +50,10 @@ const Home = (props) => {
     const [ifGoTo404, setifGoToifGoTo404] = useState(false);
 
     useEffect(async () => {
+
+        localStorage.setItem("managerMail","m1a2n3a4g5e6r@gmail.com");
+        localStorage.setItem("managerId","M11223344");
+
         GetCurrentUser2().catch(error => { setifGoToLogin(true) });
 
         let if404 = await CheckManager(localStorage.getItem("currentUserMail"), localStorage.getItem("currentUserPassword"));

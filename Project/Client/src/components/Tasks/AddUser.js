@@ -34,12 +34,11 @@ function Alert(props) {
 //alerts
 
 
-const AddCtegory = (props) => {
+const AddUser = (props) => {
 
 
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const category = register('category', { required: "This is required.", minLength: { value: 5, message: "Min 5" } })
-
+    const mail = register('mail', { required: "This is required." })
 
     const classes = useStyles();
 
@@ -51,12 +50,13 @@ const AddCtegory = (props) => {
         Task.codeUser = localStorage.getItem("currentUserId");
 
         let all = await GetAllTypeTsks();
-        Task.type = all.data.find((type) => type.code ==2)._id;
+        Task.type = all.data.find((type) => type.code ==3)._id;
 
         Task.otherbuisness = null;
         Task.status = false;
-        Task.desription = data.category;
+        Task.desription = "הוסף את המשתמש עם המייל:"+data.mail;
         Task.otherUser = null;
+        Task.mail=data.mail;
 
         AddTask(Task).then((succ) => {
 
@@ -130,11 +130,11 @@ const AddCtegory = (props) => {
                     margin="dense"
                     variant="outlined"
                     type="text"
-                    name="category"
-                    {...category}
+                    name="mail"
+                    {...mail}
                 />
-                <ErrorMessage errors={errors} name="category" render={({ message }) => <p className="redColor">{message}</p>} />
-
+                <ErrorMessage errors={errors} name="mail" render={({ message }) => <p className="redColor">{message}</p>} />
+                
                 <Button variant="contained" color="secondary" type="submit">
                     הגש בקשה
       </Button>
@@ -142,4 +142,4 @@ const AddCtegory = (props) => {
         </div></>);
 }
 
-export default AddCtegory;
+export default AddUser;

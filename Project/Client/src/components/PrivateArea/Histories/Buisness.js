@@ -64,7 +64,7 @@ const Buisness = (props) => {
                         <List>
                             {
                                 currentUser.lastSearchBusiness.map((item, index) => {
-                                    if (index < 10)
+                                    if (index < 10 && item.businessSearch)
                                         return (item.businessSearch && <ListItem>
                                             <ListItemAvatar>
                                                 <IconButton edge="end" aria-label="delete" onClick={() => DeleteHistoryFunc(index)}>

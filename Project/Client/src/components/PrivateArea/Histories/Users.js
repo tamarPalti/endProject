@@ -65,7 +65,7 @@ const Users = (props) => {
                         <List>
                             {
                                 currentUser.lastSearchUsers.map((item, index) => {
-                                    if (index < 10)
+                                    if (index < 10 && item.userSearch)
                                         return (<ListItem>
                                             <ListItemAvatar>
                                                 <IconButton edge="end" aria-label="delete" onClick={() => DeleteHistoryFunc(index)}>

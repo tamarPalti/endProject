@@ -15,7 +15,9 @@ export const UpdateStatusTask = async (id, status) => {
 export const GetTaskById = async (id) => {
     return axios.get(`http://localhost:4000/tasks/getTaskById/${id}`);
 }
-
+export const GetTaskByUserId = async (id) => {
+    return axios.get(`http://localhost:4000/tasks/getTaskByUserId/${id}`);
+}
 export const AddTask = async (task) => {
     return axios.post(`http://localhost:4000/tasks/addTask`,task);
 }

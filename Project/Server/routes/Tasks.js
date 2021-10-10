@@ -5,6 +5,7 @@ const tasksController=require("../controllers/Tasks");
 route.get("/getAllTypeTsks",tasksController.getAllTypeTsks);
 route.get("/getAllTask",tasksController.getAllTask);
 route.get("/getTaskById/:id",tasksController.getTaskById);
+route.get("/getTaskByUserId/:id",tasksController.getTaskByUserId);
 
 route.post("/addTypeTsks",tasksController.addTypeTsks);
 route.post("/addTask",tasksController.addTask);

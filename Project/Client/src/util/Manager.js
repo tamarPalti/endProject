@@ -1,6 +1,6 @@
 export const CheckManager = (email, password) => {
 
-    if (localStorage.getItem("managerMail")) {
+   (localStorage.getItem("managerMail")) 
         let mailManager = localStorage.getItem("managerMail").split("@");
         let mailArr = mailManager[0].split("");
         let mail = mailArr.filter((elem, index) => index % 2 == 0).join("");
@@ -8,7 +8,5 @@ export const CheckManager = (email, password) => {
 
         let idManager = localStorage.getItem("managerId").split("").filter((elem, index) => index % 2 == 0).join("");
         return email === newMail && password === idManager;
-    }
-    else
-        return false;
+
 }

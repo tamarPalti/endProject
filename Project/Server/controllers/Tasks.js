@@ -23,9 +23,23 @@ const getAllTask = async (req, res) => {
     }
 }
 const getTaskById = async (req, res) => {
-    let id = req.params;
+    let { id } = req.params;
     try {
         let AllTask = await Tasks.find({ "_id": id }).populate(
+            [{ path: "codeUser", select: "firstName lastName phoneNamber adress email" },
+            { path: "otherUser", select: "firstName lastName phoneNamber adress email" }
+                , { path: "type", select: "name" },
+            { path: "otherbuisness", select: "name phoneNamber adress email" }]);
+        return res.send(AllTask);
+    }
+    catch (err) {
+        return res.status(400).send(err.message)
+    }
+}
+const getTaskByUserId = async (req, res) => {
+    let { id } = req.params;
+    try {
+        let AllTask = await Tasks.find({ codeUser: { _id: id } }).populate(
             [{ path: "codeUser", select: "firstName lastName phoneNamber adress email" },
             { path: "otherUser", select: "firstName lastName phoneNamber adress email" }
                 , { path: "type", select: "name" },
@@ -124,5 +138,5 @@ const updateStatusTask = async (req, res) => {
 }
 module.exports = {
     getAllTypeTsks, getAllTask, addTypeTsks, addTask, deleteTask, updateTask, updateTypeTask, updateStatusTask,
-    getTaskById
+    getTaskById, getTaskByUserId
 }

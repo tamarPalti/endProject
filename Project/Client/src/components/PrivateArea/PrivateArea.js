@@ -22,6 +22,7 @@ import { connect } from "react-redux";
 import { ChangeUpdateBuisness, ChangeColorFirstName, ChangeColorLastName } from '../../actions/index'
 import { GetCurrentUser } from '../../util';
 import { Redirect } from 'react-router-dom';
+import Tasks from './Tasks';
 
 
 const useQontoStepIconStyles = makeStyles({
@@ -122,7 +123,8 @@ function ColorlibStepIcon(props) {
         1: <SettingsIcon />,
         2: <GroupAddIcon />,
         3: <VideoLabelIcon />,
-        4: <VideoLabelIcon />
+        4: <VideoLabelIcon />,
+        5: <SettingsIcon />
     };
 
     return (
@@ -160,7 +162,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-    return ['Update Personal Details', 'Business Information Update', 'Adding Business', 'Search History'];
+    return ['Update Personal Details', 'Business Information Update', 'Adding Business', 'Search History', 'Task'];
 }
 
 function getStepContent(step) {
@@ -173,6 +175,8 @@ function getStepContent(step) {
             return <AddingBusiness />;
         case 3:
             return <ScrollableTabsButtonAuto />;
+        case 4:
+            return <Tasks />;
         default:
             return <UpdatePersonalDetails />;
     }
