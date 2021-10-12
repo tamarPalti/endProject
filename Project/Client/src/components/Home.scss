@@ -1,16 +1,21 @@
 .back-home{
     background-size: 100%;
-    width: 100%;
-    height: 100%;
+    width: 40%;
+    height: auto;
+    margin-left: 55%;
+    margin-top: 3%;
 }.href{
     position: relative;
     margin-top: -64%;
     margin-left: 83%;
-}.href2{
-    margin-top: 25%;
-    margin-left: 11%;
-}.search{
+}.href2 {
+    margin-top: -23%;
+    margin-left: -110%;
+    height: 4em;
+    /* width: auto; */
+}.search {
     border-collapse: collapse;
-    border-radius: 30px;
-    width: 17%;
+    border-radius: 3px 3px 3px 3px;
+    width: 14%;
+    height: 93%;
 }
