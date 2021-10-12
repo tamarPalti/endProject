@@ -69,29 +69,16 @@ const Home = (props) => {
                 <Route exact path={'/'}>
                     <div className="back-home">
                         <img src={home2} style={{ width: "100%" }}></img>
-                        <div className="href">
-                            <Link to="/SignUp" >
-                                <ColorButton variant="contained" color="primary" className={classes.margin}>
-                                    SignUp
-                                </ColorButton>
-
-                            </Link>
-                            <Link to="/SignIn" >
-                                <ColorButton variant="contained" color="primary" className={classes.margin}>
-                                    SingIn
-                                </ColorButton>
-                            </Link>
-                        </div>
                         <div className="href2">
                             <Link to="/SignUp" >
-                                <ColorButton variant="contained" color="primary" style={{ "border-radius": "19px" }} className={classes.margin + " search"}>
-                                    Search Users
+                                <ColorButton variant="contained" color="primary" style={{ "border-radius": "29px 29px 29px 29px","background-color":"#fb7375"}} className={classes.margin + " search"}>
+                                SignUp
                                 </ColorButton>
 
                             </Link>
                             <Link to="/SignIn" >
-                                <ColorButton variant="contained" color="primary" style={{ "border-radius": "19px" }} className={classes.margin + " search"}>
-                                    Search Buisness
+                                <ColorButton variant="contained" color="primary" style={{ "border-radius": "29px 29px 29px 29px","background-color":"#1f284f"}} className={classes.margin + " search"}>
+                                SingIn
                                 </ColorButton>
                             </Link>
                         </div>

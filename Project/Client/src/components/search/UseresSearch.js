@@ -5,8 +5,22 @@ import { useEffect, useState, useRef } from 'react';
 import { connect } from "react-redux";
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import ResultSearchUser from './ResultSearchUser';
+import {SendMail} from '../../util/index';
 
 const UsersSearch = (props) => {
+    
+    const send = (mail) => {
+        let Email = {
+            toUser: mail,
+            subject: "הצטרפות לאתר מי מייל",
+            text: `<h1>${"הצטרפות לאתר מי מייל"}</h1>`
+        }
+        SendMail(Email);
+    }
+    function validateEmail(email) {
+        const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        return re.test(email);
+    }
 
     let firstName = useRef();
     let lastName = useRef();
@@ -28,9 +42,12 @@ const UsersSearch = (props) => {
         User.phoneNamber = phoneNamber.current.value;
         User.email = email.current.value;
         User.adress = adress.current.value;
+
         if (User.firstName || User.lastName || User.phoneNamber || User.email || User.adress) {
             props.ChangeColorFirstName(User.firstName);
             props.ChangeColorLastName(User.lastName);
+            if( User.email&&validateEmail( User.email)&&!props.AllUsers.find((item)=>item.email==User.email))
+                 send(User.email)
             props.SearchUsers(User, props.AllUsers);
         }
         else

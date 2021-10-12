@@ -99,21 +99,12 @@ const SingIn = (props) => {
 
   const GetCurrentUser = async () => {
     GetCurrentUserByPaaswordAndMail(password, mail).then(async succ => {
-     await props.SignInFunc(succ.data);
-
-      // let mailManager = localStorage.getItem("managerMail").split("@");
-      // let mailArr = mailManager[0].split("");
-      // let mail = mailArr.filter((elem, index) => index % 2 == 0).join("");
-      // let newMail = mail + "@" + mailManager[1];
-
-      // let idManager = localStorage.getItem("managerId").split("").filter((elem, index) => index % 2 == 0).join("");
-
+     await props.SignInFunc(succ.data);   
       let if404=await CheckManager(succ.data.email , succ.data.password);
       if (if404)
       {
            setifManager(true);
-      } 
-     
+      }     
         setifNoGoToLogin(true);
     }).catch(error=> handleClick());
 
