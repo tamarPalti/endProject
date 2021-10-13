@@ -7,8 +7,9 @@ import { connect } from "react-redux";
 import MyLocation from './components/search/MyLocation';
 const app = (props) => {
     return (<>
-     <Heder Home={Home}/>
-        {/* <Home/> */}
+     {/* <Heder Home={Home}/> */}
+        <Heder/>
+        <Home/>
         {/* <SimpleMap/> */}
         {/* <MyLocation /> */}
         {/* console.log("jjj"); */}
