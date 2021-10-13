@@ -4,7 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
 import { connect } from "react-redux";
 import { IfExist, ErrorInAdd, SignIn } from '../../actions/index';
 import { useForm } from "react-hook-form";
@@ -14,6 +13,22 @@ import { Link } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { AddUser, SendMail } from '../../util/index'
+import Box from '@mui/material/Box';
+import Input from '@mui/material/Input';
+import { purple } from '@material-ui/core/colors';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+
+const ariaLabel = { 'aria-label': 'description' };
+
+const ColorButton = withStyles((theme) => ({
+  root: {
+      color: theme.palette.getContrastText(purple[500]),
+      backgroundColor: purple[500],
+      '&:hover': {
+          backgroundColor: purple[700],
+      },
+  },
+}))(Button);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,7 +57,10 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    backgroundColor: '#e860ff'
+    backgroundColor: '#ff716e'
+  },
+  margin: {
+    margin: theme.spacing(1),
   },
 }));
 
@@ -71,7 +89,7 @@ function BasicDetails(props) {
   const phone = register('phone', { required: "This is required.", pattern: { value: /0[0-9]{9}/, message: "Phone No Valid" } })
   const password = register('password', { required: "This is required.", minLength: { value: 5, message: "Min 5" }, maxLength: { value: 5, message: "Max 5" }, pattern: { value: /[0-9a-zA-Z]{5}/, message: "Make sure it's at least 5 characters OR characters including a number , a lowercase letter and a upperrcase letter" } })
   const passwordemail = register('passwordemail', { required: "This is required." })
-
+  // const passwordphone = register('passwordemail', { required: "This is required." })
   let emailToPassword = "";
 
   const onSubmit = data => {
@@ -203,15 +221,24 @@ function BasicDetails(props) {
 
       {/* alerts */}
 
-      <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
+      <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)} style={{ "margin-top": "31px" }} >
 
 
-        <input type="file" className="form-control" name="image" onChange={onFileChange} />
-
-
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <TextField
+        {/* <input type="file" className="form-control" name="image" onChange={onFileChange} /> */}
+        <Grid container spacing={2} >
+          <Grid item xs={12} sm={4} style={{ "padding": "22px" }}>
+            <Input placeholder="First Name"
+              inputProps={ariaLabel}
+              autoComplete="fname"
+              name="firstName"
+              variant="outlined"
+              required
+              fullWidth
+              id="firstName"
+              autoFocus
+              {...firstName}
+            />
+            {/* <TextField
               autoComplete="fname"
               name="firstName"
               variant="outlined"
@@ -221,12 +248,22 @@ function BasicDetails(props) {
               label="First Name"
               autoFocus
               {...firstName}
-            />
+            /> */}
             <ErrorMessage errors={errors} name="firstName" render={({ message }) => <p className="redColor">{message}</p>} />
 
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
+          <Grid item xs={12} sm={4} style={{ "padding": "22px" }}>
+            <Input placeholder="Last Name"
+              inputProps={ariaLabel}
+              variant="outlined"
+              required
+              fullWidth
+              id="lastName"
+              name="lastName"
+              autoComplete="lname"
+              {...lastName}
+            />
+            {/* <TextField
               variant="outlined"
               required
               fullWidth
@@ -235,44 +272,22 @@ function BasicDetails(props) {
               name="lastName"
               autoComplete="lname"
               {...lastName}
-            />
+            /> */}
             <ErrorMessage errors={errors} name="lastName" render={({ message }) => <p className="redColor">{message}</p>} />
 
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
+          <Grid item xs={12} sm={4} style={{ "padding": "22px" }}>
+            <Input placeholder="Password"
+              inputProps={ariaLabel}
+              autoComplete="password"
+              name="password"
               variant="outlined"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              onKeyUp={(e) => emailToPassword = e.target.value}
-              {...email}
+              id="password"
+              {...password}
             />
-            <ErrorMessage errors={errors} name="email" render={({ message }) => <p className="redColor">{message}</p>} />
-          </Grid>
-          <Grid item xs={12} sm={2}>
-            <Button onClick={sendPasswordFunc} variant="outlined" size="small" color="primary" className={classes.margin}>
-              Send
-          </Button>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              id="passwordemail"
-              label="Password Email"
-              name="passwordemail"
-              autoComplete="passwordemail"
-              {...passwordemail}
-            />
-            <ErrorMessage errors={errors} name="passwordemail" render={({ message }) => <p className="redColor">{message}</p>} />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
+            {/* <TextField
               autoComplete="password"
               name="password"
               variant="outlined"
@@ -282,12 +297,77 @@ function BasicDetails(props) {
               label="Password"
               autoFocus
               {...password}
-            />
+            /> */}
             <ErrorMessage errors={errors} name="password" render={({ message }) => <p className="redColor">{message}</p>} />
 
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
+          <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
+            <Input placeholder="Email Address"
+              inputProps={ariaLabel}
+              variant="outlined"
+              required
+              fullWidth
+              id="email"
+              name="email"
+              autoComplete="email"
+              onKeyUp={(e) => emailToPassword = e.target.value}
+              {...email}
+            />
+            {/* <TextField
+              variant="outlined"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              onKeyUp={(e) => emailToPassword = e.target.value}
+              {...email}
+            /> */}
+            <ErrorMessage errors={errors} name="email" render={({ message }) => <p className="redColor">{message}</p>} />
+          </Grid>
+          <Grid item xs={12} sm={2} style={{ "padding": "22px" }}>
+            <Button onClick={sendPasswordFunc} variant="outlined" size="small" color="primary" className={classes.margin}>
+              Send
+          </Button>
+          </Grid>
+          <Grid item xs={12} sm={4} style={{ "padding": "22px" }}>
+            <Input placeholder="Password Email"
+              inputProps={ariaLabel}
+              variant="outlined"
+              required
+              fullWidth
+              id="passwordemail"
+              name="passwordemail"
+              autoComplete="passwordemail"
+              onKeyUp={(e) => emailToPassword = e.target.value}
+              {...passwordemail}
+            />
+            {/* <TextField
+              variant="outlined"
+              required
+              fullWidth
+              id="passwordemail"
+              label="Password Email"
+              name="passwordemail"
+              autoComplete="passwordemail"
+              {...passwordemail}
+            /> */}
+            <ErrorMessage errors={errors} name="passwordemail" render={({ message }) => <p className="redColor">{message}</p>} />
+          </Grid>
+
+          <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
+            <Input placeholder="Phone"
+              inputProps={ariaLabel}
+              variant="outlined"
+              required
+              fullWidth
+              id="phone"
+              name="phone"
+              autoComplete="phone"
+              {...phone}
+            />
+            {/* <TextField
               variant="outlined"
               required
               fullWidth
@@ -296,10 +376,42 @@ function BasicDetails(props) {
               name="phone"
               autoComplete="phone"
               {...phone}
-            />
+            /> */}
             <ErrorMessage errors={errors} name="phone" render={({ message }) => <p className="redColor">{message}</p>} />
 
           </Grid>
+
+          <Grid item xs={12} sm={2} style={{ "padding": "22px" }}>
+            <Button onClick={sendPasswordFunc} variant="outlined" size="small" color="primary" className={classes.margin}>
+              Send
+          </Button>
+          </Grid>
+
+          <Grid item xs={12} sm={4} style={{ "padding": "22px" }}>
+            <Input placeholder="Password Phone"
+              inputProps={ariaLabel}
+              variant="outlined"
+              required
+              fullWidth
+              id="passwordphone"
+              name="passwordphone"
+              autoComplete="passwordphone"
+              onKeyUp={(e) => emailToPassword = e.target.value}
+            // {...passwordphone}
+            />
+            {/* <TextField
+              variant="outlined"
+              required
+              fullWidth
+              id="passwordemail"
+              label="Password Email"
+              name="passwordemail"
+              autoComplete="passwordemail"
+              {...passwordemail}
+            /> */}
+            <ErrorMessage errors={errors} name="passwordemail" render={({ message }) => <p className="redColor">{message}</p>} />
+          </Grid>
+
           <Grid item xs={12}>
             <FormControlLabel
               control={<Checkbox value="allowExtraEmails" color="primary" onChange={(e) => onchange(e)} />}
@@ -307,7 +419,34 @@ function BasicDetails(props) {
             />
           </Grid>
         </Grid>
-        <Button
+        <ColorButton
+          variant="contained"
+          color="primary"
+          style={{ "background-color": "#fb7375","border-radius": "0px 0px 0px 0px","width": "20%",
+          "margin-left": "78%",
+          "margin-top":" 3%", 'color':'white'}}
+          className={classes.margin + " "+classes.submit}
+          fullWidth
+          disabled={!check}
+        >
+        Continue
+        </ColorButton>
+        <ColorButton
+          variant="contained"
+          color="primary"
+          style={{ "background-color": "#1f284f","border-radius": "0px 0px 0px 0px","width": "20%",
+          "margin-left": "57%",
+          "margin-top":" -7.2%",
+           'color':'white'}}
+          className={classes.margin + " "+classes.submit}
+          type="submit"
+          fullWidth
+          disabled={!check}
+        >
+             Sign Up
+         
+        </ColorButton>
+        {/* <Button
           type="submit"
           fullWidth
           variant="contained"
@@ -316,7 +455,7 @@ function BasicDetails(props) {
           disabled={!check}
         >
           Sign Up
-          </Button>
+          </Button> */}
         <Grid container justifyContent="flex-end">
           <Grid item>
             <Link to="/SignIn">
@@ -324,9 +463,11 @@ function BasicDetails(props) {
               </Link>
           </Grid>
         </Grid>
+     <div  style={{"width": "74em",
+              "background-color": "#1f284f","margin-top": "6.7%","margin-left":"-4%", "height": "2em"}}> </div>
+
       </form>
-
-
+         
     </>
 
   );

@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: '#e860ff'
+    backgroundColor: '#ff716e'
   },
   form: {
     width: '100%',
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    backgroundColor: '#e860ff'
+    backgroundColor: '#ff716e'
   },
 }));
 
@@ -129,7 +129,8 @@ const SingIn = (props) => {
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
 
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={10} md={7} component={Paper} elevation={6} square>
+          <div className="backrund"></div>
           <div className={classes.paper}>
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
@@ -189,7 +190,7 @@ const SingIn = (props) => {
             </form>
           </div>
         </Grid>
-        <Grid item xs={12} sm={2} md={7} className={classes.image + " opcityandimg"} />
+        <Grid item xs={12} sm={1} md={5} className={classes.image + " opcityandimg"} />
       </Grid>
     </>
 

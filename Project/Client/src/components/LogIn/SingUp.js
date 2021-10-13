@@ -17,6 +17,7 @@ import BasicDetails from './BasicDetails';
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
+
   },
   image: {
     backgroundRepeat: 'no-repeat',
@@ -33,7 +34,10 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor:'#e860ff'
+    backgroundColor:'#ff716e',
+    width: "65px",
+    height: "65px",
+
   },
   form: {
     width: '100%',
@@ -41,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    backgroundColor: '#e860ff'
+    backgroundColor: '#ff716e'
   },
 }));
 
@@ -58,10 +62,11 @@ function SignUp(props) {
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
     
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      <Grid item xs={12} sm={10} md={7} component={Paper} elevation={6} square >
+      <div className="backrund"></div>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+            <LockOutlinedIcon style={{"font-size": "2.5rem"}}/>
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign Up
@@ -70,7 +75,7 @@ function SignUp(props) {
         {/* <ExpandingDetails/> */}
         </div>
       </Grid>
-      <Grid item xs={12} sm={2} md={7} className={classes.image+" opcityandimg"} />
+      <Grid item xs={12} sm={1} md={5} className={classes.image+" opcityandimg"} />
     </Grid>
   );
 }

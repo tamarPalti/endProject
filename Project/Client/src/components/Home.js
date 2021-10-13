@@ -14,13 +14,12 @@ import { purple } from '@material-ui/core/colors';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import home2 from './img/home3.png';
 import Manager from '../components/Manager/Manager';
-
-
 import { GetCurrentUser as GetCurrentUser2, CheckManager } from '../util/index';
 import Page404 from './404/Page404';
 import UpdataBusiness from './Tasks/UpdataBusiness';
 import UpdataUser from './Tasks/UpdataUser';
 import ForgotPassword from './LogIn/ForgotPassword';
+import Heder from './Heder';
 
 
 
@@ -60,23 +59,25 @@ const Home = (props) => {
         if (!if404 === true)
             setifGoToifGoTo404(true);
 
-    }, [])
+    }, []);
+
+    
     return (
         <>
-
+                <Heder />
             <Switch>
 
                 <Route exact path={'/'}>
                     <div className="back-home">
-                        <img src={home2} style={{ width: "100%" }}></img>
+                        <img src={home2} style={{ width: "100%",marginTop:"19%"}}></img>
                         <div className="href2">
-                            <Link to="/SignUp" >
+                            <Link to="/SignUp"  >
                                 <ColorButton variant="contained" color="primary" style={{ "border-radius": "29px 29px 29px 29px","background-color":"#fb7375"}} className={classes.margin + " search"}>
                                 SignUp
                                 </ColorButton>
 
                             </Link>
-                            <Link to="/SignIn" >
+                            <Link to="/SignIn"  >
                                 <ColorButton variant="contained" color="primary" style={{ "border-radius": "29px 29px 29px 29px","background-color":"#1f284f"}} className={classes.margin + " search"}>
                                 SingIn
                                 </ColorButton>
@@ -84,9 +85,10 @@ const Home = (props) => {
                         </div>
                     </div>
                 </Route>
-
+            
                 <Route path={'/search/business/TasksUpdataBusiness/:idBusiness'}>
-                    <UpdataBusiness />
+                  
+                  <UpdataBusiness/>
                 </Route>
                 <Route path={'/search/users/TasksUpdataUser/:idUser'}>
                     <UpdataUser/>
@@ -98,7 +100,7 @@ const Home = (props) => {
                     {!ifGoTo404 ? <Manager /> : <Redirect to={'/Page404'} />}
                 </Route>
                 <Route path={'/SignUp'}>
-                    <SignUp />
+                <SignUp/>
                 </Route>
                 <Route path={'/ForgotPassword'}>
                    <ForgotPassword/>
@@ -110,7 +112,7 @@ const Home = (props) => {
                     <Page404 />
                 </Route>
                 <Route path={'/SignIn'}>
-                    <SingIn />
+                <SingIn/>
                 </Route>
 
             </Switch>

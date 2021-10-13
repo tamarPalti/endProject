@@ -17,6 +17,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import { useRouteMatch, useLocation } from 'react-router-dom'
 
 const drawerWidth = 240;
 
@@ -77,11 +78,21 @@ export default function PersistentDrawerRight(props) {
     setOpen(false);
   };
 
+  const { pathname } = useLocation();
+  const [color, setcolor] = React.useState("#0b0b2b");
+
+  React.useEffect(() => {
+    if (pathname == "/SignIn" || pathname == "/SignUp")
+      setcolor("#ff716e");
+    else
+      setcolor("#0b0b2b");
+
+  })
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar style={{ "background-color": "#1f284f"}}>
+        <Toolbar style={{ "background-color": color, "height": "6.5em" }}>
           <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div">
             Persistent drawer
           </Typography>
@@ -96,13 +107,14 @@ export default function PersistentDrawerRight(props) {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Main open={open}>
+      {/* <Main open={open}>
         <DrawerHeader  />
-        <Typography paragraph>
-          <props.Home/>
-        </Typography>
+        
+         <Typography paragraph>
+         
+        </Typography> 
        
-      </Main>
+      </Main> */}
       <Drawer
         sx={{
           width: drawerWidth,
@@ -114,9 +126,9 @@ export default function PersistentDrawerRight(props) {
         variant="persistent"
         anchor="right"
         open={open}
-       
+
       >
-        <DrawerHeader style={{ "background-color": "#1f284f","height": "7.5em"}}>
+        <DrawerHeader style={{ "background-color": color, "height": "6.5em" }}>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
