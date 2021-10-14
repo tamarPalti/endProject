@@ -24,6 +24,10 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { GetCurrentUserByPaaswordAndMail, CheckManager, SendPasswordIfExist } from '../../util/index';
 import { SignIn as SignInFunc } from '../../actions/index';
+import Input from '@mui/material/Input';
+import './ForgotPassword.scss';
+
+const ariaLabel = { 'aria-label': 'description' };
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,7 +49,9 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
         margin: theme.spacing(1),
-        backgroundColor: '#e860ff'
+        backgroundColor: '#ff716e',
+        width: "65px",
+        height: "65px",
     },
     form: {
         width: '100%',
@@ -57,7 +63,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
+const marginToGrid={
+    "margin-top": "33px"
+  }
+const styleBlue={
+  "width": "106em",
+  "background-color": "#0b0b2b ",
+  "margin-top": "49.8%",
+  "margin-left":"-6%", 
+  "height": "2em"
+}
 //alerts
 
 function Alert(props) {
@@ -125,56 +140,76 @@ const ForgotPassword = (props) => {
     return (
         <>
 
-           {/* alerts */}
-           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            {/* alerts */}
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity={typeAlert}> {masseg}</Alert>
             </Snackbar>
             {/* alerts */}
-            <Grid container component="main" className={classes.root}>
+            <Grid container component="main" className={classes.root} >
                 <CssBaseline />
 
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                <Grid item xs={12} sm={8} md={5} component={Paper}style={marginToGrid} elevation={6} square>
+
+                <div className="backrundForgot"></div>
+
+
                     <div className={classes.paper}>
                         <Avatar className={classes.avatar}>
-                            <LockOutlinedIcon />
+                            <LockOutlinedIcon style={{ "font-size": "2.5rem" }}/>
                         </Avatar>
                         <Typography component="h1" variant="h5">
                             Enter your email
                         </Typography>
                         <form className={classes.form} noValidate>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                onKeyUp={(e) => mail = e.target.value}
-                            />
-
+                            <Grid item xs={12} sm={8} style={{ "padding": "22px","max-width": "113.666667%"}}>
+                                <Input placeholder="Email Address"
+                                    inputProps={ariaLabel}
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
+                                    onKeyUp={(e) => mail = e.target.value}    
+                                />
+                            </Grid>
 
                             <Button
                                 fullWidth
                                 variant="contained"
                                 className={classes.submit}
+                                style={{"border-radius": "0px 0px 0px 0px","backgroundColor":"#ff716e"}}
                                 onClick={async () => {
                                     await GetCurrentUser();
                                 }}>
+                               
                                 Send
                             </Button>
+
                             <Grid container>
+
                                 <Grid item>
+
                                     <Link to="/SignIn">
                                         Already have an account? Sign in
                                     </Link>
+
                                 </Grid>
+
                             </Grid>
+
+                            <div style={styleBlue}> </div>
+
                         </form>
+
                     </div>
+
                 </Grid>
+
                 <Grid item xs={12} sm={2} md={7} className={classes.image + " opcityandimg"} />
+                
             </Grid>
         </>
 

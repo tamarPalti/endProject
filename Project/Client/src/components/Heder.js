@@ -18,6 +18,9 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { useRouteMatch, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { SignOut } from '../actions';
 
 const drawerWidth = 240;
 
@@ -66,7 +69,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-start',
 }));
 
-export default function PersistentDrawerRight(props) {
+function PersistentDrawerRight(props) {
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -90,32 +94,34 @@ export default function PersistentDrawerRight(props) {
   })
   return (
     <Box sx={{ display: 'flex' }}>
+
       <CssBaseline />
+
       <AppBar position="fixed" open={open}>
+
         <Toolbar style={{ "background-color": color, "height": "6.5em" }}>
+
           <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div">
             Persistent drawer
           </Typography>
+
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="end"
             onClick={handleDrawerOpen}
+
             sx={{ ...(open && { display: 'none' }) }}
           >
-            <MenuIcon />
+            <MenuIcon style={{ "font-size": "2.5rem", "color": "white" }} />
+
           </IconButton>
+
         </Toolbar>
+
       </AppBar>
-      {/* <Main open={open}>
-        <DrawerHeader  />
-        
-         <Typography paragraph>
-         
-        </Typography> 
-       
-      </Main> */}
       <Drawer
+
         sx={{
           width: drawerWidth,
           flexShrink: 0,
@@ -129,23 +135,46 @@ export default function PersistentDrawerRight(props) {
 
       >
         <DrawerHeader style={{ "background-color": color, "height": "6.5em" }}>
+
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon style={{ "font-size": "2.5rem", "color": "white" }} />}
           </IconButton>
+
         </DrawerHeader>
+
         <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+
+        <List style={{"line-height": "4.5"}}>
+
+          {[{ text: 'Sign In', to: "/SignIn" }, 
+          { text: 'Sign Up', to: '/SignUp' },
+          { text: 'Search Users', to: '/search/users' },
+          { text: 'Search Business', to: '/search/business' }, 
+          { text: 'Sign Out', to: "/SignIn", action: () => props.SignOut }, { text: 'Privte Erea', to: "/PrivateArea" }].map((item, index) => (
+
+            <Link to={item.to} onClick={item.action&&item.action()}>
+
+              <ListItem button key={item.text} >
+
+                <ListItemIcon >
+
+                  {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
+
+                </ListItemIcon>
+
+                <ListItemText primary={item.text} />
+
+              </ListItem>
+
+            </Link>
           ))}
+
         </List>
-        <Divider />
-        <List>
+
+        {/* <Divider /> */}
+
+        {/* <List>
+
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
@@ -154,8 +183,13 @@ export default function PersistentDrawerRight(props) {
               <ListItemText primary={text} />
             </ListItem>
           ))}
-        </List>
+        </List> */}
+
       </Drawer>
     </Box>
   );
 }
+const mapStateToProps = () => {
+  return {};
+}
+export default connect(mapStateToProps, { SignOut })(PersistentDrawerRight); 
