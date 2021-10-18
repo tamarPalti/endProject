@@ -5,10 +5,10 @@ import { useEffect, useState, useRef } from 'react';
 import { connect } from "react-redux";
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import ResultSearchUser from './ResultSearchUser';
-import {SendMail} from '../../util/index';
+import { SendMail } from '../../util/index';
 
 const UsersSearch = (props) => {
-    
+
     const send = (mail) => {
         let Email = {
             toUser: mail,
@@ -46,14 +46,19 @@ const UsersSearch = (props) => {
         if (User.firstName || User.lastName || User.phoneNamber || User.email || User.adress) {
             props.ChangeColorFirstName(User.firstName);
             props.ChangeColorLastName(User.lastName);
-            if( User.email&&validateEmail( User.email)&&!props.AllUsers.find((item)=>item.email==User.email))
-                 send(User.email)
+            if (User.email && validateEmail(User.email) && !props.AllUsers.find((item) => item.email == User.email))
+                send(User.email)
             props.SearchUsers(User, props.AllUsers);
         }
         else
             props.SaveResultUsers([]);
 
     }
+
+    const styleDivInput = { "width": "40%" }
+   
+    const borderR_right = { "border-radius": "8.285714rem" ,"line-height": "1.5em","margin-left": "2%","border-color": "#726363","border-width":"2px"}
+    const borderR_left = { "border-radius": "8.285714rem" ,"line-height": "1.5em","border-color": "#726363","border-width":"2px"}
 
     useEffect(() => {
     }, []);
@@ -63,32 +68,67 @@ const UsersSearch = (props) => {
         {<form className="ui form">
             <div className="ui form">
                 <div className="two fields">
-                    <div className="field">
-                        <label>First Name</label>
-                        <input placeholder="First Name" ref={firstName} type="text" onKeyUp={searchUsers} />
+                  
+
+                    <div class="ui icon input" style={styleDivInput}>
+
+                        <input type="text" placeholder="First Name" ref={firstName} onKeyUp={searchUsers}
+                            style={borderR_left} />
+                        <i class="user icon"></i>
+
                     </div>
-                    <div className="field">
-                        <label>Last Name</label>
-                        <input placeholder="Last Name" ref={lastName} type="text" onKeyUp={searchUsers} />
+
+                 
+
+                    <div class="ui icon input" style={styleDivInput}>
+
+                        <input type="text" placeholder="Last Name" ref={lastName} onKeyUp={searchUsers}
+                            style={borderR_right} />
+                        <i class="user icon"></i>
+
                     </div>
+
+
                 </div>
-                <div className="field">
-                    <label>Email</label>
-                    <input type="text" placeholder="Email" ref={email} onKeyUp={searchUsers} />
+
+                
+          
+
+                <div class="ui icon input" style={{ "width": "81.8%" ,"margin-left": "-7.5px","margin-top": "19px"}}>
+
+                    <input type="text" placeholder="Email" ref={email} onKeyUp={searchUsers}
+                        style={borderR_left} />
+                    <i class="at icon"></i>
+
                 </div>
-                <div className="two fields">
-                    <div className="field">
-                        <label>Phone Number</label>
-                        <input placeholder="Phone Number" ref={phoneNamber} type="number" onKeyUp={searchUsers} />
+
+
+                <div className="two fields" style={{"margin-top": "32px"}}>
+
+           
+
+                    <div class="ui icon input" style={styleDivInput}>
+
+                        <input type="number" placeholder="Phone Number" ref={phoneNamber} onKeyUp={searchUsers}
+                            style={borderR_left} />
+                        <i class="phone icon"></i>
+
                     </div>
-                    <div className="field">
-                        <label>Address</label>
-                        <input placeholder="Address" ref={adress} type="text" onKeyUp={searchUsers} />
+
+               
+
+                    <div class="ui icon input" style={styleDivInput}>
+
+                        <input type="text" placeholder="Address" ref={adress} onKeyUp={searchUsers}
+                            style={borderR_right} />
+                        <i class="map marker alternate icon"></i>
+
                     </div>
+
                 </div>
             </div>
         </form>
-                   }
+        }
     </>);
 }
 const mapStateToProps = (state) => {

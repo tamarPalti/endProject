@@ -277,6 +277,7 @@ const SingIn = (props) => {
         </Grid>
 
         <Grid item xs={12} sm={1} md={5} className={classes.image + " opcityandimg"} />
+        
       </Grid>
     </>
 

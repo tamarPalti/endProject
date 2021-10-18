@@ -75,7 +75,10 @@ const Business = (props) => {
                             if (props.ifAdd == "true")
                                 AddHistoryBusiness(localStorage.getItem("currentUserId"), props.business._id);  
                         }}>
-                            <p className="display">&nbsp;</p>
+
+                            <img className="img_ico" src={ico}></img>
+
+                            <p className="display" style={{"margin-left": "1.5em"}}>&nbsp;</p>
                             <p className="display">{checkName(props.business.name) ? start : end}</p>
                             {!checkName(props.business.name) && (end[0] == ' ' || props.ColorName[props.ColorName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
 
@@ -83,7 +86,6 @@ const Business = (props) => {
                             {checkName(props.business.name) && (end[0] == ' ' || props.ColorName[props.ColorName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
 
                             <p className="display">{checkName(props.business.name) ? end : start}</p>
-                            <img className="img_ico" src={ico}></img>
                         </div>
                     </div>}
                 >

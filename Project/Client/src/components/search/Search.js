@@ -1,108 +1,143 @@
-import './Search.scss'
-import React, { useEffect, useState } from 'react'
+import { connect } from "react-redux";
+import { GetCurrentUser, SignOut } from '../../actions/index';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import { useEffect, useState, useRef } from "react";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import '../search/Search.scss'
 import 'semantic-ui-css/semantic.min.css';
-import { Link, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import UsersSearch from './UseresSearch';
 import BusinessSearch from './BusinessSearch';
 import ResultSearchUser from './ResultSearchUser';
 import ResultSearchBusiness from './ResultSearchBusiness';
-import { connect } from "react-redux";
-import { GetCurrentUser } from '../../actions/index';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
-import { GetCurrentUser as GetCurrentUser2 } from '../../util';
-import Button from '@material-ui/core/Button';
-import { purple } from '@material-ui/core/colors';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
-const ColorButton = withStyles((theme) => ({
-    root: {
-        color: theme.palette.getContrastText(purple[500]),
-        backgroundColor: purple[500],
-        '&:hover': {
-            backgroundColor: purple[700],
-        },
-    },
-}))(Button);
-
 const useStyles = makeStyles((theme) => ({
+    root: {
+        height: '100vh',
+    },
+    image: {
+        backgroundRepeat: 'no-repeat',
+        backgroundColor:
+            theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        // backgroundImage:'url(./img/back.png)'
+    },
+    paper: {
+        margin: theme.spacing(8, 4),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: '#ff716e',
+        width: "65px",
+        height: "65px",
+    },
+    form: {
+        width: '100%',
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+        backgroundColor: '#ff716e'
+    },
     margin: {
         margin: theme.spacing(1),
-        position: "absolute",
-        top: "-21%",
-        right: "102%"
     },
 }));
-
-
 const Search = (props) => {
+
+    const [value, setValue] = useState('two');
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
     const classes = useStyles();
 
-    let users = React.createRef();
-    let business = React.createRef();
-
-    const [ifGoToLogin, setifGoToLogin] = useState(false);
+    let users = useRef();
+    let business = useRef();
 
 
-    const ChangeButtonUsers = (e) => {
-        e.target.classList.add("active");
-        e.target.classList.add("teal");
-        business.current.classList.remove("active");
-        business.current.classList.remove("teal");
-    }
-    const ChangeButtonBusiness = (e) => {
-        e.target.classList.add("active");
-        e.target.classList.add("teal");
-        users.current.classList.remove("active");
-        users.current.classList.remove("teal");
+    const history = useHistory();
+    const changeHistory = (path) => {
+        history.push(path);
     }
 
+    const styleTab1 = { "font-weight": "bold", "font-size": "16px","margin-right": "6px"  }
+    const styleTab2 = { "font-weight": "bold", "font-size": "16px"}
+    const styleTabs = { "width": "100em", "margin-left": "-31%" }
+    const styleBox={ "margin-top": "175px", "margin-left": "760px" }
+
+    const styleGrid={ "max-width": "32.333333%","overflow": "scroll","margin-top": "6%","width": "100%" }
+
+    const divSearch={ "width": "71%", "margin-left": "45%", "margin-top": "2%" }
 
     useEffect(() => {
 
     }, []);
 
-    return (<><div className="back-search">
+    return (
+        <>
+            <Grid container component="main" className={classes.root}>
+                <Grid item xs={12} sm={4} md={7} component={Paper} elevation={6} square style={styleGrid}>
 
-        <div className="ui pointing menu three serach_div">
+                    <Route path="/search/users">
 
-            <Link to="/PrivateArea">
-                <ColorButton variant="contained" color="primary" className={classes.margin}>
-                    PrivateArea
-                </ColorButton>
-            </Link>
+                                <ResultSearchUser />
 
-            <Link to="/search/users" className="div_link">
-                <a className="item sizetab item-user" ref={users} onClick={(e) => ChangeButtonUsers(e)}>
-                    Users</a>
-            </Link>
+                    </Route>
 
-            <Link to="/search/business" className="div_link">
-                <a className="item sizetab" ref={business} onClick={(e) => ChangeButtonBusiness(e)}>
-                    Business</a>
-            </Link>
+                    <Route path="/search/business">
+       
+                                <ResultSearchBusiness />
 
-            <div className="place_search">
-                <Route path="/search/users">
-                    <>  <UsersSearch />
-                        <div className="place_result">
-                        <ResultSearchUser />
-                    </div></>
-                </Route>
+                    </Route>
+                </Grid>
 
-                <Route path="/search/business">
-                    <>    <BusinessSearch />
-                        <div className="place_result">
-                            <ResultSearchBusiness />
-                        </div></>
-                </Route>
-                
-            </div>
-        </div>
+                <Grid item xs={12} sm={1} md={5} style={{ "max-width": "62.6667%" }}>
+                    <Box style={styleBox}>
 
-    </div></>);
+                        <Tabs
+                            value={value}
+                            onChange={handleChange}
+                            textColor="secondary"
+                            indicatorColor="secondary"
+                            aria-label="secondary tabs example"
+                            style={styleTabs}
+                        >
+                            <Tab value="one" style={styleTab1} label="חיפוש עסקים" onClick={() => changeHistory('/search/business')} />
+
+                            <Tab value="two" style={styleTab2} label="חיפוש אנשים" onClick={() => changeHistory('/search/users')} />
+
+                        </Tabs>
+
+                    </Box>
+                    <div style={divSearch}>
+                        <Route path="/search/users">
+                            <>  <UsersSearch /></>
+                        </Route>
+
+                        <Route path="/search/business">
+                            <>    <BusinessSearch /></>
+                        </Route>
+                    </div>
+                </Grid>
+            </Grid>
+        </>
+
+
+    );
 }
 const mapStateToProps = (state) => {
+
     return { CurrentUser: state.usersPart.CurrentUser };
 }
 export default connect(mapStateToProps, { GetCurrentUser })(Search);
-
