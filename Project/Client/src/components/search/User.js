@@ -52,6 +52,10 @@ const User = (props) => {
 
     }
     return (
+
+
+
+        
         <List.Item key={props.user._id}>
             <List.Content floated='right'>
                 <Modal
@@ -71,28 +75,29 @@ const User = (props) => {
                         }
 
                     }}>
-                        <div><img></img></div>
-                        <p className="display">{checkName(props.user.lastName) ? Laststart : Lastend}</p>
-                        {!checkName(props.user.lastName) && (Lastend[0] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
-                        {checkName(props.user.firstName) && (Laststart[Laststart.length - 1] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
-
-                        <p className="color_name display">{props.ColorLastName}</p>
-                        {!checkName(props.user.lastName) && (Laststart[Laststart.length - 1] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
-                        {checkName(props.user.lastName) && (Lastend[0] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
-
-                        <p className="display">{checkName(props.user.lastName) ? Lastend : Laststart}</p>
-                        <p className="display">&nbsp;</p>
-                        <p className="display">{checkName(props.user.firstName) ? start : end}</p>
-
-                        {checkName(props.user.lastName) && (start[start.length - 1]) == ' ' ? <p className="display">&nbsp;</p> : null}
-                        {!checkName(props.user.lastName) && (end[0] == ' ' || props.ColorFirstName[props.ColorFirstName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
-
-                        <p className="color_name display">{props.ColorFirstName}</p>
-                        {checkName(props.user.lastName) && (end[0] == ' ' || props.ColorFirstName[props.ColorFirstName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
-                        {!checkName(props.user.lastName) && (start[start.length - 1]) == ' ' ? <p className="display">&nbsp;</p> : null}
-
-                        <p className="display">{checkName(props.user.firstName) ? end : start}</p>
                         <img className="img_ico" alt="Avatar" src={props.user.img ? props.user.img : ico}></img>
+
+                            <p className="display"style={{"margin-left": "1.5em"}}>{checkName(props.user.lastName) ? Laststart : Lastend}</p>
+                            {!checkName(props.user.lastName) && (Lastend[0] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+                            {checkName(props.user.firstName) && (Laststart[Laststart.length - 1] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+
+                            <p className="color_name display">{props.ColorLastName}</p>
+                            {!checkName(props.user.lastName) && (Laststart[Laststart.length - 1] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+                            {checkName(props.user.lastName) && (Lastend[0] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+
+                            <p className="display">{checkName(props.user.lastName) ? Lastend : Laststart}</p>
+                            <p className="display">&nbsp;</p>
+                            <p className="display">{checkName(props.user.firstName) ? start : end}</p>
+
+                            {checkName(props.user.lastName) && (start[start.length - 1]) == ' ' ? <p className="display">&nbsp;</p> : null}
+                            {!checkName(props.user.lastName) && (end[0] == ' ' || props.ColorFirstName[props.ColorFirstName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+
+                            <p className="color_name display">{props.ColorFirstName}</p>
+                            {checkName(props.user.lastName) && (end[0] == ' ' || props.ColorFirstName[props.ColorFirstName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+                            {!checkName(props.user.lastName) && (start[start.length - 1]) == ' ' ? <p className="display">&nbsp;</p> : null}
+
+                            <p className="display">{checkName(props.user.firstName) ? end : start}</p>
+                 
                     </div>
 
                     </div>}

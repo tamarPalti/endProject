@@ -86,7 +86,7 @@ function PersistentDrawerRight(props) {
   const [color, setcolor] = React.useState("#0b0b2b");
 
   React.useEffect(() => {
-    if (pathname == "/SignIn" || pathname == "/SignUp")
+    if (pathname == "/SignIn" || pathname == "/SignUp"|| pathname == "/search/business"|| pathname == "/search/users")
       setcolor("#ff716e");
     else
       setcolor("#0b0b2b");

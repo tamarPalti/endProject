@@ -5,11 +5,13 @@ import Heder from './components/Heder';
 import SimpleMap from './components/search/MyLocation'
 import { connect } from "react-redux";
 import MyLocation from './components/search/MyLocation';
+
 const app = (props) => {
     return (<>
      {/* <Heder Home={Home}/> */}
         <Heder/>
         <Home/>
+        {/* <New/> */}
         {/* <SimpleMap/> */}
         {/* <MyLocation /> */}
         {/* console.log("jjj"); */}
