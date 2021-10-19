@@ -72,7 +72,7 @@ const Home = (props) => {
                     <div className="back-home">
                         <img src={home2} style={{ width: "100%", marginTop: "19%" }}></img>
                         <div className="href2">
-                            <Link to="/SignUp/BasicDetails"  >
+                            <Link to="/SignUp"  >
                                 <ColorButton variant="contained" color="primary" style={{ "border-radius": "29px 29px 29px 29px", "background-color": "#fb7375" }} className={classes.margin + " search"}>
                                     SignUp
                                 </ColorButton>
