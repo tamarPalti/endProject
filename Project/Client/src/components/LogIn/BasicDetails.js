@@ -17,7 +17,7 @@ import Box from '@mui/material/Box';
 import Input from '@mui/material/Input';
 import { purple } from '@material-ui/core/colors';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-
+import{useHistory}from 'react-router-dom';
 const ariaLabel = { 'aria-label': 'description' };
 
 const ColorButton = withStyles((theme) => ({
@@ -211,6 +211,14 @@ function BasicDetails(props) {
     }
     SendMail(mail);
   }
+
+
+  //history
+  const history = useHistory();
+  const changeHistory = (path) => {
+      history.push(path);
+  }
+
   useEffect(() => {
 
     return (props.IfExist(false), props.ErrorInAdd(false))
@@ -374,6 +382,7 @@ function BasicDetails(props) {
 
         </Grid>
 
+
         <ColorButton
           variant="contained"
           color="primary"
@@ -382,9 +391,12 @@ function BasicDetails(props) {
           "margin-top":" 3%", 'color':'white'}}
           className={classes.margin + " "+classes.submit}
           fullWidth
+          type="submit"
+          onClick={()=>setTimeout(() => {
+            changeHistory("/SignUp/ExpandingDetails")
+          }, 2000)}
           disabled={!check}
         >
-
         Continue
 
         </ColorButton>

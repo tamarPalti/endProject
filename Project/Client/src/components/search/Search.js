@@ -71,14 +71,14 @@ const Search = (props) => {
         history.push(path);
     }
 
-    const styleTab1 = { "font-weight": "bold", "font-size": "16px","margin-right": "6px"  }
-    const styleTab2 = { "font-weight": "bold", "font-size": "16px"}
+    const styleTab1 = { "font-weight": "bold", "font-size": "16px", "margin-right": "6px" ,"color":"rgb(11, 11, 43)" }
+    const styleTab2 = { "font-weight": "bold", "font-size": "16px"  ,"color":"rgb(11, 11, 43)"}
     const styleTabs = { "width": "100em", "margin-left": "-31%" }
-    const styleBox={ "margin-top": "175px", "margin-left": "760px" }
+    const styleBox = { "margin-top": "175px", "margin-left": "760px" }
 
-    const styleGrid={ "max-width": "32.333333%","overflow": "scroll","margin-top": "6%","width": "100%" }
+    const styleGrid = { "max-width": "32.333333%", "overflow": "scroll", "margin-top": "6%", "width": "100%", "box-shadow": "2px 2px 2px 2px grey" }
 
-    const divSearch={ "width": "71%", "margin-left": "45%", "margin-top": "2%" }
+    const divSearch = { "width": "71%", "margin-left": "45%", "margin-top": "2%" }
 
     useEffect(() => {
 
@@ -91,13 +91,13 @@ const Search = (props) => {
 
                     <Route path="/search/users">
 
-                                <ResultSearchUser />
+                        <ResultSearchUser />
 
                     </Route>
 
                     <Route path="/search/business">
-       
-                                <ResultSearchBusiness />
+
+                        <ResultSearchBusiness />
 
                     </Route>
                 </Grid>
@@ -108,10 +108,15 @@ const Search = (props) => {
                         <Tabs
                             value={value}
                             onChange={handleChange}
-                            textColor="secondary"
-                            indicatorColor="secondary"
+ 
                             aria-label="secondary tabs example"
                             style={styleTabs}
+                            TabIndicatorProps={{
+                                style: {
+                                    backgroundColor: "rgb(255, 113, 110)"
+                                }
+                            }}
+                      s
                         >
                             <Tab value="one" style={styleTab1} label="חיפוש עסקים" onClick={() => changeHistory('/search/business')} />
 

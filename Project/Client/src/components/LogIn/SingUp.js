@@ -9,8 +9,8 @@ import { connect } from "react-redux";
 import './SingUp.scss';
 import Paper from '@material-ui/core/Paper';
 import BasicDetails from './BasicDetails';
-
-// import ExpandingDetails from './ExpandingDetails';
+import { Route } from 'react-router-dom';
+import ExpandingDetails from './ExpandingDetails';
 
 
 
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor:'#ff716e',
+    backgroundColor: '#ff716e',
     width: "65px",
     height: "65px",
 
@@ -47,12 +47,12 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
     backgroundColor: '#ff716e'
   },
- 
+
 }));
 
 
 function SignUp(props) {
-  
+
   const classes = useStyles();
 
 
@@ -62,26 +62,34 @@ function SignUp(props) {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-    
+
       <Grid item xs={12} sm={10} md={7} component={Paper} elevation={6} square >
-      <div className="backrund"></div>
+        <div className="backrund"></div>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <LockOutlinedIcon style={{"font-size": "2.5rem"}}/>
+            <LockOutlinedIcon style={{ "font-size": "2.5rem" }} />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
-        <BasicDetails/>
-        {/* <ExpandingDetails/> */}
+
+
+
+          <Route exact path={'/SignUp'}>
+            <BasicDetails />
+          </Route>
+          <Route  path={'/SignUp/ExpandingDetails'}>
+            <ExpandingDetails />
+          </Route>
+
         </div>
       </Grid>
-      <Grid item xs={12} sm={1} md={5} className={classes.image+" opcityandimg"} />
+      <Grid item xs={12} sm={1} md={5} className={classes.image + " opcityandimg"} />
     </Grid>
   );
 }
 const mapStateToProps = (state) => {
 
-  return {  };
+  return {};
 }
-export default connect(mapStateToProps, {  })(SignUp);
+export default connect(mapStateToProps, {})(SignUp);

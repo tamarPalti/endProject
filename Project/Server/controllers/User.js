@@ -34,7 +34,9 @@ const getByPassword = async (req, res) => {
 const addUser = async (req, res) => {
 
     const url = req.protocol + '://' + req.get('host');
+
     let newUser = new Users(req.body);
+
     if (req.file)
         newUser.img = url + '/uploads/' + req.file.filename;
 
@@ -68,7 +70,9 @@ const updateUser = async (req, res) => {
         user.email = userBody.email || user.email;
         user.adress = userBody.adress || user.adress;
         // user.img = userBody.img || user.img;
-        user.img = req.file ? url + '/uploads/' + req.file.filename : user.img;
+
+        // user.img = req.file ? url + '/uploads/' + req.file.filename : user.img;
+
         user.password = userBody.password || user.password;
         user.ifMessege = userBody.ifMessege;
         await user.save();
