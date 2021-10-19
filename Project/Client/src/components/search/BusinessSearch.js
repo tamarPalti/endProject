@@ -54,6 +54,10 @@ const BusinessSearch = (props) => {
     const borderR_right = { "border-radius": "8.285714rem" ,"line-height": "1.5em","margin-left": "2%","border-color": "#726363","border-width":"2px"}
     const borderR_left = { "border-radius": "8.285714rem" ,"line-height": "1.5em","border-color": "#726363","border-width":"2px"}
     
+    const styleDivInput_2For_Select = { "margin-left":" 2%", "width": "40%","margin-top": "32px" }
+    const styleDivInput_2For_Phone = { "margin-left": "-1.1%", "width": "40%","margin-top": "32px" }
+
+    
     useEffect(() => {
 
         getAllCategories().then(scss => {
@@ -92,12 +96,13 @@ const BusinessSearch = (props) => {
                     <i class="at icon"></i>
                 </div>
                 {/* <div className="two fields" style={{"margin-top": "32px"}}>            */}
-                    <div class="ui icon input" style={styleDivInput_2} >
+                    <div class="ui icon input" style={styleDivInput_2For_Phone} >
                         <input type="number" placeholder="Phone Number" ref={phoneNamber} onKeyUp={searchBusiness}
                             style={borderR_left} />
                         <i class="phone icon"></i>
                     </div>
-                    <div class="ui icon input" style={styleDivInput_2}>
+                    <div class="ui icon input" style={styleDivInput_2For_Select}>
+                        
                     <Multiselect
                             options={categoriesArr ? categoriesArr : []}
                             isObject={false}

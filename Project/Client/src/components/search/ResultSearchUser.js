@@ -9,6 +9,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
+import './ReasulSearchUser.scss';
+
 const ResultSearchUser = (props) => {
 
     const styleListItem={"height": "35%","border-bottom-style": "groove","max-width": "max-width: 100%"}

@@ -1,28 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import { connect } from "react-redux";
-import { AddUser } from '../../actions/index';
-import user from '../classes/user';
+import { IfExist, ErrorInAdd, SignIn } from '../../actions/index';
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
 import './SingUp.scss';
 import { Link } from 'react-router-dom';
-import { IfExist, ErrorInAdd } from '../../actions/index';
-import Paper from '@material-ui/core/Paper';
-import Input from '@material-ui/core/Input'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import { AddUser, SendMail } from '../../util/index'
+import Box from '@mui/material/Box';
+import Input from '@mui/material/Input';
+import { purple } from '@material-ui/core/colors';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
+import { UpDateUser } from '../../util'
 
 
+const ariaLabel = { 'aria-label': 'description' };
+
+const ColorButton = withStyles((theme) => ({
+  root: {
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: purple[500],
+    '&:hover': {
+      backgroundColor: purple[700],
+    },
+  },
+}))(Button);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor:'#e860ff'
+    backgroundColor: '#e860ff'
   },
   form: {
     width: '100%',
@@ -51,83 +60,215 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    backgroundColor: '#e860ff'
+    backgroundColor: '#ff716e'
+  },
+  margin: {
+    margin: theme.spacing(1),
   },
 }));
 
+const styleblue = {
+  "width": "74em",
+  "background-color": "#0b0b2b ",
+  "margin-top": "6.7%",
+  "margin-left": "-4%",
+  "height": "2em"
+}
+//alerts
+
+function Alert(props) {
+  return <MuiAlert elevation={2} variant="filled" {...props} />;
+}
+
+//alerts
+
+
+
 function ExpandingDetails(props) {
+
   const classes = useStyles();
 
+  const [check, setCheck] = useState(false);
 
-  let currentUser = new user();
 
+  const { register, formState: { errors }, handleSubmit } = useForm();
+  const adress = register('adress');
 
   const onSubmit = data => {
 
+    let currentUserId = localStorage.getItem("currentUserId");
+    data.img = selectedImage;
+    data.ifMessege=check;
+    console.log(data);
+
+    UpDateUser(data, currentUserId).then((succ) => {
+
+      settypeAlert("success");
+      setmasseg("Update Success");
+      handleClick();
+
+    }).catch((error) => {
+
+      settypeAlert("error");
+      setmasseg(error.response.data)
+
+      handleClick();
+    })
+
+
   }
-  
+
   onchange = (e) => {
-
+    console.log(e);
+    setCheck(e.target.checked);
 
   }
+
+  // alerts
+
+  const [open, setOpen] = React.useState(false);
+
+  const [typeAlert, settypeAlert] = React.useState("");
+  const [masseg, setmasseg] = React.useState("");
+
+
+  const [selectedImage, setselectedImage] = useState();
+
+  const styleButton = {
+    "background-color": "#0b0b2b", "border-radius": "0px 0px 0px 0px", "width": "20%",
+    "margin-left": "57%",
+    "margin-top": " -7.2%",
+    'color': 'white'
+  }
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+
+
+
+  // alerts
+
+
+  const onFileChange = (e) => {
+    let files = e.target.files;
+    let fileReader = new FileReader();
+    fileReader.readAsDataURL(files[0]);
+
+    fileReader.onload = (event) => {
+      setselectedImage(event.target.result)
+
+    }
+  }
+
+  //history
+  const history = useHistory();
+  const changeHistory = (path) => {
+    history.push(path);
+  }
+
   useEffect(() => {
+
+    return (props.IfExist(false), props.ErrorInAdd(false))
 
   }, [])
 
   return (
-        <form className={classes.form} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="address"
-                variant="outlined"
-                required
-                fullWidth
-                id="address"
-                label="Address"
-                autoFocus
-                onKeyUp={(e) => currentUser.adress = e.target.value}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Input
-                variant="outlined"
-                required
-                type="file"
-                fullWidth
-                id="image"
-                label="Image"
-                name="image"
-                autoComplete="lname"
-                onKeyUp={(e) => currentUser.img = e.target.value}
-              />
-            </Grid>
-            
-         
+    <>
+
+      {/* alerts */}
+
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={typeAlert}> {masseg}</Alert>
+      </Snackbar>
+
+      {/* alerts */}
+
+      <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)} style={{ "margin-top": "31px" }} >
+
+
+        {/* העלאת תמונה */}
+
+        <input type="file" className="form-control" name="image" onChange={onFileChange} />
+
+        <Grid container spacing={2} >
+
+          <Grid item xs={12} sm={4} style={{ "padding": "22px" }}>
+
+            <Input placeholder="Address"
+              inputProps={ariaLabel}
+              autoComplete="fname"
+              name="adress"
+              variant="outlined"
+              fullWidth
+              id="adress"
+              autoFocus
+              {...adress}
+            />
+
+            <ErrorMessage errors={errors} name="address" render={({ message }) => <p className="redColor">{message}</p>} />
+
           </Grid>
-          {props.errorInAdd ? <p className="redColor">Error System</p> : null}
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign Up
-          </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link to="/SignIn">
-                Already have an account? Sign in
+
+
+          <Grid item xs={12}>
+
+            <FormControlLabel
+              control={<Checkbox value="allowExtraEmails" color="primary" onChange={(e) => onchange(e)} />}
+              label="קבלת הודעות למייל כאשר מישו חיפש אותי"
+            />
+
+          </Grid>
+
+        </Grid>
+
+
+
+
+        <ColorButton
+          variant="contained"
+          color="primary"
+          style={styleButton}
+          className={classes.margin + " " + classes.submit}
+          type="submit"
+          fullWidth
+
+        >
+
+          Save
+
+        </ColorButton>
+
+        <Grid container justifyContent="flex-end">
+
+          <Grid item>
+
+            <Link to="/SignIn">
+
+              Already have an account? Sign in
+
               </Link>
-            </Grid>
+
           </Grid>
-        </form>
+
+        </Grid>
+        <div style={styleblue}> </div>
+
+      </form>
+
+    </>
+
   );
 }
 const mapStateToProps = (state) => {
 
   return { ifExist: state.usersPart.IfExist, errorInAdd: state.usersPart.ErrorInAdd };
 }
-export default connect(mapStateToProps, { AddUser, IfExist, ErrorInAdd })(ExpandingDetails);
+export default connect(mapStateToProps, { IfExist, ErrorInAdd, SignIn })(ExpandingDetails);

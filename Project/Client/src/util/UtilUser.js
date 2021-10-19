@@ -42,6 +42,11 @@ export const SendPasswordIfExist = async (email) => {
 }
 
 
+export const UpDateUser = async (user,id) => {
+    return axios.put(`http://localhost:4000/users/${id}`,user);
+}
+
+
 
 
 

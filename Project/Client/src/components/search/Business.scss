@@ -28,11 +28,11 @@ i.icon {
     margin-left: 0.5em;
 }
 .ui.modal {
-    width: 64em;
+    width: 39em;
     height: 39.5em;
     margin: 111px;
     margin-top: 9em;
-    margin-left: 23em;
+    margin-left: 40em;
 }
 .place_detailes {
     margin-top: -0.7em;
@@ -73,8 +73,8 @@ a, a:hover, a:focus, a:active {
     width: 45%;
     text-align: center;
     display: inline-block;
-    margin-left: -11em;
-    margin-right: 3em;
+    // margin-left: -11em;
+    // margin-right: 3em;
 }
 .div-ico i {
     font-size: 2.3em;
@@ -90,7 +90,7 @@ a, a:hover, a:focus, a:active {
 }.ui.image img, .ui.image svg {
     display: block;
     max-width: 100%;
-    height: auto;
+    // height: auto;
     /* width: 42%; */
 }.ui.modal>.content>.image {
     display: block;
@@ -113,8 +113,11 @@ h1, h2, h3, h4, h5 {
 
 
 .img_business{
-    width: 14%;
-    display: inline-block;
+        width: 38%;
+        margin-right: 7%;
+        display: inline-block;
+        border-radius: 50%;
+
 }
 
 .name_business{
@@ -170,4 +173,12 @@ h1, h2, h3, h4, h5 {
 @media (min-width: 1280px){
 
 
+}
+
+
+.img_user{
+    width: 38%;
+    margin-right: 7%;
+    display: inline-block;
+    border-radius: 50%;
 }

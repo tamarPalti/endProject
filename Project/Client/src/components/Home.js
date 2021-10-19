@@ -20,6 +20,7 @@ import UpdataBusiness from './Tasks/UpdataBusiness';
 import UpdataUser from './Tasks/UpdataUser';
 import ForgotPassword from './LogIn/ForgotPassword';
 import Heder from './Heder';
+import ExpandingDetails from './LogIn/ExpandingDetails';
 
 
 
@@ -50,8 +51,8 @@ const Home = (props) => {
 
     useEffect(async () => {
 
-        localStorage.setItem("managerMail","m1a2n3a4g5e6r@gmail.com");
-        localStorage.setItem("managerId","M11223344");
+        localStorage.setItem("managerMail", "m1a2n3a4g5e6r@gmail.com");
+        localStorage.setItem("managerId", "M11223344");
 
         GetCurrentUser2().catch(error => { setifGoToLogin(true) });
 
@@ -61,37 +62,37 @@ const Home = (props) => {
 
     }, []);
 
-    
+
     return (
         <>
-                <Heder />
+            <Heder />
             <Switch>
 
                 <Route exact path={'/'}>
                     <div className="back-home">
-                        <img src={home2} style={{ width: "100%",marginTop:"19%"}}></img>
+                        <img src={home2} style={{ width: "100%", marginTop: "19%" }}></img>
                         <div className="href2">
-                            <Link to="/SignUp"  >
-                                <ColorButton variant="contained" color="primary" style={{ "border-radius": "29px 29px 29px 29px","background-color":"#fb7375"}} className={classes.margin + " search"}>
-                                SignUp
+                            <Link to="/SignUp/BasicDetails"  >
+                                <ColorButton variant="contained" color="primary" style={{ "border-radius": "29px 29px 29px 29px", "background-color": "#fb7375" }} className={classes.margin + " search"}>
+                                    SignUp
                                 </ColorButton>
 
                             </Link>
                             <Link to="/SignIn"  >
-                                <ColorButton variant="contained" color="primary" style={{ "border-radius": "29px 29px 29px 29px","background-color":"#1f284f"}} className={classes.margin + " search"}>
-                                SingIn
+                                <ColorButton variant="contained" color="primary" style={{ "border-radius": "29px 29px 29px 29px", "background-color": "#1f284f" }} className={classes.margin + " search"}>
+                                    SingIn
                                 </ColorButton>
                             </Link>
                         </div>
                     </div>
                 </Route>
-            
+
                 <Route path={'/search/business/TasksUpdataBusiness/:idBusiness'}>
-                  
-                  <UpdataBusiness/>
+
+                    <UpdataBusiness />
                 </Route>
                 <Route path={'/search/users/TasksUpdataUser/:idUser'}>
-                    <UpdataUser/>
+                    <UpdataUser />
                 </Route>
                 <Route path={'/Search'}>
                     {!ifGoToLogin ? <Search /> : <Redirect to={'/SignIn'} />}
@@ -100,10 +101,11 @@ const Home = (props) => {
                     {!ifGoTo404 ? <Manager /> : <Redirect to={'/Page404'} />}
                 </Route>
                 <Route path={'/SignUp'}>
-                <SignUp/>
+                    <SignUp />
                 </Route>
+               
                 <Route path={'/ForgotPassword'}>
-                   <ForgotPassword/>
+                    <ForgotPassword />
                 </Route>
                 <Route path={'/PrivateArea'}>
                     {!ifGoToLogin ? <PrivateArea /> : <Redirect to={'/Page404'} />}
@@ -112,7 +114,7 @@ const Home = (props) => {
                     <Page404 />
                 </Route>
                 <Route path={'/SignIn'}>
-                <SingIn/>
+                    <SingIn />
                 </Route>
 
             </Switch>

@@ -31,13 +31,15 @@ i.icon {
 }.img_ico {
     width: 3em;
     margin-left: 0.5em;
+    border-radius: 93%;
+    height: 3em;
 }
-.ui.modal {
-    width: 64em;
+.modal {
+    width: 39em;
     height: 39.5em;
     margin: 111px;
     margin-top: 9em;
-    margin-left: 23em;
+    margin-left: 40em;
 }
 .place_detailes {
     margin-top: -0.7em;
@@ -76,8 +78,7 @@ a, a:hover, a:focus, a:active {
     width: 45%;
     text-align: center;
     display: inline-block;
-    margin-left: -11em;
-    margin-right: 3em;
+    margin-left: -14em;
 }
 .div-ico i {
     font-size: 2.3em;
@@ -93,8 +94,9 @@ a, a:hover, a:focus, a:active {
 }.ui.image img, .ui.image svg {
     display: block;
     max-width: 100%;
-    height: auto;
-    /* width: 42%; */
+    height: 7em;
+    width: 100%;
+    border-radius: 50%;
 }.ui.modal>.content>.image {
     display: block;
     flex: 4em;
@@ -132,8 +134,10 @@ h1, h2, h3, h4, h5 {
 }
 
 .img_user{
-    width: 14%;
+    width: 38%;
+    margin-right: 7%;
     display: inline-block;
+    border-radius: 50%;
 }
 
 .name_user{
@@ -149,6 +153,15 @@ h1, h2, h3, h4, h5 {
 .div_content{
     height: 28%;
     margin-top: 3%;
+    background-color: #0b0b2b;
+   
+}
+.div_w{
+    height: 4px;
+    width: 100%;
+    background-color:white;
+    margin-top: 0%;
+
 }
 /***********
  Media Query
@@ -189,4 +202,9 @@ h1, h2, h3, h4, h5 {
 @media (min-width: 1280px){
 
 
+}
+
+.ui.modal>.actions{
+    background-image: linear-gradient( 
+        132deg, black 0%, #ff716e 0%, #0b0b2b 80%);
 }

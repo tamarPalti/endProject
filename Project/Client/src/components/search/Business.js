@@ -4,7 +4,7 @@ import { SelectedBusiness, ChangeColorName } from '../../actions/index';
 import { useRef, useEffect, useState } from 'react';
 import { Link, Route, useRouteMatch } from 'react-router-dom';
 import { Button, Image, Modal, List } from 'semantic-ui-react';
-import ico from './img/alex.png';
+import ico from './img/person.png';
 import { AddHistoryBusiness } from '../../util/index';
 import { FromAddress } from '../../util/index'
 import MyLocation from "./MyLocation";
@@ -59,7 +59,7 @@ const Business = (props) => {
 
     }, []);
     function myFunction() {
-        var myWindow = window.open(url+"/TasksUpdataBusiness/"+props.business._id, "updataBusiness", "width=400,height=300");
+        var myWindow = window.open(url + "/TasksUpdataBusiness/" + props.business._id, "updataBusiness", "width=400,height=300");
     }
 
     return (
@@ -73,12 +73,12 @@ const Business = (props) => {
                         <div className="place_business" onClick={() => {
                             props.SelectedBusiness(props.business)
                             if (props.ifAdd == "true")
-                                AddHistoryBusiness(localStorage.getItem("currentUserId"), props.business._id);  
+                                AddHistoryBusiness(localStorage.getItem("currentUserId"), props.business._id);
                         }}>
 
                             <img className="img_ico" src={ico}></img>
 
-                            <p className="display" style={{"margin-left": "1.5em"}}>&nbsp;</p>
+                            <p className="display" style={{ "margin-left": "1.5em" }}>&nbsp;</p>
                             <p className="display">{checkName(props.business.name) ? start : end}</p>
                             {!checkName(props.business.name) && (end[0] == ' ' || props.ColorName[props.ColorName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
 
@@ -89,27 +89,51 @@ const Business = (props) => {
                         </div>
                     </div>}
                 >
-                    <div className="div_content">
-                        <div className="name_business">
+                    <div className="div_content" style={{
+                        "background-color": "#0b0b2b", "margin-top": "0"
+                    }}>
+
+
+                        <div style={{
+                            "height": "4px",
+                            "width": "100%",
+                            "background-color": "white",
+                            "margin-top": "0%",
+                            "position": "relative",
+                            "top": "74%"
+                        }}></div>
+
+
+
+                        {/* <div className="name_business">
                             <p className="place_name">{props.business.name}</p>
-                        </div>
-                        <div className="img_business">
-                            <Image size='medium' src={ico} wrapped className="place_img" />
-                        </div>
+                        </div> */}
+                   
                     </div>
-                    <Modal.Actions>
-                        <div>
-                            <div className="div-ico" data-tooltip="הוסף לאנשי קשר">
-                                <i class="user plus icon i" ></i>
+                    <Modal.Actions style={{ "height": "3em", "margin-top": "-7%" }}>
+                        <div style={{ "margin-top": "-34.3%" }}>
+                            <div className="div-ico" style={{ "margin-right": "-8%" }} data-tooltip="הוסף לאנשי קשר">
+                                <i class="user plus icon i" style={{ "margin-left": "-2em", "color": "white" }}></i>
                             </div>
+                            <div className="img_business">
+                            <Image size='medium' style={{
+                                    "display": "block",
+                                    "max-width": "100%",
+                                    "height": "7em",
+                                    "width": "100%",
+                                    "position": "relative",
+                                    "top": "3em",
+                                    "left": "-3em"
+                                }} src={ico} wrapped className="place_img" />
+                        </div>
                             <div className="div-ico" data-tooltip="דווח על תקלה">
-                                <i class="exclamation triangle icon" onClick={myFunction}></i>
+                                <i class="exclamation triangle icon" style={{ "margin-left": "3em", "color": "white" }} onClick={myFunction}></i>
                             </div>
                         </div>
 
                     </Modal.Actions>
 
-                    <h2 className="place_detailes">
+                    <h2 className="place_detailes" style={{"margin-top": "18%"}}>
 
                         <div className="div_all">
                             <i class="phone icon"></i>
