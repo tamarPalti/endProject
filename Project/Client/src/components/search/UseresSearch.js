@@ -65,11 +65,11 @@ const UsersSearch = (props) => {
 
 
     return (<>
-        {<form className="ui form">
+        {
+        <form className="ui form">
             <div className="ui form">
                 <div className="two fields">
                   
-
                     <div class="ui icon input" style={styleDivInput}>
 
                         <input type="text" placeholder="First Name" ref={firstName} onKeyUp={searchUsers}
@@ -78,8 +78,6 @@ const UsersSearch = (props) => {
 
                     </div>
 
-                 
-
                     <div class="ui icon input" style={styleDivInput}>
 
                         <input type="text" placeholder="Last Name" ref={lastName} onKeyUp={searchUsers}
@@ -87,7 +85,6 @@ const UsersSearch = (props) => {
                         <i class="user icon"></i>
 
                     </div>
-
 
                 </div>
 
@@ -104,18 +101,14 @@ const UsersSearch = (props) => {
 
 
                 <div className="two fields" style={{"margin-top": "32px"}}>
-
-           
-
+       
                     <div class="ui icon input" style={styleDivInput}>
 
                         <input type="number" placeholder="Phone Number" ref={phoneNamber} onKeyUp={searchUsers}
                             style={borderR_left} />
                         <i class="phone icon"></i>
 
-                    </div>
-
-               
+                    </div>              
 
                     <div class="ui icon input" style={styleDivInput}>
 

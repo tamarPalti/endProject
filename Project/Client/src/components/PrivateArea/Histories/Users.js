@@ -66,18 +66,20 @@ const Users = (props) => {
                             {
                                 currentUser.lastSearchUsers.map((item, index) => {
                                     if (index < 10 && item.userSearch)
-                                        return (<ListItem>
+                                        return (<ListItem style={{ "margin-right": "50%" }}>
+
+                                            {/* <p>{item.date}</p> */}
+                                            <ListItemText
+                                                primary={<User color="false" ifAdd="false" user={item.userSearch} key={index} />}
+                                                secondary={secondary ? 'Secondary text' : null}
+                                            />
+
                                             <ListItemAvatar>
                                                 <IconButton edge="end" aria-label="delete" onClick={() => DeleteHistoryFunc(index)}>
                                                     <DeleteIcon style={{ "font-size": "1.5em" }} />
                                                 </IconButton>
 
                                             </ListItemAvatar>
-                                            {/* <p>{item.date}</p> */}
-                                            <ListItemText
-                                                primary={<User ifAdd="false" user={item.userSearch} key={index} />}
-                                                secondary={secondary ? 'Secondary text' : null}
-                                            />
                                         </ListItem>)
                                 })
                             }

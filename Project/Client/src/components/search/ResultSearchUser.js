@@ -13,24 +13,28 @@ import './ReasulSearchUser.scss';
 
 const ResultSearchUser = (props) => {
 
-    const styleListItem={"height": "35%","border-bottom-style": "groove","max-width": "max-width: 100%"}
+    //styles
+    const styleListItem = { "height": "35%", "border-bottom-style": "groove", "max-width": "max-width: 100%" }
 
     useEffect(() => {
     }, []);
+
     return (<>
         {
-           <Box
-           sx={{ width: '100%', height: 250, bgcolor: 'background.paper' }}
-         >
-            {props.UserSearch && props.UserSearch.map((item,index) => {
-                return (
-                        <ListItem   key={index} component="div" disablePadding style={styleListItem}>
-                            <ListItemButton style={{"height": "100%"}}>
+            <Box sx={{ width: '100%', height: 250, bgcolor: 'background.paper' }}>
+
+                {props.UserSearch && props.UserSearch.map((item, index) => {
+                    return (
+
+                        <ListItem key={index} component="div" disablePadding style={styleListItem}>
+                            <ListItemButton style={{ "height": "100%" }}>
                                 <User ifAdd="true" key={item._id} user={item} />
                             </ListItemButton>
                         </ListItem>
-                );
-            })} </Box>}
+                    );
+                })}
+                
+            </Box>}
     </>);
 }
 const mapStateToProps = (state) => {

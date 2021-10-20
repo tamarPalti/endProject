@@ -40,7 +40,7 @@ route.get("/sendPasswordIfExist/:email", userController.sendPasswordIfExist);
 
 route.post("/",upload.single('img'), userController.addUser);
 
-route.put("/:id", upload.single('img'), userController.updateUser);
+route.put("/:id",upload.single('img'), userController.updateUser);
 route.put("/addToHistory/:currentId&:userId", userController.addToHistory);
 route.put("/addToHistoryBusiness/:currentId&:businessId", userController.addToHistoryBusiness);
 route.put("/deleteHistoryUser/:currentId&:index", userController.deleteHistoryUser);

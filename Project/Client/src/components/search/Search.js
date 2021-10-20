@@ -103,6 +103,7 @@ const Search = (props) => {
                 </Grid>
 
                 <Grid item xs={12} sm={1} md={5} style={{ "max-width": "62.6667%" }}>
+
                     <Box style={styleBox}>
 
                         <Tabs
@@ -116,7 +117,6 @@ const Search = (props) => {
                                     backgroundColor: "rgb(255, 113, 110)"
                                 }
                             }}
-                      s
                         >
                             <Tab value="one" style={styleTab1} label="חיפוש עסקים" onClick={() => changeHistory('/search/business')} />
 

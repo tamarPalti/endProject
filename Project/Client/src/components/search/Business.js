@@ -31,7 +31,20 @@ const Business = (props) => {
 
 
 
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
+
+    //styles
+
+    const styleDivContent = { "margin-top": "0", "border-top-right-radius": 0, "border-top-left-radius": 0 }
+    const styleDivW = { "position": "relative", "top": "74%" }
+    const styleAction = { "height": "3em", "margin-top": "-7%" }
+    const styleIconUser = { "margin-left": "-2em", "color": "white" }
+    const styleImg = {
+        "display": "block", "max-width": "100%", "height": "7em", "width": "100%", "position": "relative", "top": "3em", "left": "-3em"
+    }
+    const styleIconExport = { "margin-left": "3em", "color": "white" }
+   
+    //styles
 
     let indexName = props.business.name.indexOf(props.ColorName);
     let start = props.business.name.substring(0, indexName);
@@ -39,6 +52,7 @@ const Business = (props) => {
     const checkName = (name) => {
         return name[0] >= 'A' && name[0] <= 'Z' || name[0] >= 'a' && name[0] <= 'z';
     }
+
     useEffect(() => {
 
 
@@ -58,18 +72,23 @@ const Business = (props) => {
 
 
     }, []);
+
     function myFunction() {
         var myWindow = window.open(url + "/TasksUpdataBusiness/" + props.business._id, "updataBusiness", "width=400,height=300");
     }
 
     return (
         <List.Item key={props.business._id}>
+
             <List.Content floated='right'>
+
                 <Modal
+
                     onClose={() => setOpen(false)}
                     onOpen={() => setOpen(true)}
                     open={open}
                     trigger={<div>
+
                         <div className="place_business" onClick={() => {
                             props.SelectedBusiness(props.business)
                             if (props.ifAdd == "true")
@@ -86,54 +105,44 @@ const Business = (props) => {
                             {checkName(props.business.name) && (end[0] == ' ' || props.ColorName[props.ColorName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
 
                             <p className="display">{checkName(props.business.name) ? end : start}</p>
+                      
                         </div>
+
                     </div>}
                 >
-                    <div className="div_content" style={{
-                        "background-color": "#0b0b2b", "margin-top": "0"
-                    }}>
+                    <div className="div_content" style={styleDivContent}>
 
+                        <div className="div_w" style={styleDivW}></div>
 
-                        <div style={{
-                            "height": "4px",
-                            "width": "100%",
-                            "background-color": "white",
-                            "margin-top": "0%",
-                            "position": "relative",
-                            "top": "74%"
-                        }}></div>
-
-
-
-                        {/* <div className="name_business">
-                            <p className="place_name">{props.business.name}</p>
-                        </div> */}
-                   
                     </div>
-                    <Modal.Actions style={{ "height": "3em", "margin-top": "-7%" }}>
+
+                    <Modal.Actions style={styleAction}>
+
                         <div style={{ "margin-top": "-34.3%" }}>
+
                             <div className="div-ico" style={{ "margin-right": "-8%" }} data-tooltip="הוסף לאנשי קשר">
-                                <i class="user plus icon i" style={{ "margin-left": "-2em", "color": "white" }}></i>
+
+                                <i class="user plus icon i" style={styleIconUser}></i>
+
                             </div>
+
                             <div className="img_business">
-                            <Image size='medium' style={{
-                                    "display": "block",
-                                    "max-width": "100%",
-                                    "height": "7em",
-                                    "width": "100%",
-                                    "position": "relative",
-                                    "top": "3em",
-                                    "left": "-3em"
-                                }} src={ico} wrapped className="place_img" />
-                        </div>
-                            <div className="div-ico" data-tooltip="דווח על תקלה">
-                                <i class="exclamation triangle icon" style={{ "margin-left": "3em", "color": "white" }} onClick={myFunction}></i>
+
+                                <Image size='medium' style={styleImg} src={ico} wrapped className="place_img" />
+
                             </div>
+
+                            <div className="div-ico" data-tooltip="דווח על תקלה">
+
+                                <i class="exclamation triangle icon" style={styleIconExport} onClick={myFunction}></i>
+
+                            </div>
+
                         </div>
 
                     </Modal.Actions>
 
-                    <h2 className="place_detailes" style={{"margin-top": "18%"}}>
+                    <h2 className="place_detailes" style={{ "margin-top": "18%" }}>
 
                         <div className="div_all">
                             <i class="phone icon"></i>
@@ -141,12 +150,14 @@ const Business = (props) => {
                                 <p> {props.business.phoneNamber}</p>
                             </div>
                         </div>
+
                         <div className="div_all">
                             <div className="place_div">
                                 <i class="envelope icon"></i>
                                 <p><a href="mailto:abc@example.com?subject = Feedback&body = Message">{props.business.email}</a></p>
                             </div>
                         </div>
+
                         <div className="div_all">
                             <i class="map marker alternate icon"></i>
                             <div className="place_div"> <p> {props.business.adress}</p></div>
@@ -154,7 +165,9 @@ const Business = (props) => {
                         </div>
 
                     </h2>
+
                     {Cenetr && Zoom && Txt && <MyLocation center={Cenetr} zoom={Zoom} txt={Txt} />}
+             
                 </Modal>
             </List.Content>
         </List.Item>

@@ -21,6 +21,7 @@ import UpdataUser from './Tasks/UpdataUser';
 import ForgotPassword from './LogIn/ForgotPassword';
 import Heder from './Heder';
 import ExpandingDetails from './LogIn/ExpandingDetails';
+import PrivateNew from './PrivateArea/privatenew';
 
 
 
@@ -107,9 +108,15 @@ const Home = (props) => {
                 <Route path={'/ForgotPassword'}>
                     <ForgotPassword />
                 </Route>
-                <Route path={'/PrivateArea'}>
+                {/* <Route path={'/PrivateArea'}>
                     {!ifGoToLogin ? <PrivateArea /> : <Redirect to={'/Page404'} />}
+                </Route> */}
+
+                <Route path={'/PrivateArea'}>
+                    {!ifGoToLogin ? <PrivateNew/> : <Redirect to={'/Page404'} />}
                 </Route>
+
+
                 <Route path={'/Page404'}>
                     <Page404 />
                 </Route>

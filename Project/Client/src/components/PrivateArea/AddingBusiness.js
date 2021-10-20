@@ -12,8 +12,9 @@ import { Multiselect } from "multiselect-react-dropdown";
 import axios from 'axios';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { AddBusiness, getAllCategories } from '../../util/index';
-
+import { AddBusiness, getAllCategories, SendMail } from '../../util/index';
+import Input from '@mui/material/Input';
+const ariaLabel = { 'aria-label': 'description' };
 
 //לא לשכוח
 //   img
@@ -59,12 +60,17 @@ function Alert(props) {
 }
 
 //alerts
+
+
 function AddingBusiness(props) {
+
     const classes = useStyles();
 
 
     let Business = new business();
 
+
+    //validation
     const { register, formState: { errors }, handleSubmit } = useForm();
     const name = register('name', { required: "This is required.", minLength: { value: 2, message: "Min 2" }, maxLength: { value: 11, message: "Max 11" } })
     const adress = register('adress', { required: "This is required." })
@@ -72,6 +78,15 @@ function AddingBusiness(props) {
     const phone = register('phone', { required: "This is required.", pattern: { value: /0[0-9]{9}/, message: "Phone No Valid" } })
     const category = register('category', { minLength: { value: 1, message: "hhhhh" } })
 
+    const passwordemail = register('passwordemail', { required: "This is required." })
+    // const passwordphone = register('passwordemail', { required: "This is required." })
+    let emailToPassword = "";
+
+
+    //validation
+
+
+    // function add buissnes
 
     const AddBusinessFunc = async (business) => {
 
@@ -94,9 +109,14 @@ function AddingBusiness(props) {
         });
     }
 
+    // function add buissnes
 
+
+
+    //function submit
 
     const onSubmit = data => {
+
         if (listCategory.current.getSelectedItems().length == 0)
             setIfSelect(true);
         else {
@@ -111,6 +131,9 @@ function AddingBusiness(props) {
         }
     }
 
+    //function submit
+
+    //ctegory
     let listCategory = useRef([]);
     const [categoriesArr, setCategoriesArr] = useState([]);
     const [ifSelect, setIfSelect] = useState(false);
@@ -132,7 +155,27 @@ function AddingBusiness(props) {
     }, [])
 
 
+    // validation password to mail
 
+    const sendPasswordFunc = () => {
+
+        let number = Math.floor(Math.random() * 90000) + 10000;
+
+        let num1 = Math.floor(Math.random() * 900) + 100;
+        let num2 = Math.floor(Math.random() * 90) + 10;
+
+        localStorage.setItem("number", num1 + "" + number + "" + num2);
+
+        let mail = {
+            toUser: emailToPassword,
+            subject: "קוד אימות",
+            text: `<h1>${number}</h1>`
+            // ,attachments
+        }
+        SendMail(mail);
+    }
+    
+    // validation password to mail
 
 
     // alerts
@@ -157,7 +200,7 @@ function AddingBusiness(props) {
 
 
 
-    
+
     return (<>
         {/* alerts */}
 
@@ -170,8 +213,8 @@ function AddingBusiness(props) {
         {/* form */}
         <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                    <TextField
+                <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
+                    <Input
                         autoComplete="fname"
                         name="name"
                         variant="outlined"
@@ -180,12 +223,13 @@ function AddingBusiness(props) {
                         id="name"
                         label="name"
                         {...name}
+                        placeholder="Name"
                     />
                     <ErrorMessage errors={errors} name="name" render={({ message }) => <p className="redColor">{message}</p>} />
 
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
+                <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
+                    <Input
                         variant="outlined"
                         required
                         fullWidth
@@ -194,12 +238,13 @@ function AddingBusiness(props) {
                         name="adress"
                         autoComplete="lname"
                         {...adress}
+                        placeholder="Address"
                     />
                     <ErrorMessage errors={errors} name="adress" render={({ message }) => <p className="redColor">{message}</p>} />
 
                 </Grid>
-                <Grid item xs={12}>
-                    <TextField
+                <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
+                    <Input
                         variant="outlined"
                         required
                         fullWidth
@@ -208,11 +253,41 @@ function AddingBusiness(props) {
                         name="email"
                         autoComplete="email"
                         {...email}
+                        placeholder="Email"
                     />
                     <ErrorMessage errors={errors} name="email" render={({ message }) => <p className="redColor">{message}</p>} />
                     {props.ifExist ? <p className="redColor">This Email Alrady Exist</p> : null}
                 </Grid>
-                <Grid item xs={12} sm={6}>
+
+
+                <Grid item xs={12} sm={2} style={{ "padding": "22px" }}>
+
+                    <Button onClick={sendPasswordFunc} variant="outlined" size="small" color="primary" className={classes.margin}>
+                        Send
+                    </Button>
+
+                </Grid>
+
+                <Grid item xs={12} sm={4} style={{ "padding": "22px" }}>
+
+                    <Input placeholder="Password Email"
+                        inputProps={ariaLabel}
+                        variant="outlined"
+                        required
+                        fullWidth
+                        id="passwordemail"
+                        name="passwordemail"
+                        autoComplete="passwordemail"
+                        onKeyUp={(e) => emailToPassword = e.target.value}
+                        {...passwordemail}
+                    />
+
+                    <ErrorMessage errors={errors} name="passwordemail" render={({ message }) => <p className="redColor">{message}</p>} />
+
+                </Grid>
+
+
+                <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
                     <Multiselect
                         onSelect={(e) => setIfSelect(false)}
                         label="Category"
@@ -225,8 +300,8 @@ function AddingBusiness(props) {
 
 
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
+                <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
+                    <Input
                         variant="outlined"
                         required
                         fullWidth
@@ -235,6 +310,7 @@ function AddingBusiness(props) {
                         name="phone"
                         autoComplete="phone"
                         {...phone}
+                        placeholder="Phone"
                     />
                     <ErrorMessage errors={errors} name="phone" render={({ message }) => <p className="redColor">{message}</p>} />
 
@@ -248,6 +324,7 @@ function AddingBusiness(props) {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                style={{ backgroundImage: "linear-gradient(132deg, black 0%, #ff716e 0%, #0b0b2b 80%)" }}
             > Sign Up</Button>
 
         </form>

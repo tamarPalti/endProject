@@ -19,7 +19,9 @@ import { purple } from '@material-ui/core/colors';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { UpDateUser } from '../../util'
-
+import alex from './img/alex.png';
+import ImageUploading from 'react-images-uploading';
+import person from './img/person.png';
 
 const ariaLabel = { 'aria-label': 'description' };
 
@@ -69,8 +71,8 @@ const useStyles = makeStyles((theme) => ({
 
 const styleblue = {
   "width": "74em",
-  "background-color": "#0b0b2b ",
-  "margin-top": "6.7%",
+  "background-color": "rgb(11, 11, 43)",
+  "margin-top": "13.3%",
   "margin-left": "-4%",
   "height": "2em"
 }
@@ -98,10 +100,15 @@ function ExpandingDetails(props) {
 
     let currentUserId = localStorage.getItem("currentUserId");
     data.img = selectedImage;
-    data.ifMessege=check;
+    data.ifMessege = check;
     console.log(data);
 
-    UpDateUser(data, currentUserId).then((succ) => {
+    let fd = new FormData();
+    fd.append('img', imsState);
+    fd.append('ifMessege', data.ifMessege);
+    fd.append('adress', data.adress);
+
+    UpDateUser(fd, currentUserId).then((succ) => {
 
       settypeAlert("success");
       setmasseg("Update Success");
@@ -135,10 +142,35 @@ function ExpandingDetails(props) {
   const [selectedImage, setselectedImage] = useState();
 
   const styleButton = {
-    "background-color": "#0b0b2b", "border-radius": "0px 0px 0px 0px", "width": "20%",
-    "margin-left": "57%",
-    "margin-top": " -7.2%",
-    'color': 'white'
+    "background-color": "rgb(11, 11, 43)",
+    "border-radius": "0px",
+    "width": "30%",
+    "margin-left": "36%",
+    "margin-top": "3.8%",
+    "color": "white",
+  }
+  const styleItem = {
+    "padding": "22px",
+    "margin-top": "-15%",
+    "margin-left": "35%"
+  }
+  const styleLable = {
+    "width": "93%",
+    "height": "30%",
+    "margin-top": "62%"
+  }
+  const styleInputImg = {
+    "border-radius": "50%",
+    "height": "3em",
+    "width": "21%"
+  }
+  const styleImg = {
+    "width": "16em",
+    "border-radius": "50%",
+    "width": '100%',
+    "height": "17em",
+    "margin-top": "-105%",
+    "z-index": "10"
   }
   const handleClick = () => {
     setOpen(true);
@@ -157,16 +189,10 @@ function ExpandingDetails(props) {
   // alerts
 
 
-  const onFileChange = (e) => {
-    let files = e.target.files;
-    let fileReader = new FileReader();
-    fileReader.readAsDataURL(files[0]);
+  const [imsState, setimsState] = useState();
+  const [imsStateToShow, setimsStateToShow] = useState();
 
-    fileReader.onload = (event) => {
-      setselectedImage(event.target.result)
 
-    }
-  }
 
   //history
   const history = useHistory();
@@ -191,16 +217,43 @@ function ExpandingDetails(props) {
 
       {/* alerts */}
 
-      <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)} style={{ "margin-top": "31px" }} >
+      <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)} style={{ "margin-top": "140px" }} >
 
 
-        {/* העלאת תמונה */}
-
-        <input type="file" className="form-control" name="image" onChange={onFileChange} />
 
         <Grid container spacing={2} >
 
-          <Grid item xs={12} sm={4} style={{ "padding": "22px" }}>
+          <Grid item xs={12} sm={4} style={styleItem}>
+
+            <label htmlFor="photo-upload" className="custom-file-upload fas" style={styleLable}>
+              <input type="file" className="form-control"
+                accept="image/png, image/jpeg"
+                name="image" onChange={(e) => {
+
+                  if (e.target.files && e.target.files.length > 0) {
+                    setimsState(e.target.files[0]);
+                    console.log(e.target.files[0]);
+                    setimsStateToShow(e.target.value);
+                    e.preventDefault();
+                    const reader = new FileReader();
+                    const file = e.target.files[0];
+                    reader.onloadend = () => {
+                      setimsStateToShow(reader.result);
+                    }
+                    reader.readAsDataURL(file);
+                  }
+
+                }}
+                style={styleInputImg}
+              />
+
+              <img for="photo-upload" style={styleImg} src={imsStateToShow ? imsStateToShow : person} />
+
+            </label>
+
+          </Grid>
+
+          <Grid item xs={12} sm={4} style={{ "padding": "22px", "margin-left": "33%" }}>
 
             <Input placeholder="Address"
               inputProps={ariaLabel}
@@ -218,7 +271,7 @@ function ExpandingDetails(props) {
           </Grid>
 
 
-          <Grid item xs={12}>
+          <Grid item xs={12} style={{ "margin-left": "33%" }}>
 
             <FormControlLabel
               control={<Checkbox value="allowExtraEmails" color="primary" onChange={(e) => onchange(e)} />}

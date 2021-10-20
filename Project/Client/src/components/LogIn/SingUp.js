@@ -64,27 +64,42 @@ function SignUp(props) {
       <CssBaseline />
 
       <Grid item xs={12} sm={10} md={7} component={Paper} elevation={6} square >
+
         <div className="backrund"></div>
+
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon style={{ "font-size": "2.5rem" }} />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign Up
+
+          <Route exact path={'/SignUp'}>
+
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon style={{ "font-size": "2.5rem" }} />
+            </Avatar>
+
+            <Typography component="h1" variant="h5">
+              Sign Up
           </Typography>
+          
+          </Route>
+
+
+
 
 
 
           <Route exact path={'/SignUp'}>
             <BasicDetails />
           </Route>
-          <Route  path={'/SignUp/ExpandingDetails'}>
+
+          <Route path={'/SignUp/ExpandingDetails'}>
             <ExpandingDetails />
           </Route>
 
         </div>
+
       </Grid>
+
       <Grid item xs={12} sm={1} md={5} className={classes.image + " opcityandimg"} />
+
     </Grid>
   );
 }

@@ -9,7 +9,6 @@ const BusinessInformationUpdate = (props) => {
 
     return (<>
         <ListBuisness/>
-
     </>);
 }
 

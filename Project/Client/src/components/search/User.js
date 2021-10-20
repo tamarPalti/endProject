@@ -11,6 +11,7 @@ import { SendMail, GetCurrentUser } from '../../util';
 
 
 const User = (props) => {
+
     const { url, path } = useRouteMatch();
 
     let indexName = props.user.firstName.indexOf(props.ColorFirstName);
@@ -26,15 +27,27 @@ const User = (props) => {
 
 
     useEffect(() => {
-
-
     }, []);
+
 
     function myFunction() {
         var myWindow = window.open(url + "/TasksUpdataUser/" + props.user._id, "UpdataUser", "width=400,height=300");
     }
 
     const [open, setOpen] = React.useState(false)
+
+    //styles
+
+    const styleDivContent = { "margin-top": "0", "border-top-right-radius": 0, "border-top-left-radius": 0 }
+    const styleDivW = { "position": "relative", "top": "74%" }
+    const styleAction = { "height": "3em", "margin-top": "-7%" }
+    const styleIconUser = { "margin-left": "-2em", "color": "white" }
+    const styleImg = {
+        "display": "block", "max-width": "100%", "height": "7em", "width": "100%", "position": "relative", "top": "3em", "left": "-3em"
+    }
+    const styleIconExport = { "margin-left": "3em", "color": "white" }
+ 
+    //styles
 
     const SendMailFunc = (user) => {
 
@@ -67,6 +80,7 @@ const User = (props) => {
                     onOpen={() => setOpen(true)}
                     open={open}
                     style={{ "border-radius": "0" }}
+
                     trigger={<div ><div className="place_user" onClick={() => {
 
                         props.SelectedUser(props.user);
@@ -109,34 +123,32 @@ const User = (props) => {
                     </div>}
                 >
 
-                    <div className="div_content" style={{ "margin-top": "0" }}>
-                        <div className="div_w" style={{  "position": "relative","top": "74%"}}></div>
+                    <div className="div_content" style={styleDivContent}>
+
+                        <div className="div_w" style={styleDivW}></div>
+
                     </div>
 
-                    <Modal.Actions style={{ "height": "3em", "margin-top": "-7%" }}>
+                    <Modal.Actions style={styleAction}>
 
                         <div style={{ "margin-top": "-34.3%" }}>
 
                             <div className="div-ico" style={{ "margin-right": "-8%" }} data-tooltip="הוסף לאנשי קשר">
-                                <i class="user plus icon i" style={{ "margin-left": "-2em", "color": "white" }}></i>
+
+                                <i class="user plus icon i" style={styleIconUser}></i>
+
                             </div>
 
                             <div className="img_user">
 
-                                <Image size='medium' style={{
-                                    "display": "block",
-                                    "max-width": "100%",
-                                    "height": "7em",
-                                    "width": "100%",
-                                    "position": "relative",
-                                    "top": "3em",
-                                    "left": "-3em"
-                                }} src={props.user.img ? props.user.img : ico} wrapped className="place_img" />
-                           
+                                <Image size='medium' style={styleImg} src={props.user.img ? props.user.img : ico} wrapped className="place_img" />
+
                             </div>
-                            
+
                             <div className="div-ico" data-tooltip="דווח על תקלה">
-                                <i class="exclamation triangle icon" style={{ "margin-left": "3em", "color": "white" }} onClick={myFunction}></i>
+
+                                <i class="exclamation triangle icon" style={styleIconExport} onClick={myFunction}></i>
+
                             </div>
                         </div>
 
@@ -150,12 +162,14 @@ const User = (props) => {
                                 <p> {props.user.phoneNamber}</p>
                             </div>
                         </div>
+
                         <div className="div_all">
                             <div className="place_div">
                                 <i class="envelope icon"></i>
                                 <p><a href="mailto:abc@example.com?subject = Feedback&body = Message">{props.user.email}</a></p>
                             </div>
                         </div>
+                        
                         <div className="div_all">
                             <i class="map marker alternate icon"></i>
                             <div className="place_div"> <p> {props.user.adress ? props.user.adress : "הכתובת לא עודכנה"}</p> </div>

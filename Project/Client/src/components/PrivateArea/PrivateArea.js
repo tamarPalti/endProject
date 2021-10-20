@@ -204,10 +204,14 @@ function PrivateArea(props) {
     }, []);
 
     return (
-        <div className={classes.root}>
-            <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
+        <div className={classes.root} style={{"margin-top": "9%"}}>
+            <div></div>
+            <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector style={{"top": "29px",
+                        "width": "0%",
+                        "margin-left": "-8%"}}/>}>
+                            
                 {steps.map((label, index) => (
-                    <Step key={index} onClick={() => handleNext(index)}>
+                    <Step key={index} onClick={() => handleNext(index)} >
                         <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
                     </Step>
                 ))}

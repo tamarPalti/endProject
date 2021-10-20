@@ -18,6 +18,7 @@ import { GetCurrentUser } from '../../util/index';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { UpdateUser, GetCurrentUserById, UpdateStatusTask } from '../../util/index';
+import Input from '@mui/material/Input';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
-        backgroundColor: '#e860ff'
+        backgroundImage: "linear-gradient(132deg, black 0%, #ff716e 0%, #0b0b2b 80%)"
     },
 }));
 
@@ -193,8 +194,8 @@ function UpdatePersonalDetails(props) {
 
             { currentUser && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateUser))}>
                 <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
+                    <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
+                        <Input
                             autoComplete="fname"
                             name="firstName"
                             variant="outlined"
@@ -207,12 +208,17 @@ function UpdatePersonalDetails(props) {
                             {...firstName}
                         // onLoad={() => updateUser.firstName = currentUser.firstName}
                         />
+
+
+
+
+
                         <p></p>
                         <ErrorMessage errors={errors} name="firstName" render={({ message }) => <p className="redColor">{message}</p>} />
 
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
+                    <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
+                        <Input
                             variant="outlined"
                             required
                             fullWidth
@@ -227,8 +233,8 @@ function UpdatePersonalDetails(props) {
                         <ErrorMessage errors={errors} name="lastName" render={({ message }) => <p className="redColor">{message}</p>} />
 
                     </Grid>
-                    <Grid item xs={12}>
-                        <TextField
+                    <Grid item xs={12} style={{ "padding": "22px" }}>
+                        <Input
                             variant="outlined"
                             required
                             fullWidth
@@ -245,8 +251,8 @@ function UpdatePersonalDetails(props) {
                         <ErrorMessage errors={errors} name="email" render={({ message }) => <p className="redColor">{message}</p>} />
                         {props.ifExist ? <p className="redColor">This Email Alrady Exist</p> : null}
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
+                    <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
+                        <Input
                             autoComplete="password"
                             name="password"
                             variant="outlined"
@@ -261,8 +267,8 @@ function UpdatePersonalDetails(props) {
                         <ErrorMessage errors={errors} name="password" render={({ message }) => <p className="redColor">{message}</p>} />
 
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
+                    <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
+                        <Input
                             variant="outlined"
                             required
                             fullWidth
@@ -279,8 +285,8 @@ function UpdatePersonalDetails(props) {
                     </Grid>
                 </Grid>
                 <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
+                    <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
+                        <Input
                             autoComplete="fname"
                             name="address"
                             variant="outlined"
@@ -293,7 +299,7 @@ function UpdatePersonalDetails(props) {
                             {...address}
                         />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
                         <FormControlLabel
                             control={<Checkbox defaultChecked={currentUser.ifMessege}
                                 color="primary" onClick={(e) => {

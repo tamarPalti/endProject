@@ -19,10 +19,12 @@ const ResultSearchBusiness = (props) => {
 
 
 
+    //styles
     const styleListItem = { "height": "35%", "border-bottom-style": "groove", "max-width": "max-width: 100%" }
 
     useEffect(() => {
     }, [props.BusinessSearch]);
+
     return (<>
 
         {
@@ -30,13 +32,16 @@ const ResultSearchBusiness = (props) => {
 
                 {props.BusinessSearch && props.BusinessSearch.map((item,index) => {
                     return (
+
                         <ListItem key={index} component="div" disablePadding style={styleListItem}>
                             <ListItemButton style={{ "height": "100%" }}>
                                 <Business ifAdd="true" key={item._id} business={item} />
                             </ListItemButton>
                         </ListItem>
+
                     );
                 })}
+                
             </Box>}
 
     </>);

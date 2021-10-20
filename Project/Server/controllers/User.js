@@ -69,9 +69,8 @@ const updateUser = async (req, res) => {
         user.phoneNamber = userBody.phoneNamber || user.phoneNamber;
         user.email = userBody.email || user.email;
         user.adress = userBody.adress || user.adress;
-        // user.img = userBody.img || user.img;
 
-        // user.img = req.file ? url + '/uploads/' + req.file.filename : user.img;
+        user.img = req.file ? url + '/uploads/' + req.file.filename : user.img;
 
         user.password = userBody.password || user.password;
         user.ifMessege = userBody.ifMessege;

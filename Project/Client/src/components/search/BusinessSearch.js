@@ -48,16 +48,19 @@ const BusinessSearch = (props) => {
         else
             props.SaveResultBusiness([]);
     }
+
+    //styles
     const styleDivInput_1 = { "width": "40%" }
-    const styleDivInput_2 = { "width": "40%","margin-top": "32px" }
+    const styleDivInput_2 = { "width": "40%", "margin-top": "32px" }
 
-    const borderR_right = { "border-radius": "8.285714rem" ,"line-height": "1.5em","margin-left": "2%","border-color": "#726363","border-width":"2px"}
-    const borderR_left = { "border-radius": "8.285714rem" ,"line-height": "1.5em","border-color": "#726363","border-width":"2px"}
-    
-    const styleDivInput_2For_Select = { "margin-left":" 2%", "width": "40%","margin-top": "32px" }
-    const styleDivInput_2For_Phone = { "margin-left": "-1.1%", "width": "40%","margin-top": "32px" }
+    const borderR_right = { "border-radius": "8.285714rem", "line-height": "1.5em", "margin-left": "2%", "border-color": "#726363", "border-width": "2px" }
+    const borderR_left = { "border-radius": "8.285714rem", "line-height": "1.5em", "border-color": "#726363", "border-width": "2px" }
 
-    
+    const styleDivInput_2For_Select = { "margin-left": " 2%", "width": "40%", "margin-top": "32px" }
+    const styleDivInput_2For_Phone = { "margin-left": "-1.1%", "width": "40%", "margin-top": "32px" }
+
+    //styles
+
     useEffect(() => {
 
         getAllCategories().then(scss => {
@@ -68,7 +71,7 @@ const BusinessSearch = (props) => {
 
         if (!ifSorted && props.AllBusiness && props.AllBusiness.length != 0) {
             setifSorted(true);
-            SortllBusiness(props.AllBusiness,props.SaveAllBusiness)
+            SortllBusiness(props.AllBusiness, props.SaveAllBusiness)
         }
 
     }, [props.AllBusiness]);
@@ -76,34 +79,39 @@ const BusinessSearch = (props) => {
 
 
     return (<>
-        {<form className="ui form">
-        <div className="ui form">
-                <div className="two fields">               
-                    <div class="ui icon input" style={styleDivInput_1}>
-                        <input type="text" placeholder="Name" ref={name} onKeyUp={searchBusiness}
-                            style={borderR_left} />
-                        <i class="user icon"></i>
-                    </div>                 
-                    <div class="ui icon input" style={styleDivInput_1}>
-                        <input type="text" placeholder="Address" ref={adress} onKeyUp={searchBusiness}
-                            style={borderR_right} />
-                        <i class="map marker alternate icon"></i>
+        {
+            <form className="ui form">
+
+                <div className="ui form">
+
+                    <div className="two fields">
+                        <div class="ui icon input" style={styleDivInput_1}>
+                            <input type="text" placeholder="Name" ref={name} onKeyUp={searchBusiness}
+                                style={borderR_left} />
+                            <i class="user icon"></i>
+                        </div>
+                        <div class="ui icon input" style={styleDivInput_1}>
+                            <input type="text" placeholder="Address" ref={adress} onKeyUp={searchBusiness}
+                                style={borderR_right} />
+                            <i class="map marker alternate icon"></i>
+                        </div>
                     </div>
-                </div>
-                <div class="ui icon input" style={{ "width": "81.8%" ,"margin-left": "-7.5px","margin-top": "19px"}}>
-                    <input type="text" placeholder="Email" ref={email} onKeyUp={searchBusiness}
-                        style={borderR_left} />
-                    <i class="at icon"></i>
-                </div>
-                {/* <div className="two fields" style={{"margin-top": "32px"}}>            */}
+
+                    <div class="ui icon input" style={{ "width": "81.8%", "margin-left": "-7.5px", "margin-top": "19px" }}>
+                        <input type="text" placeholder="Email" ref={email} onKeyUp={searchBusiness}
+                            style={borderR_left} />
+                        <i class="at icon"></i>
+                    </div>
+
                     <div class="ui icon input" style={styleDivInput_2For_Phone} >
                         <input type="number" placeholder="Phone Number" ref={phoneNamber} onKeyUp={searchBusiness}
                             style={borderR_left} />
                         <i class="phone icon"></i>
                     </div>
+
                     <div class="ui icon input" style={styleDivInput_2For_Select}>
-                        
-                    <Multiselect
+
+                        <Multiselect
                             options={categoriesArr ? categoriesArr : []}
                             isObject={false}
                             ref={listCategory} type="text"
@@ -111,47 +119,12 @@ const BusinessSearch = (props) => {
                             onRemove={searchBusiness}
                             style={borderR_right}
                         />
-                        {/* <input type="text" placeholder="Category" ref={listCategory} onKeyUp={searchBusiness}
-                            style={borderR_right} /> */}
-   
-                    </div>
-                {/* </div> */}
-            </div>
-            {/* <div className="ui form">
-                <div className="two fields">
-                    <div className="field">
-                        <label>Name</label>
-                        <input placeholder="Name" type="text" ref={name} type="text" onKeyUp={searchBusiness} />
-                    </div>
-                    <div className="field">
-                        <label>Address</label>
-                        <input placeholder="Address" type="text" ref={adress} type="text" onKeyUp={searchBusiness} />
-                    </div>
-                </div> */}
-                {/* <div className="field">
-                    <label>Email</label>
-                    <input type="text" placeholder="Email" ref={email} type="text" onKeyUp={searchBusiness} />
-                </div> */}
-                {/* <div className="two fields">
-                    <div className="field">
-                        <label>Phone Number</label>
-                        <input placeholder="Phone Number" type="number" ref={phoneNamber} type="text" onKeyUp={searchBusiness} />
-                    </div> */}
-                    {/* <div className="field">
-                        <label>Category</label>
-                        <Multiselect
-                            options={categoriesArr ? categoriesArr : []}
-                            isObject={false}
-                            ref={listCategory} type="text"
-                            onSelect={searchBusiness}
-                            onRemove={searchBusiness}
-                        /> */}
-                        {/* <input placeholder="category" type="text" ref={listCategory} type="text" onKeyUp={searchBusiness} /> */}
-                    {/* </div> */}
-                {/* </div> */}
 
-            {/* </div> */}
-        </form>}
+                    </div>
+
+                </div>
+               
+            </form>}
 
 
     </>);

@@ -66,17 +66,18 @@ const Buisness = (props) => {
                                 currentUser.lastSearchBusiness.map((item, index) => {
                                     if (index < 10 && item.businessSearch)
                                         return (item.businessSearch && <ListItem>
+
+                                            {/* <p>{item.date}</p> */}
+                                            <ListItemText
+                                                primary={<Business ifAdd="false" business={item.businessSearch} key={index} />}
+                                                secondary={secondary ? 'Secondary text' : null}
+                                            />
                                             <ListItemAvatar>
                                                 <IconButton edge="end" aria-label="delete" onClick={() => DeleteHistoryFunc(index)}>
                                                     <DeleteIcon style={{ "font-size": "1.5em" }} />
                                                 </IconButton>
 
                                             </ListItemAvatar>
-                                            {/* <p>{item.date}</p> */}
-                                            <ListItemText
-                                                primary={<Business ifAdd="false" business={item.businessSearch} key={index} />}
-                                                secondary={secondary ? 'Secondary text' : null}
-                                            />
                                         </ListItem>)
                                 })
                             }

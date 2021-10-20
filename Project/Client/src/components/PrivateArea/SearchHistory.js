@@ -75,16 +75,19 @@ const SearchHistory = (props) => {
         GetCurrentUser().then(data => {
             setCurrentUser(data.data);
         }).catch(() => {
-           
+
         });
 
     }, []);
 
-    
+
     return (<>
         {currentUser ?
             <>
-                <div className={classes.root}>
+                <div className={classes.root} style={{
+                    "margin-top": "-21%",
+                    "margin-left": "-7%"
+                }}>
                     <AppBar position="static" color="default" width="22%">
                         <Tabs
                             value={value}
