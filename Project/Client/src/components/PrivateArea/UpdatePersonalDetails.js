@@ -19,6 +19,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { UpdateUser, GetCurrentUserById, UpdateStatusTask } from '../../util/index';
 import Input from '@mui/material/Input';
+import person from '../search/img/person.png';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -72,10 +73,59 @@ function UpdatePersonalDetails(props) {
 
 
 
+    //img
 
+    const [imsState, setimsState] = useState();
+    const [imsStateToShow, setimsStateToShow] = useState();
 
+    const styleItem = {
+        "padding": "0px",
+        "top": "42px",
+        "margin-left": "40%",
+        "position": "relative"
+        
+    }
+    const styleLable = {
+        "width": "93%",
+        "height": "30%",
+        "margin-top": "-26%"
+    }
+    const styleInputImg = {
+        "border-radius": "50%",
+        "height": "3em",
+        "width": "14%",
+        "margin-left": "3%",
+        "margin-bottom": "18%",
+        "position": "relative"
+    }
+    const styleImg = {
+        "width": "60%",
+        "border-radius": "50%",
+        "height": "13em",
+        "margin-top": "-105%",
+        "z-index": "10"
 
-    const { id,idTask } = useParams();
+    }
+
+    const onchangeImg = (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            setimsState(e.target.files[0]);
+            console.log(e.target.files[0]);
+            setimsStateToShow(e.target.value);
+            e.preventDefault();
+            const reader = new FileReader();
+            const file = e.target.files[0];
+            reader.onloadend = () => {
+                setimsStateToShow(reader.result);
+            }
+            reader.readAsDataURL(file);
+        }
+
+    }
+
+    //img
+
+    const { id, idTask } = useParams();
 
 
     // משתנה לעדכון 
@@ -88,6 +138,7 @@ function UpdatePersonalDetails(props) {
 
 
     // טופס
+    
     const { register, formState: { errors }, handleSubmit } = useForm();
     const firstName = register('firstName', { minLength: { value: 2, message: "Min 2" }, maxLength: { value: 11, message: "Max 11" } })
     const lastName = register('lastName', { minLength: { value: 2, message: "Min 2" }, maxLength: { value: 10, message: "Max 10" } })
@@ -101,13 +152,26 @@ function UpdatePersonalDetails(props) {
     const onSubmit = async data => {
 
         data.ifMessege = data.ifMessege === "" ? currentUser.ifMessege : data.ifMessege;
+
+        let fd = new FormData();
+        fd.append('img', imsState);
+        fd.append('ifMessege', data.ifMessege);
+        fd.append('adress', data.adress);
+        fd.append('lastName', data.lastName);
+        fd.append('firstName', data.firstName);
+        fd.append('phoneNamber', data.phoneNamber);
+        fd.append('password', data.password);
+        fd.append('_id', id ? id : localStorage.getItem("currentUserId"));
+
+
+        
         if (updateUser.firstName === "" || updateUser.lastName === "" || updateUser.adress === "" || updateUser.phoneNamber === "" || updateUser.password === "") {
             settypeAlert("error");
             setmasseg("ALL INPUT IS REQUIRED");
             handleClick();
         }
         else {
-            UpdateUser(id ? id : localStorage.getItem("currentUserId"), data).then(succ => {
+            UpdateUser(fd,id ? id : localStorage.getItem("currentUserId")).then(succ => {
                 if (idTask && id)
                     UpdateStatusTask(idTask, true);
                 settypeAlert("success");
@@ -165,7 +229,7 @@ function UpdatePersonalDetails(props) {
             }).catch(() => {
 
             });
-           
+
 
         }
 
@@ -192,8 +256,27 @@ function UpdatePersonalDetails(props) {
             </Snackbar>
             {/* alerts */}
 
-            { currentUser && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateUser))}>
+            {currentUser && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateUser))}>
+             
                 <Grid container spacing={2}>
+
+                    <Grid item xs={12} sm={4} style={styleItem}>
+
+                        <label htmlFor="photo-upload" className="custom-file-upload fas" style={styleLable}>
+                            <input type="file" className="form-control"
+                                accept="image/png, image/jpeg"
+                                name="image" onChange={(e) => onchangeImg(e)}
+                                style={styleInputImg}
+                            />
+
+                            <img for="photo-upload" style={styleImg} src={imsStateToShow ? imsStateToShow : currentUser.img ? currentUser.img : person} />
+
+                        </label>
+
+                    </Grid>
+
+
+
                     <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
                         <Input
                             autoComplete="fname"

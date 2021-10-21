@@ -64,16 +64,16 @@ const updateUser = async (req, res) => {
         const user = await Users.findOne({ "_id": id });
         if (!user)
             return res.status(404).send("sorry no such user");
-        user.firstName = userBody.firstName || user.firstName;
-        user.lastName = userBody.lastName || user.lastName;
-        user.phoneNamber = userBody.phoneNamber || user.phoneNamber;
-        user.email = userBody.email || user.email;
-        user.adress = userBody.adress || user.adress;
+        user.firstName = userBody.firstName !== "null" && userBody.firstName || user.firstName;
+        user.lastName = userBody.lastName !== "null" && userBody.lastName || user.lastName;
+        user.phoneNamber = userBody.phoneNamber !== "null" && userBody.phoneNamber || user.phoneNamber;
+        user.email = userBody.email !== "null" && userBody.email || user.email;
+        user.adress = userBody.adress!== "null" && userBody.adress || user.adress;
 
         user.img = req.file ? url + '/uploads/' + req.file.filename : user.img;
 
-        user.password = userBody.password || user.password;
-        user.ifMessege = userBody.ifMessege;
+        user.password = userBody.password !== "null" && userBody.password|| user.password;
+        user.ifMessege = userBody.ifMessege!== "null"&&userBody.ifMessege||user.ifMessege;
         await user.save();
         return res.send(user);
     }
@@ -184,7 +184,7 @@ const sendPasswordIfExist = async (req, res) => {
         const user = await Users.findOne({ "email": email });
         if (!user)
             return res.status(404).send("sorry no such user");
-        sendMailFunc(email,"סיסמתך לאתר",`היי ${user.firstName} סיסמתך לאתר היא ${user.password}`);
+        sendMailFunc(email, "סיסמתך לאתר", `היי ${user.firstName} סיסמתך לאתר היא ${user.password}`);
         return res.send().status(200);
     }
     catch{
@@ -193,6 +193,6 @@ const sendPasswordIfExist = async (req, res) => {
 }
 module.exports = {
     getAll, getByPassword, addUser, updateUser, deleteUser, getByPasswordAndMail,
-     addToHistory, addToHistoryBusiness, deleteHistoryUser, deleteHistoryBusiness,
-     sendPasswordIfExist
+    addToHistory, addToHistoryBusiness, deleteHistoryUser, deleteHistoryBusiness,
+    sendPasswordIfExist
 }

@@ -14,6 +14,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { AddBusiness, getAllCategories, SendMail } from '../../util/index';
 import Input from '@mui/material/Input';
+import person from '../search/img/person.png';
+
 const ariaLabel = { 'aria-label': 'description' };
 
 //לא לשכוח
@@ -67,7 +69,6 @@ function AddingBusiness(props) {
     const classes = useStyles();
 
 
-    let Business = new business();
 
 
     //validation
@@ -111,6 +112,58 @@ function AddingBusiness(props) {
 
     // function add buissnes
 
+    //img
+
+    const [imsState, setimsState] = useState();
+    const [imsStateToShow, setimsStateToShow] = useState();
+
+    const styleItem = {
+        "padding": "0px",
+        "top": "42px",
+        "margin-left": "40%",
+        "position": "relative"
+
+    }
+    const styleLable = {
+        "width": "93%",
+        "height": "30%",
+        "margin-top": "-26%"
+    }
+    const styleInputImg = {
+        "border-radius": "50%",
+        "height": "3em",
+        "width": "14%",
+        "margin-left": "3%",
+        "margin-bottom": "18%",
+        "position": "relative"
+    }
+    const styleImg = {
+        "width": "60%",
+        "border-radius": "50%",
+        "height": "13em",
+        "margin-top": "-105%",
+        "z-index": "10"
+
+    }
+
+    const onchangeImg = (e) => {
+
+        if (e.target.files && e.target.files.length > 0) {
+            setimsState(e.target.files[0]);
+            console.log(e.target.files[0]);
+            setimsStateToShow(e.target.value);
+            e.preventDefault();
+            const reader = new FileReader();
+            const file = e.target.files[0];
+            reader.onloadend = () => {
+                setimsStateToShow(reader.result);
+            }
+            reader.readAsDataURL(file);
+        }
+
+    }
+
+    //img
 
 
     //function submit
@@ -120,13 +173,17 @@ function AddingBusiness(props) {
         if (listCategory.current.getSelectedItems().length == 0)
             setIfSelect(true);
         else {
-            Business.phoneNamber = [];
-            Business.phoneNamber.push(data.phone);
-            Business.userId = localStorage.getItem("currentUserId");
-            Business.listCategory = listCategory.current.getSelectedItems();
-            Business.name = data.name;
-            Business.email = data.email;
-            Business.adress = data.adress;
+            let Business = new FormData();
+
+            let arr = [];
+            arr.push(data.phone);
+            Business.append("phoneNamber", arr);
+            Business.append("userId", localStorage.getItem("currentUserId"));
+            Business.append("listCategory", listCategory.current.getSelectedItems());
+            Business.append("name", data.name);
+            Business.append("email", data.email);
+            Business.append("adress", data.adress);
+            Business.append("img", imsState);
             AddBusinessFunc(Business);
         }
     }
@@ -174,7 +231,7 @@ function AddingBusiness(props) {
         }
         SendMail(mail);
     }
-    
+
     // validation password to mail
 
 
@@ -211,8 +268,28 @@ function AddingBusiness(props) {
         {/* alerts */}
 
         {/* form */}
+
         <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
+
+
+                <Grid item xs={12} sm={4} style={styleItem}>
+
+                    <label htmlFor="photo-upload" className="custom-file-upload fas" style={styleLable}>
+                        <input type="file" className="form-control"
+                            accept="image/png, image/jpeg"
+                            name="image" onChange={(e) => onchangeImg(e)}
+                            style={styleInputImg}
+                        />
+
+                        <img for="photo-upload" style={styleImg} src={imsStateToShow ? imsStateToShow : person} />
+
+                    </label>
+
+                </Grid>
+
+
+
                 <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
                     <Input
                         autoComplete="fname"

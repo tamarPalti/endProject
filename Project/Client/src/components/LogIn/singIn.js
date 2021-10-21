@@ -260,7 +260,6 @@ const SingIn = (props) => {
                       onClick={async () => {
                         await GetCurrentUser();
                       }}>
-                  >
                   Sign In
 
                   </ColorButton>
