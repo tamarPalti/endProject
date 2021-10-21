@@ -20,7 +20,7 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { UpDateUser } from '../../util'
 import alex from './img/alex.png';
-import ImageUploading from 'react-images-uploading';
+// import ImageUploading from 'react-images-uploading';
 import person from './img/person.png';
 
 const ariaLabel = { 'aria-label': 'description' };
