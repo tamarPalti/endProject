@@ -1,7 +1,6 @@
 export {
     AddHistory, AddHistoryBusiness, GetCurrentUser, AddUser, DeleteHistoryUsers,
     UpdateUser, GetCurrentUserById, GetCurrentUserByPaaswordAndMail, GetImage, SendPasswordIfExist
-    , UpDateUser
 } from './UtilUser';
 export {
     GetAllBusinessFunc, GetCurrentBuisness, UpdateBuisnessFunc,

@@ -16,7 +16,11 @@ export const GetAllBuisnessOfUser = async () => {
     return axios.get(`http://localhost:4000/business/getListBuisnessByIdUser/${localStorage.getItem("currentUserId")}`);
 }
 export const AddBusiness = async (business) => {
-    return axios.post("http://localhost:4000/business", business);
+    return axios({
+        method: 'post',
+        url: "http://localhost:4000/business",
+        data: business,
+      })
 }
 
 export const GetAllBusinessFunc = async (business) => {

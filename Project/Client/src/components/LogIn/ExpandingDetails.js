@@ -12,13 +12,12 @@ import './SingUp.scss';
 import { Link } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { AddUser, SendMail } from '../../util/index'
+import { AddUser, SendMail, UpdateUser } from '../../util/index'
 import Box from '@mui/material/Box';
 import Input from '@mui/material/Input';
 import { purple } from '@material-ui/core/colors';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import { UpDateUser } from '../../util'
 import alex from './img/alex.png';
 import ImageUploading from 'react-images-uploading';
 import person from './img/person.png';
@@ -108,7 +107,7 @@ function ExpandingDetails(props) {
     fd.append('ifMessege', data.ifMessege);
     fd.append('adress', data.adress);
 
-    UpDateUser(fd, currentUserId).then((succ) => {
+    UpdateUser(fd, currentUserId).then((succ) => {
 
       settypeAlert("success");
       setmasseg("Update Success");
@@ -122,6 +121,22 @@ function ExpandingDetails(props) {
       handleClick();
     })
 
+
+  }
+
+  const onchangeImg = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setimsState(e.target.files[0]);
+      console.log(e.target.files[0]);
+      setimsStateToShow(e.target.value);
+      e.preventDefault();
+      const reader = new FileReader();
+      const file = e.target.files[0];
+      reader.onloadend = () => {
+        setimsStateToShow(reader.result);
+      }
+      reader.readAsDataURL(file);
+    }
 
   }
 
@@ -162,7 +177,8 @@ function ExpandingDetails(props) {
   const styleInputImg = {
     "border-radius": "50%",
     "height": "3em",
-    "width": "21%"
+    "width": "21%",
+    "position": "relative"
   }
   const styleImg = {
     "width": "16em",
@@ -228,22 +244,7 @@ function ExpandingDetails(props) {
             <label htmlFor="photo-upload" className="custom-file-upload fas" style={styleLable}>
               <input type="file" className="form-control"
                 accept="image/png, image/jpeg"
-                name="image" onChange={(e) => {
-
-                  if (e.target.files && e.target.files.length > 0) {
-                    setimsState(e.target.files[0]);
-                    console.log(e.target.files[0]);
-                    setimsStateToShow(e.target.value);
-                    e.preventDefault();
-                    const reader = new FileReader();
-                    const file = e.target.files[0];
-                    reader.onloadend = () => {
-                      setimsStateToShow(reader.result);
-                    }
-                    reader.readAsDataURL(file);
-                  }
-
-                }}
+                name="image" onChange={(e) => onchangeImg(e)}
                 style={styleInputImg}
               />
 

@@ -24,9 +24,9 @@ export const AddUser = async (user) => {
 export const DeleteHistoryUsers = async (index) => {
     return axios.put(`http://localhost:4000/users/deleteHistoryUser/${localStorage.getItem("currentUserId")}&${index}`);
 }
-export const UpdateUser = async (id, user) => {
-    return axios.put(`http://localhost:4000/users/${id}`, user);
-}
+// export const UpdateUser = async (id, user) => {
+//     return axios.put(`http://localhost:4000/users/${id}`, user);
+// }
 
 export const GetCurrentUserByPaaswordAndMail = async (password, mail) => {
     return axios.get(`http://localhost:4000/users/getByPassword/${password}&${mail}`);
@@ -42,7 +42,7 @@ export const SendPasswordIfExist = async (email) => {
 }
 
 
-export const UpDateUser = async (fd,id) => {
+export const UpdateUser = async (fd,id) => {
     return axios({
         method: 'put',
         url: `http://localhost:4000/users/${id}`,

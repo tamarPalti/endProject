@@ -61,6 +61,7 @@ function Alert(props) {
 
 
 function Tasks(props) {
+
     const [currentUser, setCurrentUser] = useState(null);
     const [tasksArr, settasksArr] = useState([]);
 
@@ -91,6 +92,24 @@ function Tasks(props) {
     };
 
     // alerts
+
+
+    const onchangeImg = (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+          setimsState(e.target.files[0]);
+          console.log(e.target.files[0]);
+          setimsStateToShow(e.target.value);
+          e.preventDefault();
+          const reader = new FileReader();
+          const file = e.target.files[0];
+          reader.onloadend = () => {
+            setimsStateToShow(reader.result);
+          }
+          reader.readAsDataURL(file);
+        }
+    
+      }
+
 
     useEffect(() => {
         GetCurrentUser().then(succ => {
