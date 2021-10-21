@@ -13,6 +13,7 @@ import { Multiselect } from "multiselect-react-dropdown";
 import { ChangeUpdateBuisness } from '../../../actions/index';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import Input from '@mui/material/Input';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
-        backgroundColor: '#e860ff'
+        backgroundImage: "linear-gradient(132deg, black 0%, #ff716e 0%, #0b0b2b 80%)"
     },
 }));
 
@@ -157,9 +158,12 @@ function UpdateBuisness(props) {
                 <Alert onClose={handleClose} severity={typeAlert}> {masseg}</Alert>
             </Snackbar>
             {props.updateBuisness && props.updateBuisness._id == props.id && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateBuisness))}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
+<Grid style={{"margin-left": "63%",
+    "width": "153%",
+    "margin-top": "3%",    "position": "absolute"}}>
+                <Grid container spacing={2} >
+                    <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
+                        <Input
                             autoComplete="fname"
                             name="name"
                             variant="outlined"
@@ -175,8 +179,8 @@ function UpdateBuisness(props) {
 
                     </Grid>
 
-                    <Grid item xs={12}>
-                        <TextField
+                    <Grid item xs={12} style={{ "padding": "22px" }}>
+                        <Input
                             variant="outlined"
                             required
                             fullWidth
@@ -191,7 +195,7 @@ function UpdateBuisness(props) {
                         <ErrorMessage errors={errors} name="email" render={({ message }) => <p className="redColor">{message}</p>} />
                         {props.ifExist ? <p className="redColor">This Email Alrady Exist</p> : null}
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
                         <Multiselect
                             onSelect={(e) => setIfSelect(false)}
                             label="Category"
@@ -203,8 +207,8 @@ function UpdateBuisness(props) {
                         />
                         {ifSelect && <p className="redColor">This is required.</p>}
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
+                    <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
+                        <Input
                             variant="outlined"
                             required
                             fullWidth
@@ -221,8 +225,8 @@ function UpdateBuisness(props) {
                     </Grid>
                 </Grid>
                 <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
+                    <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
+                        <Input
                             autoComplete="fname"
                             name="address"
                             variant="outlined"
@@ -245,7 +249,7 @@ function UpdateBuisness(props) {
                     className={classes.submit}>
                     Update
           </Button>
-              
+         </Grid>
             </form>}
         </>
 

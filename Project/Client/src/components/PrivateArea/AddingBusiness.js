@@ -174,7 +174,7 @@ function AddingBusiness(props) {
             setIfSelect(true);
         else {
             let Business = new FormData();
-
+            
             let arr = [];
             arr.push(data.phone);
             Business.append("phoneNamber", arr);

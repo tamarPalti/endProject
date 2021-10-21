@@ -150,7 +150,7 @@ function PersistentDrawerRight(props) {
           { text: 'Sign Up', to: '/SignUp' },
           { text: 'Search Users', to: '/search/users' },
           { text: 'Search Business', to: '/search/business' }, 
-          { text: 'Sign Out', to: "/SignIn", action: () => props.SignOut }, { text: 'Privte Erea', to: "/PrivateArea" }].map((item, index) => (
+          { text: 'Sign Out', to: "/SignIn", action: () => props.SignOut }, { text: 'Privte Erea', to: "/PrivateArea/personalDetiles" }].map((item, index) => (
 
             <Link to={item.to} onClick={item.action&&item.action()}>
 

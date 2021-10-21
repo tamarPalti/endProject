@@ -58,6 +58,13 @@ function ListBuisness(props) {
         });
     }
 
+
+    //style 
+    const styleItem = {
+        "height": "3em", "width": "48%", "padding-top": "56px", "background-color": "#0b0b2b",
+        "color": "white"
+    }
+    const styleText={ "margin-left": "20%", "margin-top": "-19%" }
     useEffect(() => {
 
         GetCurrentBuisnessFunc();
@@ -76,9 +83,12 @@ function ListBuisness(props) {
                             {listBuisness && listBuisness.map((item, index) => {
                                 return (
                                     <>
-                                        <ListItem onClick={() => ChangeUpdateBuisness(item._id)}>
-                                            <ListItemAvatar>
-                                                <IconButton edge="end" >
+                                        <ListItem onClick={() => ChangeUpdateBuisness(item._id)}
+                                            style={styleItem}
+                                        >
+                                            <ListItemAvatar style={{ "margin-left": "-7%" }}>
+                                                <IconButton edge="end"
+                                                    style={{ "margin-top": "-85%" }}>
                                                     <Avatar>
                                                     </Avatar>
                                                 </IconButton>
@@ -86,6 +96,7 @@ function ListBuisness(props) {
                                             <ListItemText
                                                 primary={item.name}
                                                 secondary={secondary ? 'Secondary text' : null}
+                                                style={styleText}
                                             />
                                         </ListItem>
                                         <UpdateBuisness GetAllBuisnessOfUser={GetCurrentBuisnessFunc} id={item._id} /></>
