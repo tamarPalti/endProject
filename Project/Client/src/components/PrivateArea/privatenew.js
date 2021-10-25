@@ -32,7 +32,7 @@ const PrivateNew = (props) => {
             <Grid container spacing={2} style={{
                 "width": "calc(100% + 16px)",
                 "margin": "-8px",
-                "height": "55em"
+                "height": "54.4em"
             }}>
 
                 <Grid item xs={12} sm={4} style={{ "height": "100%" }}>

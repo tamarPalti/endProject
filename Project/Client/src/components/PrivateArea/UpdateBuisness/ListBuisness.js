@@ -99,6 +99,7 @@ function ListBuisness(props) {
                                                 style={styleText}
                                             />
                                         </ListItem>
+                                        <div style={{"height":"9px"}}></div>
                                         <UpdateBuisness GetAllBuisnessOfUser={GetCurrentBuisnessFunc} id={item._id} /></>
 
                                 )

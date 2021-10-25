@@ -45,13 +45,22 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
         backgroundImage: "linear-gradient(132deg, black 0%, #ff716e 0%, #0b0b2b 80%)"
+        // backgroundColor: '#ff716e'
     },
 }));
 
 const styleGrid = {
     "margin-left": "63%",
     "width": "153%",
-    "margin-top": "3%", "position": "relative"
+    "margin-top": "-26.5%",
+    "position": "relative",
+    "background-color": "#f2f2f2",
+    "height": "476px"
+
+    // "margin-left": "63%",
+    // "width": "153%",
+    // "margin-top": "3%", 
+    // "position": "relative"
 }
 const styleForm = { "position": "absolute", "top": "29%" }
 //alerts
@@ -99,10 +108,16 @@ function UpdateBuisness(props) {
     const [imsStateToShow, setimsStateToShow] = useState();
 
     const styleItem = {
-        "padding": "0px",
-        "top": "42px",
-        "margin-left": "40%",
-        "position": "relative"
+        "padding": "9px",
+        "top": "220px",
+        "margin-left": "36%",
+        "position": "relative",
+        "background-color": "#f2f2f2",
+        "height": "224px",
+        // "padding": "0px",
+        // "top": "42px",
+        // "margin-left": "40%",
+        // "position": "relative"
 
     }
     const styleLable = {
@@ -127,7 +142,14 @@ function UpdateBuisness(props) {
         "z-index": "10"
 
     }
-
+    const styleDiv = {
+        "background-color": "rgb(11, 11, 43)",
+        "position": "absolute",
+        "top": "-219px",
+        "width": "758px",
+        "left": "-271px",
+        "height": "23px"
+    }
     const onchangeImg = (e) => {
         if (e.target.files && e.target.files.length > 0) {
             setimsState(e.target.files[0]);
@@ -226,15 +248,14 @@ function UpdateBuisness(props) {
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity={typeAlert}> {masseg}</Alert>
             </Snackbar>
+
             {props.updateBuisness && props.updateBuisness._id == props.id && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateBuisness))}
                 style={styleForm}>
+
                 <Grid style={styleGrid}>
                     <Grid container spacing={2} >
-
-
-
                         <Grid item xs={12} sm={4} style={styleItem}>
-
+                            <div style={styleDiv}></div>
                             <label htmlFor="photo-upload" className="custom-file-upload fas" style={styleLable}>
                                 <input type="file" className="form-control"
                                     accept="image/png, image/jpeg"
@@ -249,23 +270,38 @@ function UpdateBuisness(props) {
                         </Grid>
 
 
-                        <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
-                            <Input
-                                autoComplete="fname"
-                                name="name"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="name"
-                                label="Name"
-                                defaultValue={props.updateBuisness.name}
-                                onKeyUp={(e) => onKeyUp(e, "name")}
-                                {...name}
-                            />
-                            <ErrorMessage errors={errors} name="name" render={({ message }) => <p className="redColor">{message}</p>} />
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
+                                <Input
+                                    autoComplete="fname"
+                                    name="name"
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="name"
+                                    label="Name"
+                                    defaultValue={props.updateBuisness.name}
+                                    onKeyUp={(e) => onKeyUp(e, "name")}
+                                    {...name}
+                                />
+                                <ErrorMessage errors={errors} name="name" render={({ message }) => <p className="redColor">{message}</p>} />
+                            </Grid>
+                            <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
+                                <Input
+                                    autoComplete="fname"
+                                    name="address"
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="address"
+                                    label="Address"
+                                    defaultValue={props.updateBuisness.adress}
+                                    onKeyUp={(e) => onKeyUp(e, "adress")}
+                                    {...adress}
+                                />
+                            </Grid>
 
                         </Grid>
-
                         <Grid item xs={12} style={{ "padding": "22px" }}>
                             <Input
                                 variant="outlined"
@@ -282,52 +318,38 @@ function UpdateBuisness(props) {
                             <ErrorMessage errors={errors} name="email" render={({ message }) => <p className="redColor">{message}</p>} />
                             {props.ifExist ? <p className="redColor">This Email Alrady Exist</p> : null}
                         </Grid>
-                        <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
-                            <Multiselect
-                                onSelect={(e) => setIfSelect(false)}
-                                label="Category"
-                                name="category"
-                                options={categoriesArr ? categoriesArr : []}
-                                isObject={false}
-                                ref={listCategory} type="text"
-                                selectedValues={props.updateBuisness.listCategory}
-                            />
-                            {ifSelect && <p className="redColor">This is required.</p>}
-                        </Grid>
-                        <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
-                            <Input
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="phone"
-                                label="Phone"
-                                name="phone"
-                                autoComplete="phone"
-                                defaultValue={props.updateBuisness.phoneNamber}
-                                onKeyUp={(e) => onKeyUp(e, "phoneNamber")}
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
+                                <Multiselect
+                                    onSelect={(e) => setIfSelect(false)}
+                                    label="Category"
+                                    name="category"
+                                    options={categoriesArr ? categoriesArr : []}
+                                    isObject={false}
+                                    ref={listCategory} type="text"
+                                    selectedValues={props.updateBuisness.listCategory}
+                                />
+                                {ifSelect && <p className="redColor">This is required.</p>}
+                            </Grid>
+                            <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
+                                <Input
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="phone"
+                                    label="Phone"
+                                    name="phone"
+                                    autoComplete="phone"
+                                    defaultValue={props.updateBuisness.phoneNamber}
+                                    onKeyUp={(e) => onKeyUp(e, "phoneNamber")}
 
-                            />
-                            <ErrorMessage errors={errors} name="phone" render={({ message }) => <p className="redColor">{message}</p>} />
+                                />
+                                <ErrorMessage errors={errors} name="phone" render={({ message }) => <p className="redColor">{message}</p>} />
 
+                            </Grid>
                         </Grid>
                     </Grid>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
-                            <Input
-                                autoComplete="fname"
-                                name="address"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="address"
-                                label="Address"
-                                defaultValue={props.updateBuisness.adress}
-                                onKeyUp={(e) => onKeyUp(e, "adress")}
-                                {...adress}
-                            />
-                        </Grid>
 
-                    </Grid>
                     <Button
                         type="submit"
                         fullWidth
