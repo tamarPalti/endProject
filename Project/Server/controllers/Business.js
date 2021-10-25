@@ -40,18 +40,23 @@ const addBusiness = async (req, res) => {
 const updateBusiness = async (req, res) => {
     let businessBody = req.body;
     const id = req.params.id;
+
+    const url = req.protocol + '://' + req.get('host');
+
     try {
         const business = await Business.findOne({ "_id": id });
         if (!business)
             return res.status(404).send("sorry no such business");
-        business.name = businessBody.name || business.name;
-        business.phoneNamber = businessBody.phoneNamber || business.phoneNamber;
-        business.email = businessBody.email || business.email;
-        business.adress = businessBody.adress || business.adress;
-        business.img = businessBody.img || business.img;
-        business.advertising = businessBody.advertising || business.advertising;
-        business.userId = businessBody.userId || business.userId;
-        business.listCategory = businessBody.listCategory || business.listCategory;
+        business.name = businessBody.name !== "null" && businessBody.name || business.name;
+        business.phoneNamber = businessBody.phoneNamber !== "null" && businessBody.phoneNamber || business.phoneNamber;
+        business.email = businessBody.email !== "null" && businessBody.email || business.email;
+        business.adress = businessBody.adress !== "null" && businessBody.adress || business.adress;
+
+        business.img = req.file ? url + '/uploads/' + req.file.filename : business.img;
+
+        business.advertising = businessBody.advertising !== "null" && businessBody.advertising || business.advertising;
+        business.userId = businessBody.userId !== "null" && businessBody.userId || business.userId;
+        business.listCategory = businessBody.listCategory !== "null" && businessBody.listCategory || business.listCategory;
         await business.save();
         return res.send(business);
     }

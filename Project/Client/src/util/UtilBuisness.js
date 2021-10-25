@@ -3,10 +3,12 @@ import axios from 'axios';
 export const GetCurrentBuisness = async (id) => {
     return axios.get(`http://localhost:4000/business/${id}`);
 }
-export const UpdateBuisnessFunc = async (id, data) => {
-    axios.put(`http://localhost:4000/business/${id}`, data).then(succ => {
-        return succ;
-    })
+export const UpdateBuisnessFunc = async (id, business) => {
+    return axios({
+        method: 'put',
+        url: `http://localhost:4000/business/${id}`,
+        data: business,
+    });
 }
 export const DeleteHistoryBusiness = async (index) => {
     return axios.put(`http://localhost:4000/users/deleteHistoryBusiness/${localStorage.getItem("currentUserId")}&${index}`);
@@ -20,7 +22,7 @@ export const AddBusiness = async (business) => {
         method: 'post',
         url: "http://localhost:4000/business",
         data: business,
-      })
+    })
 }
 
 export const GetAllBusinessFunc = async (business) => {
