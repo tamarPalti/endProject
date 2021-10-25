@@ -95,7 +95,7 @@ const Business = (props) => {
                                 AddHistoryBusiness(localStorage.getItem("currentUserId"), props.business._id);
                         }}>
 
-                            <img className="img_ico" src={ico}></img>
+                            <img className="img_ico" src={props.business.img ? props.business.img : ico}></img>
 
                             <p className="display" style={{ "margin-left": "1.5em" }}>&nbsp;</p>
                             <p className="display">{checkName(props.business.name) ? start : end}</p>

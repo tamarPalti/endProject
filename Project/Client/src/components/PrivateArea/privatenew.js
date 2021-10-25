@@ -89,6 +89,7 @@ const PrivateNew = (props) => {
                     </Route>
 
                     <Route path={path + "/AddingBusiness"} >
+                        
                         <AddingBusiness />
                     </Route>
 

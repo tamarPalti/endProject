@@ -21,7 +21,14 @@ import { useRouteMatch, useLocation } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { SignOut } from '../actions';
-
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import GroupsIcon from '@mui/icons-material/Groups';
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -86,7 +93,7 @@ function PersistentDrawerRight(props) {
   const [color, setcolor] = React.useState("#0b0b2b");
 
   React.useEffect(() => {
-    if (pathname == "/SignIn" || pathname == "/SignUp"|| pathname == "/search/business"|| pathname == "/search/users")
+    if (pathname == "/SignIn" || pathname == "/SignUp" || pathname == "/search/business" || pathname == "/search/users")
       setcolor("#ff716e");
     else
       setcolor("#0b0b2b");
@@ -144,22 +151,24 @@ function PersistentDrawerRight(props) {
 
         <Divider />
 
-        <List style={{"line-height": "4.5"}}>
+        <List style={{ "line-height": "4.5" }}>
 
-          {[{ text: 'Sign In', to: "/SignIn" }, 
+          {[{ text: 'Sign In', to: "/SignIn" },
           { text: 'Sign Up', to: '/SignUp' },
           { text: 'Search Users', to: '/search/users' },
-          { text: 'Search Business', to: '/search/business' }, 
+          { text: 'Search Business', to: '/search/business' },
           { text: 'Sign Out', to: "/SignIn", action: () => props.SignOut }, { text: 'Privte Erea', to: "/PrivateArea/personalDetiles" }].map((item, index) => (
 
-            <Link to={item.to} onClick={item.action&&item.action()}>
+            <Link to={item.to} onClick={item.action && item.action()}>
 
               <ListItem button key={item.text} >
 
                 <ListItemIcon >
 
-                  {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-
+                  {index  === 0 ? <LoginIcon /> : index  === 1 ?<GroupAddIcon />
+                  :index  === 2 ? <PersonSearchIcon />:index  === 3?<ApartmentIcon/>
+                  :index  === 4?<LogoutIcon/>:<ManageAccountsIcon/>}
+                 
                 </ListItemIcon>
 
                 <ListItemText primary={item.text} />
