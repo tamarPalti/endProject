@@ -12,8 +12,9 @@ import { ChangeUpdateBuisness } from '../../../actions/index';
 import { connect } from "react-redux";
 import { GetCurrentBuisness, GetAllBuisnessOfUser } from '../../../util/index';
 import UpdateBuisness from './UpdateBuisnes';
-
-
+import MiniUpdate from './MiniUpdate';
+import ico from '../../search/img/person.png';
+import { Image } from 'semantic-ui-react';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -57,14 +58,14 @@ function ListBuisness(props) {
             console.log(error);
         });
     }
-
+    const [ifNone, setifNone] = React.useState(false);
 
     //style 
     const styleItem = {
         "height": "3em", "width": "48%", "padding-top": "56px", "background-color": "#0b0b2b",
         "color": "white"
     }
-    const styleText={ "margin-left": "20%", "margin-top": "-19%" }
+    const styleText = { "margin-left": "20%", "margin-top": "-19%" }
     useEffect(() => {
 
         GetCurrentBuisnessFunc();
@@ -83,15 +84,24 @@ function ListBuisness(props) {
                             {listBuisness && listBuisness.map((item, index) => {
                                 return (
                                     <>
-                                        <ListItem onClick={() => ChangeUpdateBuisness(item._id)}
+                                        <ListItem onClick={() => {
+                                            ChangeUpdateBuisness(item._id)
+
+
+                                        }}
                                             style={styleItem}
                                         >
                                             <ListItemAvatar style={{ "margin-left": "-7%" }}>
-                                                <IconButton edge="end"
-                                                    style={{ "margin-top": "-85%" }}>
-                                                    <Avatar>
-                                                    </Avatar>
-                                                </IconButton>
+                                                {/* <Image size='medium'  src={item.img ? item.img : ico} wrapped /> */}
+                                                <Image
+                                                    style={{
+                                                        "margin-top": "-69%",
+                                                        "margin-left": " 17px",
+                                                        "height": "50px",
+                                                        "width": "50px","border-radius": "28px"
+                                                    }} src={item.img ? item.img : ico}>
+
+                                                </Image>
                                             </ListItemAvatar>
                                             <ListItemText
                                                 primary={item.name}
@@ -99,7 +109,8 @@ function ListBuisness(props) {
                                                 style={styleText}
                                             />
                                         </ListItem>
-                                        <div style={{"height":"9px"}}></div>
+                                        <div style={{ "height": "9px" }}></div>
+                                        {<MiniUpdate item={item} />}
                                         <UpdateBuisness GetAllBuisnessOfUser={GetCurrentBuisnessFunc} id={item._id} /></>
 
                                 )

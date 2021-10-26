@@ -125,7 +125,7 @@ function AddingBusiness(props) {
 
     }
     const styleLable = {
-        "width": "93%",
+        "width": "88.6%",
         "height": "30%",
         "margin-top": "-26%"
     }
