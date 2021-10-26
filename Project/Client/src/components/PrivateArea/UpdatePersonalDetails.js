@@ -99,7 +99,7 @@ function UpdatePersonalDetails(props) {
         "position": "relative"
     }
     const styleImg = {
-        "width": "60%",
+        "width": "59%",
         "border-radius": "50%",
         "height": "13em",
         "margin-top": "-105%",
