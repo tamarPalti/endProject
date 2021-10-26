@@ -128,7 +128,7 @@ const Business = (props) => {
 
                             <div className="img_business">
 
-                                <Image size='medium' style={styleImg} src={ico} wrapped className="place_img" />
+                                <Image size='medium' style={styleImg} src={props.business.img ? props.business.img : ico} wrapped className="place_img" />
 
                             </div>
 
