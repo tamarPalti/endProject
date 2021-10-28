@@ -75,7 +75,7 @@ function AddCategory(props) {
     const onSubmit = async data => {
         AddCategoryFunc(data).then(succ => {
 
-            UpdateStatusTask(idTask,true);
+            // UpdateStatusTask(idTask,true);
             settypeAlert("success");
             setmasseg("Add Success");
             handleClick();

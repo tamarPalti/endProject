@@ -26,6 +26,11 @@ import { setTimeout } from 'timers';
 import UpdateBuisnes from '../PrivateArea/UpdateBuisness/UpdateBuisnes';
 import UpdateBuisnesOfManager from './UpdateBuisnesOfManager';
 import AddCategory from './AddCategory';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import {UpdateStatusTask}from '../../util/index';
+
 const useRowStyles = makeStyles({
     root: {
         '& > *': {
@@ -38,7 +43,21 @@ function Row(props) {
     const { row, action } = props;
     const [open, setOpen] = React.useState(false);
     const classes = useRowStyles();
-
+    // const { idTask } = useParams();
+    const [check, setCheck] = useState(false)
+    onchange = (e,id) => {
+        console.log(e);
+        setCheck(e.target.checked);
+        if(e.target.checked==true)
+        {
+            UpdateStatusTask(id,true);
+        }
+        else
+        {
+            UpdateStatusTask(id,false);
+        }
+        
+      }
     return (
         <React.Fragment>
             <TableRow className={classes.root}>
@@ -48,6 +67,7 @@ function Row(props) {
                 <TableCell align="right">{row.desription}</TableCell>
                 <TableCell align="right">{row.codeUser.firstName}&nbsp;{row.codeUser.lastName}</TableCell>
                 <TableCell align="right">{row.date}</TableCell>
+                <TableCell align="right"> <FormControlLabel control={<Checkbox  onChange={(e)=>onchange(e,row._id)}/>}  label="" /></TableCell>
             </TableRow>
 
         </React.Fragment>
@@ -91,6 +111,7 @@ function TableTasks(props) {
                     typeArr[2] = { id: element._id, action: (mail, idTask) => <button onClick={() => { send(idTask, mail) }} >הוסף משתמש למערכת</button> }
                 else if (element.code == 4)
                     typeArr[3] = { id: element._id, action: (id, idTask) => <Link to={`${url}/updateBuisness/${id}/${idTask}`} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>עדכן עסק</Link> }
+                    
 
             });
 
@@ -117,12 +138,12 @@ function TableTasks(props) {
                 <TableHead>
                     <TableRow>
 
-                        <TableCell align="right"></TableCell>
+                        <TableCell align="right">ביצוע</TableCell>
                         <TableCell align="right">משימה</TableCell>
                         <TableCell align="right">תאור</TableCell>
                         <TableCell align="right">משתמש</TableCell>
                         <TableCell align="right">תאריך</TableCell>
-
+                        <TableCell align="right">סטטוס</TableCell>
 
                     </TableRow>
                 </TableHead>

@@ -97,7 +97,7 @@ function UpdateBuisnesOfManager(props) {
         updateBuisness.listCategory = listCategory.current.getSelectedItems();
 
         UpdateBuisnessFunc(currentBuisness._id, data).then(succ => {
-            UpdateStatusTask(idTask,true);
+            // UpdateStatusTask(idTask,true);
             settypeAlert("success");
             setmasseg("Updating Success");
             handleClick();
