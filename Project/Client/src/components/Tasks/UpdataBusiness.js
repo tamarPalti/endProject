@@ -130,7 +130,7 @@ const UpdataBusiness = (props) => {
         {/* alerts */}
 
 
-        <div>
+        <div style={{ "margin-top": "37%" }}>
             <form noValidate onSubmit={handleSubmit(AddTaskFunc)}>
                 <TextField
                     label="Dense"
