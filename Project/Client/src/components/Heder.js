@@ -108,7 +108,7 @@ function PersistentDrawerRight(props) {
 
   })
   return (<>{
-    pathname!==`/search/users/TasksUpdataUser/${localStorage.getItem("idUserSearch")}`&&
+    pathname!==`/search/users/TasksUpdataUser/${localStorage.getItem("idUserSearch")}`&&pathname!==`/search/business/TasksUpdataBusiness/${localStorage.getItem("idBusinesSearch")}`&&
     <Box sx={{ display: 'flex' }}>
 
       <CssBaseline />
