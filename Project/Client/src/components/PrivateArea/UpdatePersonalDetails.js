@@ -83,7 +83,7 @@ function UpdatePersonalDetails(props) {
         "top": "42px",
         "margin-left": "40%",
         "position": "relative"
-        
+
     }
     const styleLable = {
         "width": "93%",
@@ -92,16 +92,16 @@ function UpdatePersonalDetails(props) {
     }
     const styleInputImg = {
         "border-radius": "50%",
-        "height": "3em",
-        "width": "14%",
+        "height": props.iconH ? props.iconH : "3em",
+        "width": props.iconW ? props.iconW : "14%",
         "margin-left": "3%",
         "margin-bottom": "18%",
         "position": "relative"
     }
     const styleImg = {
-        "width": "59%",
+        "width": props.imgW ? props.imgW : "59%",
         "border-radius": "50%",
-        "height": "13em",
+        "height": props.imgH ? props.imgH : "13em",
         "margin-top": "-105%",
         "z-index": "10"
 
@@ -138,7 +138,7 @@ function UpdatePersonalDetails(props) {
 
 
     // טופס
-    
+
     const { register, formState: { errors }, handleSubmit } = useForm();
     const firstName = register('firstName', { minLength: { value: 2, message: "Min 2" }, maxLength: { value: 11, message: "Max 11" } })
     const lastName = register('lastName', { minLength: { value: 2, message: "Min 2" }, maxLength: { value: 10, message: "Max 10" } })
@@ -164,14 +164,14 @@ function UpdatePersonalDetails(props) {
         fd.append('_id', id ? id : localStorage.getItem("currentUserId"));
 
 
-        
+
         if (updateUser.firstName === "" || updateUser.lastName === "" || updateUser.adress === "" || updateUser.phoneNamber === "" || updateUser.password === "") {
             settypeAlert("error");
             setmasseg("ALL INPUT IS REQUIRED");
             handleClick();
         }
         else {
-            UpdateUser(fd,id ? id : localStorage.getItem("currentUserId")).then(succ => {
+            UpdateUser(fd, id ? id : localStorage.getItem("currentUserId")).then(succ => {
                 // if (idTask && id)
                 //     UpdateStatusTask(idTask, true);
                 settypeAlert("success");
@@ -257,7 +257,7 @@ function UpdatePersonalDetails(props) {
             {/* alerts */}
 
             {currentUser && <form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(updateUser))}>
-             
+
                 <Grid container spacing={2}>
 
                     <Grid item xs={12} sm={4} style={styleItem}>

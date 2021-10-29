@@ -18,6 +18,7 @@ import Input from '@mui/material/Input';
 import { purple } from '@material-ui/core/colors';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import{useHistory}from 'react-router-dom';
+import SendIcon from '@mui/icons-material/Send';
 const ariaLabel = { 'aria-label': 'description' };
 
 const ColorButton = withStyles((theme) => ({
@@ -308,9 +309,14 @@ function BasicDetails(props) {
 
           <Grid item xs={12} sm={2} style={{ "padding": "22px" }}>
 
-            <Button onClick={sendPasswordFunc} variant="outlined" size="small" color="primary" className={classes.margin}>
-              Send
+          <Button onClick={sendPasswordFunc} size="small"   className={classes.margin} variant="contained" endIcon={<SendIcon />}>
+            Send
           </Button>
+
+
+            {/* <Button >
+              Send
+          </Button> */}
 
           </Grid>
 
@@ -350,7 +356,7 @@ function BasicDetails(props) {
           </Grid>
 
           <Grid item xs={12} sm={2} style={{ "padding": "22px" }}>
-            <Button onClick={sendPasswordFunc} variant="outlined" size="small" color="primary" className={classes.margin}>
+            <Button onClick={sendPasswordFunc} variant="contained" size="small"  className={classes.margin} endIcon={<SendIcon />}>
               Send
           </Button>
           </Grid>

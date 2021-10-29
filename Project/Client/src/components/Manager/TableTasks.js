@@ -29,7 +29,8 @@ import AddCategory from './AddCategory';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import {UpdateStatusTask}from '../../util/index';
+import { UpdateStatusTask } from '../../util/index';
+import { Grid } from '@mui/material';
 
 const useRowStyles = makeStyles({
     root: {
@@ -45,19 +46,17 @@ function Row(props) {
     const classes = useRowStyles();
     // const { idTask } = useParams();
     const [check, setCheck] = useState(false)
-    onchange = (e,id) => {
+    onchange = (e, id) => {
         console.log(e);
         setCheck(e.target.checked);
-        if(e.target.checked==true)
-        {
-            UpdateStatusTask(id,true);
+        if (e.target.checked == true) {
+            UpdateStatusTask(id, true);
         }
-        else
-        {
-            UpdateStatusTask(id,false);
+        else {
+            UpdateStatusTask(id, false);
         }
-        
-      }
+
+    }
     return (
         <React.Fragment>
             <TableRow className={classes.root}>
@@ -67,7 +66,7 @@ function Row(props) {
                 <TableCell align="right">{row.desription}</TableCell>
                 <TableCell align="right">{row.codeUser.firstName}&nbsp;{row.codeUser.lastName}</TableCell>
                 <TableCell align="right">{row.date}</TableCell>
-                <TableCell align="right"> <FormControlLabel control={<Checkbox  onChange={(e)=>onchange(e,row._id)}/>}  label="" /></TableCell>
+                <TableCell align="right"> <FormControlLabel control={<Checkbox onChange={(e) => onchange(e, row._id)} />} label="" /></TableCell>
             </TableRow>
 
         </React.Fragment>
@@ -79,7 +78,7 @@ function TableTasks(props) {
     const { idTask } = useParams();
     const [ifTasks, setifTasks] = useState(true);
 
-    const send = (idTask,mail) => {
+    const send = (idTask, mail) => {
         let Email = {
             toUser: mail,
             subject: "הצטרפות לאתר מי מייל",
@@ -111,7 +110,7 @@ function TableTasks(props) {
                     typeArr[2] = { id: element._id, action: (mail, idTask) => <button onClick={() => { send(idTask, mail) }} >הוסף משתמש למערכת</button> }
                 else if (element.code == 4)
                     typeArr[3] = { id: element._id, action: (id, idTask) => <Link to={`${url}/updateBuisness/${id}/${idTask}`} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>עדכן עסק</Link> }
-                    
+
 
             });
 
@@ -133,50 +132,59 @@ function TableTasks(props) {
         });
     }, []);
     return (<>{rows && <>
-        <TableContainer component={Paper}>
-            <Table aria-label="collapsible table">
-                <TableHead>
-                    <TableRow>
 
-                        <TableCell align="right">ביצוע</TableCell>
-                        <TableCell align="right">משימה</TableCell>
-                        <TableCell align="right">תאור</TableCell>
-                        <TableCell align="right">משתמש</TableCell>
-                        <TableCell align="right">תאריך</TableCell>
-                        <TableCell align="right">סטטוס</TableCell>
+        <Grid container spacing={1} style={{ "margin-top": "7%" }}>
+            <Grid item xs={12} sm={6} style={{ "margin-top": "12%", "margin-left": "3%" }}>
+                <Switch>
 
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {typeTask && rows.map((row, index) => (
-                        <Row key={index} row={row} action={typeTask.find(elem => elem.id === row.type._id)
-                            .action(row.otherUser ? row.otherUser._id : row.otherbuisness ? row.otherbuisness._id : row.mail ? row.mail : null
-                                , row._id)} />
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    <Route path={`${path}/updateUser/:id/:idTask`}>
 
-        <Switch>
+                        {ifTasks && <UpdatePersonalDetails iconH="2.5em" iconW="15%" imgW="64%" imgH="11em" />}
+                    </Route>
 
-            <Route path={`${path}/updateUser/:id/:idTask`}>
+                    <Route path={`${path}/addCategory/:idTask`}>
+                        {ifTasks && <AddCategory />}
+                    </Route>
 
-                {ifTasks && <UpdatePersonalDetails />}
-            </Route>
+                    <Route path={`${path}/updateBuisness/:id/:idTask`}>
+                        {ifTasks && <UpdateBuisnesOfManager />}
+                    </Route>
 
-            {/* <Route path={`${path}/sendAddUser/:idTask`}>
-                <div>sendAddUser</div>
-            </Route> */}
+                </Switch>
+            </Grid>
 
-            <Route path={`${path}/addCategory/:idTask`}>
-                {ifTasks && <AddCategory />}
-            </Route>
+            <Grid item xs={12} sm={4} style={{ "margin-left": "4%", "margin-top": "4%", "max-width": "50.333333%" }}>
 
-            <Route path={`${path}/updateBuisness/:id/:idTask`}>
-                {ifTasks && <UpdateBuisnesOfManager />}
-            </Route>
 
-        </Switch>
+
+
+
+
+                <TableContainer component={Paper} >
+                    <Table aria-label="collapsible table">
+                        <TableHead>
+                            <TableRow>
+
+                                <TableCell align="right">ביצוע</TableCell>
+                                <TableCell align="right">משימה</TableCell>
+                                <TableCell align="right">תאור</TableCell>
+                                <TableCell align="right">משתמש</TableCell>
+                                <TableCell align="right">תאריך</TableCell>
+                                <TableCell align="right">סטטוס</TableCell>
+
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {typeTask && rows.map((row, index) => (
+                                <Row key={index} row={row} action={typeTask.find(elem => elem.id === row.type._id)
+                                    .action(row.otherUser ? row.otherUser._id : row.otherbuisness ? row.otherbuisness._id : row.mail ? row.mail : null
+                                        , row._id)} />
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Grid>
+        </Grid>
     </>
     }</>
     );

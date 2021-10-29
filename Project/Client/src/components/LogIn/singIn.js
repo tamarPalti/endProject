@@ -26,16 +26,18 @@ import { SignIn as SignInFunc } from '../../actions/index';
 import Input from '@mui/material/Input';
 import { purple } from '@material-ui/core/colors';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import LinearProgress from '@mui/material/LinearProgress';
+import Stack from '@mui/material/Stack';
 
 const ariaLabel = { 'aria-label': 'description' };
 
 const ColorButton = withStyles((theme) => ({
   root: {
-      color: theme.palette.getContrastText(purple[500]),
-      backgroundColor: purple[500],
-      '&:hover': {
-          backgroundColor: purple[700],
-      },
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: purple[500],
+    '&:hover': {
+      backgroundColor: purple[700],
+    },
   },
 }))(Button);
 
@@ -72,41 +74,45 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
     backgroundColor: '#ff716e'
   },
-   margin: {
+  margin: {
     margin: theme.spacing(1),
   },
 }));
 
-const marginToGrid={
+const marginToGrid = {
   "margin-top": "33px",
   "margin-left": "120px"
 }
-const marginOfInput={
+const marginOfInput = {
   "margin-top": "auto",
   "margin-right": "281px",
   "margin-bottom": "0px",
   "margin-left": "0px"
 }
-const styleBlue={
+const styleBlue = {
   "width": "106em",
   "background-color": "#0b0b2b ",
   "margin-top": "12%",
-  "margin-left":"-4%", 
+  "margin-left": "-4%",
   "height": "2em"
 }
-const styleButton={ 
+const styleButton = {
   "background-color": "#fb7375",
   "border-radius": "0px 0px 0px 0px",
   "width": "20%",
   "margin-left": "75%",
-  "margin-top":" 19.2%",
-  'color':'white'
+  "margin-top": " 19.2%",
+  'color': 'white'
 }
-const styleFoeget={
- "margin-top": "-26px",
+const styleFoeget = {
+  "margin-top": "-26px",
   "margin-right": "-2px",
   "margin-bottom": "-13px",
   "margin-left": "20px",
+}
+const colorLoder = {
+  "background-color": "#fb7375",
+  "color": "#fb7375"
 }
 //alerts
 
@@ -125,6 +131,10 @@ const SingIn = (props) => {
 
   const [ifManager, setifManager] = useState(false);
   const [ifNoGoToLogin, setifNoGoToLogin] = useState(false);
+
+
+
+  const [CircularProgresState, setCircularProgresState] = useState(false);
 
   // alerts
 
@@ -148,137 +158,157 @@ const SingIn = (props) => {
   }, [])
 
   const GetCurrentUser = async () => {
+
+    setCircularProgresState(true);
+
     GetCurrentUserByPaaswordAndMail(password, mail).then(async succ => {
       await props.SignInFunc(succ.data);
       let if404 = await CheckManager(succ.data.email, succ.data.password);
-      if (if404) {
-        setifManager(true);
-      }
-      setifNoGoToLogin(true);
-    }).catch(error => handleClick());
+      setTimeout(() => {
+        if (if404) {
+          setifManager(true);
+        }
+        setifNoGoToLogin(true);
+        setCircularProgresState(false);
+      }, 4000)
+
+
+    }).catch(error => {
+      setCircularProgresState(false);
+      handleClick();
+
+    });
 
 
 
   }
 
-  if (ifNoGoToLogin)
+  if (!CircularProgresState && ifNoGoToLogin)
     return ifManager ? <Redirect to={'/Manager'} /> : <Redirect to={{ pathname: "/Search/users" }} />;
 
   return (
-    <>
+    // CircularProgresState ? <CircularProgress style={{ "width": "40px", "height": "40px", "margin-top": "23%", "margin-left": " 48%" }} /> :
 
-      {/* alerts */}
+    CircularProgresState ? <Stack sx={{ width: '100%', color: 'grey.500' }} style={{ "margin-top": "23%" }} spacing={2}>
+      <LinearProgress style={colorLoder} />
+      <LinearProgress style={colorLoder} />
+      <LinearProgress style={colorLoder} />
+    </Stack> :
 
-      <Snackbar
-        open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">Sing In System</Alert>
-      </Snackbar>
+      <>
 
-      {/* alerts */}
-      <Grid container component="main" className={classes.root}>
+        {/* alerts */}
 
-        <CssBaseline />
+        <Snackbar
+          open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error">Sing In System</Alert>
+        </Snackbar>
 
-        <Grid item xs={12} sm={4} md={7} component={Paper} elevation={6} square >
+        {/* alerts */}
+        <Grid container component="main" className={classes.root}>
 
-          <div className="backrund"></div>
+          <CssBaseline />
 
-          <div className={classes.paper}>
+          <Grid item xs={12} sm={4} md={7} component={Paper} elevation={6} square >
 
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon style={{ "font-size": "2.5rem" }} />
-            </Avatar>
+            <div className="backrund"></div>
 
-            <Typography component="h1" variant="h5">
-              Sign in
+            <div className={classes.paper}>
+
+              <Avatar className={classes.avatar}>
+                <LockOutlinedIcon style={{ "font-size": "2.5rem" }} />
+              </Avatar>
+
+              <Typography component="h1" variant="h5">
+                Sign in
             </Typography>
 
-            <form className={classes.form} noValidate>
+              <form className={classes.form} noValidate>
 
-              <Grid container spacing={2} style={marginToGrid}>
+                <Grid container spacing={2} style={marginToGrid}>
 
-                <Grid item xs={12} sm={8} style={{ "padding": "22px" }}>
+                  <Grid item xs={12} sm={8} style={{ "padding": "22px" }}>
 
-                  <Input placeholder="Email Address"
-                    inputProps={ariaLabel}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
-                    onKeyUp={(e) => mail = e.target.value}
-                  />
+                    <Input placeholder="Email Address"
+                      inputProps={ariaLabel}
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email Address"
+                      name="email"
+                      autoComplete="email"
+                      onKeyUp={(e) => mail = e.target.value}
+                    />
 
-                </Grid>
+                  </Grid>
 
-                <Grid item xs={12} sm={8} style={{ "padding": "22px" }}>
+                  <Grid item xs={12} sm={8} style={{ "padding": "22px" }}>
 
-                  <Input placeholder="Password"
-                    inputProps={ariaLabel}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                    onKeyUp={(e) => password = e.target.value}
+                    <Input placeholder="Password"
+                      inputProps={ariaLabel}
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      autoComplete="current-password"
+                      onKeyUp={(e) => password = e.target.value}
 
-                  />
+                    />
 
-                </Grid> 
-                <Grid container spacing={1}style={styleFoeget}>
+                  </Grid>
+                  <Grid container spacing={1} style={styleFoeget}>
 
-                <Grid item xs={10} sm={3} >
+                    <Grid item xs={10} sm={3} >
 
-                  <Link variant="body2" to="ForgotPassword" style={{"margin-right":"34%"}}>
-                    Forgot password?
+                      <Link variant="body2" to="ForgotPassword" style={{ "margin-right": "34%" }}>
+                        Forgot password?
                   </Link>
 
-                </Grid>
+                    </Grid>
 
-                <Grid item xs={10} sm={7} style={{"margin-left":" 16%"}}>
-                  <Link to="SignUp" style={marginOfInput}>
-                    Don't have an account? Sign Up
+                    <Grid item xs={10} sm={7} style={{ "margin-left": " 16%" }}>
+                      <Link to="SignUp" style={marginOfInput}>
+                        Don't have an account? Sign Up
                 </Link>
 
+                    </Grid>
+                  </Grid>
                 </Grid>
-                </Grid>              
-              </Grid>
-              
-                  <ColorButton
-                      variant="contained"
-                      color="primary"
-                      style={styleButton}
-                      className={classes.margin + " "+classes.submit}
-                      fullWidth
-                      onClick={async () => {
-                        await GetCurrentUser();
-                      }}>
+
+                <ColorButton
+                  variant="contained"
+                  color="primary"
+                  style={styleButton}
+                  className={classes.margin + " " + classes.submit}
+                  fullWidth
+                  onClick={async () => {
+                    await GetCurrentUser();
+                  }}>
                   Sign In
 
                   </ColorButton>
 
-               
 
-            
 
-              <div style={styleBlue}> </div>
 
-            </form>
 
-          </div>
+                <div style={styleBlue}> </div>
+
+              </form>
+
+            </div>
+          </Grid>
+
+          <Grid item xs={12} sm={1} md={5} className={classes.image + " opcityandimg"} />
+
         </Grid>
-
-        <Grid item xs={12} sm={1} md={5} className={classes.image + " opcityandimg"} />
-        
-      </Grid>
-    </>
+      </>
 
 
   );
