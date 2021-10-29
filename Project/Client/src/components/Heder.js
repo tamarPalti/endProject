@@ -17,7 +17,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { useRouteMatch, useLocation } from 'react-router-dom'
+import { useRouteMatch, useLocation , useParams} from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { SignOut } from '../actions';
@@ -88,18 +88,27 @@ function PersistentDrawerRight(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  const {idUser}= useParams();
   const { pathname } = useLocation();
   const [color, setcolor] = React.useState("#0b0b2b");
 
   React.useEffect(() => {
+    console.log(props);
+    console.log(pathname);
     if (pathname == "/SignIn" || pathname == "/SignUp" || pathname == "/search/business" || pathname == "/search/users")
+    { 
       setcolor("#ff716e");
+    }
+   
     else
+    {
       setcolor("#0b0b2b");
+    }
+      
 
   })
-  return (
+  return (<>{
+    pathname!==`/search/users/TasksUpdataUser/${localStorage.getItem("idUserSearch")}`&&
     <Box sx={{ display: 'flex' }}>
 
       <CssBaseline />
@@ -196,6 +205,7 @@ function PersistentDrawerRight(props) {
 
       </Drawer>
     </Box>
+   }</>
   );
 }
 const mapStateToProps = () => {
