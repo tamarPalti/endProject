@@ -170,6 +170,7 @@ const SingIn = (props) => {
         }
         setifNoGoToLogin(true);
         setCircularProgresState(false);
+        window.location.reload();
       }, 4000)
 
 
@@ -289,6 +290,7 @@ const SingIn = (props) => {
                   fullWidth
                   onClick={async () => {
                     await GetCurrentUser();
+                    // setTimeout(() => window.location.reload(),4500); 
                   }}>
                   Sign In
 
