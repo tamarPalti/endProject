@@ -30,7 +30,9 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { UpdateStatusTask } from '../../util/index';
-import { Grid } from '@mui/material';
+import { Grid, Button } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+import ModelCompo from './ModelCompo';
 
 const useRowStyles = makeStyles({
     root: {
@@ -44,8 +46,9 @@ function Row(props) {
     const { row, action } = props;
     const [open, setOpen] = React.useState(false);
     const classes = useRowStyles();
-    // const { idTask } = useParams();
-    const [check, setCheck] = useState(false)
+
+    const [check, setCheck] = useState(false);
+
     onchange = (e, id) => {
         console.log(e);
         setCheck(e.target.checked);
@@ -67,6 +70,7 @@ function Row(props) {
                 <TableCell align="right">{row.codeUser.firstName}&nbsp;{row.codeUser.lastName}</TableCell>
                 <TableCell align="right">{row.date}</TableCell>
                 <TableCell align="right"> <FormControlLabel control={<Checkbox onChange={(e) => onchange(e, row._id)} />} label="" /></TableCell>
+
             </TableRow>
 
         </React.Fragment>
@@ -78,14 +82,23 @@ function TableTasks(props) {
     const { idTask } = useParams();
     const [ifTasks, setifTasks] = useState(true);
 
+    const [nameButton, setNameButton] = useState("שלח בקשה להצטרפות");
+
     const send = (idTask, mail) => {
+
         let Email = {
             toUser: mail,
             subject: "הצטרפות לאתר מי מייל",
             text: `<h1>${"הצטרפות לאתר מי מייל"}</h1>`
             // ,attachments
         }
-        SendMail(Email);
+        SendMail(Email).then(() => {
+
+            setNameButton("נשלח");
+
+        }).catch(() => {
+
+        });
     }
 
 
@@ -103,14 +116,13 @@ function TableTasks(props) {
 
 
                 if (element.code == 1)
-                    typeArr[0] = { id: element._id, action: (id, idTask) => <Link to={`${url}/updateUser/${id}/${idTask}`} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>עדכון משתמש</Link> };
+                    typeArr[0] = { id: element._id, action: (id, idTask) => <ModelCompo button={<Button>עדכן משתמש</Button>} compo={<UpdatePersonalDetails id={id} idTask={idTask} iconH="2.5em" iconMarginLeft="-15%" iconMarginBottom="0%" iconW="21%" imgW="95%" imgH="11em" imgMarginLeft="-15%" />} /> };
                 else if (element.code == 2)
-                    typeArr[1] = { id: element._id, action: (id, idTask) => <Link to={`${url}/addCategory/${idTask}`} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>הוסף קטגוריה</Link> }
+                    typeArr[1] = { id: element._id, action: (id, idTask) => <ModelCompo button={<Button>הוסף קטגוריה</Button>} compo={<AddCategory  idTask={idTask}  />} /> }
                 else if (element.code == 3)
-                    typeArr[2] = { id: element._id, action: (mail, idTask) => <button onClick={() => { send(idTask, mail) }} >הוסף משתמש למערכת</button> }
+                    typeArr[2] = { id: element._id, action: (mail, idTask) =>  <Button onClick={() => { send(idTask, mail) }} >{nameButton}</Button> }
                 else if (element.code == 4)
-                    typeArr[3] = { id: element._id, action: (id, idTask) => <Link to={`${url}/updateBuisness/${id}/${idTask}`} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>עדכן עסק</Link> }
-
+                    typeArr[3] = { id: element._id, action: (id, idTask) => <ModelCompo button={<Button>עדכן עסק</Button>} compo={<UpdateBuisnesOfManager id={id} idTask={idTask} iconH="2.5em" iconMarginLeft="-15%" iconMarginBottom="0%" iconW="21%" imgW="95%" imgH="11em" imgMarginLeft="-15%" />} /> }
 
             });
 
@@ -134,56 +146,33 @@ function TableTasks(props) {
     return (<>{rows && <>
 
         <Grid container spacing={1} style={{ "margin-top": "7%" }}>
-            <Grid item xs={12} sm={6} style={{ "margin-top": "12%", "margin-left": "3%" }}>
-                <Switch>
+      
 
-                    <Route path={`${path}/updateUser/:id/:idTask`}>
+            <TableContainer component={Paper} >
+                <Table aria-label="collapsible table">
+                    <TableHead>
+                        <TableRow>
 
-                        {ifTasks && <UpdatePersonalDetails iconH="2.5em" iconW="15%" imgW="64%" imgH="11em" />}
-                    </Route>
+                            <TableCell align="right">ביצוע</TableCell>
+                            <TableCell align="right">משימה</TableCell>
+                            <TableCell align="right">תאור</TableCell>
+                            <TableCell align="right">משתמש</TableCell>
+                            <TableCell align="right">תאריך</TableCell>
+                            <TableCell align="right">סטטוס</TableCell>
 
-                    <Route path={`${path}/addCategory/:idTask`}>
-                        {ifTasks && <AddCategory />}
-                    </Route>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
 
-                    <Route path={`${path}/updateBuisness/:id/:idTask`}>
-                        {ifTasks && <UpdateBuisnesOfManager />}
-                    </Route>
+                        {typeTask && rows.map((row, index) => (
+                            <Row key={index} row={row} action={typeTask.find(elem => elem.id === row.type._id)
+                                .action(row.otherUser ? row.otherUser._id : row.otherbuisness ? row.otherbuisness._id : row.mail ? row.mail : null
+                                    , row._id)} />
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
 
-                </Switch>
-            </Grid>
-
-            <Grid item xs={12} sm={4} style={{ "margin-left": "4%", "margin-top": "4%", "max-width": "50.333333%" }}>
-
-
-
-
-
-
-                <TableContainer component={Paper} >
-                    <Table aria-label="collapsible table">
-                        <TableHead>
-                            <TableRow>
-
-                                <TableCell align="right">ביצוע</TableCell>
-                                <TableCell align="right">משימה</TableCell>
-                                <TableCell align="right">תאור</TableCell>
-                                <TableCell align="right">משתמש</TableCell>
-                                <TableCell align="right">תאריך</TableCell>
-                                <TableCell align="right">סטטוס</TableCell>
-
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {typeTask && rows.map((row, index) => (
-                                <Row key={index} row={row} action={typeTask.find(elem => elem.id === row.type._id)
-                                    .action(row.otherUser ? row.otherUser._id : row.otherbuisness ? row.otherbuisness._id : row.mail ? row.mail : null
-                                        , row._id)} />
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </Grid>
         </Grid>
     </>
     }</>
