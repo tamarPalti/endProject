@@ -174,7 +174,11 @@ const SingIn = (props) => {
         setifNoGoToLogin(true);
         setCircularProgresState(false);
         window.location.reload();
+<<<<<<< HEAD
       }, 4000)
+=======
+      }, 5000)
+>>>>>>> 00b78117b572c902fe7d78cb873091ffdcdc8ce7
 
 
     }).catch(error => {

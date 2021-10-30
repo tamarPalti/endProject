@@ -412,7 +412,7 @@ function BasicDetails(props) {
           color="primary"
           style={{ "background-color": "#0b0b2b","border-radius": "0px 0px 0px 0px","width": "20%",
           "margin-left": "57%",
-          "margin-top":" -7.2%",
+          "margin-top":" -8.5%",
            'color':'white'}}
           className={classes.margin + " "+classes.submit}
           type="submit"

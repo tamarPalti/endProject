@@ -17,7 +17,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { useRouteMatch, useLocation , useParams} from 'react-router-dom'
+import { useRouteMatch, useLocation, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { SignOut } from '../actions';
@@ -29,6 +29,8 @@ import LoginIcon from '@mui/icons-material/Login';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import { CheckManagerFunc } from '../util';
+
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -88,27 +90,33 @@ function PersistentDrawerRight(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const {idUser}= useParams();
+  const { idUser } = useParams();
   const { pathname } = useLocation();
   const [color, setcolor] = React.useState("#0b0b2b");
 
+
+  const [ifManager, setifManager] = React.useState(false);
+
+  const FuncCheck = async () => {
+    let ifMana=await CheckManagerFunc();
+    setifManager(ifMana);
+
+  }
   React.useEffect(() => {
     console.log(props);
     console.log(pathname);
-    if (pathname == "/SignIn" || pathname == "/SignUp" || pathname == "/search/business" || pathname == "/search/users")
-    { 
+    if (pathname == "/SignIn" || pathname == "/SignUp" || pathname == "/search/business" || pathname == "/search/users") {
       setcolor("#ff716e");
     }
-   
-    else
-    {
+
+    else {
       setcolor("#0b0b2b");
     }
-      
+    FuncCheck();
 
   })
   return (<>{
-    pathname!==`/search/users/TasksUpdataUser/${localStorage.getItem("idUserSearch")}`&&pathname!==`/search/business/TasksUpdataBusiness/${localStorage.getItem("idBusinesSearch")}`&&
+    pathname !== `/search/users/TasksUpdataUser/${localStorage.getItem("idUserSearch")}` && pathname !== `/search/business/TasksUpdataBusiness/${localStorage.getItem("idBusinesSearch")}` &&
     <Box sx={{ display: 'flex' }}>
 
       <CssBaseline />
@@ -161,24 +169,28 @@ function PersistentDrawerRight(props) {
         <Divider />
 
         <List style={{ "line-height": "4.5" }}>
-      
+
 
           {[{ text: 'Sign In', to: "/SignIn" },
           { text: 'Sign Up', to: '/SignUp' },
           { text: 'Search Users', to: '/search/users' },
           { text: 'Search Business', to: '/search/business' },
-          { text: 'Sign Out', to: "/SignIn", action: () => props.SignOut }, { text: 'Privte Erea', to: "/PrivateArea/personalDetiles" }].map((item, index) => (
+          { text: 'Sign Out', to: "/SignIn", action: () => props.SignOut },
+          { text: 'Privte Erea', to: "/PrivateArea/personalDetiles" },
+          { text: 'Manager', to: "/Manager" }].map((item, index) => (
 
+            (index == 6 && ifManager || index < 6) &&
             <Link to={item.to} onClick={item.action && item.action()}>
 
-              <ListItem button key={item.text} onClick={() => { setTimeout(() => window.location.reload(), 10) }}onClick={() => { setTimeout(() => window.location.reload(), 10) }}>
+              <ListItem button key={item.text} onClick={() => { setTimeout(() => window.location.reload(), 10) }} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>
 
                 <ListItemIcon >
 
-                  {index  === 0 ? <LoginIcon /> : index  === 1 ?<GroupAddIcon />
-                  :index  === 2 ? <PersonSearchIcon />:index  === 3?<ApartmentIcon/>
-                  :index  === 4?<LogoutIcon/>:<ManageAccountsIcon/>}
-                 
+                  {index === 0 ? <LoginIcon /> : index === 1 ? <GroupAddIcon />
+                    : index === 2 ? <PersonSearchIcon /> : index === 3 ? <ApartmentIcon />
+                      : index === 4 ? <LogoutIcon /> : index === 5 ? <ManageAccountsIcon /> : <ManageAccountsIcon />}
+
+
                 </ListItemIcon>
 
                 <ListItemText primary={item.text} />
@@ -206,7 +218,7 @@ function PersistentDrawerRight(props) {
 
       </Drawer>
     </Box>
-   }</>
+  }</>
   );
 }
 const mapStateToProps = () => {
