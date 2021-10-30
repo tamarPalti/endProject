@@ -42,6 +42,7 @@ const Business = (props) => {
     const styleImg = {
         "display": "block", "max-width": "100%", "height": "7em", "width": "100%", "position": "relative", "top": "3em", "left": "-3em"
     }
+    
     const styleIconExport = { "margin-left": "3em", "color": "white" }
    
     //styles

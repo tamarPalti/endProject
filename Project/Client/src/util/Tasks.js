@@ -12,6 +12,7 @@ export const UpdateStatusTask = async (id, status) => {
         return succ;
     })
 }
+
 export const GetTaskById = async (id) => {
     return axios.get(`http://localhost:4000/tasks/getTaskById/${id}`);
 }

@@ -13,7 +13,8 @@ import { Multiselect } from "multiselect-react-dropdown";
 import { ChangeUpdateBuisness } from '../../actions/index';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         height: '100vh',

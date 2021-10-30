@@ -8,7 +8,7 @@ import business from '../../components/classes/business'
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
 import { Redirect } from 'react-router-dom';
-import { getAllCategories, AddCategory as AddCategoryFunc,UpdateStatusTask } from '../../util/index';
+import { getAllCategories, AddCategory as AddCategoryFunc, UpdateStatusTask } from '../../util/index';
 import { Multiselect } from "multiselect-react-dropdown";
 import { ChangeUpdateBuisness } from '../../actions/index';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -60,7 +60,7 @@ function Alert(props) {
 function AddCategory(props) {
     // const { idTask } = useParams();
 
-    const idTask=props.idTask;
+    const idTask = props.idTask;
     // עיצוב
     const classes = useStyles();
 
@@ -166,7 +166,9 @@ function AddCategory(props) {
                     fullWidth
                     variant="contained"
                     color="primary"
-                    className={classes.submit}>
+                    className={classes.submit}
+                     style={{ backgroundImage: "linear-gradient(132deg, black 0%, #ff716e 0%, #0b0b2b 80%)" }}>
+                   
                     Add
                 </Button>
 

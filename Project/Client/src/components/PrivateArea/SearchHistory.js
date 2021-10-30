@@ -89,6 +89,7 @@ const SearchHistory = (props) => {
                     "margin-left": "-7%"
                 }}>
                     <AppBar position="static" color="default" width="22%">
+
                         <Tabs
                             value={value}
                             onChange={handleChange}
@@ -98,12 +99,17 @@ const SearchHistory = (props) => {
                             scrollButtons="auto"
                             aria-label="scrollable auto tabs example"
                         >
+
                             <Tab label="Users"  {...a11yProps(0)} />
                             <Tab label="Business" {...a11yProps(1)} />
+
                         </Tabs>
+
                     </AppBar>
+
                     <TabPanel value={value} index={0}><Users /></TabPanel>
                     <TabPanel value={value} index={1}><Buisness /></TabPanel>
+                    
                 </div>
             </>
             : null}
