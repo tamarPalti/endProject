@@ -118,6 +118,8 @@ const BusinessSearch = (props) => {
                             onSelect={searchBusiness}
                             onRemove={searchBusiness}
                             style={borderR_right}
+                               
+                               
                         />
 
                     </div>
