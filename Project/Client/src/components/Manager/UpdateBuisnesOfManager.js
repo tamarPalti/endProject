@@ -8,7 +8,7 @@ import business from '../../components/classes/business'
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
 import { Redirect } from 'react-router-dom';
-import { getAllCategories, UpdateBuisnessFunc, GetCurrentBuisness,UpdateStatusTask } from '../../util/index';
+import { getAllCategories, UpdateBuisnessFunc, GetCurrentBuisness, UpdateStatusTask } from '../../util/index';
 import { Multiselect } from "multiselect-react-dropdown";
 import { ChangeUpdateBuisness } from '../../actions/index';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -70,8 +70,9 @@ function UpdateBuisnesOfManager(props) {
     const [categoriesArr, setCategoriesArr] = useState([]);
     const [ifSelect, setIfSelect] = useState(false);
 
-    const { id,idTask } = useParams();
-
+    // const { id,idTask } = useParams();
+    const id = props.id;
+    const idTask = props.idTask;
 
     // משתנה לעדכון 
     let updateBuisness = new business();
@@ -97,7 +98,7 @@ function UpdateBuisnesOfManager(props) {
         updateBuisness.listCategory = listCategory.current.getSelectedItems();
 
         UpdateBuisnessFunc(currentBuisness._id, data).then(succ => {
-            // UpdateStatusTask(idTask,true);
+            UpdateStatusTask(idTask,true);
             settypeAlert("success");
             setmasseg("Updating Success");
             handleClick();

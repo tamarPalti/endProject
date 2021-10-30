@@ -94,8 +94,8 @@ function UpdatePersonalDetails(props) {
         "border-radius": "50%",
         "height": props.iconH ? props.iconH : "3em",
         "width": props.iconW ? props.iconW : "14%",
-        "margin-left": "3%",
-        "margin-bottom": "18%",
+        "margin-left": props.iconMarginLeft ? props.iconMarginLeft : "3%",
+        "margin-bottom": props.iconMarginBottom ? props.iconMarginBottom : "18%",
         "position": "relative"
     }
     const styleImg = {
@@ -103,7 +103,8 @@ function UpdatePersonalDetails(props) {
         "border-radius": "50%",
         "height": props.imgH ? props.imgH : "13em",
         "margin-top": "-105%",
-        "z-index": "10"
+        "z-index": "10",
+        "margin-left": props.imgMarginLeft
 
     }
 
@@ -125,8 +126,10 @@ function UpdatePersonalDetails(props) {
 
     //img
 
-    const { id, idTask } = useParams();
+    // const { id, idTask } = useParams();
 
+    const id = props.id;
+    const idTask = props.idTask;
 
     // משתנה לעדכון 
     let updateUser = new user();
@@ -172,8 +175,8 @@ function UpdatePersonalDetails(props) {
         }
         else {
             UpdateUser(fd, id ? id : localStorage.getItem("currentUserId")).then(succ => {
-                // if (idTask && id)
-                //     UpdateStatusTask(idTask, true);
+                if (idTask && id)
+                    UpdateStatusTask(idTask, true);
                 settypeAlert("success");
                 setmasseg("Updating Success");
                 handleClick();

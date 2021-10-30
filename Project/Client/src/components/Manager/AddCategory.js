@@ -58,7 +58,9 @@ function Alert(props) {
 
 
 function AddCategory(props) {
-    const { idTask } = useParams();
+    // const { idTask } = useParams();
+
+    const idTask=props.idTask;
     // עיצוב
     const classes = useStyles();
 
