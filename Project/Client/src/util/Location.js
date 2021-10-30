@@ -9,7 +9,7 @@ export const FromAddress = (address) => {
 
 export const SortllBusiness = async (allBusiness, saveall) => {
 
-  Geocode.setApiKey("AIzaSyDeHECUdYGEUUu_2Laqle6o2ZOq8KM1LJo");
+  Geocode.setApiKey("AIzaSyC42dZGLkeXWn1ofLJhRrWcVBxFY1-tf2Q");
 
   const places = [];
   let place = {};
@@ -21,7 +21,7 @@ export const SortllBusiness = async (allBusiness, saveall) => {
     place = arr;
 
 
-    await FromAddress("רמז 53 הרצליה").then(succ => loc = succ);
+    // await FromAddress("").then(succ => loc = succ);
 
 
     for (let index = 0; index < allBusiness.length; index++) {
