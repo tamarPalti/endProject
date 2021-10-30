@@ -108,7 +108,7 @@ function PersistentDrawerRight(props) {
 
   })
   return (<>{
-    pathname!==`/search/users/TasksUpdataUser/${localStorage.getItem("idUserSearch")}`&&
+    pathname!==`/search/users/TasksUpdataUser/${localStorage.getItem("idUserSearch")}`&&pathname!==`/search/business/TasksUpdataBusiness/${localStorage.getItem("idBusinesSearch")}`&&
     <Box sx={{ display: 'flex' }}>
 
       <CssBaseline />
@@ -161,6 +161,7 @@ function PersistentDrawerRight(props) {
         <Divider />
 
         <List style={{ "line-height": "4.5" }}>
+      
 
           {[{ text: 'Sign In', to: "/SignIn" },
           { text: 'Sign Up', to: '/SignUp' },
@@ -170,7 +171,7 @@ function PersistentDrawerRight(props) {
 
             <Link to={item.to} onClick={item.action && item.action()}>
 
-              <ListItem button key={item.text} >
+              <ListItem button key={item.text} onClick={() => { setTimeout(() => window.location.reload(), 10) }}onClick={() => { setTimeout(() => window.location.reload(), 10) }}>
 
                 <ListItemIcon >
 
