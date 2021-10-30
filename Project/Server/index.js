@@ -7,6 +7,7 @@ const business = require("./routes/Business");
 const categories = require("./routes/Category");
 const tasks = require("./routes/Tasks");
 const mails = require("./routes/Mail");
+const SMS = require("./routes/SMS");
 
 
 
@@ -25,6 +26,7 @@ app.use("/business", business);
 app.use("/categories", categories);
 app.use("/tasks", tasks);
 app.use("/sendMail", mails);
+app.use("/SMS", SMS);
 
 app.listen("4000", () => {
     console.log("listening on port 4000");
