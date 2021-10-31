@@ -175,8 +175,8 @@ function UpdatePersonalDetails(props) {
         }
         else {
             UpdateUser(fd, id ? id : localStorage.getItem("currentUserId")).then(succ => {
-                if (idTask && id)
-                    UpdateStatusTask(idTask, true);
+                // if (idTask && id)
+                //     UpdateStatusTask(idTask, true);
                 settypeAlert("success");
                 setmasseg("Updating Success");
                 handleClick();
@@ -294,11 +294,6 @@ function UpdatePersonalDetails(props) {
                             {...firstName}
                         // onLoad={() => updateUser.firstName = currentUser.firstName}
                         />
-
-
-
-
-
                         <p></p>
                         <ErrorMessage errors={errors} name="firstName" render={({ message }) => <p className="redColor">{message}</p>} />
 

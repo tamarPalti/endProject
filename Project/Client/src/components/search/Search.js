@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 const Search = (props) => {
 
     const [value, setValue] = useState('two');
+    const [CircularProgresState, setCircularProgresState] = useState(false);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -97,7 +98,7 @@ const Search = (props) => {
 
                     <Route path="/search/business">
 
-                        <ResultSearchBusiness />
+                        <ResultSearchBusiness CircularProgresState={CircularProgresState} />
 
                     </Route>
                 </Grid>
@@ -131,7 +132,7 @@ const Search = (props) => {
                         </Route>
 
                         <Route path="/search/business">
-                            <>    <BusinessSearch /></>
+                            <>    <BusinessSearch setCircularProgresState={setCircularProgresState} /></>
                         </Route>
                     </div>
                 </Grid>

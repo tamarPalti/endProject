@@ -9,7 +9,7 @@ import { AddHistoryBusiness } from '../../util/index';
 import { FromAddress } from '../../util/index'
 import MyLocation from "./MyLocation";
 import UpdataBusiness from '../Tasks/UpdataBusiness'
-
+import RoomIcon from '@mui/icons-material/Room';
 
 const Business = (props) => {
 
@@ -19,7 +19,7 @@ const Business = (props) => {
 
     const [Cenetr, SetCenetr] = useState(null);
     const [Txt, SetTxt] = useState(null);
-    const [Zoom, SetZoom] = useState(20);
+    const [Zoom, SetZoom] = useState(15);
 
 
 
@@ -64,6 +64,7 @@ const Business = (props) => {
             console.log(response.results[0]);
 
             SetCenetr({ lat: lat, lng: lng });
+            // SetTxt(RoomIcon);
             SetTxt(response.results[0].address_components[0].long_name);
 
         }).catch(error => {
@@ -168,7 +169,7 @@ const Business = (props) => {
 
                     </h2>
 
-                    {Cenetr && Zoom && Txt && <MyLocation center={Cenetr} zoom={Zoom} txt={Txt} />}
+                    {Cenetr && Zoom && Txt && <MyLocation center={Cenetr} zoom={Zoom} txt={Txt} icon={RoomIcon}/>}
              
                 </Modal>
             </List.Content>
