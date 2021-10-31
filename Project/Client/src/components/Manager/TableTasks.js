@@ -33,6 +33,7 @@ import { UpdateStatusTask } from '../../util/index';
 import { Grid, Button } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import ModelCompo from './ModelCompo';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const useRowStyles = makeStyles({
     root: {
@@ -101,7 +102,11 @@ function TableTasks(props) {
         });
     }
 
-
+   const styleB={
+    "position": "absolute",
+    "top": "118px",
+    "left": "21px"
+   }
     const [rows, setRows] = useState([]);
     const [typeTask, setTypeTask] = useState([]);
 
@@ -143,7 +148,11 @@ function TableTasks(props) {
 
         });
     }, []);
-    return (<>{rows && <>
+    return (<>
+    <Button variant="outlined" startIcon={<DeleteIcon />}style={styleB} onClick={()=>{window.location.reload()}}>
+        Delete
+      </Button>
+    {rows && <>
 
         <Grid container spacing={1} style={{ "margin-top": "7%" }}>
       
