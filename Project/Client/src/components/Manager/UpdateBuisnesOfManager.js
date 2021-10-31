@@ -143,7 +143,18 @@ function UpdateBuisnesOfManager(props) {
 
         updateBuisness.listCategory = listCategory.current.getSelectedItems();
 
-        UpdateBuisnessFunc(currentBuisness._id, data).then(succ => {
+
+        let fd = new FormData();
+        fd.append('img', imsState);
+        fd.append('adress', data.adress);
+        fd.append('name', data.name);
+        fd.append('email', data.email);
+        fd.append('phoneNamber', data.phoneNamber);
+        fd.append('_id', currentBuisness._id);
+
+
+
+        UpdateBuisnessFunc(currentBuisness._id, fd).then(succ => {
             // UpdateStatusTask(idTask, true);
             settypeAlert("success");
             setmasseg("Updating Success");
