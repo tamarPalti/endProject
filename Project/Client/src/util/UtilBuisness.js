@@ -28,3 +28,7 @@ export const AddBusiness = async (business) => {
 export const GetAllBusinessFunc = async (business) => {
     return axios.get("http://localhost:4000/business");
 }
+
+export const deleteBuisness = async (id) => {
+    return axios.delete(`http://localhost:4000/business/${id}`);
+}

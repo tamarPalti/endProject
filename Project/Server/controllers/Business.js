@@ -74,11 +74,13 @@ const updateBusiness = async (req, res) => {
 
 }
 const deleteBusiness = async (req, res) => {
-    const id = req.params.id;
+    const { id } = req.params;
     try {
         const business = await Business.findOneAndDelete({ "_id": id });
+
         if (!business)
             return res.status(404).send("sorry no such user");
+
         return res.send(business).status();
     }
     catch{

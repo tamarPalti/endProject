@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 const styleGrid = {
     "margin-left": "63%",
     "width": "153%",
-    "margin-top": "-26.5%",
+    "margin-top": "12.5%",
     "position": "relative",
     "background-color": "#f2f2f2",
     "height": "476px"
@@ -263,7 +263,7 @@ function UpdateBuisness(props) {
                                     style={styleInputImg}
                                 />
 
-                                <img for="photo-upload" style={styleImg} src={imsStateToShow ? imsStateToShow : props.updateBuisness.img ? props.updateBuisness.img : person} />
+                                <img for="photo-upload" style={styleImg} src={imsStateToShow ? imsStateToShow : props.updateBuisness.img&&props.updateBuisness.img!=="undefined" ? props.updateBuisness.img : person} />
 
                             </label>
 

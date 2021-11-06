@@ -15,6 +15,7 @@ import ResultSearchUser from './ResultSearchUser';
 import ResultSearchBusiness from './ResultSearchBusiness';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -55,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
 const Search = (props) => {
 
     const [value, setValue] = useState('two');
-    const [CircularProgresState, setCircularProgresState] = useState(false);
+    const [CircularProgresState, setCircularProgresState] = useState(true);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -72,8 +73,8 @@ const Search = (props) => {
         history.push(path);
     }
 
-    const styleTab1 = { "font-weight": "bold", "font-size": "16px", "margin-right": "6px" ,"color":"rgb(11, 11, 43)" }
-    const styleTab2 = { "font-weight": "bold", "font-size": "16px"  ,"color":"rgb(11, 11, 43)"}
+    const styleTab1 = { "font-weight": "bold", "font-size": "16px", "margin-right": "6px", "color": "rgb(11, 11, 43)" }
+    const styleTab2 = { "font-weight": "bold", "font-size": "16px", "color": "rgb(11, 11, 43)" }
     const styleTabs = { "width": "100em", "margin-left": "-31%" }
     const styleBox = { "margin-top": "175px", "margin-left": "760px" }
 
@@ -81,6 +82,11 @@ const Search = (props) => {
 
     const divSearch = { "width": "71%", "margin-left": "45%", "margin-top": "2%" }
 
+    const setCircularProgresStateFunc=(val)=>{
+        setTimeout(() => {
+            setCircularProgresState(val);
+        }, 5000);
+    }
     useEffect(() => {
 
     }, []);
@@ -98,7 +104,9 @@ const Search = (props) => {
 
                     <Route path="/search/business">
 
-                        <ResultSearchBusiness CircularProgresState={CircularProgresState} />
+                        {CircularProgresState ? <Box sx={{ display: 'flex' }} style={{ "margin-top": "60%", "margin-left": "45%" }}>
+                            <CircularProgress />
+                        </Box> : <ResultSearchBusiness />}
 
                     </Route>
                 </Grid>
@@ -110,7 +118,7 @@ const Search = (props) => {
                         <Tabs
                             value={value}
                             onChange={handleChange}
- 
+
                             aria-label="secondary tabs example"
                             style={styleTabs}
                             TabIndicatorProps={{
@@ -132,7 +140,7 @@ const Search = (props) => {
                         </Route>
 
                         <Route path="/search/business">
-                            <>    <BusinessSearch setCircularProgresState={setCircularProgresState} /></>
+                            <>    <BusinessSearch setCircularProgresStateFunc={setCircularProgresStateFunc} /></>
                         </Route>
                     </div>
                 </Grid>

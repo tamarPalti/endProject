@@ -18,7 +18,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 const colorLoder = {
     "background-color": "#fb7375",
     "color": "#fb7375"
-  }
+}
 const ResultSearchBusiness = (props) => {
 
     // const [CircularProgresState, setCircularProgresState] = useState(false);
@@ -27,31 +27,30 @@ const ResultSearchBusiness = (props) => {
     const styleListItem = { "height": "35%", "border-bottom-style": "groove", "max-width": "max-width: 100%" }
 
     useEffect(() => {
-       
+
     }, [props.BusinessSearch]);
 
-    return (props.CircularProgresState ?  <Box sx={{ display: 'flex' }}style={{ "margin-top": "60%" , "margin-left": "45%"}}>
-              <CircularProgress />
-         </Box> :<>
+    return (
+ <>
 
-        {
-            <Box sx={{ width: '100%', height: 250, bgcolor: 'background.paper' }}>
+                {
+                    <Box sx={{ width: '100%', height: 250, bgcolor: 'background.paper' }}>
 
-                {props.BusinessSearch && props.BusinessSearch.map((item,index) => {
-                    return (
+                        {props.BusinessSearch && props.BusinessSearch.map((item, index) => {
+                            return (
 
-                        <ListItem key={index} component="div" disablePadding style={styleListItem}>
-                            <ListItemButton style={{ "height": "100%" }}>
-                                <Business ifAdd="true" key={item._id} business={item} />
-                            </ListItemButton>
-                        </ListItem>
+                                <ListItem key={index} component="div" disablePadding style={styleListItem}>
+                                    <ListItemButton style={{ "height": "100%" }}>
+                                        <Business ifAdd="true" key={item._id} business={item} />
+                                    </ListItemButton>
+                                </ListItem>
 
-                    );
-                })}
-                
-            </Box>}
+                            );
+                        })}
 
-    </>);
+                    </Box>}
+
+            </>);
 }
 const mapStateToProps = (state) => {
 

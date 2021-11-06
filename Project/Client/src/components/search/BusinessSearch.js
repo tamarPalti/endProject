@@ -21,7 +21,7 @@ const BusinessSearch = (props) => {
     let listCategory = useRef();
     const [categoriesArr, setCategoriesArr] = useState([]);
 
-    
+
 
     const [countBusiness, setCountBusiness] = useState();
     const [ifSorted, setifSorted] = useState(false);
@@ -64,7 +64,7 @@ const BusinessSearch = (props) => {
     //styles
 
     useEffect(() => {
-        props.setCircularProgresState(true);
+        // props.setCircularProgresStateFunc(true);
         getAllCategories().then(scss => {
             let arrName = scss.data.map((data) => data.name);
             setCategoriesArr(arrName);
@@ -72,13 +72,11 @@ const BusinessSearch = (props) => {
 
 
         if (!ifSorted && props.AllBusiness && props.AllBusiness.length != 0) {
-           
+
             setifSorted(true);
-            SortllBusiness(props.AllBusiness, props.SaveAllBusiness)
-            setTimeout(() => {          
-                props.setCircularProgresState(false);
-              },5000)
- 
+            SortllBusiness(props.AllBusiness, props.SaveAllBusiness);
+            props.setCircularProgresStateFunc(false);
+
         }
 
     }, [props.AllBusiness]);
@@ -125,14 +123,14 @@ const BusinessSearch = (props) => {
                             onSelect={searchBusiness}
                             onRemove={searchBusiness}
                             style={borderR_right}
-                               
-                               
+
+
                         />
 
                     </div>
 
                 </div>
-               
+
             </form>}
 
 

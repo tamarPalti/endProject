@@ -39,6 +39,6 @@ route.get("/getListBuisnessByIdUser/:id",businessController.getListBuisnessByIdU
 
 route.post("/",upload.single('img'),businessController.addBusiness);
 
-route.put("/:id",upload.single('img'),businessController.updateBusiness);
+route.  put("/:id",upload.single('img'),businessController.updateBusiness);
 route.delete("/:id",businessController.deleteBusiness);
 module.exports=route;
