@@ -65,7 +65,7 @@ const Users = (props) => {
                         <List>
                             {
                                 currentUser.lastSearchUsers.map((item, index) => {
-                                    if (index < 10 && item.userSearch)
+                                    if (index < 7 && item.userSearch)
                                         return (<ListItem style={{ "margin-right": "50%" }}>
 
                                             {/* <p>{item.date}</p> */}

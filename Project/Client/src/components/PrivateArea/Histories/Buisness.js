@@ -64,7 +64,7 @@ const Buisness = (props) => {
                         <List>
                             {
                                 currentUser.lastSearchBusiness.map((item, index) => {
-                                    if (index < 10 && item.businessSearch)
+                                    if (index < 7 && item.businessSearch)
                                         return (item.businessSearch && <ListItem>
 
                                             {/* <p>{item.date}</p> */}

@@ -4,7 +4,7 @@ export {
 } from './UtilUser';
 export {
     GetAllBusinessFunc, GetCurrentBuisness, UpdateBuisnessFunc,
-    DeleteHistoryBusiness, GetAllBuisnessOfUser, AddBusiness
+    DeleteHistoryBusiness, GetAllBuisnessOfUser, AddBusiness,deleteBuisness
 } from './UtilBuisness';
 export { getAllCategories, AddCategory } from './UtilCategory';
 export { GetAllTask, GetAllTypeTsks, UpdateStatusTask, GetTaskById, AddTask, GetTaskByUserId } from './Tasks';

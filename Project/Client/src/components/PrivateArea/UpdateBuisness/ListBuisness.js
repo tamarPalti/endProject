@@ -10,11 +10,13 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { ChangeUpdateBuisness } from '../../../actions/index';
 import { connect } from "react-redux";
-import { GetCurrentBuisness, GetAllBuisnessOfUser } from '../../../util/index';
+import { GetCurrentBuisness, GetAllBuisnessOfUser,deleteBuisness } from '../../../util/index';
 import UpdateBuisness from './UpdateBuisnes';
 import MiniUpdate from './MiniUpdate';
 import ico from '../../search/img/person.png';
 import { Image } from 'semantic-ui-react';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { Button, Header, Icon, Modal } from 'semantic-ui-react'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,6 +33,39 @@ const useStyles = makeStyles((theme) => ({
 
 
 function ListBuisness(props) {
+
+    //#region Modal
+    const [open, setOpen] = React.useState(false);
+
+    const concelationDelete = () => {
+        setOpen(false);
+    }
+    const deleteBuisnessFunc = (id) => {
+
+        deleteBuisness(id).then(()=>{
+            GetCurrentBuisnessFunc();
+
+        });
+        setOpen(false);
+    }
+
+
+    const styleDivContent = { "margin-top": "0", "border-top-right-radius": 0, "border-top-left-radius": 0 }
+    const styleDivW = { "position": "relative", "top": "27%" }
+    const styleAction = { "height": "3em", "margin-top": "10%" }
+    const styleIconUser = { "margin-left": "-2em", "color": "white" }
+    const styleP = { "color": "white", "padding-top": "5%" }
+    const styleIconExport = { "margin-left": "3em", "color": "white" }
+
+    //#endregion
+
+
+
+
+
+
+
+
     const classes = useStyles();
     const [secondary, setSecondary] = React.useState(false);
     const [listBuisness, setlistBuisness] = React.useState([]);
@@ -66,6 +101,7 @@ function ListBuisness(props) {
         "color": "white"
     }
     const styleText = { "margin-left": "20%", "margin-top": "-19%" }
+    const styelIcon = { "position": "relative", "left": "-66%", "bottom": "1.5rem" }
     useEffect(() => {
 
         GetCurrentBuisnessFunc();
@@ -98,11 +134,52 @@ function ListBuisness(props) {
                                                         "margin-top": "-69%",
                                                         "margin-left": " 17px",
                                                         "height": "50px",
-                                                        "width": "50px","border-radius": "28px"
-                                                    }} src={item.img ? item.img : ico}>
+                                                        "width": "50px", "border-radius": "28px"
+                                                    }} src={item.img&&item.img!=="undefined" ? item.img : ico}>
 
                                                 </Image>
                                             </ListItemAvatar>
+
+
+
+                                            <Modal
+
+                                                onClose={() => setOpen(false)}
+                                                onOpen={() => setOpen(true)}
+                                                open={open}
+                                                trigger={
+                                                    <ListItemAvatar style={styelIcon}>
+                                                        <IconButton edge="end" aria-label="delete" >
+                                                            <DeleteIcon style={{ "font-size": "1.5em" }} />
+                                                        </IconButton>
+                                                    </ListItemAvatar>
+                                                }
+                                                style={{ "height": "17.5em" }}
+                                            >
+                                                <div className="div_content" style={styleDivContent}>
+                                                    <p style={styleP}>  Are You Shur That You Whant To Delete The Busness?</p>
+
+                                                </div>
+
+                                                <Modal.Actions style={styleAction}>
+
+                                                    <div style={{ "margin-top": "-34.3%" }}>
+
+                                                        <div className="div-ico" style={{ "margin-right": "32%", "margin-top": "32%" }} data-tooltip="מחק">
+                                                            <i class="user plus icon i" onClick={() => deleteBuisnessFunc(item._id)} style={styleIconUser}></i>
+                                                        </div>
+
+                                                        <div className="div-ico" data-tooltip="סגור">
+                                                            <i class="exclamation triangle icon" onClick={concelationDelete} style={styleIconExport} ></i>
+                                                        </div>
+
+                                                    </div>
+
+                                                </Modal.Actions>
+                                            </Modal>
+
+
+
                                             <ListItemText
                                                 primary={item.name}
                                                 secondary={secondary ? 'Secondary text' : null}
