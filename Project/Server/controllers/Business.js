@@ -24,6 +24,7 @@ const getByPassword = async (req, res) => {
     }
 }
 
+
 const addBusiness = async (req, res) => {
     let newBusiness = new Business(req.body);
     const url = req.protocol + '://' + req.get('host');
@@ -74,13 +75,11 @@ const updateBusiness = async (req, res) => {
 
 }
 const deleteBusiness = async (req, res) => {
-    const { id } = req.params;
+    const id = req.params.id;
     try {
         const business = await Business.findOneAndDelete({ "_id": id });
-
         if (!business)
             return res.status(404).send("sorry no such user");
-
         return res.send(business).status();
     }
     catch{

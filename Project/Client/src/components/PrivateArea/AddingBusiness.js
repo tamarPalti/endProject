@@ -166,11 +166,12 @@ function AddingBusiness(props) {
 
     //img
 
-    const GetCurrentBuisnessFunc =async () => {
+    const GetCurrentBuisnessFunc = () => {
 
-        await GetAllBuisnessOfUser().then(data => {
+         GetAllBuisnessOfUser().then(data => {
             console.log(data.data);
             setlistBuisness(data.data);
+            // return data.data;
 
         }).catch(error => {
             console.log(error);
@@ -180,13 +181,13 @@ function AddingBusiness(props) {
     }
     //function submit
 
-    const onSubmit = async data => {
+    const onSubmit =  data => {
 
         if (listCategory.current.getSelectedItems().length == 0)
             setIfSelect(true);
         else {
             let Business = new FormData();
-            await GetCurrentBuisnessFunc();
+          
             if (listBuisness.length < 7) {
                 let arr = [];
                 arr.push(data.phone);
@@ -226,7 +227,7 @@ function AddingBusiness(props) {
     }
 
     useEffect(() => {
-
+        GetCurrentBuisnessFunc();
         getAllCategories().then(scss => {
             let arrName = scss.data.map((data) => data.name);
             setCategoriesArr(arrName);
