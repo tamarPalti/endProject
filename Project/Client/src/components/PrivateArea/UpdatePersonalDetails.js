@@ -20,7 +20,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { UpdateUser, GetCurrentUserById, UpdateStatusTask } from '../../util/index';
 import Input from '@mui/material/Input';
 import person from '../search/img/person.png';
-
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -271,7 +271,7 @@ function UpdatePersonalDetails(props) {
                                 name="image" onChange={(e) => onchangeImg(e)}
                                 style={styleInputImg}
                             />
-
+< PhotoCameraIcon style={{"font-size":" 2rem", "margin-top": "-92px", "position": "absolute","left": "18px" }}></PhotoCameraIcon> 
                             <img for="photo-upload" style={styleImg} src={imsStateToShow ? imsStateToShow : currentUser.img ? currentUser.img : person} />
 
                         </label>

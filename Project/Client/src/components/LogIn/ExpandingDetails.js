@@ -21,7 +21,7 @@ import { useHistory } from 'react-router-dom';
 import alex from './img/alex.png';
 // import ImageUploading from 'react-images-uploading';
 import person from './img/person.png';
-
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 const ariaLabel = { 'aria-label': 'description' };
 
 const ColorButton = withStyles((theme) => ({
@@ -170,7 +170,7 @@ function ExpandingDetails(props) {
     "margin-left": "35%"
   }
   const styleLable = {
-    "width": "93%",
+    "width": "88%",
     "height": "30%",
     "margin-top": "62%"
   }
@@ -247,7 +247,7 @@ function ExpandingDetails(props) {
                 name="image" onChange={(e) => onchangeImg(e)}
                 style={styleInputImg}
               />
-
+              < PhotoCameraIcon style={{ "font-size": " 2rem", "margin-top": "-35px", "position": "absolute", "left": "347px" }}></PhotoCameraIcon>
               <img for="photo-upload" style={styleImg} src={imsStateToShow ? imsStateToShow : person} />
 
             </label>

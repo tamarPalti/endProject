@@ -15,7 +15,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import Input from '@mui/material/Input';
 import person from '../../search/img/person.png';
-
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -262,7 +262,7 @@ function UpdateBuisness(props) {
                                     name="image" onChange={(e) => onchangeImg(e)}
                                     style={styleInputImg}
                                 />
-
+                                < PhotoCameraIcon style={{ "font-size": " 2rem", "margin-top": "-61px", "position": "absolute", "left": "22px" }}></PhotoCameraIcon>
                                 <img for="photo-upload" style={styleImg} src={imsStateToShow ? imsStateToShow : props.updateBuisness.img ? props.updateBuisness.img : person} />
 
                             </label>

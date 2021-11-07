@@ -330,7 +330,7 @@ function BasicDetails(props) {
               id="passwordemail"
               name="passwordemail"
               autoComplete="passwordemail"
-              onKeyUp={(e) => emailToPassword = e.target.value}
+             // onKeyUp={(e) => emailToPassword = e.target.value}
               {...passwordemail}
             />
 
