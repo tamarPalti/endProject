@@ -150,7 +150,7 @@ function ListBuisness(props) {
                                                 trigger={
                                                     <ListItemAvatar style={styelIcon}>
                                                         <IconButton edge="end" aria-label="delete" >
-                                                            <DeleteIcon style={{ "font-size": "1.5em" }} />
+                                                            <DeleteIcon style={{ "font-size": "1.5em" }} onClick={()=> ChangeUpdateBuisness(item._id)}/>
                                                         </IconButton>
                                                     </ListItemAvatar>
                                                 }
@@ -164,13 +164,17 @@ function ListBuisness(props) {
                                                 <Modal.Actions style={styleAction}>
 
                                                     <div style={{ "margin-top": "-34.3%" }}>
-
+                                                            
                                                         <div className="div-ico" style={{ "margin-right": "32%", "margin-top": "32%" }} data-tooltip="מחק">
-                                                            <i class="user plus icon i" onClick={() => deleteBuisnessFunc(item._id)} style={styleIconUser}></i>
+                                                        <IconButton edge="end" aria-label="delete"  onClick={() => deleteBuisnessFunc(props.updateBuisness._id)}>
+                                                            <DeleteIcon style={{ "font-size": "1.5em" }} />
+                                                        </IconButton>
+                                                            {/* <i class="user plus icon i" onClick={() => deleteBuisnessFunc(item._id)} style={styleIconUser}></i> */}
                                                         </div>
 
                                                         <div className="div-ico" data-tooltip="סגור">
-                                                            <i class="exclamation triangle icon" onClick={concelationDelete} style={styleIconExport} ></i>
+                                   
+                                                            <i class="delete icon" onClick={concelationDelete} style={styleIconExport} ></i>
                                                         </div>
 
                                                     </div>
