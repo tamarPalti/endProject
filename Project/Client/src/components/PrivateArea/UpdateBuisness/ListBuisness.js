@@ -15,8 +15,10 @@ import UpdateBuisness from './UpdateBuisnes';
 import MiniUpdate from './MiniUpdate';
 import ico from '../../search/img/person.png';
 import { Image } from 'semantic-ui-react';
-import DeleteIcon from '@material-ui/icons/Delete';
+// import DeleteIcon from '@material-ui/icons/Delete';
 import { Button, Header, Icon, Modal } from 'semantic-ui-react'
+import DeleteIcon from '@mui/icons-material/Delete';
+import CloseIcon from '@mui/icons-material/Close';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -54,7 +56,7 @@ function ListBuisness(props) {
     const styleDivW = { "position": "relative", "top": "27%" }
     const styleAction = { "height": "3em", "margin-top": "10%" }
     const styleIconUser = { "margin-left": "-2em", "color": "white" }
-    const styleP = { "color": "white", "padding-top": "5%" }
+    const styleP = { "color": "white","text-align": "initial" }
     const styleIconExport = { "margin-left": "3em", "color": "white" }
 
     //#endregion
@@ -150,32 +152,30 @@ function ListBuisness(props) {
                                                 trigger={
                                                     <ListItemAvatar style={styelIcon}>
                                                         <IconButton edge="end" aria-label="delete" >
-                                                            <DeleteIcon style={{ "font-size": "1.5em" }} onClick={()=> ChangeUpdateBuisness(item._id)}/>
+                                                            <DeleteIcon style={{ "font-size": "1.5em" }} onClick={() => ChangeUpdateBuisness(item._id)} />
                                                         </IconButton>
                                                     </ListItemAvatar>
                                                 }
                                                 style={{ "height": "17.5em" }}
                                             >
-                                                <div className="div_content" style={styleDivContent}>
-                                                    <p style={styleP}>  Are You Shur That You Whant To Delete The Busness?</p>
+                                                {/* <div className="div_content" style={styleDivContent}> */}
 
-                                                </div>
+                                                {/* </div> */}
 
                                                 <Modal.Actions style={styleAction}>
+                                                <p style={styleP}>  Are You Shur That You Whant To Delete The Busness?</p>
 
-                                                    <div style={{ "margin-top": "-34.3%" }}>
-                                                            
-                                                        <div className="div-ico" style={{ "margin-right": "32%", "margin-top": "32%" }} data-tooltip="מחק">
-                                                        <IconButton edge="end" aria-label="delete"  onClick={() => deleteBuisnessFunc(props.updateBuisness._id)}>
-                                                            <DeleteIcon style={{ "font-size": "1.5em" }} />
-                                                        </IconButton>
-                                                            {/* <i class="user plus icon i" onClick={() => deleteBuisnessFunc(item._id)} style={styleIconUser}></i> */}
-                                                        </div>
+                                                    <div style={{
+                                                        "margin-top": "8.7%",
+                                                        "width": "50%",
+                                                        "margin-left": "23%"
+                                                    }}>
 
-                                                        <div className="div-ico" data-tooltip="סגור">
-                                   
-                                                            <i class="delete icon" onClick={concelationDelete} style={styleIconExport} ></i>
-                                                        </div>
+                     
+                                                        <CloseIcon onClick={concelationDelete} style={{ "font-size": "2.6em" }}></CloseIcon>
+
+                                                        <DeleteIcon style={{ "font-size": "2.6em", "margin-left": "54%" }} onClick={() => deleteBuisnessFunc(props.updateBuisness._id)} />
+                                                    
 
                                                     </div>
 

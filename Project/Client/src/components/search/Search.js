@@ -105,6 +105,7 @@ const Search = (props) => {
                     <Route path="/search/business">
 
                         {CircularProgresState ? <Box sx={{ display: 'flex' }} style={{ "margin-top": "60%", "margin-left": "45%" }}>
+                           <span>ממין תוצאות לפי מיקומך</span>
                             <CircularProgress />
                         </Box> : <ResultSearchBusiness />}
 

@@ -104,7 +104,7 @@ const Home = (props) => {
                 <Route path={'/SignUp'}>
                     <SignUp />
                 </Route>
-               
+
                 <Route path={'/ForgotPassword'}>
                     <ForgotPassword />
                 </Route>
@@ -113,7 +113,7 @@ const Home = (props) => {
                 </Route> */}
 
                 <Route path={'/PrivateArea'}>
-                    {!ifGoToLogin ? <PrivateNew/> : <Redirect to={'/Page404'} />}
+                    {!ifGoToLogin ? <PrivateNew /> : <Redirect to={'/Page404'} />}
                 </Route>
 
 
@@ -123,7 +123,10 @@ const Home = (props) => {
                 <Route path={'/SignIn'}>
                     <SingIn />
                 </Route>
+                <Route>
+                    <Page404 />
 
+                </Route>
             </Switch>
         </>
     );
