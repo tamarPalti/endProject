@@ -62,7 +62,7 @@ const styleGrid = {
     // "margin-top": "3%", 
     // "position": "relative"
 }
-const styleForm = { "position": "absolute", "top": "29%" }
+const styleForm = { "position": "absolute", "top": "19rem" }
 //alerts
 
 function Alert(props) {

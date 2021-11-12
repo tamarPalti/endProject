@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { ChangeUpdateBuisness } from '../../../actions/index';
 import { connect } from "react-redux";
-import { GetCurrentBuisness, GetAllBuisnessOfUser,deleteBuisness } from '../../../util/index';
+import { GetCurrentBuisness, GetAllBuisnessOfUser, deleteBuisness } from '../../../util/index';
 import UpdateBuisness from './UpdateBuisnes';
 import MiniUpdate from './MiniUpdate';
 import ico from '../../search/img/person.png';
@@ -42,7 +42,7 @@ function ListBuisness(props) {
     }
     const deleteBuisnessFunc = (id) => {
 
-        deleteBuisness(id).then(()=>{
+        deleteBuisness(id).then(() => {
             GetCurrentBuisnessFunc();
 
         });
@@ -135,7 +135,7 @@ function ListBuisness(props) {
                                                         "margin-left": " 17px",
                                                         "height": "50px",
                                                         "width": "50px", "border-radius": "28px"
-                                                    }} src={item.img&&item.img!=="undefined" ? item.img : ico}>
+                                                    }} src={item.img && item.img !== "undefined" ? item.img : ico}>
 
                                                 </Image>
                                             </ListItemAvatar>
@@ -188,8 +188,10 @@ function ListBuisness(props) {
                                         </ListItem>
                                         <div style={{ "height": "9px" }}></div>
                                         {<MiniUpdate item={item} />}
-                                        <UpdateBuisness GetAllBuisnessOfUser={GetCurrentBuisnessFunc} id={item._id} /></>
-
+                                        <div>
+                                            <UpdateBuisness GetAllBuisnessOfUser={GetCurrentBuisnessFunc} id={item._id} />
+                                        </div>
+                                    </>
                                 )
                             })}
                         </List>
