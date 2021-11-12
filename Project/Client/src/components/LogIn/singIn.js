@@ -1,7 +1,3 @@
-
-
-
-
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import { GetCurrentUser, SignOut } from '../../actions/index';
@@ -92,7 +88,7 @@ const marginOfInput = {
 const styleBlue = {
   "width": "106em",
   "background-color": "#0b0b2b ",
-  "margin-top": "12%",
+  "margin-top": "11%",
   "margin-left": "-4%",
   "height": "2em"
 }

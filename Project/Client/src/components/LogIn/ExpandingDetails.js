@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
 const styleblue = {
   "width": "74em",
   "background-color": "rgb(11, 11, 43)",
-  "margin-top": "13.3%",
+  "margin-top": "12.3%",
   "margin-left": "-4%",
   "height": "2em"
 }

@@ -16,7 +16,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import Input from '@mui/material/Input';
 import person from '../../search/img/person.png';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-
+import './UpdateBuisnes.scss';
 const useStyles = makeStyles((theme) => ({
     root: {
         height: '100vh',
@@ -325,7 +325,7 @@ function UpdateBuisness(props) {
                         </Grid>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6} style={{ "padding": "22px" }}>
-                                <Multiselect
+                                <Multiselect 
                                     onSelect={(e) => setIfSelect(false)}
                                     label="Category"
                                     name="category"
