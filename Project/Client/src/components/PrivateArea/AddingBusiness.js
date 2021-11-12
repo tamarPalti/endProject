@@ -12,10 +12,11 @@ import { Multiselect } from "multiselect-react-dropdown";
 import axios from 'axios';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { AddBusiness, getAllCategories, SendMail } from '../../util/index';
+import { AddBusiness, getAllCategories, SendMail, GetAllBuisnessOfUser } from '../../util/index';
 import Input from '@mui/material/Input';
 import person from '../search/img/person.png';
-
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import { IconButton, Icon } from '@material-ui/core';
 const ariaLabel = { 'aria-label': 'description' };
 
 //לא לשכוח
@@ -116,7 +117,7 @@ function AddingBusiness(props) {
 
     const [imsState, setimsState] = useState();
     const [imsStateToShow, setimsStateToShow] = useState();
-
+    const [listBuisness, setlistBuisness] = React.useState([]);
     const styleItem = {
         "padding": "0px",
         "top": "42px",
@@ -165,26 +166,49 @@ function AddingBusiness(props) {
 
     //img
 
+    const GetCurrentBuisnessFunc = () => {
 
+         GetAllBuisnessOfUser().then(data => {
+            console.log(data.data);
+            setlistBuisness(data.data);
+            // return data.data;
+
+        }).catch(error => {
+            console.log(error);
+
+        });
+
+    }
     //function submit
 
-    const onSubmit = data => {
+    const onSubmit =  data => {
 
         if (listCategory.current.getSelectedItems().length == 0)
             setIfSelect(true);
         else {
             let Business = new FormData();
-            
-            let arr = [];
-            arr.push(data.phone);
-            Business.append("phoneNamber", arr);
-            Business.append("userId", localStorage.getItem("currentUserId"));
-            Business.append("listCategory", listCategory.current.getSelectedItems());
-            Business.append("name", data.name);
-            Business.append("email", data.email);
-            Business.append("adress", data.adress);
-            Business.append("img", imsState);
-            AddBusinessFunc(Business);
+          
+            if (listBuisness.length < 7) {
+                let arr = [];
+                arr.push(data.phone);
+                Business.append("phoneNamber", arr);
+                Business.append("userId", localStorage.getItem("currentUserId"));
+                Business.append("listCategory", listCategory.current.getSelectedItems());
+                Business.append("name", data.name);
+                Business.append("email", data.email);
+                Business.append("adress", data.adress);
+                Business.append("img", imsState);
+
+                AddBusinessFunc(Business);
+            }
+            else
+            {
+                settypeAlert("error");
+            setmasseg("לא ניתן להוסיף יותר מ- 7 עסקים")
+
+            handleClick();
+            }
+           
         }
     }
 
@@ -203,7 +227,7 @@ function AddingBusiness(props) {
     }
 
     useEffect(() => {
-
+        GetCurrentBuisnessFunc();
         getAllCategories().then(scss => {
             let arrName = scss.data.map((data) => data.name);
             setCategoriesArr(arrName);
@@ -280,7 +304,10 @@ function AddingBusiness(props) {
                             accept="image/png, image/jpeg"
                             name="image" onChange={(e) => onchangeImg(e)}
                             style={styleInputImg}
+
                         />
+
+                        < PhotoCameraIcon style={{ "font-size": " 2rem", "margin-top": "-90px", "position": "absolute", "left": "17px" }}></PhotoCameraIcon>
 
                         <img for="photo-upload" style={styleImg} src={imsStateToShow ? imsStateToShow : person} />
 
@@ -330,6 +357,7 @@ function AddingBusiness(props) {
                         name="email"
                         autoComplete="email"
                         {...email}
+                        onKeyUp={(e) => emailToPassword = e.target.value}
                         placeholder="Email"
                     />
                     <ErrorMessage errors={errors} name="email" render={({ message }) => <p className="redColor">{message}</p>} />
@@ -355,7 +383,7 @@ function AddingBusiness(props) {
                         id="passwordemail"
                         name="passwordemail"
                         autoComplete="passwordemail"
-                        onKeyUp={(e) => emailToPassword = e.target.value}
+                        // onKeyUp={(e) => emailToPassword = e.target.value}
                         {...passwordemail}
                     />
 

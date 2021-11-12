@@ -15,7 +15,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import Input from '@mui/material/Input';
 import person from '../../search/img/person.png';
-
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 const styleGrid = {
     "margin-left": "63%",
     "width": "153%",
-    "margin-top": "12.5%",
+    "margin-top": "-27.5%",
     "position": "relative",
     "background-color": "#f2f2f2",
     "height": "476px"
@@ -263,7 +263,12 @@ function UpdateBuisness(props) {
                                     style={styleInputImg}
                                 />
 
+                                < PhotoCameraIcon style={{ "font-size": " 2rem", "margin-top": "-61px", "position": "absolute", "left": "22px" }}></PhotoCameraIcon>
+                               
+
+
                                 <img for="photo-upload" style={styleImg} src={imsStateToShow ? imsStateToShow : props.updateBuisness.img&&props.updateBuisness.img!=="undefined" ? props.updateBuisness.img : person} />
+
 
                             </label>
 
