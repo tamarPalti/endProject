@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Buisness = (props) => {
 
+    let cntB=0;
     const [currentUser, setCurrentUser] = useState(null);
     const [ifGoToLogin, setifGoToLogin] = useState(false);
 
@@ -64,8 +65,10 @@ const Buisness = (props) => {
                         <List>
                             {
                                 currentUser.lastSearchBusiness.map((item, index) => {
-                                    if (index < 7 && item.businessSearch)
-                                        return (item.businessSearch && <ListItem>
+                                    if (cntB < 7 && item.businessSearch)
+                                    {
+                                        cntB++;
+                                         return (item.businessSearch && <ListItem>
 
                                             {/* <p>{item.date}</p> */}
                                             <ListItemText
@@ -79,6 +82,8 @@ const Buisness = (props) => {
 
                                             </ListItemAvatar>
                                         </ListItem>)
+                                    }
+                                       
                                 })
                             }
                         </List>
