@@ -18,6 +18,8 @@ export const AddHistoryBusiness = async (currentId, businessId) => {
 
 }
 export const AddUser = async (user) => {
+    user.firstName=user.firstName.trim();
+    user.lastName=user.lastName.trim();
     return axios.post("http://localhost:4000/users", user)
 }
 
@@ -43,6 +45,8 @@ export const SendPasswordIfExist = async (email) => {
 
 
 export const UpdateUser = async (fd,id) => {
+    // fd.firstName=fd.firstName.trim();
+    // fd.lastName=fd.lastName.trim();
     return axios({
         method: 'put',
         url: `http://localhost:4000/users/${id}`,

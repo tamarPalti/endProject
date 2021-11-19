@@ -9,8 +9,6 @@ const tasks = require("./routes/Tasks");
 const mails = require("./routes/Mail");
 const SMS = require("./routes/SMS");
 
-
-
 mongoose.connect("mongodb://localhost:27017/truecaller").then(() => {
     console.log("connected to mongo db");
 }).catch(err => { console.log(err) })
