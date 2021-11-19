@@ -27,6 +27,7 @@ const getByPassword = async (req, res) => {
 
 const addBusiness = async (req, res) => {
     let newBusiness = new Business(req.body);
+    newBusiness.name=newBusiness.name.trim();
     const url = req.protocol + '://' + req.get('host');
     try {
         let business = await Business.findOne({ "email": newBusiness.email });
@@ -38,6 +39,7 @@ const addBusiness = async (req, res) => {
             return res.status(404).send("Sorry this mail is alredy axist");
         if (req.file)
             newBusiness.img = url + '/uploads/' + req.file.filename;
+
 
         await newBusiness.save();
         return res.send(newBusiness);
