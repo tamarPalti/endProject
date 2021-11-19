@@ -64,8 +64,8 @@ const updateUser = async (req, res) => {
         const user = await Users.findOne({ "_id": id });
         if (!user)
             return res.status(404).send("sorry no such user");
-        user.firstName = userBody.firstName !== "null" && userBody.firstName || user.firstName;
-        user.lastName = userBody.lastName !== "null" && userBody.lastName || user.lastName;
+        user.firstName = userBody.firstName !== "null" && userBody.firstName.trim() || user.firstName.trim();
+        user.lastName = userBody.lastName !== "null" && userBody.lastName.trim() || user.lastName.trim();
         user.phoneNamber = userBody.phoneNamber !== "null" && userBody.phoneNamber || user.phoneNamber;
         user.email = userBody.email !== "null" && userBody.email || user.email;
         user.adress = userBody.adress!== "null" && userBody.adress || user.adress;
