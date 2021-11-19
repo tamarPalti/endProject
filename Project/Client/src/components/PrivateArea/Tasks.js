@@ -16,6 +16,15 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { useParams } from 'react-router-dom'
 import AddCtegory from '../Tasks/AddCtegory'
 import AddUser from '../Tasks/AddUser';
+import 'semantic-ui-css/semantic.min.css';
+import './Task.scss';
+
+import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import NavigationIcon from '@mui/icons-material/Navigation';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -107,7 +116,7 @@ function Tasks(props) {
     //       }
     //       reader.readAsDataURL(file);
     //     }
-    
+
     //   }
 
 
@@ -130,27 +139,85 @@ function Tasks(props) {
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity={typeAlert}> {masseg}</Alert>
             </Snackbar>
-            <Grid container spacing={2}>
+            {/* <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <h3>הפניות שלך</h3>
-                    {tasksArr && tasksArr.map((task) => <><p>נושא:{task.type.name}</p>
-                        <p>תאור:{task.desription}</p>
-                        <p>תאריך:{task.date}</p>
-                        <p>טופל:{task.status}</p></>)}
+                   
                 </Grid>
-            </Grid>
-            <h3>פניה חדשה</h3>
-            <Link to={`${url}/addUser`}>הוספת משתמש</Link>
-            <br />
-            <Link to={`${url}/addCategory`}>הוספת קטגוריה</Link>
-            <Switch>
-                <Route path={`${path}/addUser`}>
-                     <AddUser/>
-                </Route>
-                <Route path={`${path}/addCategory`}>
-                    <AddCtegory />
-                </Route>
-            </Switch>
+            </Grid> */}
+
+            {/* <div>
+                <h3>פניה חדשה</h3>
+                <Link to={`${url}/addUser`}>הוספת משתמש</Link>
+                <br />
+                <Link to={`${url}/addCategory`}>הוספת קטגוריה</Link>
+                <Switch>
+                    <Route path={`${path}/addUser`}>
+                        <AddUser />
+                    </Route>
+                    <Route path={`${path}/addCategory`}>
+                        <AddCtegory />
+                    </Route>
+                </Switch>
+            </div> */}
+
+            <div className="divTable">
+                <table class="ui celled structured table tableDiv" >
+                    <thead>
+                        <tr>
+                            <th rowspan="2">נושא</th>
+                            <th rowspan="2">תאור</th>
+                            <th rowspan="2">תאריך</th>
+                            <th colspan="3">טופל</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        {tasksArr && tasksArr.map((task) => <>
+
+                            <tr>
+                                <td>{task.type.name}</td>
+                                <td class="right aligned">{task.desription}</td>
+                                <td>{task.date}</td>
+
+                                <td class="center aligned">
+                                    {task.status && <i style={{ "right": "0em", "position": "relative" }} class="large green checkmark icon"></i>}
+                                </td>
+
+                            </tr>
+
+
+                        </>)}
+
+                    </tbody>
+                </table>
+
+
+
+            </div>
+            <Box sx={{ '& > :not(style)': { m: 1 } }}>
+      <Fab color="primary" aria-label="add">
+        <AddIcon />
+      </Fab>
+      <Fab color="secondary" aria-label="edit">
+        <EditIcon />
+      </Fab>
+      <Fab variant="extended">
+        <NavigationIcon sx={{ mr: 1 }} />
+        Navigate
+      </Fab>
+      <Fab disabled aria-label="like">
+        <FavoriteIcon />
+      </Fab>
+    </Box>
+
+
+
+
+
+
+
+
 
         </>
 

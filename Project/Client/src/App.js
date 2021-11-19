@@ -6,16 +6,19 @@ import SimpleMap from './components/search/MyLocation'
 import { connect } from "react-redux";
 import MyLocation from './components/search/MyLocation';
 import PrivateNew from './components/PrivateArea/privatenew';
+import TableTasks from './components/PrivateArea/TableTasks';
 
 const app = (props) => {
     return (<>
         {/* <Heder Home={Home}/> */}
+
         <Heder />
         <Home/>
 
+        {/* <TableTasks /> */}
 
 
-      
+
 
 
         {/* <New/> */}
