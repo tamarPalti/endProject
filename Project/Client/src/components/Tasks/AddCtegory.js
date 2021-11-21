@@ -51,7 +51,7 @@ const AddCtegory = (props) => {
         Task.codeUser = localStorage.getItem("currentUserId");
 
         let all = await GetAllTypeTsks();
-        Task.type = all.data.find((type) => type.code ==2)._id;
+        Task.type = all.data.find((type) => type.code == 2)._id;
 
         Task.otherbuisness = null;
         Task.status = false;
@@ -121,7 +121,8 @@ const AddCtegory = (props) => {
         {/* alerts */}
 
 
-        <div>
+        <div className="divAddUser">
+            <p>{props.content}</p>
             <form noValidate onSubmit={handleSubmit(AddTaskFunc)}>
                 <TextField
                     label="Dense"

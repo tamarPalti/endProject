@@ -26,6 +26,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import NavigationIcon from '@mui/icons-material/Navigation';
 
+import { Button as Button2, Grid as Grid2, Popup as Popup2 } from 'semantic-ui-react';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -118,7 +120,10 @@ function Tasks(props) {
     //     }
 
     //   }
+    function myFunction(currentUrl) {
+        window.open(url + "/" + currentUrl, "add", "width=1600,height=300");
 
+    }
 
     useEffect(() => {
         GetCurrentUser().then(succ => {
@@ -146,74 +151,82 @@ function Tasks(props) {
                 </Grid>
             </Grid> */}
 
-            {/* <div>
-                <h3>פניה חדשה</h3>
-                <Link to={`${url}/addUser`}>הוספת משתמש</Link>
-                <br />
-                <Link to={`${url}/addCategory`}>הוספת קטגוריה</Link>
+            <div >
+              
                 <Switch>
                     <Route path={`${path}/addUser`}>
-                        <AddUser />
+                        <AddUser content="באפשרותך לשלוח למנהל מייל של משתמש חדש למערכת"/>
                     </Route>
                     <Route path={`${path}/addCategory`}>
-                        <AddCtegory />
+                        <AddCtegory content="באפשרותך לשלוח למנהל שם של קטגוריה חדשה למערכת" />
+                    </Route>
+                    <Route>
+
+                        <div className="divTable">
+                            <table class="ui celled structured table tableDiv" >
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">נושא</th>
+                                        <th rowspan="2">תאור</th>
+                                        <th rowspan="2">תאריך</th>
+                                        <th colspan="3">טופל</th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    {tasksArr && tasksArr.map((task) => <>
+
+                                        <tr>
+                                            <td>{task.type.name}</td>
+                                            <td class="right aligned">{task.desription}</td>
+                                            <td>{task.date}</td>
+
+                                            <td class="center aligned">
+                                                {task.status && <i style={{ "right": "0em", "position": "relative" }} class="large green checkmark icon"></i>}
+                                            </td>
+
+                                        </tr>
+
+
+                                    </>)}
+
+                                </tbody>
+                            </table>
+
+
+
+                        </div>
+
+
+                        <Popup2 wide trigger={<Fab color="primary" aria-label="add" className="button2Class">
+                            <AddIcon />
+                        </Fab>} on='click'>
+                            <Grid2 divided columns='equal'>
+                                <Grid2.Column>
+                                    <Popup2
+                                        trigger={<Button2 style={{ "background-color": "rgb(11, 11, 43)" }} onClick={() => myFunction("addCategory")} color='blue' content='הוספת קטגוריה' fluid />}
+                                        content='שלח בקשה למנהל להוספת קטגוריה חדשה במערכת'
+                                        position='top center'
+                                        size='tiny'
+                                        inverted
+                                    />
+                                </Grid2.Column>
+                                <Grid2.Column>
+                                    <Popup2
+                                        trigger={<Button2 style={{ "background-color": "rgb(255, 113, 110)" }} onClick={() => myFunction("addUser")} color='red' content='הוספת משתמש' fluid />}
+                                        content='שלח בקשה למנהל להוספת משתמש חדש למערכת'
+                                        position='top center'
+                                        size='tiny'
+                                        inverted
+                                    />
+                                </Grid2.Column>
+                            </Grid2>
+                        </Popup2>
+
+
                     </Route>
                 </Switch>
-            </div> */}
-
-            <div className="divTable">
-                <table class="ui celled structured table tableDiv" >
-                    <thead>
-                        <tr>
-                            <th rowspan="2">נושא</th>
-                            <th rowspan="2">תאור</th>
-                            <th rowspan="2">תאריך</th>
-                            <th colspan="3">טופל</th>
-                        </tr>
-
-                    </thead>
-                    <tbody>
-                        {tasksArr && tasksArr.map((task) => <>
-
-                            <tr>
-                                <td>{task.type.name}</td>
-                                <td class="right aligned">{task.desription}</td>
-                                <td>{task.date}</td>
-
-                                <td class="center aligned">
-                                    {task.status && <i style={{ "right": "0em", "position": "relative" }} class="large green checkmark icon"></i>}
-                                </td>
-
-                            </tr>
-
-
-                        </>)}
-
-                    </tbody>
-                </table>
-
-
-
             </div>
-            <Box sx={{ '& > :not(style)': { m: 1 } }}>
-      <Fab color="primary" aria-label="add">
-        <AddIcon />
-      </Fab>
-      <Fab color="secondary" aria-label="edit">
-        <EditIcon />
-      </Fab>
-      <Fab variant="extended">
-        <NavigationIcon sx={{ mr: 1 }} />
-        Navigate
-      </Fab>
-      <Fab disabled aria-label="like">
-        <FavoriteIcon />
-      </Fab>
-    </Box>
-
-
-
-
 
 
 

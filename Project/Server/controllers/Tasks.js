@@ -39,7 +39,7 @@ const getTaskById = async (req, res) => {
 const getTaskByUserId = async (req, res) => {
     let { id } = req.params;
     try {
-        let AllTask = await Tasks.find({ codeUser: { _id: id } }).populate(
+        let AllTask = await Tasks.find({ codeUser: { _id: id } }).sort([['date', -1]]).populate(
             [{ path: "codeUser", select: "firstName lastName phoneNamber adress email" },
             { path: "otherUser", select: "firstName lastName phoneNamber adress email" }
                 , { path: "type", select: "name" },

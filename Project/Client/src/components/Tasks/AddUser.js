@@ -10,7 +10,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import { useParams } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-
+import './classes.scss'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -121,7 +121,8 @@ const AddUser = (props) => {
         {/* alerts */}
 
 
-        <div>
+        <div className="divAddUser">
+            <p>{props.content}</p>
             <form noValidate onSubmit={handleSubmit(AddTaskFunc)}>
                 <TextField
                     label="Dense"

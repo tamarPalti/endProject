@@ -30,6 +30,7 @@ import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { CheckManagerFunc } from '../util';
+import Logo from './Logo/Logo';
 
 const drawerWidth = 240;
 
@@ -126,7 +127,7 @@ function PersistentDrawerRight(props) {
         <Toolbar style={{ "background-color": color, "height": "6.5em" }}>
 
           <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div">
-            Persistent drawer
+           <Logo/>
           </Typography>
 
           <IconButton

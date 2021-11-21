@@ -1,9 +1,18 @@
 .divTable{
     overflow: scroll;
     height: 43rem;
-    margin-top: -13rem;
+    margin-top: -14rem;
+    margin-left: -5%;
 }
 
 .tableDiv{
     text-align: end !important;
+}
+.button2Class{
+    background-image: linear-gradient(
+        132deg, black 0%, rgb(255, 113, 110) 0%, rgb(11, 11, 43) 80%) !important;
+    border-radius: 50% !important;
+    position: absolute !important;
+    bottom: 7% !important;
+    left: 93.5% !important;
 }
