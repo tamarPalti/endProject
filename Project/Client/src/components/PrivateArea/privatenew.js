@@ -64,9 +64,9 @@ const PrivateNew = (props) => {
                                     <SearchIcon style={styleIcon} className={colorIndex == 4 ? "white" : ""} /></div>
                             </Link>
 
-                            <Link to={url + "/Tasks"}>
+                            <Link to={url + "/Tasks"} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>
 
-                                <div className="circle" onClick={() => setColorIndex(5)} className={colorIndex == 5 ? "blue circle" : "circle"}>
+                                <div className="circle"  onClick={() => setColorIndex(5)} className={colorIndex == 5 ? "blue circle" : "circle"}>
                                     <AssignmentIcon style={styleIcon} className={colorIndex == 5 ? "white" : ""} /></div>
                             </Link>
 

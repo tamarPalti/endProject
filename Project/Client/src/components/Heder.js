@@ -183,7 +183,7 @@ function PersistentDrawerRight(props) {
             (index == 6 && ifManager || index < 6) &&
             <Link to={item.to} onClick={item.action && item.action()}>
 
-              <ListItem button key={item.text} onClick={() => { setTimeout(() => window.location.reload(), 10) }} onClick={() => { setTimeout(() => window.location.reload(), 10) }}>
+              <ListItem button key={item.text} onClick={() => { setTimeout(() => window.location.reload(), 10) }} >
 
                 <ListItemIcon >
 
