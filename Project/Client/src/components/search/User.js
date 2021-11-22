@@ -95,8 +95,8 @@ const User = (props) => {
                         }
 
                     }}>
-
-                        <img alt="Avatar" className="img_ico" src={props.user.img ? props.user.img : ico}></img>
+                    
+                        <img alt="Avatar" className="img_ico" src={props.user.img && props.user.img !== "undefined"? props.user.img : ico}></img>
 
                         <p className="display" style={{ "margin-left": "1.5em" }}>{checkName(props.user.lastName) ? Laststart : Lastend}</p>
                         {!checkName(props.user.lastName) && (Lastend[0] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
@@ -142,7 +142,7 @@ const User = (props) => {
 
                             <div className="img_user">
 
-                                <Image size='medium' style={styleImg} src={props.user.img ? props.user.img : ico} wrapped className="place_img" />
+                                <Image size='medium' style={styleImg} src={props.user.img && props.user.img !== "undefined"? props.user.img : ico} wrapped className="place_img" />
 
                             </div>
 

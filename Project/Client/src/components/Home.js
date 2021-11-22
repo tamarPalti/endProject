@@ -22,7 +22,7 @@ import ForgotPassword from './LogIn/ForgotPassword';
 import Heder from './Heder';
 import ExpandingDetails from './LogIn/ExpandingDetails';
 import PrivateNew from './PrivateArea/privatenew';
-
+import ChartPage from './ChartPage/ChartPage'
 
 
 
@@ -122,6 +122,9 @@ const Home = (props) => {
                 </Route>
                 <Route path={'/SignIn'}>
                     <SingIn />
+                </Route>
+                <Route path={'/ChartPage'}>
+                    <ChartPage />
                 </Route>
                 <Route>
                     <Page404 />

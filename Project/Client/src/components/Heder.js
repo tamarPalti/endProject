@@ -31,6 +31,8 @@ import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { CheckManagerFunc } from '../util';
 import Logo from './Logo/Logo';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
 
 const drawerWidth = 240;
 
@@ -178,9 +180,10 @@ function PersistentDrawerRight(props) {
           { text: 'Search Business', to: '/search/business' },
           { text: 'Sign Out', to: "/SignIn", action: () => props.SignOut },
           { text: 'Privte Erea', to: "/PrivateArea/personalDetiles" },
-          { text: 'Manager', to: "/Manager" }].map((item, index) => (
+          { text: 'Manager', to: "/Manager" },
+          { text: 'ChartPage', to: "/ChartPage" }].map((item, index) => (
 
-            (index == 6 && ifManager || index < 6) &&
+            (index >= 6 && ifManager || index < 6) &&
             <Link to={item.to} onClick={item.action && item.action()}>
 
               <ListItem button key={item.text} onClick={() => { setTimeout(() => window.location.reload(), 10) }} >
@@ -189,7 +192,7 @@ function PersistentDrawerRight(props) {
 
                   {index === 0 ? <LoginIcon /> : index === 1 ? <GroupAddIcon />
                     : index === 2 ? <PersonSearchIcon /> : index === 3 ? <ApartmentIcon />
-                      : index === 4 ? <LogoutIcon /> : index === 5 ? <ManageAccountsIcon /> : <ManageAccountsIcon />}
+                      : index === 4 ? <LogoutIcon /> : index === 5 ? <SettingsApplicationsIcon /> :index === 6 ? <ManageAccountsIcon />:<BarChartIcon/>}
 
 
                 </ListItemIcon>

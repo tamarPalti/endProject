@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import MyLocation from './components/search/MyLocation';
 import PrivateNew from './components/PrivateArea/privatenew';
 import TableTasks from './components/PrivateArea/TableTasks';
+import ChartPage from './components/ChartPage/ChartPage';
 
 const app = (props) => {
     return (<>
@@ -17,7 +18,7 @@ const app = (props) => {
 
         {/* <TableTasks /> */}
 
-
+        {/* <ChartPage /> */}
 
 
 
