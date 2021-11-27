@@ -15,6 +15,12 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { useParams } from 'react-router-dom'
 
+
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         height: '100vh',
@@ -132,21 +138,42 @@ function AddCategory(props) {
     }, [])
 
     return (
-        <>
+        <div style={{
+            "margin-top": "-21%",
+            "width": "100%"
+        }}>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity={typeAlert}> {masseg}</Alert>
             </Snackbar>
-            {<form className={classes.form} noValidate onSubmit={handleSubmit(() => onSubmit(category))}>
+            <List
+                sx={{
+                    width: '100%',
+                    maxWidth: 360,
+                    bgcolor: 'background.paper',
+                    position: 'relative',
+                    overflow: 'auto',
+                    maxHeight: 300,
+                    '& ul': { padding: 0 },
+                }}
+                subheader={<li />}
+                style={{ "max-width": "100%" }}
+            >
+                {categoriesArr && categoriesArr.map((item) => (
+                    <li>
+                        <ul>
+                            <ListItem >
+                                <ListItemText style={{ "text-align": "end" }} primary={`${item.name}`} />
+                            </ListItem>
+                        </ul>
+                    </li>
+                ))}
+            </List>
+            {<form className={classes.form} style={{ "margin-top": "79px" }} noValidate onSubmit={handleSubmit(() => onSubmit(category))}>
 
-                <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
-                        <h3>קטגוריות בשימוש</h3>
-                        {categoriesArr && categoriesArr.map((category) => <p>{category.name}</p>)}
-                    </Grid>
-                </Grid>
 
-                <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
+
+                <Grid container spacing={2} style={{ "display": "block" }}>
+                    <Grid item xs={12} sm={6} style={{ "max-width": "100%" }}>
                         <TextField
                             autoComplete="fname"
                             name="name"
@@ -167,13 +194,13 @@ function AddCategory(props) {
                     variant="contained"
                     color="primary"
                     className={classes.submit}
-                     style={{ backgroundImage: "linear-gradient(132deg, black 0%, #ff716e 0%, #0b0b2b 80%)" }}>
-                   
+                    style={{ backgroundImage: "linear-gradient(132deg, black 0%, #ff716e 0%, #0b0b2b 80%)" }}>
+
                     Add
                 </Button>
 
             </form>}
-        </>
+        </div>
 
     );
 }
