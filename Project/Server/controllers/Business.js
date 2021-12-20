@@ -68,6 +68,8 @@ const updateBusiness = async (req, res) => {
         business.advertising = businessBody.advertising !== "null" && businessBody.advertising || business.advertising;
         business.userId = businessBody.userId !== "null" && businessBody.userId || business.userId;
         business.listCategory = businessBody.listCategory !== "null" && businessBody.listCategory || business.listCategory;
+        business.dateLogin = businessBody.dateLogin !== "null" && businessBody.dateLogin || business.dateLogin;
+        
         await business.save();
         return res.send(business);
     }

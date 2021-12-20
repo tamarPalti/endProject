@@ -7,7 +7,7 @@ export const FromAddress = (address) => {
 
 
 
-export const SortllBusiness = async (allBusiness, saveall) => {
+export const SortllBusiness = async (allBusiness, saveall,setCircularProgresStateFunc) => {
 
   Geocode.setApiKey("AIzaSyC42dZGLkeXWn1ofLJhRrWcVBxFY1-tf2Q");
 
@@ -42,6 +42,7 @@ export const SortllBusiness = async (allBusiness, saveall) => {
     });
 
     saveall(sorted);
+    setCircularProgresStateFunc(false);
   }
   );
   // return sorted;

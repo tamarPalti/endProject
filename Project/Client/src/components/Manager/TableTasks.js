@@ -34,6 +34,8 @@ import { Grid, Button } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import ModelCompo from './ModelCompo';
 import DeleteIcon from '@mui/icons-material/Delete';
+// import PageToMail from '../PageToMail/PageToMail';
+import img from './pageToMail.jpg';
 
 const useRowStyles = makeStyles({
     root: {
@@ -90,7 +92,7 @@ function TableTasks(props) {
         let Email = {
             toUser: mail,
             subject: "הצטרפות לאתר מי מייל",
-            text: `<h1>${"הצטרפות לאתר מי מייל"}</h1>`
+            text: `<a href="http://localhost:3000/"><img src=${'http://localhost:4000/uploads/pageToMail.jpg'}></img></a>`
             // ,attachments
         }
         SendMail(Email).then(() => {

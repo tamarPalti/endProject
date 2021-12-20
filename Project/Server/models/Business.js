@@ -14,7 +14,9 @@ const businessSchema = new mongoose.Schema({
     img: { type: mongoose.SchemaTypes.String },
     advertising: { type: [mongoose.SchemaTypes.String] },
     userId: { type: mongoose.SchemaTypes.ObjectId, ref: "users", require: true },
-    listCategory: { type: [String], required: true }
+    listCategory: { type: [String], required: true },
+    dateLogin: { type: mongoose.SchemaTypes.Date, required: true },
+
 });
 const Business = mongoose.model("business", businessSchema);
 module.exports = Business;
