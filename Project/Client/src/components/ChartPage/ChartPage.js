@@ -10,11 +10,12 @@ import { Line, Pie, Doughnut, Bar, Radar, Polar } from 'react-chartjs-2';
 import Page from './components/Page';
 
 
-import { GetCountAllUserByMonth,GetCountAllBusinessByMonth ,GetCountSearchBusinessByMonth,GetCountSearchUsersByMonth} from '../../util/index';
+import { GetCountAllUserByMonth, GetCountAllBusinessByMonth, GetCountSearchBusinessByMonth, GetCountSearchUsersByMonth } from '../../util/index';
 
+import './ChartPage.scss';
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const genLineData = (arrUsers,arrBusiness, moreData = {}, moreData2 = {}) => {
+const genLineData = (arrUsers, arrBusiness, moreData = {}, moreData2 = {}) => {
     return {
         labels: MONTHS,
         datasets: [
@@ -132,17 +133,17 @@ const ChartPage = () => {
             console.log(err);
 
         });
-        GetCountSearchBusinessByMonth().then((succ)=>{
+        GetCountSearchBusinessByMonth().then((succ) => {
             setArrAllSearchBusinessByMonth(succ);
-        }).catch(err=>{
+        }).catch(err => {
             console.log(err);
-            
+
         });
-        GetCountSearchUsersByMonth().then((succ)=>{
+        GetCountSearchUsersByMonth().then((succ) => {
             setArrAllSearchUsersByMonth(succ);
-        }).catch(err=>{
+        }).catch(err => {
             console.log(err);
-            
+
         });
     }, [])
 
@@ -150,67 +151,89 @@ const ChartPage = () => {
     return (
         <Page title="Charts" style={{ "margin-top": "1rem" }} breadcrumbs={[{ name: 'Charts', active: true }]}>
             <Row>
-                <Col xl={6} lg={12} md={12}>
+
+                <Col xl={4} lg={12} md={12}>
                     <Card>
-                        <CardHeader>דיאגרמת מספר הנכנסים בכל חודש למערכת</CardHeader>
+                        <CardHeader>מספר המשתמשים החדשים בכל חודש</CardHeader>
                         <CardBody>
-                            {arrAllUsersByMonth && arrAllBusinessByMonth&&<Bar data={genLineData(arrAllUsersByMonth,arrAllBusinessByMonth)} />}
+                            {arrAllUsersByMonth && <Pie data={genPieData(arrAllUsersByMonth)} />}
                         </CardBody>
+
+                    </Card>
+                </Col>
+                <Col xl={4} lg={12} md={12}>
+                    <Card>
+                        <CardHeader>מספר הנכנסים החדשים בכל חודש למערכת</CardHeader>
+                        <CardBody>
+                            {arrAllUsersByMonth && arrAllBusinessByMonth && <Bar data={genLineData(arrAllUsersByMonth, arrAllBusinessByMonth)} />}
+                        </CardBody>
+                    </Card>
+                </Col>
+                <Col xl={4} lg={12} md={12}>
+                    <Card>
+                        <CardHeader>מספר העסקים החדשים בכל חודש</CardHeader>
+                        <CardBody>
+                            {arrAllBusinessByMonth && <Pie data={genPieData(arrAllBusinessByMonth)} />}
+                        </CardBody>
+
                     </Card>
                 </Col>
 
-                <Col xl={6} lg={12} md={12}>
-                    <Card>
-                        <CardHeader>דיאגרמת מספר הנכנסים בכל חודש למערכת</CardHeader>
-                        <CardBody>
-                        {arrAllUsersByMonth && arrAllBusinessByMonth&& <Line data={genLineData(arrAllUsersByMonth,  { type: 'line', fill: false })} />}
-                        </CardBody>
-                    </Card>
-                </Col>
-             
+
             </Row>
 
             <Row>
-                <Col xl={6} lg={12} md={12}>
+              
+                <Col xl={4} lg={12} md={12}>
                     <Card>
-                        <CardHeader>דיאגרמת מספר החיפושים בכל חודש</CardHeader>
+                        <CardHeader>מספר העסקים שחופשו בכל חודש</CardHeader>
                         <CardBody>
-                        {arrAllSearchBusinessByMonth && arrAllSearchUsersByMonth&& <Bar
-                                data={genLineData(arrAllSearchUsersByMonth,arrAllSearchBusinessByMonth)}
+                            {arrAllSearchBusinessByMonth && <Pie data={genPieData(arrAllSearchBusinessByMonth)} />}
+                        </CardBody>
+
+                    </Card>
+                </Col>
+                <Col xl={4} lg={12} md={12}>
+                    <Card>
+                        <CardHeader>מספר החיפושים בכל חודש</CardHeader>
+                        <CardBody>
+                            {arrAllSearchBusinessByMonth && arrAllSearchUsersByMonth && <Bar
+                                data={genLineData(arrAllSearchUsersByMonth, arrAllSearchBusinessByMonth)}
                             />}
                         </CardBody>
                     </Card>
                 </Col>
+                <Col xl={4} lg={12} md={12}>
+                    <Card>
+                        <CardHeader>מספר המשתמשים שחופשו בכל חודש</CardHeader>
+                        <CardBody>
+                            {arrAllSearchUsersByMonth && <Pie data={genPieData(arrAllSearchUsersByMonth)} />}
+                        </CardBody>
 
+                    </Card>
+                </Col>
+
+            </Row>
+
+            <Row>
+                <Col xl={6} lg={12} md={12}>
+                    <Card>
+                        <CardHeader>דיאגרמת מספר הנכנסים בכל חודש למערכת</CardHeader>
+                        <CardBody>
+                            {arrAllUsersByMonth && arrAllBusinessByMonth && <Line data={genLineData(arrAllUsersByMonth, { type: 'line', fill: false })} />}
+                        </CardBody>
+                    </Card>
+                </Col>
                 <Col xl={6} lg={12} md={12}>
                     <Card>
                         <CardHeader>דיאגרמת מספר החיפושים בכל חודש</CardHeader>
                         <CardBody>
-                        {arrAllSearchBusinessByMonth && arrAllSearchUsersByMonth&& <Bar data={genLineData(arrAllSearchUsersByMonth,arrAllSearchBusinessByMonth, { type: 'line', fill: false })} />}
+                            {arrAllSearchBusinessByMonth && arrAllSearchUsersByMonth && <Bar data={genLineData(arrAllSearchUsersByMonth, arrAllSearchBusinessByMonth, { type: 'line', fill: false })} />}
 
                         </CardBody>
                     </Card>
                 </Col>
-            </Row>
 
-            <Row>
-       
-                <Col xl={6} lg={12} md={12}>
-                    <Card>
-                        <CardHeader>Pie</CardHeader>
-                        <CardBody>
-                            {arrAllUsersByMonth && <Pie data={genPieData(arrAllUsersByMonth)} />}
-                        </CardBody>
-                    </Card>
-                </Col>
-                <Col xl={6} lg={12} md={12}>
-                    <Card>
-                        <CardHeader>Doughnut</CardHeader>
-                        <CardBody>
-                            {arrAllUsersByMonth && <Doughnut data={genPieData(arrAllUsersByMonth)} />}
-                        </CardBody>
-                    </Card>
-                </Col>
             </Row>
 
             <Row>
@@ -227,7 +250,7 @@ const ChartPage = () => {
                     <Card>
                         <CardHeader>Radar</CardHeader>
                         <CardBody>
-                        {arrAllUsersByMonth && arrAllBusinessByMonth&& <Radar data={genLineData(arrAllUsersByMonth,arrAllBusinessByMonth)} />}
+                            {arrAllUsersByMonth && arrAllBusinessByMonth && <Radar data={genLineData(arrAllUsersByMonth, arrAllBusinessByMonth)} />}
                         </CardBody>
                     </Card>
                 </Col>
