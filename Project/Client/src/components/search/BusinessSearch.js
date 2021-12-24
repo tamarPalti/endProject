@@ -74,8 +74,8 @@ const BusinessSearch = (props) => {
         if (!ifSorted && props.AllBusiness && props.AllBusiness.length != 0) {
 
             setifSorted(true);
-            SortllBusiness(props.AllBusiness, props.SaveAllBusiness);
-            props.setCircularProgresStateFunc(false);
+            SortllBusiness(props.AllBusiness, props.SaveAllBusiness,props.setCircularProgresStateFunc);
+            // props.setCircularProgresStateFunc(false);
 
         }
 

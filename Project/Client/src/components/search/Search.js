@@ -16,6 +16,7 @@ import ResultSearchBusiness from './ResultSearchBusiness';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@mui/material/CircularProgress';
+import Advertisements from "../Advertisements/Advertisements";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -144,6 +145,7 @@ const Search = (props) => {
                             <>    <BusinessSearch setCircularProgresStateFunc={setCircularProgresStateFunc} /></>
                         </Route>
                     </div>
+                    {/* <Advertisements/> */}
                 </Grid>
             </Grid>
         </>

@@ -2,15 +2,19 @@ import * as React from 'react';
 import './privateNew.scss';
 import FingerprintIcon from '@mui/icons-material/Fingerprint';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+<<<<<<< HEAD
 import { Link, Route, useRouteMatch } from 'react-router-dom';
 import { useLocation, useParams } from 'react-router-dom'
+=======
+import { Link, Route, useRouteMatch, useLocation } from 'react-router-dom'
+>>>>>>> 2926b1513bf799e9595517f70dd5da3e17e57228
 import UpdatePersonalDetails from './UpdatePersonalDetails';
 import Grid from '@material-ui/core/Grid';
 import BusinessInformationUpdate from './BusinessInformationUpdate';
 import AddingBusiness from './AddingBusiness';
 import ScrollableTabsButtonAuto from './SearchHistory';
 import Tasks from './Tasks';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import WorkIcon from '@mui/icons-material/Work';
 import SearchIcon from '@mui/icons-material/Search';
 import AssignmentIcon from '@mui/icons-material/Assignment';
@@ -19,7 +23,11 @@ const PrivateNew = (props) => {
 
     const { url, path } = useRouteMatch();
     const { pathname } = useLocation();
+<<<<<<< HEAD
     const [colorIndex, setColorIndex] = useState(1);
+=======
+    const [colorIndex, setColorIndex] = useState(0);
+>>>>>>> 2926b1513bf799e9595517f70dd5da3e17e57228
 
     const styleIcon = {
         "width": "96%",
@@ -27,6 +35,7 @@ const PrivateNew = (props) => {
         "margin-top": "15%",
         "margin-left": "3%"
     }
+<<<<<<< HEAD
     React.useEffect(() => {
        
         console.log(pathname);
@@ -46,6 +55,20 @@ const PrivateNew = (props) => {
                 <div className="divAll">
 
                     <div className="path">
+=======
+    useEffect(() => {
+        
+        // console.log(pathname);
+
+    }, [])
+    return (
+        <div>
+            <Grid container spacing={2} style={{
+                "width": "calc(100% + 16px)",
+                "margin": "-8px",
+                "height": "54.4em"
+            }}>
+>>>>>>> 2926b1513bf799e9595517f70dd5da3e17e57228
 
                         <Link to={url + "/personalDetiles"}>
 
@@ -80,9 +103,15 @@ const PrivateNew = (props) => {
                     </div>
 
 
+<<<<<<< HEAD
                 </div>
             </Grid>
             <Grid item xs={12} sm={1} md={8} style={{ "margin-top": "312px", "margin-left": "-151px" }}>
+=======
+                                <div className="circle" onClick={() => setColorIndex(5)} className={pathname.indexOf("Tasks") !=-1 ? "blue circle" : "circle"}>
+                                    <AssignmentIcon style={styleIcon} className={pathname.indexOf("Tasks") !=-1 ? "white" : ""} /></div>
+                            </Link>
+>>>>>>> 2926b1513bf799e9595517f70dd5da3e17e57228
 
                 <Route path={path + "/personalDetiles"} >
 
@@ -93,6 +122,7 @@ const PrivateNew = (props) => {
                     <div style={{ "margin-top": "-23%" }}>
                         <BusinessInformationUpdate />
                     </div>
+<<<<<<< HEAD
                 </Route>
 
                 <Route path={path + "/AddingBusiness"} >
@@ -109,6 +139,37 @@ const PrivateNew = (props) => {
                     <Tasks />
                 </Route>
 
+=======
+                </Grid>
+                <Grid item xs={12} sm={1} md={8} style={{ "margin-top": "312px", "margin-left": "-151px" }}>
+
+                    <Route path={path + "/personalDetiles"} >
+
+                        <UpdatePersonalDetails />
+                    </Route>
+
+                    <Route path={path + "/BusinessInformationUpdate"} >
+                        <div style={{ "margin-top": "-23%" }}>
+                            <BusinessInformationUpdate />
+                        </div>
+                    </Route>
+
+                    <Route path={path + "/AddingBusiness"} >
+
+                        <AddingBusiness />
+                    </Route>
+
+                    <Route path={path + "/ScrollableTabsButtonAuto"} >
+                        <ScrollableTabsButtonAuto />
+                    </Route>
+
+
+                    <Route path={path + "/Tasks"} >
+                        <Tasks />
+                    </Route>
+
+                </Grid>
+>>>>>>> 2926b1513bf799e9595517f70dd5da3e17e57228
             </Grid>
         </Grid>
         </div>}</>

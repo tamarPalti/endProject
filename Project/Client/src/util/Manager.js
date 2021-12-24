@@ -1,3 +1,4 @@
+import axios from 'axios';
 export const CheckManager = (email, password) => {
 
         (localStorage.getItem("managerMail"))
@@ -14,4 +15,37 @@ export const CheckManager = (email, password) => {
 export const CheckManagerFunc = () => {
 
         return CheckManager(localStorage.getItem("currentUserMail"), localStorage.getItem("currentUserPassword"))
+}
+
+export const GetCountAllUserByMonth = async () => {
+        let arrByMonth = await axios.get(`http://localhost:4000/manager/getCountAllUserByMonth`);
+        let arr=[12].fill(0);
+        arrByMonth.data.forEach(element => {
+                arr[element._id.month]=element.count;
+        });
+        return arr;
+}
+export const GetCountAllBusinessByMonth = async () => {
+        let arrByMonth = await axios.get(`http://localhost:4000/manager/getCountAllBusinessByMonth`);
+        let arr=[12].fill(0);
+        arrByMonth.data.forEach(element => {
+                arr[element._id.month]=element.count;
+        });
+        return arr;
+}
+export const GetCountSearchUsersByMonth = async () => {
+        let arrByMonth = await axios.get(`http://localhost:4000/manager/getCountSearchUsersByMonth`);
+        let arr=[12].fill(0);
+        arrByMonth.data.forEach(element => {
+                arr[element._id.month]=element.count;
+        });
+        return arr;
+}
+export const GetCountSearchBusinessByMonth = async () => {
+        let arrByMonth = await axios.get(`http://localhost:4000/manager/getCountSearchBusinessByMonth`);
+        let arr=[12].fill(0);
+        arrByMonth.data.forEach(element => {
+                arr[element._id.month]=element.count;
+        });
+        return arr;
 }

@@ -8,6 +8,7 @@ import MyLocation from './components/search/MyLocation';
 import PrivateNew from './components/PrivateArea/privatenew';
 import TableTasks from './components/PrivateArea/TableTasks';
 import ChartPage from './components/ChartPage/ChartPage';
+import Advertisements from './components/Advertisements/Advertisements';
 
 const app = (props) => {
     return (<>
@@ -15,7 +16,7 @@ const app = (props) => {
 
         <Heder />
         <Home/>
-
+        {/* <Advertisements /> */}
         {/* <TableTasks /> */}
 
         {/* <ChartPage /> */}

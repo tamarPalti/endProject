@@ -8,6 +8,7 @@ const categories = require("./routes/Category");
 const tasks = require("./routes/Tasks");
 const mails = require("./routes/Mail");
 const SMS = require("./routes/SMS");
+const manager = require("./routes/Manager");
 
 mongoose.connect("mongodb://localhost:27017/truecaller").then(() => {
     console.log("connected to mongo db");
@@ -25,6 +26,7 @@ app.use("/categories", categories);
 app.use("/tasks", tasks);
 app.use("/sendMail", mails);
 app.use("/SMS", SMS);
+app.use("/manager", manager);
 
 app.listen("4000", () => {
     console.log("listening on port 4000");

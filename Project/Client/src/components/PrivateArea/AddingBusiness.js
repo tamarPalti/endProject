@@ -198,6 +198,8 @@ function AddingBusiness(props) {
                 Business.append("email", data.email);
                 Business.append("adress", data.adress);
                 Business.append("img", imsState);
+                Business.append("dateLogin", new Date());
+
 
                 AddBusinessFunc(Business);
             }

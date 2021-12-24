@@ -35,6 +35,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import ModelCompo from './ModelCompo';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+
 const useRowStyles = makeStyles({
     root: {
         '& > *': {
@@ -89,9 +90,15 @@ function TableTasks(props) {
 
         let Email = {
             toUser: mail,
-            subject: "הצטרפות לאתר מי מייל",
-            text: `<h1>${"הצטרפות לאתר מי מייל"}</h1>`
+            subject: "מזמינים אותך להצטרף אלינו",
+            text: `<div ><a href="http://localhost:3000/"><img src="cid:img" width="56%"></img></a></div>`
             // ,attachments
+            ,
+            attachments: [{
+                filename: 'image.png',
+                path: 'http://localhost:4000/uploads/page.jpg',
+                cid:"img"
+            }]
         }
         SendMail(Email).then(() => {
 
