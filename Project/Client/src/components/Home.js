@@ -23,7 +23,8 @@ import Heder from './Heder';
 import ExpandingDetails from './LogIn/ExpandingDetails';
 import PrivateNew from './PrivateArea/privatenew';
 import ChartPage from './ChartPage/ChartPage'
-
+import AddCtegory from '../components/Tasks/AddCtegory'
+import AddUser from '../components/Tasks/AddUser';
 
 
 const ColorButton = withStyles((theme) => ({
@@ -102,7 +103,7 @@ const Home = (props) => {
                     {!ifGoTo404 ? <Manager /> : <Redirect to={'/Page404'} />}
                 </Route>
                 <Route path={'/SignUp'}>
-                    <SignUp />
+                    <SignUp/>
                 </Route>
 
                 <Route path={'/ForgotPassword'}>
@@ -111,7 +112,13 @@ const Home = (props) => {
                 {/* <Route path={'/PrivateArea'}>
                     {!ifGoToLogin ? <PrivateArea /> : <Redirect to={'/Page404'} />}
                 </Route> */}
+                 <Route path={'/PrivateArea/Tasks/addUser'}>
+                    <AddUser></AddUser>
+                </Route>
 
+                <Route path={'/PrivateArea/Tasks/addCategory'}>
+                    <AddCtegory></AddCtegory>
+                </Route>
                 <Route path={'/PrivateArea'}>
                     {!ifGoToLogin ? <PrivateNew /> : <Redirect to={'/Page404'} />}
                 </Route>
