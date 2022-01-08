@@ -49,6 +49,7 @@ export const usersReducer = (state = initialUsers, action) => {
                 ColorLastName: action.payload
             }
         case actionTypes.SING_IN:
+            
             localStorage.setItem("currentUser", null);
             localStorage.setItem("currentUserPassword", action.payload.password);
             localStorage.setItem("currentUserMail", action.payload.email);

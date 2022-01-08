@@ -54,14 +54,14 @@ const AddUser = (props) => {
 
         Task.otherbuisness = null;
         Task.status = false;
-        Task.desription = "הוסף את המשתמש עם המייל:"+data.mail;
+        Task.desription = "Add the user with the email:"+data.mail;
         Task.otherUser = null;
         Task.mail=data.mail;
 
         AddTask(Task).then((succ) => {
 
             settypeAlert("success");
-            setmasseg("נשלח בהצלחה");
+            setmasseg("has been sent successfully");
             handleClick();
 
 
@@ -137,7 +137,7 @@ const AddUser = (props) => {
                 <ErrorMessage errors={errors} name="mail" render={({ message }) => <p className="redColor">{message}</p>} />
                 
                 <Button variant="contained" color="secondary" type="submit">
-                    הגש בקשה
+                Apply
       </Button>
             </form>
         </div></>);

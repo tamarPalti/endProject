@@ -87,16 +87,16 @@ const genPieData = (arr) => {
                 backgroundColor: [
                     getColor('primary'),
                     getColor('secondary'),
-                    getColor('success'),
-                    getColor('info'),
+                    getColor('indigo'),
+                    getColor('orange'),
                     getColor('danger'),
-                    getColor('primary'),
-                    getColor('secondary'),
-                    getColor('success'),
-                    getColor('info'),
-                    getColor('danger'),
-                    getColor('primary'),
-                    getColor('secondary'),
+                    getColor('yellow'),
+                    getColor('green'),
+                    getColor('teal'),
+                    getColor('purple'),
+                    getColor('gray-dark'),
+                    getColor('cyan'),
+                    getColor('pink'),
 
                 ],
                 label: 'Dataset 1',
@@ -154,7 +154,7 @@ const ChartPage = () => {
 
                 <Col xl={4} lg={12} md={12}>
                     <Card>
-                        <CardHeader>מספר המשתמשים החדשים בכל חודש</CardHeader>
+                        <CardHeader>count new users in month</CardHeader>
                         <CardBody>
                             {arrAllUsersByMonth && <Pie data={genPieData(arrAllUsersByMonth)} />}
                         </CardBody>
@@ -163,7 +163,7 @@ const ChartPage = () => {
                 </Col>
                 <Col xl={4} lg={12} md={12}>
                     <Card>
-                        <CardHeader>מספר הנכנסים החדשים בכל חודש למערכת</CardHeader>
+                        <CardHeader>count new users and business in month</CardHeader>
                         <CardBody>
                             {arrAllUsersByMonth && arrAllBusinessByMonth && <Bar data={genLineData(arrAllUsersByMonth, arrAllBusinessByMonth)} />}
                         </CardBody>
@@ -171,7 +171,7 @@ const ChartPage = () => {
                 </Col>
                 <Col xl={4} lg={12} md={12}>
                     <Card>
-                        <CardHeader>מספר העסקים החדשים בכל חודש</CardHeader>
+                        <CardHeader>count new business in month</CardHeader>
                         <CardBody>
                             {arrAllBusinessByMonth && <Pie data={genPieData(arrAllBusinessByMonth)} />}
                         </CardBody>
@@ -186,7 +186,7 @@ const ChartPage = () => {
               
                 <Col xl={4} lg={12} md={12}>
                     <Card>
-                        <CardHeader>מספר העסקים שחופשו בכל חודש</CardHeader>
+                        <CardHeader>count business that searched in month</CardHeader>
                         <CardBody>
                             {arrAllSearchBusinessByMonth && <Pie data={genPieData(arrAllSearchBusinessByMonth)} />}
                         </CardBody>
@@ -195,7 +195,7 @@ const ChartPage = () => {
                 </Col>
                 <Col xl={4} lg={12} md={12}>
                     <Card>
-                        <CardHeader>מספר החיפושים בכל חודש</CardHeader>
+                        <CardHeader>count business and users that searched in month</CardHeader>
                         <CardBody>
                             {arrAllSearchBusinessByMonth && arrAllSearchUsersByMonth && <Bar
                                 data={genLineData(arrAllSearchUsersByMonth, arrAllSearchBusinessByMonth)}
@@ -205,7 +205,7 @@ const ChartPage = () => {
                 </Col>
                 <Col xl={4} lg={12} md={12}>
                     <Card>
-                        <CardHeader>מספר המשתמשים שחופשו בכל חודש</CardHeader>
+                        <CardHeader>count users that searched in month</CardHeader>
                         <CardBody>
                             {arrAllSearchUsersByMonth && <Pie data={genPieData(arrAllSearchUsersByMonth)} />}
                         </CardBody>
@@ -215,46 +215,7 @@ const ChartPage = () => {
 
             </Row>
 
-            <Row>
-                <Col xl={6} lg={12} md={12}>
-                    <Card>
-                        <CardHeader>דיאגרמת מספר הנכנסים בכל חודש למערכת</CardHeader>
-                        <CardBody>
-                            {arrAllUsersByMonth && arrAllBusinessByMonth && <Line data={genLineData(arrAllUsersByMonth, { type: 'line', fill: false })} />}
-                        </CardBody>
-                    </Card>
-                </Col>
-                <Col xl={6} lg={12} md={12}>
-                    <Card>
-                        <CardHeader>דיאגרמת מספר החיפושים בכל חודש</CardHeader>
-                        <CardBody>
-                            {arrAllSearchBusinessByMonth && arrAllSearchUsersByMonth && <Bar data={genLineData(arrAllSearchUsersByMonth, arrAllSearchBusinessByMonth, { type: 'line', fill: false })} />}
-
-                        </CardBody>
-                    </Card>
-                </Col>
-
-            </Row>
-
-            <Row>
-                <Col xl={6} lg={12} md={12}>
-                    <Card>
-                        <CardHeader>Polar</CardHeader>
-                        <CardBody>
-                            {arrAllUsersByMonth && <Polar data={genPieData(arrAllUsersByMonth)} />}
-                        </CardBody>
-                    </Card>
-                </Col>
-
-                <Col xl={6} lg={12} md={12}>
-                    <Card>
-                        <CardHeader>Radar</CardHeader>
-                        <CardBody>
-                            {arrAllUsersByMonth && arrAllBusinessByMonth && <Radar data={genLineData(arrAllUsersByMonth, arrAllBusinessByMonth)} />}
-                        </CardBody>
-                    </Card>
-                </Col>
-            </Row>
+          
         </Page>
     );
 };

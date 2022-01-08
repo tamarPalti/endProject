@@ -155,21 +155,21 @@ function Tasks(props) {
               
                 <Switch>
                     <Route path={`${path}/addUser`}>
-                        <AddUser content="באפשרותך לשלוח למנהל מייל של משתמש חדש למערכת"/>
+                        <AddUser content="You can send a new user email to the system administrator"/>
                     </Route>
                     <Route path={`${path}/addCategory`}>
-                        <AddCtegory content="באפשרותך לשלוח למנהל שם של קטגוריה חדשה למערכת" />
+                        <AddCtegory content="You can send the administrator a new category name for the system" />
                     </Route>
                     <Route>
 
                         <div className="divTable">
-                            <table class="ui celled structured table tableDiv" >
+                            <table class="ui celled structured table tableDiv" style={{"direction": "rtl"}}>
                                 <thead>
                                     <tr>
-                                        <th rowspan="2">נושא</th>
-                                        <th rowspan="2">תאור</th>
-                                        <th rowspan="2">תאריך</th>
-                                        <th colspan="3">טופל</th>
+                                        <th rowspan="2">subject</th>
+                                        <th rowspan="2">description</th>
+                                        <th rowspan="2">date</th>
+                                        <th colspan="3">status</th>
                                     </tr>
 
                                 </thead>
@@ -204,8 +204,8 @@ function Tasks(props) {
                             <Grid2 divided columns='equal'>
                                 <Grid2.Column>
                                     <Popup2
-                                        trigger={<Button2 style={{ "background-color": "rgb(11, 11, 43)" }} onClick={() => myFunction("addCategory")} color='blue' content='הוספת קטגוריה' fluid />}
-                                        content='שלח בקשה למנהל להוספת קטגוריה חדשה במערכת'
+                                        trigger={<Button2 style={{ "background-color": "rgb(11, 11, 43)" }} onClick={() => myFunction("addCategory")} color='blue' content='add category' fluid />}
+                                        content='Send a request to the administrator to add a new category to the system'
                                         position='top center'
                                         size='tiny'
                                         inverted
@@ -213,8 +213,8 @@ function Tasks(props) {
                                 </Grid2.Column>
                                 <Grid2.Column>
                                     <Popup2
-                                        trigger={<Button2 style={{ "background-color": "rgb(255, 113, 110)" }} onClick={() => myFunction("addUser")} color='red' content='הוספת משתמש' fluid />}
-                                        content='שלח בקשה למנהל להוספת משתמש חדש למערכת'
+                                        trigger={<Button2 style={{ "background-color": "rgb(255, 113, 110)" }} onClick={() => myFunction("addUser")} color='red' content='add user' fluid />}
+                                        content='Submit a request to the administrator to add a new user to the system'
                                         position='top center'
                                         size='tiny'
                                         inverted

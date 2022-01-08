@@ -74,9 +74,9 @@ const Search = (props) => {
         history.push(path);
     }
 
-    const styleTab1 = { "font-weight": "bold", "font-size": "16px", "margin-right": "6px", "color": "rgb(11, 11, 43)" }
-    const styleTab2 = { "font-weight": "bold", "font-size": "16px", "color": "rgb(11, 11, 43)" }
-    const styleTabs = { "width": "100em", "margin-left": "-31%" }
+    const styleTab1 = { "font-weight": "bold", "font-size": "14px", "margin-right": "6px", "color": "rgb(11, 11, 43)", "font-family": "-webkit-pictograph" }
+    const styleTab2 = { "font-weight": "bold", "font-size": "14px", "color": "rgb(11, 11, 43)", "font-family": "-webkit-pictograph" }
+    const styleTabs = { "width": "100em", "margin-left": "-48%" }
     const styleBox = { "margin-top": "175px", "margin-left": "760px" }
 
     const styleGrid = { "max-width": "32.333333%", "overflow": "scroll", "margin-top": "6%", "width": "100%", "box-shadow": "2px 2px 2px 2px grey" }
@@ -129,9 +129,9 @@ const Search = (props) => {
                                 }
                             }}
                         >
-                            <Tab value="one" style={styleTab1} label="חיפוש עסקים" onClick={() => changeHistory('/search/business')} />
+                            <Tab value="one" style={styleTab1} label="search business" onClick={() => changeHistory('/search/business')} />
 
-                            <Tab value="two" style={styleTab2} label="חיפוש אנשים" onClick={() => changeHistory('/search/users')} />
+                            <Tab value="two" style={styleTab2} label="search users" onClick={() => changeHistory('/search/users')} />
 
                         </Tabs>
 

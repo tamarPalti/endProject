@@ -72,15 +72,17 @@ const Home = (props) => {
                 <Route exact path={'/'}>
                     <div className="back-home">
                         <img src={home2} style={{ width: "100%", marginTop: "19%" }}></img>
+
                         <div className="href2">
+                            <div className="title">MeMail</div>
                             <Link to="/SignUp"  >
-                                <ColorButton variant="contained" color="primary" style={{ "border-radius": "29px 29px 29px 29px", "background-color": "#fb7375" }} className={classes.margin + " search"}>
+                                <ColorButton variant="contained" color="primary" style={{ "border-radius": "29px 29px 29px 29px", "background-color": "#fb7375", "width": "45%", "height": "4rem", "margin-top": "38%" }} className={classes.margin + " search"}>
                                     SignUp
                                 </ColorButton>
 
                             </Link>
                             <Link to="/SignIn"  >
-                                <ColorButton variant="contained" color="primary" style={{ "border-radius": "29px 29px 29px 29px", "background-color": "#1f284f" }} className={classes.margin + " search"}>
+                                <ColorButton variant="contained" color="primary" style={{ "border-radius": "29px 29px 29px 29px", "background-color": "#1f284f", "width": "45%", "height": "4rem", "margin-top": "38%" }} className={classes.margin + " search"}>
                                     SingIn
                                 </ColorButton>
                             </Link>
@@ -99,7 +101,7 @@ const Home = (props) => {
                     {!ifGoToLogin ? <Search /> : <Redirect to={'/SignIn'} />}
                 </Route>
                 <Route path={'/Manager'}>
-                    {!ifGoTo404 ? <Manager /> : <Redirect to={'/Page404'} />}
+                    <Manager />
                 </Route>
                 <Route path={'/SignUp'}>
                     <SignUp />

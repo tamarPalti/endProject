@@ -84,13 +84,13 @@ function TableTasks(props) {
     const { idTask } = useParams();
     const [ifTasks, setifTasks] = useState(true);
 
-    const [nameButton, setNameButton] = useState("שלח בקשה להצטרפות");
+    const [nameButton, setNameButton] = useState("send reqest for add user");
 
     const send = (idTask, mail) => {
 
         let Email = {
             toUser: mail,
-            subject: "מזמינים אותך להצטרף אלינו",
+            subject: "We invite you to join us",
             text: `<div ><a href="http://localhost:3000/"><img src="cid:img" width="56%"></img></a></div>`
             // ,attachments
             ,
@@ -102,7 +102,7 @@ function TableTasks(props) {
         }
         SendMail(Email).then(() => {
 
-            setNameButton("נשלח");
+            setNameButton("sending");
 
         }).catch(() => {
 
@@ -128,13 +128,13 @@ function TableTasks(props) {
 
 
                 if (element.code == 1)
-                    typeArr[0] = { id: element._id, action: (id, idTask) => <ModelCompo button={<Button>עדכן משתמש</Button>} compo={<UpdatePersonalDetails id={id} idTask={idTask} iconH="2.5em" iconMarginLeft="-15%" iconMarginBottom="0%" iconW="21%" imgW="95%" imgH="11em" imgMarginLeft="-15%" />} /> };
+                    typeArr[0] = { id: element._id, action: (id, idTask) => <ModelCompo button={<Button>update user</Button>} compo={<UpdatePersonalDetails id={id} idTask={idTask} iconH="2.5em" iconMarginLeft="-15%" iconMarginBottom="0%" iconW="21%" imgW="95%" imgH="11em" imgMarginLeft="-15%" marginTop="-32px" left="-21px" />} /> };
                 else if (element.code == 2)
-                    typeArr[1] = { id: element._id, action: (id, idTask) => <ModelCompo button={<Button>הוסף קטגוריה</Button>} compo={<AddCategory  idTask={idTask}  />} /> }
+                    typeArr[1] = { id: element._id, action: (id, idTask) => <ModelCompo button={<Button>add category</Button>} compo={<AddCategory  idTask={idTask}  />} /> }
                 else if (element.code == 3)
                     typeArr[2] = { id: element._id, action: (mail, idTask) =>  <Button onClick={() => { send(idTask, mail) }} >{nameButton}</Button> }
                 else if (element.code == 4)
-                    typeArr[3] = { id: element._id, action: (id, idTask) => <ModelCompo button={<Button>עדכן עסק</Button>} compo={<UpdateBuisnesOfManager id={id} idTask={idTask} iconH="2.5em" iconMarginLeft="-15%" iconMarginBottom="0%" iconW="21%" imgW="95%" imgH="11em" imgMarginLeft="-15%" />} /> }
+                    typeArr[3] = { id: element._id, action: (id, idTask) => <ModelCompo button={<Button>update business</Button>} compo={<UpdateBuisnesOfManager id={id} idTask={idTask} iconH="2.5em" iconMarginLeft="-15%" iconMarginBottom="0%" iconW="21%" imgW="95%" imgH="11em" imgMarginLeft="-15%" />} /> }
 
             });
 
@@ -169,12 +169,12 @@ function TableTasks(props) {
                     <TableHead>
                         <TableRow>
 
-                            <TableCell align="right">ביצוע</TableCell>
-                            <TableCell align="right">משימה</TableCell>
-                            <TableCell align="right">תאור</TableCell>
-                            <TableCell align="right">משתמש</TableCell>
-                            <TableCell align="right">תאריך</TableCell>
-                            <TableCell align="right">סטטוס</TableCell>
+                            <TableCell align="right">action</TableCell>
+                            <TableCell align="right">task</TableCell>
+                            <TableCell align="right">desription</TableCell>
+                            <TableCell align="right">user</TableCell>
+                            <TableCell align="right">date</TableCell>
+                            <TableCell align="right">status</TableCell>
 
                         </TableRow>
                     </TableHead>

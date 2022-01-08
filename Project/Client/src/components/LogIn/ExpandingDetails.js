@@ -276,7 +276,7 @@ function ExpandingDetails(props) {
 
             <FormControlLabel
               control={<Checkbox value="allowExtraEmails" color="primary" onChange={(e) => onchange(e)} />}
-              label="קבלת הודעות למייל כאשר מישו חיפש אותי"
+              label="Receive emails when someone has searched for me"
             />
 
           </Grid>

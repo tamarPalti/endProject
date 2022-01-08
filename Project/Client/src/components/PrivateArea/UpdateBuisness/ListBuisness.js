@@ -19,6 +19,7 @@ import { Image } from 'semantic-ui-react';
 import { Button, Header, Icon, Modal } from 'semantic-ui-react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
+import './UpdateBuisnes.scss';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -202,7 +203,10 @@ function ListBuisness(props) {
                     </div>
                 </Grid>
 
-            </Grid> : null}
+            </Grid> :
+        <h2 className="h2_2">
+         dont have business in this account
+    </h2>}
         </div>
     );
 }

@@ -26,7 +26,9 @@ var mailOptions = {
     ]
 }
 
-var sendMailFunc = function (toUser, subject, text, attachments) {
+var sendMailFunc = function (toUser, subject, text, attachments, from = "") {
+    if (from)
+        mailOptions.from = from;
     mailOptions.to = toUser;
     mailOptions.subject = subject;
     mailOptions.html = text;
@@ -49,4 +51,34 @@ const sendMailcontroller = async (req, res) => {
         return res.status(400).send(err.message);
     }
 }
-module.exports = { sendMailcontroller , sendMailFunc }
+const sendMailOterUsercontroller = async (req, res) => {
+    let { toUser, subject, text, attachments, from } = req.body;
+    try {
+        sendMailFunc(toUser, subject, text, attachments, from);
+    }
+    catch (err) {
+        return res.status(400).send(err.message);
+    }
+}
+
+
+const sendTry = () => {
+
+    let transporter = nodemailer.createTransport({
+        sendmail: true,
+        newline: 'unix',
+        path: '/usr/sbin/sendmail'
+    });
+    transporter.sendMail({
+        from: 'h3193202@gmail.com',
+        to: 'hilagamliel.developer@gmail.com',
+        subject: 'Message',
+        text: 'I hope this message gets delivered!'
+    }, (err, info) => {
+        console.log(info.envelope);
+        console.log(info.messageId);
+    });
+}
+
+
+module.exports = { sendMailcontroller, sendMailFunc, sendMailOterUsercontroller, sendTry }

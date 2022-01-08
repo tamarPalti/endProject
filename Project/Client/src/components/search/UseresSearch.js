@@ -9,13 +9,27 @@ import { SendMail } from '../../util/index';
 
 const UsersSearch = (props) => {
 
-    const send = (mail) => {
+    
+    const send = ( mail) => {
+
         let Email = {
             toUser: mail,
-            subject: "הצטרפות לאתר מי מייל",
-            text: `<h1>${"הצטרפות לאתר מי מייל"}</h1>`
+            subject: "מזמינים אותך להצטרף אלינו",
+            text: `<div ><a href="http://localhost:3000/"><img src="cid:img" width="56%"></img></a></div>`
+            // ,attachments
+            ,
+            attachments: [{
+                filename: 'image.png',
+                path: 'http://localhost:4000/uploads/page.jpg',
+                cid:"img"
+            }]
         }
-        SendMail(Email);
+        SendMail(Email).then(() => {
+
+
+        }).catch(() => {
+
+        });
     }
     function validateEmail(email) {
         const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

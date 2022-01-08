@@ -7,10 +7,31 @@ import React, { useState } from 'react';
 import { AddHistory, GetImage } from '../../util/index';
 import { Button, Image, Modal, List } from 'semantic-ui-react';
 import { Link, Route, useRouteMatch } from 'react-router-dom';
-import { SendMail, GetCurrentUser } from '../../util';
+import { SendMail, GetCurrentUser, SendMailOterUser } from '../../util';
+import MyLocation from "./MyLocation";
+import { FromAddress } from '../../util/index'
+import RoomIcon from '@mui/icons-material/Room';
+import { createVCFFile } from '../../util';
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
 
+
+//alerts
+
+function Alert(props) {
+    return <MuiAlert elevation={2} variant="filled" {...props} />;
+}
+
+//alerts
 
 const User = (props) => {
+
+
+    //location vsariables
+    const [Cenetr, SetCenetr] = useState(null);
+    const [Txt, SetTxt] = useState(null);
+    const [Zoom, SetZoom] = useState(15);
+
 
     const { url, path } = useRouteMatch();
 
@@ -26,13 +47,70 @@ const User = (props) => {
     }
 
 
+    // alerts
+
+    const [open2, setOpen2] = React.useState(false);
+
+    const [typeAlert, settypeAlert] = React.useState("");
+    const [masseg, setmasseg] = React.useState("");
+
+
+    const [selectedImage, setselectedImage] = useState();
+
+
+    const handleClick = () => {
+        setOpen2(true);
+    };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen2(false);
+    };
+
+
+
+
+    // alerts
+
+
     useEffect(() => {
+
+
+
+        props.user.adress && FromAddress(props.user.adress).then(response => {
+
+            const { lat, lng } = response.results[0].geometry.location;
+            console.log(lat + " " + lng);
+            console.log(response.results[0]);
+
+            SetCenetr({ lat: lat, lng: lng });
+            // SetTxt(RoomIcon);
+            SetTxt(response.results[0].address_components[0].long_name);
+
+        }).catch(error => {
+            console.log(error);
+        });
+
     }, []);
 
+    const createVCFFileFunc = (user) => {
+
+        createVCFFile(user).then((item) => {
+            settypeAlert("success");
+            setmasseg("Download a vcf file to your computer to folder your contacts");
+            handleClick();
+        }).catch(err => {
+            settypeAlert("error");
+            setmasseg(err.response.data);
+            handleClick();
+        });
+    }
 
     function myFunction() {
         var myWindow = window.open(url + "/TasksUpdataUser/" + props.user._id, "UpdataUser", "width=400,height=300");
-        localStorage.setItem("idUserSearch",props.user._id);
+        localStorage.setItem("idUserSearch", props.user._id);
     }
 
     const [open, setOpen] = React.useState(false)
@@ -47,7 +125,7 @@ const User = (props) => {
         "display": "block", "max-width": "100%", "height": "7em", "width": "100%", "position": "relative", "top": "3em", "left": "-3em"
     }
     const styleIconExport = { "margin-left": "3em", "color": "white" }
- 
+
     //styles
 
     const SendMailFunc = (user) => {
@@ -56,8 +134,8 @@ const User = (props) => {
 
             let mail = {
                 toUser: user.email,
-                subject: `${succ.data.firstName + " " + succ.data.lastName} חיפש אותך `,
-                text: `<div>לשליחת מייל ${succ.data.email}</div> `
+                subject: `${succ.data.firstName + " " + succ.data.lastName} Looking for you `,
+                text: `<div>To send email ${succ.data.email}</div> `
             }
 
             SendMail(mail);
@@ -66,121 +144,150 @@ const User = (props) => {
 
 
     }
+
+    const send = (from) => {
+
+
+        let user = {
+            adress: props.user.adress,
+            dateLogin: props.user.dateLogin,
+            email: props.user.email,
+            firstName: props.user.firstName,
+            ifMessege: props.user.ifMessege,
+            img: props.user.img,
+            lastName: props.user.lastName,
+            phoneNamber: props.user.phoneNamber,
+        }
+        createVCFFileFunc(user);
+    }
     return (
+        <>
+
+            {/* alerts */}
+
+            <Snackbar open={open2} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity={typeAlert}> {masseg}</Alert>
+            </Snackbar>
+
+            {/* alerts */}
 
 
 
+            <List.Item key={props.user._id}>
 
-        <List.Item key={props.user._id}>
+                <List.Content floated='right'>
 
-            <List.Content floated='right'>
+                    <Modal
 
-                <Modal
+                        onClose={() => setOpen(false)}
+                        onOpen={() => setOpen(true)}
+                        open={open}
+                        style={{ "border-radius": "0" }}
 
-                    onClose={() => setOpen(false)}
-                    onOpen={() => setOpen(true)}
-                    open={open}
-                    style={{ "border-radius": "0" }}
+                        trigger={<div ><div className="place_user" onClick={() => {
 
-                    trigger={<div ><div className="place_user" onClick={() => {
+                            props.SelectedUser(props.user);
 
-                        props.SelectedUser(props.user);
+                            if (props.ifAdd == "true")
+                                AddHistory(localStorage.getItem("currentUserId"), props.user._id);
 
-                        if (props.ifAdd == "true")
-                            AddHistory(localStorage.getItem("currentUserId"), props.user._id);
+                            if (props.user.ifMessege) {
+                                console.log(props.user.ifMessege);
+                                SendMailFunc(props.user);
+                            }
 
-                        if (props.user.ifMessege) {
-                            console.log(props.user.ifMessege);
-                            SendMailFunc(props.user);
-                        }
+                        }}>
 
-                    }}>
-                    
-                        <img alt="Avatar" className="img_ico" src={props.user.img && props.user.img !== "undefined"? props.user.img : ico}></img>
+                            <img alt="Avatar" className="img_ico" src={props.user.img && props.user.img !== "undefined" ? props.user.img : ico}></img>
 
-                        <p className="display" style={{ "margin-left": "1.5em" }}>{checkName(props.user.lastName) ? Laststart : Lastend}</p>
-                        {!checkName(props.user.lastName) && (Lastend[0] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
-                        {checkName(props.user.firstName) && (Laststart[Laststart.length - 1] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+                            <p className="display" style={{ "margin-left": "1.5em" }}>{checkName(props.user.lastName) ? Laststart : Lastend}</p>
+                            {!checkName(props.user.lastName) && (Lastend[0] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+                            {checkName(props.user.firstName) && (Laststart[Laststart.length - 1] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
 
-                        <p className="color_name display">{props.ColorLastName}</p>
-                        {!checkName(props.user.lastName) && (Laststart[Laststart.length - 1] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
-                        {checkName(props.user.lastName) && (Lastend[0] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+                            <p className="color_name display">{props.ColorLastName}</p>
+                            {!checkName(props.user.lastName) && (Laststart[Laststart.length - 1] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+                            {checkName(props.user.lastName) && (Lastend[0] == ' ' || props.ColorLastName[props.ColorLastName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
 
-                        <p className="display">{checkName(props.user.lastName) ? Lastend : Laststart}</p>
-                        <p className="display">&nbsp;</p>
-                        <p className="display">{checkName(props.user.firstName) ? start : end}</p>
+                            <p className="display">{checkName(props.user.lastName) ? Lastend : Laststart}</p>
+                            <p className="display">&nbsp;</p>
+                            <p className="display">{checkName(props.user.firstName) ? start : end}</p>
 
-                        {checkName(props.user.lastName) && (start[start.length - 1]) == ' ' ? <p className="display">&nbsp;</p> : null}
-                        {!checkName(props.user.lastName) && (end[0] == ' ' || props.ColorFirstName[props.ColorFirstName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+                            {checkName(props.user.lastName) && (start[start.length - 1]) == ' ' ? <p className="display">&nbsp;</p> : null}
+                            {!checkName(props.user.lastName) && (end[0] == ' ' || props.ColorFirstName[props.ColorFirstName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
 
-                        <p className="color_name display">{props.ColorFirstName}</p>
-                        {checkName(props.user.lastName) && (end[0] == ' ' || props.ColorFirstName[props.ColorFirstName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
-                        {!checkName(props.user.lastName) && (start[start.length - 1]) == ' ' ? <p className="display">&nbsp;</p> : null}
+                            <p className="color_name display">{props.ColorFirstName}</p>
+                            {checkName(props.user.lastName) && (end[0] == ' ' || props.ColorFirstName[props.ColorFirstName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+                            {!checkName(props.user.lastName) && (start[start.length - 1]) == ' ' ? <p className="display">&nbsp;</p> : null}
 
-                        <p className="display">{checkName(props.user.firstName) ? end : start}</p>
+                            <p className="display">{checkName(props.user.firstName) ? end : start}</p>
 
-                    </div>
-
-                    </div>}
-                >
-
-                    <div className="div_content" style={styleDivContent}>
-
-                        <div className="div_w" style={styleDivW}></div>
-
-                    </div>
-
-                    <Modal.Actions style={styleAction}>
-
-                        <div style={{ "margin-top": "-34.3%" }}>
-
-                            <div className="div-ico" style={{ "margin-right": "-8%" }} data-tooltip="הוסף לאנשי קשר">
-
-                                <i class="user plus icon i" style={styleIconUser}></i>
-
-                            </div>
-
-                            <div className="img_user">
-
-                                <Image size='medium' style={styleImg} src={props.user.img && props.user.img !== "undefined"? props.user.img : ico} wrapped className="place_img" />
-
-                            </div>
-
-                            <div className="div-ico" data-tooltip="דווח על תקלה">
-
-                                <i class="exclamation triangle icon" style={styleIconExport} onClick={myFunction}></i>
-
-                            </div>
                         </div>
 
-                    </Modal.Actions>
+                        </div>}
+                    >
 
-                    <h2 className="place_detailes" style={{ "margin-top": "18%" }}>
+                        <div className="div_content" style={styleDivContent}>
 
-                        <div className="div_all">
-                            <i class="phone icon"></i>
-                            <div className="place_div">
-                                <p> {props.user.phoneNamber}</p>
+                            <div className="div_w" style={styleDivW}></div>
+
+                        </div>
+
+                        <Modal.Actions style={styleAction}>
+
+                            <div style={{ "margin-top": "-34.3%" }}>
+
+                                <div className="div-ico" style={{ "margin-right": "-8%" }}
+                                    onClick={() => send(props.user.email)}
+                                    data-tooltip="Add to Contacts">
+
+                                    <i class="user plus icon i" style={styleIconUser}></i>
+
+                                </div>
+
+                                <div className="img_user">
+
+                                    <Image size='medium' style={styleImg} src={props.user.img && props.user.img !== "undefined" ? props.user.img : ico} wrapped className="place_img" />
+
+                                </div>
+
+                                <div className="div-ico" data-tooltip="Fault reported">
+
+                                    <i class="exclamation triangle icon" style={styleIconExport} onClick={myFunction}></i>
+
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="div_all">
-                            <div className="place_div">
-                                <i class="envelope icon"></i>
-                                <p><a href="mailto:abc@example.com?subject = Feedback&body = Message">{props.user.email}</a></p>
+                        </Modal.Actions>
+
+                        <h2 className="place_detailes" style={{ "margin-top": "18%" }}>
+
+                            <div className="div_all">
+                                <i class="phone icon"></i>
+                                <div className="place_div">
+                                    <p> {props.user.phoneNamber}</p>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div className="div_all">
-                            <i class="map marker alternate icon"></i>
-                            <div className="place_div"> <p> {props.user.adress ? props.user.adress : "הכתובת לא עודכנה"}</p> </div>
-                        </div>
-                    </h2>
-                </Modal>
-            </List.Content>
-        </List.Item >
 
+                            <div className="div_all">
+                                <div className="place_div">
+                                    <i class="envelope icon"></i>
+                                    <p><a href="mailto:abc@example.com?subject = Feedback&body = Message">{props.user.email}</a></p>
+                                </div>
+                            </div>
 
+                            <div className="div_all">
+                                <i class="map marker alternate icon"></i>
+                                <div className="place_div"> <p> {props.user.adress ? props.user.adress : "Address not updated"}</p> </div>
+                            </div>
+                        </h2>
+
+                        {Cenetr && Zoom && Txt && <MyLocation center={Cenetr} zoom={Zoom} txt={Txt} icon={RoomIcon} />}
+
+                    </Modal>
+                </List.Content>
+            </List.Item >
+
+        </>
     );
 
 }

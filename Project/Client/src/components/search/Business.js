@@ -123,7 +123,7 @@ const Business = (props) => {
 
                         <div style={{ "margin-top": "-34.3%" }}>
 
-                            <div className="div-ico" style={{ "margin-right": "-8%" }} data-tooltip="הוסף לאנשי קשר">
+                            <div className="div-ico" style={{ "margin-right": "-8%" }} data-tooltip="Add to Contacts">
 
                                 <i class="user plus icon i" style={styleIconUser}></i>
 
@@ -135,7 +135,7 @@ const Business = (props) => {
 
                             </div>
 
-                            <div className="div-ico" data-tooltip="דווח על תקלה">
+                            <div className="div-ico" data-tooltip="Fault reported">
 
                                 <i class="exclamation triangle icon" style={styleIconExport} onClick={myFunction}></i>
 

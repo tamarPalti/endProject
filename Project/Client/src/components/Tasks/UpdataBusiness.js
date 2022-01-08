@@ -64,7 +64,7 @@ const UpdataBusiness = (props) => {
         AddTask(Task).then((succ) => {
 
             settypeAlert("success");
-            setmasseg("נשלח בהצלחה");
+            setmasseg("has been sent successfully");
             handleClick();
 
 
@@ -145,7 +145,7 @@ const UpdataBusiness = (props) => {
                 <ErrorMessage errors={errors} name="desription" render={({ message }) => <p className="redColor">{message}</p>} />
 
                 <Button variant="contained" color="secondary" type="submit">
-                    הגש בקשה
+                Apply
       </Button>
             </form>
         </div></>);

@@ -21,6 +21,7 @@ const app = (props) => {
 
         {/* <ChartPage /> */}
 
+        {/* <Try /> */}
 
 
         {/* <New/> */}

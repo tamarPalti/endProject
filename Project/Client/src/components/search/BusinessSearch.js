@@ -10,6 +10,7 @@ import {
 import { Multiselect } from "multiselect-react-dropdown";
 import './BusinessSearch.scss'
 import { getAllCategories, SortllBusiness, GetAllBusinessFunc } from '../../util/index';
+import MultipleSelectChip from './Select';
 
 const BusinessSearch = (props) => {
 
@@ -21,7 +22,7 @@ const BusinessSearch = (props) => {
     let listCategory = useRef();
     const [categoriesArr, setCategoriesArr] = useState([]);
 
-
+    const [selectedCtegories, setSelectedCtegories] = useState([]);
 
     const [countBusiness, setCountBusiness] = useState();
     const [ifSorted, setifSorted] = useState(false);
@@ -42,7 +43,7 @@ const BusinessSearch = (props) => {
         Business.phoneNamber = phoneNamber.current.value;
         Business.email = email.current.value;
         Business.adress = adress.current.value;
-        Business.listCategory = listCategory.current.getSelectedItems();
+        Business.listCategory = selectedCtegories;
         if (Business.name || Business.phoneNamber || Business.email || Business.adress || Business.listCategory.length != 0) {
             props.ChangeColorName(Business.name);
             props.SearchBusiness(Business, props.AllBusiness);
@@ -74,7 +75,7 @@ const BusinessSearch = (props) => {
         if (!ifSorted && props.AllBusiness && props.AllBusiness.length != 0) {
 
             setifSorted(true);
-            SortllBusiness(props.AllBusiness, props.SaveAllBusiness,props.setCircularProgresStateFunc);
+            SortllBusiness(props.AllBusiness, props.SaveAllBusiness, props.setCircularProgresStateFunc);
             // props.setCircularProgresStateFunc(false);
 
         }
@@ -82,7 +83,9 @@ const BusinessSearch = (props) => {
     }, [props.AllBusiness]);
 
 
-
+useEffect(()=>{
+    searchBusiness();
+},[selectedCtegories])
     return (<>
         {
             <form className="ui form">
@@ -116,7 +119,7 @@ const BusinessSearch = (props) => {
 
                     <div class="ui icon input" style={styleDivInput_2For_Select}>
 
-                        <Multiselect
+                        {/* <Multiselect
                             options={categoriesArr ? categoriesArr : []}
                             isObject={false}
                             ref={listCategory} type="text"
@@ -125,7 +128,8 @@ const BusinessSearch = (props) => {
                             style={borderR_right}
 
 
-                        />
+                        /> */}
+                        <MultipleSelectChip  setSelectedCtegories={setSelectedCtegories} categoriesArr={categoriesArr ? categoriesArr : []} />
 
                     </div>
 
