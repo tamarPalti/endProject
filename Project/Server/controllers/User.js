@@ -62,16 +62,16 @@ const updateUser = async (req, res) => {
         const user = await Users.findOne({ "_id": id });
         if (!user)
             return res.status(404).send("sorry no such user");
-        user.firstName = userBody.firstName !== "null" && userBody.firstName.trim() || user.firstName.trim();
-        user.lastName = userBody.lastName !== "null" && userBody.lastName.trim() || user.lastName.trim();
+        user.firstName = userBody.firstName !== "null" && userBody.firstName !== undefined && userBody.firstName.trim() || user.firstName.trim();
+        user.lastName = userBody.lastName !== "null" && userBody.lastName !== undefined && userBody.lastName.trim() || user.lastName.trim();
         user.phoneNamber = userBody.phoneNamber !== "null" && userBody.phoneNamber || user.phoneNamber;
         user.email = userBody.email !== "null" && userBody.email || user.email;
-        user.adress = userBody.adress!== "null" && userBody.adress || user.adress;
+        user.adress = userBody.adress !== "null" && userBody.adress || user.adress;
 
         user.img = req.file ? url + '/uploads/' + req.file.filename : user.img;
 
-        user.password = userBody.password !== "null" && userBody.password|| user.password;
-        user.ifMessege = userBody.ifMessege!== "null"&&userBody.ifMessege||user.ifMessege;
+        user.password = userBody.password !== "null" && userBody.password || user.password;
+        user.ifMessege = userBody.ifMessege !== "null" && userBody.ifMessege || user.ifMessege;
         await user.save();
         return res.send(user);
     }

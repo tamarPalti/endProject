@@ -10,6 +10,18 @@ import { FromAddress } from '../../util/index'
 import MyLocation from "./MyLocation";
 import UpdataBusiness from '../Tasks/UpdataBusiness'
 import RoomIcon from '@mui/icons-material/Room';
+import { createVCFFile } from '../../util';
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+
+
+//alerts
+
+function Alert(props) {
+    return <MuiAlert elevation={2} variant="filled" {...props} />;
+}
+
+//alerts
 
 const Business = (props) => {
 
@@ -42,9 +54,9 @@ const Business = (props) => {
     const styleImg = {
         "display": "block", "max-width": "100%", "height": "7em", "width": "100%", "position": "relative", "top": "3em", "left": "-3em"
     }
-    
+
     const styleIconExport = { "margin-left": "3em", "color": "white" }
-   
+
     //styles
 
     let indexName = props.business.name.indexOf(props.ColorName);
@@ -52,6 +64,60 @@ const Business = (props) => {
     let end = props.business.name.substring(indexName + props.ColorName.length, props.business.name.length);
     const checkName = (name) => {
         return name[0] >= 'A' && name[0] <= 'Z' || name[0] >= 'a' && name[0] <= 'z';
+    }
+
+    const createVCFFileFunc = (business) => {
+
+        createVCFFile(business).then((item) => {
+            settypeAlert("success");
+            setmasseg("Download a vcf file to your computer to folder your contacts");
+            handleClick();
+        }).catch(err => {
+            settypeAlert("error");
+            setmasseg(err.response.data);
+            handleClick();
+        });
+    }
+
+    // alerts
+
+    const [open2, setOpen2] = useState(false);
+
+    const [typeAlert, settypeAlert] = useState("");
+    const [masseg, setmasseg] = useState("");
+
+
+    const [selectedImage, setselectedImage] = useState();
+
+
+    const handleClick = () => {
+        setOpen2(true);
+    };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen2(false);
+    };
+
+
+
+
+    // alerts
+
+    const send = (from) => {
+
+
+        let business = {
+            adress: props.business.adress,
+            dateLogin: props.business.dateLogin,
+            email: props.business.email,
+            firstName: props.business.name,
+            lastName:"",
+            phoneNamber: props.business.phoneNamber,
+        }
+        createVCFFileFunc(business);
     }
 
     useEffect(() => {
@@ -77,104 +143,117 @@ const Business = (props) => {
 
     function myFunction() {
         var myWindow = window.open(url + "/TasksUpdataBusiness/" + props.business._id, "updataBusiness", "width=400,height=300");
-        localStorage.setItem("idBusinesSearch",props.business._id);
+        localStorage.setItem("idBusinesSearch", props.business._id);
     }
 
     return (
-        <List.Item key={props.business._id}>
+        <>
+            {/* alerts */}
 
-            <List.Content floated='right'>
+            <Snackbar open={open2} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity={typeAlert}> {masseg}</Alert>
+            </Snackbar>
 
-                <Modal
+            {/* alerts */}
 
-                    onClose={() => setOpen(false)}
-                    onOpen={() => setOpen(true)}
-                    open={open}
-                    trigger={<div>
 
-                        <div className="place_business" onClick={() => {
-                            props.SelectedBusiness(props.business)
-                            if (props.ifAdd == "true")
-                                AddHistoryBusiness(localStorage.getItem("currentUserId"), props.business._id);
-                        }}>
+            <List.Item key={props.business._id}>
 
-                            <img className="img_ico" src={props.business.img && props.business.img !== "undefined"? props.business.img : ico}></img>
+                <List.Content floated='right'>
 
-                            <p className="display" style={{ "margin-left": "1.5em" }}>&nbsp;</p>
-                            <p className="display">{checkName(props.business.name) ? start : end}</p>
-                            {!checkName(props.business.name) && (end[0] == ' ' || props.ColorName[props.ColorName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+                    <Modal
 
-                            <p className="color_name display">{props.ColorName}</p>
-                            {checkName(props.business.name) && (end[0] == ' ' || props.ColorName[props.ColorName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
+                        onClose={() => setOpen(false)}
+                        onOpen={() => setOpen(true)}
+                        open={open}
+                        trigger={<div>
 
-                            <p className="display">{checkName(props.business.name) ? end : start}</p>
-                      
-                        </div>
+                            <div className="place_business" style={{textAlign:props.textAlign?props.textAlign:end,width:props.width?props.width:"100%"}}
+                            onClick={() => {
+                                props.SelectedBusiness(props.business)
+                                if (props.ifAdd == "true")
+                                    AddHistoryBusiness(localStorage.getItem("currentUserId"), props.business._id);
+                            }}>
 
-                    </div>}
-                >
-                    <div className="div_content" style={styleDivContent}>
+                                <img className="img_ico" src={props.business.img && props.business.img !== "undefined" ? props.business.img : ico}></img>
 
-                        <div className="div_w" style={styleDivW}></div>
+                                <p className="display" style={{ "margin-left": "1.5em" }}>&nbsp;</p>
+                                <p className="display">{checkName(props.business.name) ? start : end}</p>
+                                {!checkName(props.business.name) && (end[0] == ' ' || props.ColorName[props.ColorName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
 
-                    </div>
+                                <p className="color_name display">{props.ColorName}</p>
+                                {checkName(props.business.name) && (end[0] == ' ' || props.ColorName[props.ColorName.length - 1] == ' ') ? <p className="display">&nbsp;</p> : null}
 
-                    <Modal.Actions style={styleAction}>
-
-                        <div style={{ "margin-top": "-34.3%" }}>
-
-                            <div className="div-ico" style={{ "margin-right": "-8%" }} data-tooltip="Add to Contacts">
-
-                                <i class="user plus icon i" style={styleIconUser}></i>
+                                <p className="display">{checkName(props.business.name) ? end : start}</p>
 
                             </div>
 
-                            <div className="img_business">
+                        </div>}
+                    >
+                        <div className="div_content" style={styleDivContent}>
 
-                                <Image size='medium' style={styleImg} src={props.business.img && props.business.img !== "undefined"? props.business.img : ico} wrapped className="place_img" />
-
-                            </div>
-
-                            <div className="div-ico" data-tooltip="Fault reported">
-
-                                <i class="exclamation triangle icon" style={styleIconExport} onClick={myFunction}></i>
-
-                            </div>
+                            <div className="div_w" style={styleDivW}></div>
 
                         </div>
 
-                    </Modal.Actions>
+                        <Modal.Actions style={styleAction}>
 
-                    <h2 className="place_detailes" style={{ "margin-top": "18%" }}>
+                            <div style={{ "margin-top": "-34.3%" }}>
 
-                        <div className="div_all">
-                            <i class="phone icon"></i>
-                            <div className="place_div">
-                                <p> {props.business.phoneNamber}</p>
+                                <div className="div-ico"
+                                    onClick={() => send()}
+                                    style={{ "margin-right": "-8%" }} data-tooltip="Add to Contacts">
+
+                                    <i class="user plus icon i" style={styleIconUser}></i>
+
+                                </div>
+
+                                <div className="img_business">
+
+                                    <Image size='medium' style={styleImg} src={props.business.img && props.business.img !== "undefined" ? props.business.img : ico} wrapped className="place_img" />
+
+                                </div>
+
+                                <div className="div-ico" data-tooltip="Fault reported">
+
+                                    <i class="exclamation triangle icon" style={styleIconExport} onClick={myFunction}></i>
+
+                                </div>
+
                             </div>
-                        </div>
 
-                        <div className="div_all">
-                            <div className="place_div">
-                                <i class="envelope icon"></i>
-                                <p><a href="mailto:abc@example.com?subject = Feedback&body = Message">{props.business.email}</a></p>
+                        </Modal.Actions>
+
+                        <h2 className="place_detailes" style={{ "margin-top": "18%" }}>
+
+                            <div className="div_all">
+                                <i class="phone icon"></i>
+                                <div className="place_div">
+                                    <p> {props.business.phoneNamber}</p>
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="div_all">
-                            <i class="map marker alternate icon"></i>
-                            <div className="place_div"> <p> {props.business.adress}</p></div>
+                            <div className="div_all">
+                                <div className="place_div">
+                                    <i class="envelope icon"></i>
+                                    <p><a href="mailto:abc@example.com?subject = Feedback&body = Message">{props.business.email}</a></p>
+                                </div>
+                            </div>
 
-                        </div>
+                            <div className="div_all">
+                                <i class="map marker alternate icon"></i>
+                                <div className="place_div"> <p> {props.business.adress}</p></div>
 
-                    </h2>
+                            </div>
 
-                    {Cenetr && Zoom && Txt && <MyLocation center={Cenetr} zoom={Zoom} txt={Txt} icon={RoomIcon}/>}
-             
-                </Modal>
-            </List.Content>
-        </List.Item>
+                        </h2>
 
+                        {Cenetr && Zoom && Txt && <MyLocation center={Cenetr} zoom={Zoom} txt={Txt} icon={RoomIcon} />}
+
+                    </Modal>
+                </List.Content>
+            </List.Item>
+        </>
     );
 }
 const mapStateToProps = (state) => {

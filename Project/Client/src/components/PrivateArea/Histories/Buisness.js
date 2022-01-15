@@ -72,7 +72,8 @@ const Buisness = (props) => {
 
                                             {/* <p>{item.date}</p> */}
                                             <ListItemText
-                                                primary={<Business ifAdd="false" business={item.businessSearch} key={index} />}
+                                                primary={<Business ifAdd="false"width= "80%"
+                                                textAlign="start" business={item.businessSearch} key={index} />}
                                                 secondary={secondary ? 'Secondary text' : null}
                                             />
                                             <ListItemAvatar>

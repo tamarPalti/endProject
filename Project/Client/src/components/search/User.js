@@ -184,7 +184,7 @@ const User = (props) => {
                         open={open}
                         style={{ "border-radius": "0" }}
 
-                        trigger={<div ><div className="place_user" onClick={() => {
+                        trigger={<div ><div className="place_user" style={{textAlign:props.textAlign?props.textAlign:end,width:props.width?props.width:"100%"}} onClick={() => {
 
                             props.SelectedUser(props.user);
 

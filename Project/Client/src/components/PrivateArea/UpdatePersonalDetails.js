@@ -361,6 +361,7 @@ function UpdatePersonalDetails(props) {
                             defaultValue={currentUser.phoneNamber}
                             onKeyUp={(e) => onKeyUp(e, "phoneNamber")}
                             {...phone}
+                            disabled="true"
                         />
                         <ErrorMessage errors={errors} name="phone" render={({ message }) => <p className="redColor">{message}</p>} />
 
