@@ -271,7 +271,8 @@ function UpdatePersonalDetails(props) {
                                 name="image" onChange={(e) => onchangeImg(e)}
                                 style={styleInputImg}
                             />
-< PhotoCameraIcon style={{"font-size":" 2rem", "margin-top": "-92px", "position": "absolute","left": "18px" }}></PhotoCameraIcon> 
+                            < PhotoCameraIcon style={{ "font-size": " 2rem", "margin-top": props.marginTop ? props.marginTop : "-92px", "position": "absolute", "left": props.left ? props.left : "18px" }}></PhotoCameraIcon>
+
                             <img for="photo-upload" style={styleImg} src={imsStateToShow ? imsStateToShow : currentUser.img ? currentUser.img : person} />
 
                         </label>
@@ -360,6 +361,7 @@ function UpdatePersonalDetails(props) {
                             defaultValue={currentUser.phoneNamber}
                             onKeyUp={(e) => onKeyUp(e, "phoneNamber")}
                             {...phone}
+                            disabled="true"
                         />
                         <ErrorMessage errors={errors} name="phone" render={({ message }) => <p className="redColor">{message}</p>} />
 

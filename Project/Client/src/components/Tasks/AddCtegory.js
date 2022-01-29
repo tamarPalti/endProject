@@ -61,7 +61,7 @@ const AddCtegory = (props) => {
         AddTask(Task).then((succ) => {
 
             settypeAlert("success");
-            setmasseg("נשלח בהצלחה");
+            setmasseg("has been sent successfully");
             handleClick();
 
 
@@ -137,7 +137,7 @@ const AddCtegory = (props) => {
                 <ErrorMessage errors={errors} name="category" render={({ message }) => <p className="redColor">{message}</p>} />
 
                 <Button variant="contained" color="secondary" type="submit">
-                    הגש בקשה
+                    Apply
       </Button>
             </form>
         </div></>);

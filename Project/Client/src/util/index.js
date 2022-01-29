@@ -4,10 +4,11 @@ export {
 } from './UtilUser';
 export {
     GetAllBusinessFunc, GetCurrentBuisness, UpdateBuisnessFunc,
-    DeleteHistoryBusiness, GetAllBuisnessOfUser, AddBusiness,deleteBuisness
+    DeleteHistoryBusiness, GetAllBuisnessOfUser, AddBusiness, deleteBuisness
 } from './UtilBuisness';
 export { getAllCategories, AddCategory } from './UtilCategory';
 export { GetAllTask, GetAllTypeTsks, UpdateStatusTask, GetTaskById, AddTask, GetTaskByUserId } from './Tasks';
-export { CheckManager,CheckManagerFunc,GetCountAllUserByMonth,GetCountAllBusinessByMonth,GetCountSearchUsersByMonth,GetCountSearchBusinessByMonth } from './Manager';
+export { CheckManager, CheckManagerFunc, GetCountAllUserByMonth, GetCountAllBusinessByMonth, GetCountSearchUsersByMonth, GetCountSearchBusinessByMonth } from './Manager';
 export { FromAddress, SortllBusiness } from './Location';
-export { SendMail } from './SendMail';
+export { SendMail, SendMailOterUser } from './SendMail';
+export { createVCFFile } from './CreateFile';

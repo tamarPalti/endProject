@@ -70,7 +70,8 @@ const Users = (props) => {
 
                                             {/* <p>{item.date}</p> */}
                                             <ListItemText
-                                                primary={<User color="false" ifAdd="false" user={item.userSearch} key={index} />}
+                                                primary={<User color="false" ifAdd="false" width= "80%"
+                                                textAlign="start" user={item.userSearch} key={index} />}
                                                 secondary={secondary ? 'Secondary text' : null}
                                             />
 

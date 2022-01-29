@@ -23,23 +23,35 @@
 // ];
 
 export const getColor = (availableColor = 'primary') => {
-    if (typeof window === 'undefined') {
-      return null;
-    }
-  
-    const color = window
-      .getComputedStyle(document.documentElement)
-      .getPropertyValue(`--${availableColor}`);
-  
-    return color;
-  };
-  
-  export const getThemeColors = () => [
-    'primary',
-    'secondary',
-    'success',
-    'info',
-    'warning',
-    'danger',
-  ];
-  
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  const color = window
+    .getComputedStyle(document.documentElement)
+    .getPropertyValue(`--${availableColor}`);
+
+  return color;
+};
+
+export const getThemeColors = () => [
+  'primary',
+  'secondary',
+  'warning',
+  'info',
+  'warning',
+  'danger',
+  'orange',
+  'yellow',
+  'green',
+  'teal',
+  'cyan',
+  'white',
+  'red',
+  'pink',
+  'indigo',
+  'purple',
+  'blue',
+  'gray-dark',
+  'gray'
+];

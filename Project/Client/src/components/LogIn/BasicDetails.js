@@ -141,7 +141,7 @@ function BasicDetails(props) {
     }
     else {
       settypeAlert("error");
-      setmasseg("קוד האימות שגוי");
+      setmasseg("The verification code is incorrect");
 
       handleClick();
     }
@@ -206,7 +206,7 @@ function BasicDetails(props) {
 
     let mail = {
       toUser: emailToPassword,
-      subject: "קוד אימות",
+      subject: "verification code",
       text: `<h1>${number}</h1>`
       // ,attachments
     }

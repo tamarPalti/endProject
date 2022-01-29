@@ -73,15 +73,21 @@ const Home = (props) => {
                 <Route exact path={'/'}>
                     <div className="back-home">
                         <img src={home2} style={{ width: "100%", marginTop: "19%" }}></img>
+
                         <div className="href2">
+                            <div className="title">MeMail
+                            <p style={{ fontSize: "25px", width: "81%" }}>
+                                    A site that provides information about people and businesses
+                            </p>
+                            </div>
                             <Link to="/SignUp"  >
-                                <ColorButton variant="contained" color="primary" style={{ "border-radius": "29px 29px 29px 29px", "background-color": "#fb7375" }} className={classes.margin + " search"}>
+                                <ColorButton variant="contained" color="primary" style={{ "border-radius": "29px 29px 29px 29px", "background-color": "#fb7375", "width": "45%", "height": "4rem", "margin-top": "20%", "margin-left": "-1%" }} className={classes.margin + " search"}>
                                     SignUp
                                 </ColorButton>
 
                             </Link>
                             <Link to="/SignIn"  >
-                                <ColorButton variant="contained" color="primary" style={{ "border-radius": "29px 29px 29px 29px", "background-color": "#1f284f" }} className={classes.margin + " search"}>
+                                <ColorButton variant="contained" color="primary" style={{ "border-radius": "29px 29px 29px 29px", "background-color": "#1f284f", "width": "45%", "height": "4rem", "margin-top": "20%" }} className={classes.margin + " search"}>
                                     SingIn
                                 </ColorButton>
                             </Link>
@@ -100,10 +106,10 @@ const Home = (props) => {
                     {!ifGoToLogin ? <Search /> : <Redirect to={'/SignIn'} />}
                 </Route>
                 <Route path={'/Manager'}>
-                    {!ifGoTo404 ? <Manager /> : <Redirect to={'/Page404'} />}
+                    <Manager />
                 </Route>
                 <Route path={'/SignUp'}>
-                    <SignUp/>
+                    <SignUp />
                 </Route>
 
                 <Route path={'/ForgotPassword'}>
@@ -112,7 +118,7 @@ const Home = (props) => {
                 {/* <Route path={'/PrivateArea'}>
                     {!ifGoToLogin ? <PrivateArea /> : <Redirect to={'/Page404'} />}
                 </Route> */}
-                 <Route path={'/PrivateArea/Tasks/addUser'}>
+                <Route path={'/PrivateArea/Tasks/addUser'}>
                     <AddUser></AddUser>
                 </Route>
 
